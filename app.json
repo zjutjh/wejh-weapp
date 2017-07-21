@@ -1,0 +1,13 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#7acfa6",
+    "navigationBarTitleText": "微精弘",
+    "navigationBarTextStyle":"white",
+    "enablePullDownRefresh": true
+  }
+}
