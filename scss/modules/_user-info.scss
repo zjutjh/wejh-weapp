@@ -1,0 +1,75 @@
+.m-user-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 25rpx 30rpx 40rpx;
+  background-color: $theme-green;
+
+  .left {
+    display: flex;
+    flex-direction: row;
+
+    .avatar {
+      margin-right: 20rpx;
+      width: 120rpx;
+      height: 120rpx;
+      border-radius: 5px;
+      background-color: $white;
+      border: 1rpx solid #93eac1;
+    }
+
+    .main-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 280rpx;
+
+      .name {
+        margin-bottom: 6rpx;
+        color: $white;
+        font-size: 40rpx;
+
+        @include text-ellipsis;
+      }
+
+      .uno {
+        color: $white;
+        font-size: 28rpx;
+        opacity: .8;
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .time-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      height: 100%;
+
+      .term {
+        color: $white;
+        font-size: 28rpx;
+        opacity: .8;
+      }
+
+      .week {
+        margin-top: 24rpx;
+        color: $white;
+        font-size: 28rpx;
+        opacity: .8;
+      }
+    }
+
+    .icon-next {
+      margin-left: 32rpx;
+      width: 32rpx;
+      height: 32rpx;
+    }
+  }
+}

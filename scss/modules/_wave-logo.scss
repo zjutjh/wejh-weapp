@@ -1,0 +1,65 @@
+.m-wave-logo {
+  display: flex;
+  position: relative;
+  left: 50%;
+  width: 120%;
+  height: 500rpx;
+  flex-direction: column;
+  align-items: center;
+  background-color: $theme-green;
+  transform: translateX(-50%);
+
+  .title {
+    width: 320rpx;
+    height: 120rpx;
+  }
+  
+  .logo {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    bottom: 200rpx;
+    width: 160rpx;
+    height: 160rpx;
+    margin-left: -80rpx;
+    border-radius: 160rpx;
+    animation: sway 10s ease-in-out infinite;
+    opacity: .95;
+  }
+
+  @keyframes sway{
+    0% {transform: translate3d(0, 20rpx, 0) rotate(-15deg); }
+    17% {transform: translate3d(0, 0rpx, 0) rotate(25deg); }
+    34% {transform: translate3d(0, -20rpx, 0) rotate(-20deg); }
+    50% {transform: translate3d(0, -10rpx, 0) rotate(15deg); }
+    67% {transform: translate3d(0, 10rpx, 0) rotate(-25deg); }
+    84% {transform: translate3d(0, 15rpx, 0) rotate(15deg); }
+    100% {transform: translate3d(0, 20rpx, 0) rotate(-15deg); }
+  }
+
+  .wave {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    bottom: 0;
+    opacity: 0.725;
+    height: 260rpx;
+    width: 2250rpx;
+    animation: wave 10s linear infinite;
+  }
+
+  .wave-bg {
+    z-index: 1;
+    animation: wave-bg 10.27s linear infinite;
+  }
+
+  @keyframes wave{
+    from {transform: translate3d(125rpx, 0, 0);}
+    to {transform: translate3d(1125rpx, 0, 0);}
+  }
+
+  @keyframes wave-bg{
+    from {transform: translate3d(375rpx, 0, 0);}
+    to {transform: translate3d(1375rpx, 0, 0);}
+  }
+}

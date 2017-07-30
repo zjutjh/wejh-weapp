@@ -1,26 +1,42 @@
-//index.js
-//获取应用实例
-var app = getApp()
+import API from '../../utils/api'
+
+const initAppList = []
+const initApp = {
+  title: '加载中',
+  disabled: true,
+  icon: '/images/app-list/red.png'
+}
+for (let i = 0; i < 10; i++) {
+  initAppList.push(initApp)
+}
+
+let app = getApp()
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {}
-  },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+    apps: initAppList
   },
   onLoad: function () {
-    console.log('onLoad')
-    var that = this
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo(function(userInfo){
-      //更新数据
-      that.setData({
-        userInfo:userInfo
-      })
+    let _this = this
+    app.$store.connect(this, 'index')
+
+    wx.request({
+      url: API('app-list'),
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function(res) {
+        let data = res.data.data
+        console.log(data)
+        _this.setState({
+          apps: _this.fixAppList(data['app-list'])
+        })
+      }
+    })
+  },
+  fixAppList (list) {
+    return list.map((item) => {
+      item.bg = '../../images/app-list/' + item.bg +'.png'
+      return item
     })
   }
 })

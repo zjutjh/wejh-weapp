@@ -1,0 +1,116 @@
+.m-about {
+  overflow: height;
+
+  .header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    height: 400rpx;
+
+    .black-cover {
+      z-index: 2;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: .1;
+      background-color: $gray-800;
+    }
+
+    .logo {
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      filter: blur(30rpx);
+    }
+
+    .title {
+      z-index: 3;
+      position: relative;
+      width: 600rpx;
+      height: 400rpx;
+    }
+  }
+
+  .title-bar {
+    background-color: $white;
+    border-bottom: 1rpx solid $gray-200;
+    padding: 25rpx 30rpx;
+
+    .left {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      .title {
+        margin-right: 20rpx;
+        font-size: 32rpx;
+      }
+
+      .version {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 8rpx;
+        padding: 0 8rpx;
+        height: 40rpx;
+        font-size: 24rpx;
+        border: 1rpx solid $theme-green;
+        border-radius: 8rpx;
+        color: $theme-green;
+      }
+    }
+  }
+
+  .content {
+    padding: 12rpx 30rpx 24rpx;
+    background-color: $white;
+    border-top: 1rpx solid $gray-200;
+    border-bottom: 1rpx solid $gray-200;
+
+    .desc-title {
+      font-size: 36rpx;
+      line-height: 200%;
+    }
+
+    .desc-list {
+      display: flex;
+      flex-direction: column;
+      border-left: 8rpx solid $gray-400;
+      padding-left: 16rpx;
+      margin-top: 16rpx;
+      margin-bottom: 20rpx;
+
+      .desc-list-item {
+        padding: 8rpx 0;
+        font-size: 28rpx;
+        color: $gray-600;
+      }
+    }
+
+    .desc-content {
+      margin-bottom: 20rpx;
+      font-size: 28rpx;
+      line-height: 180%;
+    }
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: column;
+    font-size: 24rpx;
+    line-height: 160%;
+    text-align: center;
+    padding: 100rpx 0 15rpx;
+
+    text {
+      color: $gray-500;
+    }
+  }
+}

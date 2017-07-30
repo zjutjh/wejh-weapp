@@ -1,0 +1,97 @@
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin text-ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.f-bd-rise {
+  animation: bd-rise 2s cubic-bezier(0.23,1,0.32,1) .75s forwards;
+  opacity: 0;
+}
+
+@keyframes bd-rise{
+  from {opacity: 0; transform: translate3d(0, 60rpx, 0); }
+  to {opacity: 1; transform: translate3d(0,0,0); }
+}
+
+.f-text-ellipsis {
+  @include text-ellipsis;
+}
+
+.f-clearfix {
+  @include clearfix;
+}
+
+.f-bg-gray {
+  background-color: #f0eff5;
+}
+
+.f-bg-gray-form-gradient {
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(244,244,244,0)), color-stop(0.1, #f4f4f4), to(#f4f4f4));
+}
+
+.f-mb-10 {
+  margin-bottom: 10rpx;
+}
+
+.f-mb-20 {
+  margin-bottom: 20rpx;
+}
+
+.f-mb-30 {
+  margin-bottom: 30rpx;
+}
+
+.f-mb-40 {
+  margin-bottom: 40rpx;
+}
+
+.f-mb-50 {
+  margin-bottom: 50rpx;
+}
+
+.f-hide {
+  display: none !important;
+}
+
+.f-show {
+  display: block !important;
+}
+
+.f-invisible {
+  visibility: hidden;
+}
+
+.f-text-hide {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.f-hidden {
+  display: none !important;
+}
+
+.f-affix {
+  position: fixed;
+}
+
+.f-bottom-btn {
+  position: absolute;
+  bottom: 10rpx;
+  padding: 20rpx;
+  width: 100%;
+}

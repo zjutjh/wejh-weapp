@@ -1,0 +1,70 @@
+.m-wave-form {
+  z-index: 9;
+  position: relative;
+  top: -100rpx;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  .form-title {
+    color: #6c6c6c;
+    font-size: 54rpx;
+  }
+
+  .input-group {
+    display: flex;
+    align-items: center;
+    padding: 25rpx 10rpx;
+    margin: 40rpx 3%;
+    background: #fff;
+    border-radius: 10px;
+    border: 4rpx solid #f4f4f4;
+    transition: all .25s ease-in-out;
+
+    input {
+      flex: 1;
+      font-size: 32rpx;
+      min-height: 52rpx;
+      height: 52rpx;
+      line-height: 52rpx;
+      padding: 0 25rpx;
+    }
+  }
+
+  .input-label {
+    color: #888;
+    font-size: 13pt;
+    height: 25rpx;
+    line-height: 25rpx;
+    padding: 0 25rpx;
+    border-right: 1px solid #d8d8d8;
+  }
+
+  .login-help {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 30rpx;
+
+    text {
+      font-size: 28rpx;
+      color: #bbb;
+    }
+  }
+
+  .login-help-img {
+    width: 32rpx;
+    height: 32rpx;
+    margin: 0 5rpx;
+  }
+
+  .input-group.active {
+    border: 2px solid $theme-green;
+  }
+
+  .confirm-btn {
+    margin-top: 20rpx;
+    padding: 25rpx;
+  }
+}

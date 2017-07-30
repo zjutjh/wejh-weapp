@@ -1,0 +1,56 @@
+.u-setting-navigator {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 25rpx 30rpx;
+  background-color: $white;
+  border-top: 1rpx solid $gray-200;
+  border-bottom: 1rpx solid $gray-200;
+
+  .icon {
+    width: 50rpx;
+    height: 50rpx;
+    margin-right: 16rpx;
+  }
+
+  .text {
+    font-size: 36rpx;
+  }
+
+  .icon-next {
+    position: absolute;
+    top: 50%;
+    right: 32rpx;
+    width: 30rpx;
+    height: 30rpx;
+    transform: translateY(-50%);
+  }
+}
+
+.u-btn-binding {
+  width: 100%;
+  text-align: center;
+  background-color: #e15152;
+  padding: 20rpx 0;
+  border-radius: 10rpx;
+
+  .text {
+    font-size: 32rpx;
+    color: $white;
+  }
+}
+
+.u-confirm-btn {
+  width: 100%;
+  text-align: center;
+  background-color: $theme-green;
+  padding: 20rpx 0;
+  border-radius: 10rpx;
+
+  text {
+    font-size: 32rpx;
+    color: $white;
+  }
+}

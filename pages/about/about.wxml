@@ -1,0 +1,37 @@
+<view class="container f-bg-gray">
+  <view class="m-about">
+    <view class="header">
+      <view class="black-cover"></view>
+      <image class="logo" src="/images/common/logo.png" mode="aspectFill"></image>
+      <image class="title" src="/images/common/title.png" mode="aspectFit"></image>
+    </view>
+    <view class="title-bar f-mb-20">
+      <view class="left">
+        <text class="title">{{ name }}</text>
+        <text class="version">{{ version }}</text>
+        <text class="version">内测</text>
+      </view>
+    </view>
+
+    <view class="content">
+      <text class="desc-title">简介</text>
+      <view class="desc-list">
+        <text class="desc-list-item">官网：http://www.jh.zjut.edu.cn/</text>
+        <text class="desc-list-item">Github：https://github.com/zjutjh</text>
+      </view>
+      <view class="desc-content">微精弘是碎片化、一站式、一体化校园移动门户，适用于浙江工业大学学生，集课表、成绩、考试、空教室、一卡通、借阅等功能于一身。</view>
+      <view class="desc-content">微精弘有更好用的课表查询，本周视图、学期视图、对应日期及时钟轴，清晰明了。</view>
+      <view class="desc-content">微精弘有更方便的考试安排，帮你折算出考试周对应的日期，以及考试时间倒计时，一目了然。</view>
+      <view class="desc-content">微精弘还是校园生活助手与管家，一卡通余额及消费一览无余，让同学们更合理安排生活费。</view>
+      <!--<view class="desc-content">微精弘更是个百事通，校内头条、教务公告、OA公告、会议通知、学术讲座、综合新闻等，随时随地即能了解校园动态，还能预览与下载附件，掌上办公，指日可待。</view>-->
+      <view class="desc-content">微精弘更是/更有... （期待您的发现）</view>
+    </view>
+
+    <view class="footer">
+      <view class="author">
+        <text>精弘网络 · Developed by CR</text>
+      </view>
+      <text>Copyright © 2002 - 2017 All Rights Reserved</text>
+    </view>
+  </view>
+</view>

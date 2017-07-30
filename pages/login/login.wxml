@@ -1,0 +1,27 @@
+<view class="container f-bg-gray-form-gradient f-bd-rise">
+  <view class="m-wave-logo">
+    <image class="title" src="/images/common/title.png" mode="aspectFit"></image>
+    <image class="logo" src="/images/common/logo.png"></image>
+    <image class="wave" src="/images/common/wave.png" mode="aspectFill"></image>
+    <image class="wave wave-bg" src="/images/common/wave.png" mode="aspectFill"></image>
+  </view>
+  <form class="f-bg-gray-form-gradient m-wave-form">
+    <view class="input-group {{userid_focus ? 'active' : ''}}">
+      <text class="input-label">帐号</text>
+      <input type="number" cursor-spacing="30" id="userid" maxlength="7" placeholder="请输入精弘通行证/学号" />
+    </view>
+    <view class="input-group {{passwd_focus ? 'active' : ''}}">
+      <text class="input-label">密码</text>
+      <input password="true" cursor-spacing="30" id="passwd" placeholder="请输入密码"/>
+    </view>
+    <view class="login-help" bindtap="showHelp">
+      <text>帮助</text>
+      <image class="login-help-img" src="/images/common/help.png"></image>
+    </view>
+    <view class="confirm-btn">
+      <view class="u-confirm-btn">
+        <text>确认绑定</text>
+      </view>
+    </view>
+  </form>
+</view>
