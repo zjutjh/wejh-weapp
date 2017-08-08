@@ -1,5 +1,3 @@
-import API from '../../utils/api'
-
 const initAppList = []
 const initApp = {
   title: '加载中',
@@ -10,7 +8,7 @@ for (let i = 0; i < 10; i++) {
   initAppList.push(initApp)
 }
 
-let app = getApp()
+const app = getApp()
 Page({
   data: {
     apps: initAppList
@@ -20,7 +18,7 @@ Page({
     app.$store.connect(this, 'index')
 
     wx.request({
-      url: API('app-list'),
+      url: app.API('app-list'),
       header: {
         'content-type': 'application/json'
       },

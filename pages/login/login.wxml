@@ -1,3 +1,5 @@
+<import src="/components/help-box/help-box.wxml"></import>
+
 <view class="container f-bg-gray-form-gradient f-bd-rise">
   <view class="m-wave-logo">
     <image class="title" src="/images/common/title.png" mode="aspectFit"></image>
@@ -8,20 +10,26 @@
   <form class="f-bg-gray-form-gradient m-wave-form">
     <view class="input-group {{userid_focus ? 'active' : ''}}">
       <text class="input-label">帐号</text>
-      <input type="number" cursor-spacing="30" id="userid" maxlength="7" placeholder="请输入精弘通行证/学号" />
+      <input type="number" data-type="username" cursor-spacing="30" bindinput="onInput" placeholder="请输入精弘通行证/学号" value="{{username}}"/>
     </view>
     <view class="input-group {{passwd_focus ? 'active' : ''}}">
       <text class="input-label">密码</text>
-      <input password="true" cursor-spacing="30" id="passwd" placeholder="请输入密码"/>
+      <input password="true" data-type="password" cursor-spacing="30" bindinput="onInput" placeholder="请输入密码" value="{{password}}"/>
     </view>
     <view class="login-help" bindtap="showHelp">
       <text>帮助</text>
       <image class="login-help-img" src="/images/common/help.png"></image>
     </view>
-    <view class="confirm-btn">
+    <view class="confirm-btn" bindtap="login">
       <view class="u-confirm-btn">
         <text>确认绑定</text>
       </view>
     </view>
+    <view class="account-help">
+      <text class="register">激活账号</text>
+      <text class="forgot">忘记密码?</text>
+    </view>
+
+    <template is="help-box" data="{{ helpStatus }}"/>
   </form>
 </view>

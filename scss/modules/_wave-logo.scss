@@ -2,7 +2,7 @@
   display: flex;
   position: relative;
   left: 50%;
-  width: 120%;
+  width: 1000rpx;
   height: 500rpx;
   flex-direction: column;
   align-items: center;
@@ -46,11 +46,17 @@
     height: 260rpx;
     width: 2250rpx;
     animation: wave 10s linear infinite;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    animation-fill-mode: both;
   }
 
   .wave-bg {
     z-index: 1;
     animation: wave-bg 10.27s linear infinite;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    animation-fill-mode: both;
   }
 
   @keyframes wave{

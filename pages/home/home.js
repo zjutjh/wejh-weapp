@@ -1,5 +1,3 @@
-import API from '../../utils/api'
-
 let app = getApp()
 
 Page({

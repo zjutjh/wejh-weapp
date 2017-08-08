@@ -107,7 +107,8 @@ text {
   position: relative;
   display: flex;
   flex-direction: column;
-  flex: 1; }
+  flex: 1;
+  overflow: hidden; }
 
 .u-setting-navigator {
   position: relative;
@@ -384,10 +385,16 @@ text {
     opacity: 0.725;
     height: 260rpx;
     width: 2250rpx;
-    animation: wave 10s linear infinite; }
+    animation: wave 10s linear infinite;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    animation-fill-mode: both; }
   .m-wave-logo .wave-bg {
     z-index: 1;
-    animation: wave-bg 10.27s linear infinite; }
+    animation: wave-bg 10.27s linear infinite;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    animation-fill-mode: both; }
 @keyframes wave {
   from {
     transform: translate3d(125rpx, 0, 0); }
@@ -432,6 +439,26 @@ text {
     line-height: 25rpx;
     padding: 0 25rpx;
     border-right: 1px solid #d8d8d8; }
+  .m-wave-form .account-help {
+    position: fixed;
+    bottom: 25rpx;
+    left: 25rpx;
+    right: 25rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; }
+    .m-wave-form .account-help .register {
+      border: 1px solid #ced4da;
+      border-radius: 10rpx;
+      padding: 10rpx 20rpx;
+      font-size: 28rpx;
+      color: #bbb; }
+    .m-wave-form .account-help .forgot {
+      border: 1px solid #ced4da;
+      border-radius: 10rpx;
+      padding: 10rpx 12rpx;
+      font-size: 28rpx;
+      color: #bbb; }
   .m-wave-form .login-help {
     display: flex;
     align-items: center;
@@ -449,5 +476,54 @@ text {
   .m-wave-form .confirm-btn {
     margin-top: 20rpx;
     padding: 25rpx; }
+
+.m-help-box {
+  position: fixed;
+  z-index: 99;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: fade-in 1s ease-out; }
+  .m-help-box .box {
+    width: 600rpx;
+    background-color: #fff;
+    border-radius: 25rpx;
+    box-shadow: 0 0 50px #ced4da; }
+    .m-help-box .box .header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 80rpx;
+      border-bottom: 1px solid #e9ecef; }
+      .m-help-box .box .header .title {
+        font-size: 32rpx; }
+    .m-help-box .box .content {
+      padding: 25rpx 36rpx 40rpx; }
+      .m-help-box .box .content .question {
+        font-size: 30rpx;
+        line-height: 200%;
+        color: #868e96; }
+      .m-help-box .box .content .answer {
+        display: flex;
+        flex-direction: column;
+        text-indent: 1em;
+        font-size: 24rpx; }
+        .m-help-box .box .content .answer text {
+          line-height: 160%;
+          word-break: break-all;
+          color: #495057; }
+  .m-help-box .icon-close {
+    position: absolute;
+    right: 25rpx;
+    top: 15rpx;
+    width: 50rpx;
+    height: 50rpx;
+    padding: 10rpx; }
 
 /*# sourceMappingURL=app.wxss.map */

@@ -17,7 +17,9 @@ export default class WeappStore {
       _this._setState({
         [filed]: obj
       })
-      ctx.setData(obj)
+      if(ctx.setData) {
+        ctx.setData(obj)
+      }
       callback()
     }).bind(ctx)
 

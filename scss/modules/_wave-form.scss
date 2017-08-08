@@ -41,6 +41,32 @@
     border-right: 1px solid #d8d8d8;
   }
 
+  .account-help {
+    position: fixed;
+    bottom: 25rpx;
+    left: 25rpx;
+    right: 25rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .register {
+      border: 1px solid $gray-400;
+      border-radius: 10rpx;
+      padding: 10rpx 20rpx;
+      font-size: 28rpx;
+      color: #bbb;
+    }
+
+    .forgot {
+      border: 1px solid $gray-400;
+      border-radius: 10rpx;
+      padding: 10rpx 12rpx;
+      font-size: 28rpx;
+      color: #bbb;
+    }
+  }
+
   .login-help {
     display: flex;
     align-items: center;
