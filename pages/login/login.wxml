@@ -1,12 +1,9 @@
 <import src="/components/help-box/help-box.wxml"></import>
+<import src="/components/wave-logo/wave-logo.wxml"></import>
 
 <view class="container f-bg-gray-form-gradient f-bd-rise">
-  <view class="m-wave-logo">
-    <image class="title" src="/images/common/title.png" mode="aspectFit"></image>
-    <image class="logo" src="/images/common/logo.png"></image>
-    <image class="wave" src="/images/common/wave.png" mode="aspectFill"></image>
-    <image class="wave wave-bg" src="/images/common/wave.png" mode="aspectFill"></image>
-  </view>
+  <template is="wave-logo"></template>
+
   <form class="f-bg-gray-form-gradient m-wave-form">
     <view class="input-group {{userid_focus ? 'active' : ''}}">
       <text class="input-label">帐号</text>
@@ -26,8 +23,8 @@
       </view>
     </view>
     <view class="account-help">
-      <text class="register">激活账号</text>
-      <text class="forgot">忘记密码?</text>
+      <navigator class="register" url="/pages/register/register">激活账号</navigator>
+      <navigator class="forgot" url="/pages/forgot/forgot">忘记密码?</navigator>
     </view>
 
     <template is="help-box" data="{{ helpStatus }}"/>

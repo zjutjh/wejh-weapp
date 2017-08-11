@@ -1,6 +1,5 @@
 export default function ($store) {
   return function fetch(object) {
-    console.log(object)
     const commonData = $store.store.common
     const token = commonData.token || ''
     if (token) {
@@ -10,17 +9,27 @@ export default function ($store) {
     }
 
     if(object.showError) {
-      const success = object.success
-      const fail = object.fail
+      const success = object.success || function () {}
+      const fail = object.fail || function () {}
       object.success = (res) => {
+        if (typeof res.data !== 'object') {
+          wx.showToast({
+            image: '/images/common/close-white.png',
+            duration: 2000,
+            title: '服务器错误'
+          })
+
+          return fail(res)
+        }
         const data = res.data
         if(data.errcode < 0) {
-
           wx.showToast({
             image: '/images/common/close-white.png',
             duration: 2000,
             title: data.errmsg || '请求错误'
           })
+
+          return fail(res)
         }
         success(res)
       }

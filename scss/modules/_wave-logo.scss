@@ -9,6 +9,10 @@
   background-color: $theme-green;
   transform: translateX(-50%);
 
+  & ~ .m-wave-form {
+    top: -100rpx
+  }
+
   .title {
     width: 320rpx;
     height: 120rpx;

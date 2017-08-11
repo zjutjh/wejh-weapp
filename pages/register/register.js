@@ -5,6 +5,9 @@ Page({
     helpStatus: false,
     username: '',
     password: '',
+    validatePassword: '',
+    iid: '',
+    email: '',
   },
   onInput (e) {
     const type = e.target.dataset.type
@@ -12,41 +15,46 @@ Page({
       [type]: e.detail.value
     })
   },
-  login () {
+  register () {
     const username = this.data.username
     const password = this.data.password
-    if(!username || !password) {
+    const validatePassword = this.data.validatePassword
+    const iid = this.data.iid
+    const email = this.data.email
+
+    if(!username || !password || !iid || !email) {
       return wx.showModal({
         title: '错误',
-        content: '账号以及密码不能为空',
+        content: '表单项不能为空',
+        showCancel: false
+      })
+    }
+
+    if(password !== validatePassword) {
+      return wx.showModal({
+        title: '请重新填写',
+        content: '两次输入的密码不一致',
         showCancel: false
       })
     }
 
     app.fetch({
-      url: app.API('login'),
+      url: app.API('register'),
       data: {
         username,
-        password
+        password,
+        iid,
+        email
       },
       showError: true,
       method: 'POST',
       success: (res) => {
-        const data = res.data.data
-        const token = data.token
-        const userInfo = data.user
-        app.$store.setFieldState('common', {
-          token,
-          userInfo
-        })
         wx.showToast({
           duration: 2000,
-          title: '登录成功'
+          title: '激活成功'
         })
         setTimeout(() => {
-          wx.navigateBack({
-            delta: 1
-          })
+          wx.navigateBack()
         },2000)
       }
     })

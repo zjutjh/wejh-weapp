@@ -1,0 +1,8 @@
+<template name="wave-logo">
+  <view class="m-wave-logo">
+    <image class="title" src="/images/common/title.png" mode="aspectFit"></image>
+    <image class="logo" src="/images/common/logo.png"></image>
+    <image class="wave" src="/images/common/wave.png" mode="aspectFill"></image>
+    <image class="wave wave-bg" src="/images/common/wave.png" mode="aspectFill"></image>
+  </view>
+</template>

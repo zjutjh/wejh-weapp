@@ -23,7 +23,7 @@
     <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
   </navigator>
   <view class="f-bottom-btn">
-    <navigator class="u-btn-binding">
+    <navigator class="u-btn-binding" url="/pages/login/login">
       <text class="text">立即绑定</text>
     </navigator>
   </view>

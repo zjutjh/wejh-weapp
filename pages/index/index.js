@@ -24,7 +24,6 @@ Page({
       },
       success: function(res) {
         let data = res.data.data
-        console.log(data)
         _this.setState({
           apps: _this.fixAppList(data['app-list'])
         })

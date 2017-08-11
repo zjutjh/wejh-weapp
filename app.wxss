@@ -342,12 +342,14 @@ text {
   display: flex;
   position: relative;
   left: 50%;
-  width: 120%;
+  width: 1000rpx;
   height: 500rpx;
   flex-direction: column;
   align-items: center;
   background-color: #7acfa6;
   transform: translateX(-50%); }
+  .m-wave-logo ~ .m-wave-form {
+    top: -100rpx; }
   .m-wave-logo .title {
     width: 320rpx;
     height: 120rpx; }
@@ -408,7 +410,7 @@ text {
 .m-wave-form {
   z-index: 9;
   position: relative;
-  top: -100rpx;
+  top: 0;
   flex: 1;
   display: flex;
   flex-direction: column;
