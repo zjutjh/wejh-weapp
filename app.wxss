@@ -102,6 +102,10 @@ page {
 text {
   color: #333; }
 
+.icon-loading {
+  width: 250rpx;
+  height: 250rpx; }
+
 /**app.wxss**/
 .container {
   position: relative;
@@ -527,5 +531,13 @@ text {
     width: 50rpx;
     height: 50rpx;
     padding: 10rpx; }
+
+.m-loading-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 300rpx; }
 
 /*# sourceMappingURL=app.wxss.map */

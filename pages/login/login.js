@@ -2,9 +2,21 @@ const app = getApp()
 
 Page({
   data: {
+    showLoading: true,
     helpStatus: false,
     username: '',
     password: '',
+  },
+  onLoad () {
+    let _this = this
+    app.$store.connect(this, 'login')
+
+    // 直接显示会有动画bug，所以需要先挂载一段时间再显示
+    setTimeout(() => {
+      this.setState({
+        showLoading: false
+      })
+    }, 1000)
   },
   onInput (e) {
     const type = e.target.dataset.type
@@ -50,10 +62,6 @@ Page({
         },2000)
       }
     })
-  },
-  onLoad () {
-    let _this = this
-    app.$store.connect(this, 'login')
   },
   showHelp() {
     this.setState({
