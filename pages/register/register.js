@@ -2,12 +2,21 @@ const app = getApp()
 
 Page({
   data: {
-    helpStatus: false,
+    showLoading: true,
     username: '',
     password: '',
     validatePassword: '',
     iid: '',
     email: '',
+  },
+  onLoad () {
+    let _this = this
+    app.$store.connect(this, 'login')
+    setTimeout(() => {
+      this.setState({
+        showLoading: false
+      })
+    }, 1000)
   },
   onInput (e) {
     const type = e.target.dataset.type
@@ -58,10 +67,6 @@ Page({
         },2000)
       }
     })
-  },
-  onLoad () {
-    let _this = this
-    app.$store.connect(this, 'login')
   },
   showHelp() {
     this.setState({

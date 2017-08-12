@@ -16,7 +16,7 @@
     display: flex;
     align-items: center;
     padding: 25rpx 10rpx;
-    margin: 40rpx 3%;
+    margin: 40rpx 25rpx;
     background: #fff;
     border-radius: 10px;
     border: 4rpx solid #f4f4f4;
@@ -92,5 +92,11 @@
   .confirm-btn {
     margin-top: 20rpx;
     padding: 25rpx;
+  }
+
+  &.closely {
+    .input-group {
+      margin: 20rpx 25rpx;
+    }
   }
 }
