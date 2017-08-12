@@ -17,7 +17,7 @@ Page({
     let _this = this
     app.$store.connect(this, 'index')
 
-    wx.request({
+    app.fetch({
       url: app.API('app-list'),
       header: {
         'content-type': 'application/json'

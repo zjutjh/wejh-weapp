@@ -2,6 +2,7 @@ const app = getApp()
 
 Page({
   data: {
+    inputTiming: null,
     showLoading: true,
     username: '',
     password: '',
@@ -11,7 +12,7 @@ Page({
   },
   onLoad () {
     let _this = this
-    app.$store.connect(this, 'login')
+    app.$store.connect(this, 'register')
     setTimeout(() => {
       this.setState({
         showLoading: false
@@ -19,9 +20,16 @@ Page({
     }, 1000)
   },
   onInput (e) {
+    // 防抖动，小程序的性能有点差，字符输入过快会吞字符
+    clearTimeout(this.data.inputTiming)
     const type = e.target.dataset.type
+    const timing = setTimeout(() => {
+      this.setState({
+        [type]: e.detail.value
+      })
+    }, 200)
     this.setState({
-      [type]: e.detail.value
+      inputTiming: timing
     })
   },
   register () {

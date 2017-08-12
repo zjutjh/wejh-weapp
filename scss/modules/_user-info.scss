@@ -13,9 +13,15 @@
       margin-right: 20rpx;
       width: 120rpx;
       height: 120rpx;
-      border-radius: 5px;
+      border-radius: 10rpx;
       background-color: $white;
       border: 1rpx solid #93eac1;
+      overflow: hidden;
+
+      image {
+        width: 100%;
+        height: 100%;
+      }
     }
 
     .main-info {

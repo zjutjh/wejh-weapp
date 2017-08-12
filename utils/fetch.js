@@ -1,6 +1,8 @@
+import toast from './toast'
+
 export default function ($store) {
   return function fetch(object) {
-    const commonData = $store.store.common
+    const commonData = $store.getStore('common')
     const token = commonData.token || ''
     if (token) {
       object.header = Object.assign({}, object.header, {
@@ -13,8 +15,8 @@ export default function ($store) {
       const fail = object.fail || function () {}
       object.success = (res) => {
         if (typeof res.data !== 'object') {
-          wx.showToast({
-            image: '/images/common/close-white.png',
+          toast({
+            icon: 'error',
             duration: 2000,
             title: '服务器错误'
           })
@@ -23,8 +25,8 @@ export default function ($store) {
         }
         const data = res.data
         if(data.errcode < 0) {
-          wx.showToast({
-            image: '/images/common/close-white.png',
+          toast({
+            icon: 'error',
             duration: 2000,
             title: data.errmsg || '请求错误'
           })
@@ -34,8 +36,8 @@ export default function ($store) {
         success(res)
       }
       object.fail = (err) => {
-        wx.showToast({
-          image: '/images/common/close-white.png',
+        toast({
+          icon: 'error',
           duration: 2000,
           title: '请求错误'
         })

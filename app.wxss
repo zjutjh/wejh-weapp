@@ -213,9 +213,13 @@ text {
       margin-right: 20rpx;
       width: 120rpx;
       height: 120rpx;
-      border-radius: 5px;
+      border-radius: 10rpx;
       background-color: #fff;
-      border: 1rpx solid #93eac1; }
+      border: 1rpx solid #93eac1;
+      overflow: hidden; }
+      .m-user-info .left .avatar image {
+        width: 100%;
+        height: 100%; }
     .m-user-info .left .main-info {
       display: flex;
       flex-direction: column;

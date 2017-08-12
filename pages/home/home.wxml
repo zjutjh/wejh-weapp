@@ -2,17 +2,17 @@
   <view class="m-user-info f-mb-20">
     <view class="left">
       <view class="avatar">
-        <image src="" mode="aspectFit"></image>
+        <image src="{{ weappInfo.avatarUrl }}" mode="aspectFit"></image>
       </view>
       <view class="main-info">
-        <text class="name">陈然</text>
-        <text class="uno">201319630201</text>
+        <text class="name">{{ weappInfo.nickName }}</text>
+        <text class="uno">{{ userInfo.uno || '未绑定'}}</text>
       </view>
     </view>
     <view class="right">
       <view class="time-info">
-        <text class="term">2016/2017(2)</text>
-        <text class="week">第23周 - 星期六</text>
+        <text class="term">{{time.term}}</text>
+        <text class="week">{{time.is_begin ? '第' + time.week + '周' : '放假中'}} - 星期{{weekday[time.day]}}</text>
       </view>
       <image class="icon-next" src="/images/common/next.png" mode="aspectFit"></image>
     </view>
@@ -24,7 +24,8 @@
   </navigator>
   <view class="f-bottom-btn">
     <navigator class="u-btn-binding" url="/pages/login/login">
-      <text class="text">立即绑定</text>
+      <text class="text" wx:if="{{ !userInfo }}" >立即绑定</text>
+      <text class="text" wx:else>切换绑定</text>
     </navigator>
   </view>
 
