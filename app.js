@@ -10,21 +10,29 @@ const store = new WeappStore({
   }
 })
 const fetch = Fetch(store)
-
+const staticKey = 'static'
 App({
   name: '微精弘',
   version: 'v0.0.1',
   onLaunch: function() {
     store.connect(this, 'common')
-    this.getTermTime()
-    this.getWeappInfo()
-    this.login()
+    this.getData()
   },
   set(key, value) {
-    wx.setStorageSync(key, value)
+    const staticData = wx.getStorageSync(staticKey) || {}
+    Object.assign(staticData, {
+      [key]: value
+    })
+    wx.setStorageSync(staticKey, staticData)
   },
   get(key) {
-    return wx.getStorageSync(key) || {}
+    const staticData = wx.getStorageSync(staticKey)
+    return staticData[key] || {}
+  },
+  getData() {
+    this.getTermTime()
+    this.getWeappInfo()
+    this.login(this.getOpenid)
   },
   getTermTime: () => {
     fetch({
@@ -38,8 +46,35 @@ App({
       }
     })
   },
-  login() {
+  getOpenid(code) {
     const _this = this
+    const openid = _this.get('openid')
+    if(openid) {
+      store.setFieldState('common', {
+        openid
+      })
+      _this.autoLogin()
+      return
+    }
+    fetch({
+      url: API('code'),
+      data: {
+        code
+      },
+      method: 'POST',
+      showError: true,
+      success: (res) => {
+        const result  = res.data
+        const openid = result.data.openid
+        store.setFieldState('common', {
+          openid
+        })
+        _this.set('openid', openid)
+        _this.autoLogin()
+      }
+    })
+  },
+  login(callback) {
     wx.login({
       success: (res) => {
         if (!res.code) {
@@ -48,22 +83,7 @@ App({
             title: '获取用户登录态失败！' + res.errMsg
           })
         }
-        fetch({
-          url: API('code'),
-          data: {
-            code: res.code
-          },
-          method: 'POST',
-          showError: true,
-          success: (res) => {
-            const result  = res.data
-            const openid = result.data.openid
-            store.setFieldState('common', {
-              openid
-            })
-            _this.autoLogin()
-          }
-        })
+        callback(res.code)
       }
     })
   },

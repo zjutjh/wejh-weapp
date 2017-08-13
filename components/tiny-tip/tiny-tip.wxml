@@ -1,0 +1,5 @@
+<template name="tiny-tip">
+  <view class="m-tiny-tip {{tinyTip.active ? 'active' : ''}}">
+    <text class="content">{{tinyTip.content}}</text>
+  </view>
+</template>

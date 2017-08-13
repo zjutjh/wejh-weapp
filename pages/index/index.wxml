@@ -1,6 +1,9 @@
 <!--index.wxml-->
 <import src="../../components/app-list/app-list.wxml"></import>
+<import src="../../components/tiny-tip/tiny-tip.wxml"></import>
 
 <view class="container f-bg-gray">
+  <template is="tiny-tip" data="{{ tinyTip, onClickApp }}"/>
+
   <template is="app-list" data="{{ apps }}"/>
 </view>

@@ -1,11 +1,11 @@
 <template name="app-list">
     <view class="m-app-list">
-        <navigator wx:for="{{apps}}" url="{{item.route}}" wx:key="apps_{{index}}" class="item {{item.disabled ? 'disabled' : ''}}">
+        <view wx:for="{{apps}}" catchtap="onClickApp" data-index="{{index}}" wx:key="apps_{{index}}" class="item {{item.disabled ? 'disabled' : ''}}">
             <view class="item-image">
                 <image src="{{item.icon}}" class="item-icon" mode="aspectFit"></image>
                 <image src="{{item.bg}}" class="item-icon-bg" mode="aspectFit"></image>
             </view>
             <text class="item-title">{{item.title}}</text>
-        </navigator>
+        </view>
     </view>
 </template>

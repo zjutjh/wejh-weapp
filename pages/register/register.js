@@ -27,7 +27,7 @@ Page({
       this.setState({
         [type]: e.detail.value
       })
-    }, 200)
+    }, 500)
     this.setState({
       inputTiming: timing
     })
@@ -74,16 +74,6 @@ Page({
           wx.navigateBack()
         },2000)
       }
-    })
-  },
-  showHelp() {
-    this.setState({
-      helpStatus: true
-    })
-  },
-  hideHelp() {
-    this.setState({
-      helpStatus: false
     })
   }
 })

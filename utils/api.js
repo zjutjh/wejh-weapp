@@ -3,6 +3,7 @@ const prefix = 'http://wejh-server.dev/'
 const api = {
   'app-list': 'api/app-list',
   'login': 'api/login',
+  'forgot': 'api/forgot',
   'code': 'api/code/weapp',
   'autoLogin': 'api/autoLogin',
   'register': 'api/register',

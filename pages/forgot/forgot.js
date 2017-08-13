@@ -4,15 +4,14 @@ Page({
   data: {
     inputTiming: null,
     showLoading: true,
-    helpStatus: false,
     username: '',
     password: '',
+    validatePassword: '',
+    iid: '',
   },
   onLoad () {
     let _this = this
-    app.$store.connect(this, 'login')
-
-    // 直接显示会有动画bug，所以需要先挂载一段时间再显示
+    app.$store.connect(this, 'forgot')
     setTimeout(() => {
       this.setState({
         showLoading: false
@@ -32,57 +31,47 @@ Page({
       inputTiming: timing
     })
   },
-  login () {
+  forgot () {
     const username = this.data.username
     const password = this.data.password
-    const type = 'weapp'
-    const openid = app.$store.getStore('common')['openid']
-    if(!username || !password) {
+    const validatePassword = this.data.validatePassword
+    const iid = this.data.iid
+    const email = this.data.email
+
+    if(!username || !password || !iid) {
       return wx.showModal({
         title: '错误',
-        content: '账号以及密码不能为空',
+        content: '表单项不能为空',
+        showCancel: false
+      })
+    }
+
+    if(password !== validatePassword) {
+      return wx.showModal({
+        title: '请重新填写',
+        content: '两次输入的密码不一致',
         showCancel: false
       })
     }
 
     app.fetch({
-      url: app.API('login'),
+      url: app.API('forgot'),
       data: {
         username,
         password,
-        type,
-        openid
+        iid
       },
       showError: true,
       method: 'POST',
       success: (res) => {
-        const data = res.data.data
-        const token = data.token
-        const userInfo = data.user
-        app.$store.setFieldState('common', {
-          token,
-          userInfo
-        })
         wx.showToast({
           duration: 2000,
-          title: '登录成功'
+          title: '重置成功'
         })
         setTimeout(() => {
-          wx.navigateBack({
-            delta: 1
-          })
+          wx.navigateBack()
         },2000)
       }
-    })
-  },
-  showHelp() {
-    this.setState({
-      helpStatus: true
-    })
-  },
-  hideHelp() {
-    this.setState({
-      helpStatus: false
     })
   }
 })
