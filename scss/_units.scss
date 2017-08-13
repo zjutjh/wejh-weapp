@@ -4,19 +4,40 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: 25rpx 30rpx;
+  padding: 20rpx 30rpx;
   background-color: $white;
-  border-top: 1rpx solid $gray-200;
+  // border-top: 1rpx solid $gray-200;
   border-bottom: 1rpx solid $gray-200;
 
   .icon {
-    width: 50rpx;
-    height: 50rpx;
+    width: 42rpx;
+    height: 42rpx;
     margin-right: 16rpx;
   }
 
   .text {
-    font-size: 36rpx;
+    font-size: 32rpx;
+  }
+
+  .description {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    right: 32rpx + 30rpx + 10rpx;
+    transform: translateY(-50%);
+
+    &>image {
+      margin-right: 6rpx;
+      width: 42rpx;
+      height: 42rpx;
+    }
+
+    &>text {
+      color: $gray-600;
+      font-size: 28rpx;
+    }
   }
 
   .icon-next {

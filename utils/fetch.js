@@ -10,6 +10,12 @@ export default function ($store) {
       })
     }
 
+    if(!object.header) {
+      object.header = {}
+    }
+
+    object.header['content-type'] = object.header['content-type'] || 'application/json'
+
     if(object.showError) {
       const success = object.success || function () {}
       const fail = object.fail || function () {}

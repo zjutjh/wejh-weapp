@@ -1,6 +1,8 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/setting/setting",
+    "pages/bind/ycjw",
     "pages/forgot/forgot",
     "pages/register/register",
     "pages/login/login",

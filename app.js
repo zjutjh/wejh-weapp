@@ -74,6 +74,19 @@ App({
       }
     })
   },
+  getUserInfo() {
+    fetch({
+      url: API('user'),
+      showError: true,
+      success: (res) => {
+        const result  = res.data
+        const userInfo = result.data
+        store.setFieldState('common', {
+          userInfo
+        })
+      }
+    })
+  },
   login(callback) {
     wx.login({
       success: (res) => {

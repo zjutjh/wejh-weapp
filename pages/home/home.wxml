@@ -17,6 +17,11 @@
       <image class="icon-next" src="/images/common/next.png" mode="aspectFit"></image>
     </view>
   </view>
+  <navigator class="u-setting-navigator f-mb-20" url="/pages/setting/setting">
+    <image class="icon" mode="aspectFit"src="../../images/home/setting.png" ></image>
+    <text class="text">设置</text>
+    <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
+  </navigator>
   <navigator class="u-setting-navigator" url="/pages/about/about">
     <image class="icon" mode="aspectFit"src="../../images/common/about.png" ></image>
     <text class="text">关于</text>

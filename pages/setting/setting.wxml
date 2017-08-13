@@ -1,0 +1,13 @@
+<view class="container f-bg-gray">
+  <navigator class="u-setting-navigator f-mb-20 f-mt-20" url="/pages/bind/ycjw">
+    <text class="text">原创账号</text>
+    <view class="description" wx:if="{{userInfo.ext.passwords_bind.yc_password}}">
+      <image src="/images/setting/binding.png" mode="aspectFit"></image>
+      <text>已绑定</text>
+    </view>
+    <view class="description" wx:else>
+      <text>未绑定</text>
+    </view>
+    <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
+  </navigator>
+</view>

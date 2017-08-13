@@ -23,15 +23,24 @@ Page({
   },
   getData() {
     this.getAppList()
+    this.getTimetable()
+  },
+  getTimetable() {
+    let _this = this
+    app.fetch({
+      url: app.API('timetable'),
+      success(res) {
+        let data = res.data.data
+        console.log(data)
+      }
+    })
+
   },
   getAppList() {
     let _this = this
     app.fetch({
       url: app.API('app-list'),
-      header: {
-        'content-type': 'application/json'
-      },
-      success: function(res) {
+      success(res) {
         let data = res.data.data
         _this.setState({
           apps: _this.fixAppList(data['app-list'])

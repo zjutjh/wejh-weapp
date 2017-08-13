@@ -41,6 +41,21 @@
 .f-mb-50 {
   margin-bottom: 50rpx; }
 
+.f-mt-10 {
+  margin-top: 10rpx; }
+
+.f-mt-20 {
+  margin-top: 20rpx; }
+
+.f-mt-30 {
+  margin-top: 30rpx; }
+
+.f-mt-40 {
+  margin-top: 40rpx; }
+
+.f-mt-50 {
+  margin-top: 50rpx; }
+
 .f-hide {
   display: none !important; }
 
@@ -120,16 +135,30 @@ text {
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: 25rpx 30rpx;
+  padding: 20rpx 30rpx;
   background-color: #fff;
-  border-top: 1rpx solid #e9ecef;
   border-bottom: 1rpx solid #e9ecef; }
   .u-setting-navigator .icon {
-    width: 50rpx;
-    height: 50rpx;
+    width: 42rpx;
+    height: 42rpx;
     margin-right: 16rpx; }
   .u-setting-navigator .text {
-    font-size: 36rpx; }
+    font-size: 32rpx; }
+  .u-setting-navigator .description {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    right: 72rpx;
+    transform: translateY(-50%); }
+    .u-setting-navigator .description > image {
+      margin-right: 6rpx;
+      width: 42rpx;
+      height: 42rpx; }
+    .u-setting-navigator .description > text {
+      color: #868e96;
+      font-size: 28rpx; }
   .u-setting-navigator .icon-next {
     position: absolute;
     top: 50%;
