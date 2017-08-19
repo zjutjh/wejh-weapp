@@ -1,0 +1,20 @@
+<import src="/components/wave-logo/wave-logo.wxml"></import>
+
+<view class="m-loading-box" wx:if="{{showLoading}}">
+  <image class="icon-loading" src="/images/common/loading.gif"></image>
+</view>
+<view class="container f-bg-gray-form-gradient f-bd-rise" wx:else>
+  <template is="wave-logo"></template>
+
+  <form class="f-bg-gray-form-gradient m-wave-form closely">
+    <view class="input-group {{passwd_focus ? 'active' : ''}}">
+      <text class="input-label">一卡通密码</text>
+      <input password="true" data-type="password" cursor-spacing="30" bindinput="onInput" placeholder="请输入校园一卡通密码" value="{{password}}"/>
+    </view>
+    <view class="confirm-btn" bindtap="binding">
+      <view class="u-confirm-btn">
+        <text>确认绑定</text>
+      </view>
+    </view>
+  </form>
+</view>

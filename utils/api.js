@@ -12,6 +12,8 @@ const api = {
   'timetable': 'api/ycjw/timetable',
   'score': 'api/ycjw/score',
   'ycjw/bind': 'api/ycjw/bind',
+  'card/bind': 'api/card/bind',
+  'library/bind': 'api/library/bind',
 }
 
 /**
