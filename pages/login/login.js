@@ -36,7 +36,7 @@ Page({
     const username = this.data.username
     const password = this.data.password
     const type = 'weapp'
-    const openid = app.$store.getStore('common')['openid']
+    const openid = app.$store.getCommonState('openid')
     if(!username || !password) {
       return wx.showModal({
         title: '错误',
@@ -59,7 +59,7 @@ Page({
         const data = res.data.data
         const token = data.token
         const userInfo = data.user
-        app.$store.setFieldState('common', {
+        app.$store.setCommonState({
           token,
           userInfo
         })

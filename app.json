@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/timetable/timetable",
     "pages/index/index",
     "pages/setting/setting",
     "pages/bind/ycjw",

@@ -2,13 +2,20 @@ let app = getApp()
 
 Page({
   data: {
-    weekday: ['日', '一', '二', '三', '四', '五', '六']
+    weekday: ['日', '一', '二', '三', '四', '五', '六', '日']
   },
-  onLoad: function () {
+  onLoad () {
     let _this = this
     app.$store.connect(this, 'home')
-    this.observe('common', 'userInfo')
-    this.observe('common', 'weappInfo')
-    this.observe('common', 'time')
+    this.observeCommon('userInfo')
+    this.observeCommon('weappInfo')
+    this.observeCommon('time')
+  },
+  userBlockClick () {
+    if (!this.data.userInfo) {
+      return wx.navigateTo({
+        url: '/pages/login/login'
+      })
+    }
   }
 })

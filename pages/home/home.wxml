@@ -1,5 +1,5 @@
 <view class="container f-bg-gray">
-  <view class="m-user-info f-mb-20">
+  <view class="m-user-info f-mb-20" bindtap="userBlockClick">
     <view class="left">
       <view class="avatar">
         <image src="{{ weappInfo.avatarUrl }}" mode="aspectFit"></image>
@@ -17,7 +17,7 @@
       <image class="icon-next" src="/images/common/next.png" mode="aspectFit"></image>
     </view>
   </view>
-  <block wx:if="userInfo">
+  <block wx:if="{{userInfo}}">
     <navigator class="u-setting-navigator f-mb-20" url="/pages/setting/setting">
       <image class="icon" mode="aspectFit"src="../../images/home/setting.png" ></image>
       <text class="text">设置</text>

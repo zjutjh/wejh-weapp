@@ -39,6 +39,10 @@ export default class WeappStore {
       })
     }).bind(ctx)
 
+    ctx.observeCommon = (function (targetState, localState) {
+      ctx.observe(_this.commonKey, targetState, localState)
+    }).bind(ctx)
+
     // 初始化该上下文的数据
     ctx.setState(this.getStore(field) || {})
   }
@@ -86,6 +90,18 @@ export default class WeappStore {
     } else {
       return this.store[key]
     }
+  }
+
+  getCommonState(key) {
+    const commonData = this.getStore(this.commonKey)
+    if (key) {
+      return commonData[key]
+    }
+    return commonData
+  }
+
+  setCommonState(obj) {
+    this.setFieldState(this.commonKey, obj)
   }
 
   _setState (field, obj) {

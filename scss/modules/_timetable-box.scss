@@ -1,0 +1,202 @@
+$left-bar-width: 36rpx;
+$left-lesson-height: 100rpx;
+$left-date-height: 60rpx;
+$timetable-item-width: 130rpx;
+$timetable-item-height: $left-lesson-height;
+$timetable-header-height: 60rpx;
+$timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
+
+.m-timetable-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: $white;
+  height: $left-lesson-height * 12 + $left-date-height + $tabbar-bottom;
+
+  .lesson-number {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-shrink: 0;
+    padding-top: $left-date-height;
+    width: $left-bar-width;
+    border-right: 1rpx solid $gray-200;
+    padding-bottom: $tabbar-bottom;
+    background: $white;
+
+    .date {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: $left-bar-width;
+      height: $left-date-height;
+      font-size: 24rpx;
+      color: $gray-600;
+      text-align: center;
+      line-height: $left-date-height;
+      vertical-align: middle;
+      border-bottom: 1rpx solid $gray-200;
+      border-right: 1rpx solid $gray-200;
+    }
+
+    .number {
+      height: $left-lesson-height;
+      font-size: 24rpx;
+      color: $gray-600;
+      text-align: center;
+      line-height: $left-lesson-height;
+      vertical-align: middle;
+    }
+  }
+
+  .timetable-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: $timetable-item-height * 12;
+
+    .timetable-header {
+      z-index: 999;
+      display: flex;
+      flex-direction: row;
+      width: $timetable-header-width;
+      height: $timetable-header-height;
+      padding-left: $left-bar-width;
+      overflow: hidden;
+      background: $white;
+      border-top: 1rpx solid $gray-200;
+      border-bottom: 1rpx solid $gray-200;
+      background-color: #fff;
+
+      .weekday {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 130rpx;
+        font-size: 24rpx;
+        color: $gray-600;
+      }
+    }
+
+    .timetable-content {
+      flex: 1;
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      width: $timetable-item-width * 7 + $left-bar-width;
+      height: 100%;
+
+      .timeline {
+        position: absolute;
+        z-index: 100;
+        left: $left-bar-width;
+        right: 0;
+        top: 50%;
+        margin-top: -2rpx;
+        width: $timetable-item-width;
+        height: 5rpx;
+        background: #0069d9;
+        opacity: .6;
+      }
+
+      .today {
+        position: absolute;
+        z-index: 98;
+        width: $timetable-item-width;
+        left: $left-bar-width;
+        top: 0;
+        bottom: 0;
+        background: -webkit-gradient(linear, left top, left bottom, from(#eff7ff), color-stop(0.5, #bbe1ff), to(#eff7ff));
+      }
+
+      .card-content {
+        display: flex;
+        flex-direction: row;
+        padding-left: $left-bar-width;
+        width: 100%;
+
+        .day-lessons {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+
+          .lesson {
+            position: relative;
+            height: $timetable-item-height;
+
+            .conflict {
+              position: absolute !important;
+              z-index: 999;
+              top: 8rpx;
+              right: 8rpx + 4rpx;
+              display: inline-block;
+              width: 12rpx;
+              height: 6rpx;
+              border-radius: 2rpx;
+              background: #fff;
+            }
+
+            .card {
+              position: absolute;
+              z-index: 99;
+              left: 50%;
+              top: 5rpx;
+              transform: translateX(-50%);
+              width: $timetable-item-width - 15rpx;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              padding: 10rpx 10rpx 0;
+              text-align: center;
+              border-radius: 5rpx;
+              overflow: hidden;
+
+              .place {
+                height: 2.2em;
+                color: $white;
+                font-size: 28rpx;
+                line-height: 120%;
+              }
+
+              .name {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: $white;
+                font-size: 28rpx;
+                overflow: hidden;
+              }
+
+              &.green {
+                background-color: $theme-green;
+              }
+
+              &.red {
+                background-color: $theme-red;
+              }
+
+              &.blue {
+                background-color: $theme-blue;
+              }
+
+              &.purple {
+                background-color: $theme-purple;
+              }
+
+              &.yellow {
+                background-color: $theme-yellow;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

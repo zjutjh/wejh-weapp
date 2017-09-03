@@ -2,6 +2,7 @@ import WeappStore from './utils/store'
 import Fetch from './utils/fetch'
 import API from './utils/api'
 import toast from './utils/toast'
+import Services from './utils/services'
 
 const store = new WeappStore({
   common: {
@@ -10,6 +11,10 @@ const store = new WeappStore({
   }
 })
 const fetch = Fetch(store)
+const services = Services({
+  fetch,
+  store
+})
 const staticKey = 'static'
 App({
   name: '微精弘',
@@ -27,7 +32,7 @@ App({
   },
   get(key) {
     const staticData = wx.getStorageSync(staticKey)
-    return staticData[key] || {}
+    return staticData[key]
   },
   getData() {
     this.getTermTime()
@@ -87,6 +92,15 @@ App({
       }
     })
   },
+  isLogin() {
+    return !!store.getCommonState('userInfo')
+  },
+  hasOpenid() {
+    return !!store.getCommonState('openid')
+  },
+  hasToken() {
+    return !!store.getCommonState('token')
+  },
   login(callback) {
     wx.login({
       success: (res) => {
@@ -101,7 +115,7 @@ App({
     })
   },
   autoLogin() {
-    fetch({
+    this.hasOpenid() && fetch({
       url: API('autoLogin'),
       method: 'POST',
       data: {
@@ -147,6 +161,7 @@ App({
       })
     }
   },
+  services,
   API,
   fetch,
   toast,

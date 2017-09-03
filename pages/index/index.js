@@ -1,3 +1,5 @@
+import util from '../../utils/util'
+
 const initAppList = []
 const initApp = {
   title: '加载中',
@@ -23,18 +25,18 @@ Page({
   },
   getData() {
     this.getAppList()
-    this.getTimetable()
+    if (app.isLogin()) {
+      this.getTimetable()
+    }
+  },
+  onPullDownRefresh () {
+    this.getData()
+    setTimeout(() => {
+      wx.stopPullDownRefresh()
+    }, 1000)
   },
   getTimetable() {
-    let _this = this
-    app.fetch({
-      url: app.API('timetable'),
-      success(res) {
-        let data = res.data.data
-        console.log(data)
-      }
-    })
-
+    app.services.getTimetable()
   },
   getAppList() {
     let _this = this
@@ -69,7 +71,7 @@ Page({
     })
   },
   onClickApp(e) {
-    const commonData = app.$store.getStore('common')
+    const commonData = app.$store.getCommonState()
     const isLogin = !!commonData['token']
     const target = e.currentTarget
     const index = target.dataset.index

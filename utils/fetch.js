@@ -2,7 +2,7 @@ import toast from './toast'
 
 export default function ($store) {
   return function fetch(object) {
-    const commonData = $store.getStore('common')
+    const commonData = $store.getCommonState()
     const token = commonData.token || ''
     if (token) {
       object.header = Object.assign({}, object.header, {

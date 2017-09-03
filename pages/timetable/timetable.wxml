@@ -1,0 +1,86 @@
+
+<view class="m-loading-box" wx:if="{{showLoading}}">
+  <image class="icon-loading" src="/images/common/loading.gif"></image>
+</view>
+<view class="container" wx:else>
+  <view class="m-timetable-box">
+    <!-- 左侧栏 -->
+    <view class="lesson-number">
+      <view class="date">月</view>
+      <view class="number" wx:for="{{12}}" wx:key="number_{{index}}">{{index + 1}}</view>
+    </view>
+
+    <!-- 滑动区域 -->
+    <scroll-view class="timetable-box" scroll-x="true">
+      <view class="timetable-header">
+        <view class="weekday" wx:for="{{7}}" wx:key="weekday_{{index}}">
+          周{{weekday[index + 1]}}
+        </view>
+      </view>
+
+      <!-- 卡片部分 -->
+      <view class="timetable-content">
+        <!-- 当天高亮显示 -->
+        <block wx:if="{{originWeek === currentWeek}}">
+          <view class="today" style="left: {{ timelineLeft }}rpx;"></view>
+          <view class="timeline" style="left: {{ timelineLeft }}rpx; top: {{ timelineTop }}rpx"></view>
+        </block>
+        <view class="card-content">
+          <!-- 每天的课程 -->
+          <view class="day-lessons" wx:for="{{timetable}}" wx:key="{{day_id}}" wx:for-index="day_id" wx:for-item="dayLessons" >
+            <!-- 每节的课表 -->
+            <view class="lesson" wx:for="{{dayLessons}}" wx:key="{{lesson_id}}" wx:for-index="lesson_id" wx:for-item="lessonBlock">
+              <view class="{{ (viewStatus === '*' && conflictLessons[day_id][lesson_id][0] || viewStatus !== '*' && conflictLessons[day_id][lesson_id][currentWeek]) ? ' conflict' : '' }}"></view>
+              <view
+                  class="card {{ item['颜色'] || 'red' }}"
+                  wx:for="{{lessonBlock}}" wx:key="{{card_id}}" wx:for-index="card_id" wx:for-item="item"
+                  style="height: {{ item['节数'] * 100 - 10 }}rpx;"
+                  wx:if="{{!!item['周'][currentWeek] || viewStatus === '*'}}"
+              >
+                <text class="place" style="font-size: {{ 50 - item['地点长度'] * 2 }}rpx;">{{item['地点']}}</text>
+                <text class="name" style="font-size: {{ item['课程名称长度'] < 20 && item['节数'] < 2 ? 12 :(32 - item['课程名称长度'] / 2) }}rpx;">{{item['课程名称']}}</text>
+              </view>
+            </view>
+          </view>
+
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- 底部 -->
+    <view class="m-footer-bar blue">
+      <view class="left">
+        <text wx:if="{{viewStatus != '*' && currentWeek == 0}}">放假中</text>
+        <text wx:elif="{{viewStatus != '*' && currentWeek > 0 && currentWeek == time.week + 1}}">第{{time.week + 1}}周周{{weekday[time.day]}}</text>
+        <text wx:elif="{{viewStatus != '*' && currentWeek != time.week + 1}}" bindtap="backCurrentWeek">返回第{{time.week + 1}}周</text>
+        <text wx:else>星期{{weekday[time.day]}}</text>
+      </view>
+      <view class="middle">
+        <block wx:if="{{viewStatus !== '*'}}">
+          <view class="switch-btn" data-direction="left" bindtap="switchWeek">
+            <image src="/images/common/arrow-left.png" class="icon icon-arrow-left" mode="aspectFit"></image>
+          </view>
+          <text class="title">{{_weeks[currentWeek]}}</text>
+          <view class="switch-btn" data-direction="right" bindtap="switchWeek">
+            <image src="/images/common/arrow-right.png" class="icon icon-arrow-right" mode="aspectFit"></image>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="switch-btn" data-direction="left" bindtap="switchTerm">
+            <image src="/images/common/arrow-left.png" class="icon icon-arrow-left" mode="aspectFit"></image>
+          </view>
+          <text class="title">{{currentTerm}}</text>
+          <view class="switch-btn" data-direction="right" bindtap="switchTerm">
+            <image src="/images/common/arrow-right.png" class="icon icon-arrow-right" mode="aspectFit"></image>
+          </view>
+        </block>
+      </view>
+      <view class="right">
+        <view class="choose-view" bindtap="switchView">
+          <text class="active">{{viewStatus == '*'?'期':'周'}}</text>
+          <text>{{viewStatus == '*'?'周':'期'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

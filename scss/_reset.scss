@@ -24,6 +24,8 @@ page {
   bottom: 0;*/
   position: relative;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   min-height: 100%;
   width: 100%;
   font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
