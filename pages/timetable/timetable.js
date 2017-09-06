@@ -44,6 +44,9 @@ Page({
     timelineTop: 0,
     timelineLeft: 36,
     conflictLessons: [],
+    targetLessons: [], // 悬浮的课程
+    targetLessonInfo: {},
+    detailIndex: 0,
     timetable: []
   },
   onLoad: function () {
@@ -101,6 +104,29 @@ Page({
     setTimeout(() => {
       _this.startTimelineMoving()
     }, 60 * 1000)
+  },
+  showLessonDetail (e) {
+    const dataset = e.currentTarget.dataset || {}
+    const day = dataset.day
+    const lesson = dataset.lesson
+    const targetLessons = this.data.timetable[day][lesson].filter((item) => {
+      return !!item['周'][this.data.currentWeek] || this.data.viewStatus === '*'
+    })
+
+    this.setState({
+      targetLessons,
+      targetLessonInfo: {
+        weekday: `星期${this.data.weekday[day + 1]}`,
+        lessonTime: `${lesson + 1}-${targetLessons[0]['节数'] + lesson}节`,
+      }
+    })
+  },
+  hideDetail (e) {
+    if (e.target.dataset.type === 'mask') {
+      this.setState({
+        targetLessons: []
+      })
+    }
   },
   afterGetTimetable () {
     try {

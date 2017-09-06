@@ -57,7 +57,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
     flex: 1;
     display: flex;
     flex-direction: column;
-    height: $timetable-item-height * 12;
+    height: $left-lesson-height * 12 + $left-date-height + $tabbar-bottom;
 
     .timetable-header {
       z-index: 999;
@@ -89,7 +89,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
       display: flex;
       flex-direction: row;
       width: $timetable-item-width * 7 + $left-bar-width;
-      height: 100%;
+      height: $left-lesson-height * 12 + $left-date-height + $tabbar-bottom;
 
       .timeline {
         position: absolute;
@@ -101,6 +101,19 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
         width: $timetable-item-width;
         height: 5rpx;
         background: #0069d9;
+        opacity: .6;
+      }
+
+      .timeline-arrow {
+        position: absolute;
+        z-index: 100;
+        left: 0;
+        width: 0;
+        height: 0;
+        line-height: 0;
+        border: 10rpx solid transparent;
+        border-left-color: #0069d9;
+        transform: translateY(-50%);
         opacity: .6;
       }
 
@@ -198,5 +211,88 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
         }
       }
     }
+  }
+
+  .lesson-detail {
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 500rpx;
+    background: rgba(166, 166, 166, .45);
+    transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
+
+    .detail-content {
+      display: flex;
+      flex-direction: row;
+
+      .card {
+        z-index: 99;
+        width: $timetable-item-width - 15rpx;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10rpx 10rpx 0;
+        margin-left: 100rpx;
+        text-align: center;
+        border-radius: 5rpx;
+        overflow: hidden;
+        transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
+
+        &:first-child {
+          margin-left: 0;
+        }
+
+        &.active {
+          transform: scale(1.2);
+        }
+
+        .place {
+          height: 2.2em;
+          color: $white;
+          font-size: 28rpx;
+          line-height: 120%;
+        }
+
+        .name {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: $white;
+          font-size: 28rpx;
+          overflow: hidden;
+        }
+
+        &.green {
+          background-color: $theme-green;
+        }
+
+        &.red {
+          background-color: $theme-red;
+        }
+
+        &.blue {
+          background-color: $theme-blue;
+        }
+
+        &.purple {
+          background-color: $theme-purple;
+        }
+
+        &.yellow {
+          background-color: $theme-yellow;
+        }
+      }
+    }
+  }
+
+  .footer-card-tabs {
+    position: fixed;
   }
 }
