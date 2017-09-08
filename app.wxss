@@ -760,7 +760,7 @@ text {
               .m-timetable-box .timetable-box .timetable-content .card-content .day-lessons .lesson .card.yellow {
                 background-color: #ffcb63; }
   .m-timetable-box .lesson-detail {
-    position: absolute;
+    position: fixed;
     z-index: 1000;
     top: 0;
     left: 0;
@@ -815,7 +815,113 @@ text {
         .m-timetable-box .lesson-detail .detail-content .card.yellow {
           background-color: #ffcb63; }
   .m-timetable-box .footer-card-tabs {
-    position: fixed; }
+    z-index: 9999;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: 500rpx;
+    background: #73b4ef;
+    transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+    transform: translate3d(0, 100%, 0); }
+    .m-timetable-box .footer-card-tabs.open {
+      transform: translate3d(0, 0, 0); }
+    .m-timetable-box .footer-card-tabs .header {
+      position: relative;
+      color: #fff;
+      height: 100rpx;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center; }
+      .m-timetable-box .footer-card-tabs .header .week {
+        width: 150rpx;
+        padding: 20rpx 10rpx;
+        text-align: center;
+        font-size: 30rpx; }
+      .m-timetable-box .footer-card-tabs .header .lesson-time {
+        flex: 1;
+        width: 250rpx;
+        text-align: left;
+        padding-left: 10rpx;
+        font-size: 26rpx; }
+      .m-timetable-box .footer-card-tabs .header .card-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100rpx;
+        height: 80rpx;
+        padding: 25rpx 35rpx; }
+    .m-timetable-box .footer-card-tabs .card-tabs {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      position: relative;
+      margin-bottom: 30rpx; }
+      .m-timetable-box .footer-card-tabs .card-tabs .switch-left, .m-timetable-box .footer-card-tabs .card-tabs .switch-right {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+        top: 0;
+        bottom: 0;
+        padding: 0 10rpx;
+        opacity: .4; }
+        .m-timetable-box .footer-card-tabs .card-tabs .switch-left > image, .m-timetable-box .footer-card-tabs .card-tabs .switch-right > image {
+          width: 30rpx;
+          height: 30rpx; }
+      .m-timetable-box .footer-card-tabs .card-tabs .switch-left {
+        left: 0; }
+      .m-timetable-box .footer-card-tabs .card-tabs .switch-right {
+        right: 0; }
+      .m-timetable-box .footer-card-tabs .card-tabs .card-swiper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        margin: 0 40rpx; }
+        .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card {
+          position: relative;
+          width: 600rpx !important;
+          height: 320rpx !important;
+          margin: 16rpx 36rpx;
+          padding-top: 20rpx;
+          border-radius: 20rpx;
+          box-shadow: -10rpx 20rpx 40rpx -10rpx rgba(100, 100, 100, 0.5); }
+          .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .name {
+            display: flex;
+            align-items: center;
+            height: 100rpx;
+            width: 580rpx;
+            font-size: 44rpx;
+            color: #fff;
+            padding: 0 0 20rpx 20rpx; }
+          .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .type {
+            position: absolute;
+            top: 50%;
+            left: 40rpx;
+            width: 40rpx;
+            padding: 10rpx 0;
+            font-size: 26rpx;
+            color: #fff;
+            margin: 6rpx 0;
+            border-radius: 8rpx;
+            background-color: #e78ab0;
+            line-height: 32rpx;
+            text-align: center;
+            word-wrap: break-word; }
+          .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content {
+            margin: 40rpx 0 0 100rpx; }
+            .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content .info-item .item-content {
+              font-size: 32rpx;
+              color: #fff; }
+            .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content .info-item .item-label {
+              font-size: 26rpx;
+              color: #fff; }
 
 .m-footer-bar {
   position: fixed;

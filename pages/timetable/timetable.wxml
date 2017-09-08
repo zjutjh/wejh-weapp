@@ -2,7 +2,7 @@
 <view class="m-loading-box" wx:if="{{showLoading}}">
   <image class="icon-loading" src="/images/common/loading.gif"></image>
 </view>
-<view class="container" wx:else>
+<view class="container" wx:else style="padding-bottom: {{ targetLessons.length > 0 ? ' 400rpx;' : '0;' }}">
   <view class="m-timetable-box">
     <!-- 左侧栏 -->
     <view class="lesson-number">
@@ -86,9 +86,9 @@
     </view>
 
     <!-- 遮罩层 -->
-    <view bindtap="hideDetail" data-type="mask" class="lesson-detail" wx:if="{{targetLessons.length > 0}}">
+    <view bindtap="hideDetail" data-type="mask" class="lesson-detail" wx:if="{{targetLessons.length > 0}}" catchtouchmove>
       <view class="detail-content">
-        <view class="card {{ item['颜色'] }}{{ detailIndex === cid ? ' active' : '' }}"
+        <view class="card {{ item['颜色'] }}{{ targetIndex === cid ? ' active' : '' }}"
               style="height: {{ item['节数'] * 100 - 10 }}rpx;"
               wx:for="{{targetLessons}}" wx:key="detail_card_{{cid}}" wx:for-index="cid" wx:for-item="item"
         >
@@ -99,42 +99,43 @@
     </view>
 
     <!-- 底部详细介绍 -->
-    <view class="footer-card-tabs">
+    <view class="footer-card-tabs{{ targetLessons.length > 0 ? ' open' : '' }}">
       <view class="header">
         <view class="week">{{targetLessonInfo.weekday}}</view>
         <view class="lesson-time">{{targetLessonInfo.lessonTime}}</view>
         <image data-type="mask" class="card-close" src="/images/common/arrow-down.png" mode="aspectFit" bindtap="hideDetail"></image>
       </view>
       <view class="card-tabs">
-        <view class="switch-left">
+        <!--<view class="switch-left">
           <image src="/images/common/arrow-left.png" mode="aspectFit" data-direction="left" bindtap="swiperSwitch"></image>
-        </view>
-        <swiper class="card-swiper">
+        </view>-->
+        <swiper class="card-swiper" bindchange="onSwiper">
           <swiper-item
               wx:for="{{targetLessons}}" wx:key="footer_card_{{cid}}" wx:for-index="cid" wx:for-item="item"
               class="card"
           >
             <text class="name">{{item['名称']}}</text>
+            <text class="type">{{item['课程类型']}}</text>
             <view class="content">
               <view class="info-item">
-                <text class="item-content"></text>
-                <text class="item-label"></text>
+                <text class="item-content">{{item['老师']}}</text>
+                <text class="item-label"> (任课教师)</text>
               </view>
               <view class="info-item">
-                <text class="item-content"></text>
-                <text class="item-label"></text>
+                <text class="item-content">{{item['地点']}}</text>
+                <text class="item-label"> (上课地点)</text>
               </view>
               <view class="info-item">
-                <text class="item-content"></text>
-                <text class="item-label"></text>
+                <text class="item-content">{{item['起止周']}}周</text>
+                <text class="item-label"> (课程周数)</text>
               </view>
             </view>
           </swiper-item>
 
         </swiper>
-        <view class="switch-right">
+        <!--<view class="switch-right">
           <image src="/images/common/arrow-right.png" mode="aspectFit" data-direction="right" bindtap="swiperSwitch"></image>
-        </view>
+        </view>-->
       </view>
     </view>
 

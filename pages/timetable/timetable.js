@@ -46,6 +46,7 @@ Page({
     conflictLessons: [],
     targetLessons: [], // 悬浮的课程
     targetLessonInfo: {},
+    targetIndex: 0,
     detailIndex: 0,
     timetable: []
   },
@@ -124,9 +125,16 @@ Page({
   hideDetail (e) {
     if (e.target.dataset.type === 'mask') {
       this.setState({
-        targetLessons: []
+        targetLessons: [],
+        targetLessonInfo: {}
       })
     }
+  },
+  onSwiper (e) {
+    const index = e.detail.current
+    this.setState({
+      targetIndex: index
+    })
   },
   afterGetTimetable () {
     try {

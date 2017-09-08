@@ -214,7 +214,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
   }
 
   .lesson-detail {
-    position: absolute;
+    position: fixed;
     z-index: 1000;
     top: 0;
     left: 0;
@@ -293,6 +293,146 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
   }
 
   .footer-card-tabs {
+    z-index: 9999;
     position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: 500rpx;
+    background: $theme-blue;
+    transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
+    transform: translate3d(0, 100%, 0);
+
+    &.open {
+      transform: translate3d(0, 0, 0);
+    }
+
+    .header {
+      position: relative;
+      color: #fff;
+      height: 100rpx;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .week {
+        width: 150rpx;
+        padding: 20rpx 10rpx;
+        text-align: center;
+        font-size: 30rpx;
+      }
+
+      .lesson-time {
+        flex: 1;
+        width: 250rpx;
+        text-align: left;
+        padding-left: 10rpx;
+        font-size: 26rpx;
+      }
+
+      .card-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 30rpx + 70rpx;
+        height: 30rpx + 50rpx;
+        padding: 25rpx 35rpx;
+      }
+    }
+
+    .card-tabs {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      position: relative;
+      margin-bottom: 30rpx;
+
+      .switch-left, .switch-right {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+        top: 0;
+        bottom: 0;
+        padding: 0 10rpx;
+        opacity: .4;
+        &>image {
+          width: 30rpx;
+          height: 30rpx;
+        }
+      }
+
+      .switch-left {
+        left: 0;
+      }
+      .switch-right {
+        right: 0;
+      }
+
+      .card-swiper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        margin: 0 40rpx;
+
+        .card {
+          position: relative;
+          width: 600rpx !important;
+          height: 320rpx !important;
+          margin: 16rpx 36rpx;
+          padding-top: 20rpx;
+          border-radius: 20rpx;
+          box-shadow: -10rpx 20rpx 40rpx -10rpx rgba(100, 100, 100, .5);
+
+          .name {
+            display: flex;
+            align-items: center;
+            height: 100rpx;
+            width: 580rpx;
+            font-size: 44rpx;
+            color: $white;
+            padding: 0 0 20rpx 20rpx;
+          }
+
+          .type {
+            position: absolute;
+            top: 50%;
+            left: 40rpx;
+            width: 40rpx;
+            padding: 10rpx 0;
+            font-size: 26rpx;
+            color: $white;
+            margin: 6rpx 0;
+            border-radius: 8rpx;
+            background-color: $theme-red;
+            line-height: 32rpx;
+            text-align: center;
+            word-wrap: break-word;
+          }
+
+          .content {
+            margin: 40rpx 0 0 100rpx;
+
+            .info-item {
+              .item-content {
+                font-size: 32rpx;
+                color: $white;
+              }
+
+              .item-label {
+                font-size: 26rpx;
+                color: $white;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
