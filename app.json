@@ -1,7 +1,7 @@
 {
   "pages":[
-    "pages/timetable/timetable",
     "pages/index/index",
+    "pages/timetable/timetable",
     "pages/setting/setting",
     "pages/bind/ycjw",
     "pages/bind/card",

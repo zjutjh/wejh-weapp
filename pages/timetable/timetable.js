@@ -125,6 +125,7 @@ Page({
   hideDetail (e) {
     if (e.target.dataset.type === 'mask') {
       this.setState({
+        targetIndex: 0,
         targetLessons: [],
         targetLessonInfo: {}
       })
