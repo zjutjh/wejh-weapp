@@ -19,7 +19,7 @@ export default function ({ store, fetch }) {
     changeTimetableTerm(targetTerm, callback = function () {}) {
       fetch({
         url: API('timetable'),
-        method: 'PATCH',
+        method: 'PUT',
         data: {
           term: targetTerm,
         },

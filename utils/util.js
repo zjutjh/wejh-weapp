@@ -62,7 +62,7 @@ function fixTimetable(classResult) {
       const englishArr = info['地点'].match(/[0-9a-zA-Z:]/g) || []
       lesson['地点长度'] = info['地点'].length * 2 - englishArr.length
       const nameArr = item['课程名称'].match(/[0-9a-zA-Z:]/g) || []
-      lesson['课程名称长度'] = item['课程名称'].length * 2 - nameArr.length
+      lesson['课程名称长度'] = item['课程名称'].length - nameArr.length / 1.2
       lesson['节数'] = info['结束节'] - info['开始节'] + 1
       lesson['起止周'] = info['开始周'] + '-' + info['结束周']
 

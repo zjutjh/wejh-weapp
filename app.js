@@ -16,6 +16,7 @@ const services = Services({
   store
 })
 const staticKey = 'static'
+const systemInfo = wx.getSystemInfoSync()
 App({
   name: '微精弘',
   version: 'v0.0.1',
@@ -45,7 +46,7 @@ App({
       showError: true,
       success: (res) => {
         const result  = res.data
-        store.setFieldState('common', {
+        store.setCommonState({
           time: result.data
         })
       }
@@ -55,7 +56,7 @@ App({
     const _this = this
     const openid = _this.get('openid')
     if(openid) {
-      store.setFieldState('common', {
+      store.setCommonState({
         openid
       })
       _this.autoLogin()
@@ -71,7 +72,7 @@ App({
       success: (res) => {
         const result  = res.data
         const openid = result.data.openid
-        store.setFieldState('common', {
+        store.setCommonState({
           openid
         })
         _this.set('openid', openid)
@@ -86,7 +87,7 @@ App({
       success: (res) => {
         const result  = res.data
         const userInfo = result.data
-        store.setFieldState('common', {
+        store.setCommonState({
           userInfo
         })
       }
@@ -120,7 +121,7 @@ App({
       method: 'POST',
       data: {
         type: 'weapp',
-        openid: store.getStore('common')['openid']
+        openid: store.getCommonState('openid')
       },
       success: (res) => {
         const result = res.data
@@ -128,7 +129,7 @@ App({
           toast({
             title: '自动登录成功'
           })
-          store.setFieldState('common', {
+          store.setCommonState({
             token: result.data.token,
             userInfo: result.data.user
           })
@@ -138,7 +139,7 @@ App({
   },
   getWeappInfo: (cb) => {
     let that = this
-    const commonData = store.getStore('common')
+    const commonData = store.getCommonState()
     if (commonData.userInfo) {
       typeof cb === "function" && cb(commonData.userInfo)
     } else {
@@ -147,7 +148,7 @@ App({
         withCredentials: false,
         success(res) {
           const userInfo = res.userInfo
-          store.setFieldState('common', {
+          store.setCommonState({
             weappInfo: userInfo
           })
           typeof cb === "function" && cb(userInfo)
@@ -161,6 +162,7 @@ App({
       })
     }
   },
+  isDev: systemInfo.platform === 'devtools',
   services,
   API,
   fetch,

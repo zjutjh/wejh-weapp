@@ -1,4 +1,10 @@
-const prefix = 'http://wejh-server.dev/'
+const prefix = {
+  dev: 'http://wejh-server.dev/',
+  production: 'https://server.wejh.imcr.me/'
+}
+
+const systemInfo = wx.getSystemInfoSync()
+const isDev = systemInfo.platform === 'devtools'
 
 const api = {
   'app-list': 'api/app-list',
@@ -20,7 +26,10 @@ const api = {
  * @return {string}
  */
 function API(key) {
-  return prefix + api[key]
+  const domain = isDev ? prefix['dev'] : prefix['production']
+  const url = domain + api[key]
+  console.log(url)
+  return url
 }
 
 export default API

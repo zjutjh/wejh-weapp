@@ -55,6 +55,7 @@ Page({
     app.$store.connect(this, 'timetable')
     this.observeCommon('timetable', 'originalTimetableData')
     this.observeCommon('timetableFixed', 'timetable')
+    this.observeCommon('userInfo')
     this.observeCommon('time')
     this.startTimelineMoving()
     setTimeout(() => {
@@ -65,10 +66,17 @@ Page({
         currentWeek: time.week || 1
       })
 
-      // 判断是否登录并且绑定原创
-      if (!app.isLogin()) {
-        wx.navigateTo({
+      // 判断是否登录
+      if (!app.isLogin() || !this.data.userInfo) {
+        return wx.redirectTo({
           url: '/pages/login/login'
+        })
+      }
+
+      // 判断是否绑定原创
+      if (!this.data.userInfo.ext.passwords_bind.yc_password) {
+        return wx.redirectTo({
+          url: '/pages/bind/ycjw'
         })
       }
 
@@ -82,6 +90,11 @@ Page({
         })
       }
     }, 500)
+  },
+  setTitleTerm (term) {
+    wx.setNavigationBarTitle({
+      title: term + ' 课程表'
+    })
   },
   startTimelineMoving () {
     const _this = this
@@ -140,10 +153,12 @@ Page({
   afterGetTimetable () {
     try {
       const originalTimetableData = this.data.originalTimetableData
+      const term = originalTimetableData.term
       this.getConflictLessons()
       this.setState({
-        currentTerm: originalTimetableData.term,
+        currentTerm: term,
       })
+      this.setTitleTerm(term)
     } catch(e) {
       app.toast({
         icon: 'error',
@@ -218,7 +233,6 @@ Page({
         targetTerm = (parseInt(termArr[1]) + 1) + '/' + (parseInt(termArr[2]) + 1) + '(1)';
       }
     }
-    console.log(targetTerm)
     wx.showLoading({
       title: '切换学期中'
     })

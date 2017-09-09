@@ -40,7 +40,7 @@
                   data-day="{{day_id}}" data-lesson="{{lesson_id}}" bindtap="showLessonDetail"
               >
                 <text class="place" style="font-size: {{ 50 - item['地点长度'] * 2 }}rpx;">{{item['地点']}}</text>
-                <text class="name" style="font-size: {{ item['课程名称长度'] < 20 && item['节数'] < 2 ? 12 :(32 - item['课程名称长度'] / 2) }}rpx;">{{item['课程名称']}}</text>
+                <text class="name" style="font-size: {{ item['课程名称长度'] < 10 && item['节数'] < 2 ? 12 : item['课程名称长度'] > (32 - 14) ? 14 : (32 - item['课程名称长度']) }}rpx;">{{item['课程名称']}}</text>
               </view>
             </view>
           </view>
@@ -93,7 +93,7 @@
               wx:for="{{targetLessons}}" wx:key="detail_card_{{cid}}" wx:for-index="cid" wx:for-item="item"
         >
           <text class="place" style="font-size: {{ 50 - item['地点长度'] * 2 }}rpx;">{{item['地点']}}</text>
-          <text class="name" style="font-size: {{ item['课程名称长度'] < 20 && item['节数'] < 2 ? 12 :(32 - item['课程名称长度'] / 2) }}rpx;">{{item['课程名称']}}</text>
+          <text class="name" style="font-size: {{ item['课程名称长度'] < 10 && item['节数'] < 2 ? 12 : item['课程名称长度'] > (32 - 14) ? 14 : (32 - item['课程名称长度']) }}rpx;">{{item['课程名称']}}</text>
         </view>
       </view>
     </view>
