@@ -3,9 +3,23 @@ import util from './util'
 
 export default function ({ store, fetch }) {
   return {
-    getTimetable(callback = function () {}) {
+    getAppList (callback = function () {}, options) {
+      fetch({
+        url: API('app-list'),
+        ...options,
+        success(res) {
+          let data = res.data.data
+          store.setCommonState({
+            apps: util.fixAppList(data['app-list']),
+            icons: util.fixIcons(data['icons'])
+          })
+        }
+      })
+    },
+    getTimetable (callback = function () {}, options) {
       fetch({
         url: API('timetable'),
+        ...options,
         success(res) {
           let data = res.data.data
           store.setCommonState({
@@ -16,10 +30,24 @@ export default function ({ store, fetch }) {
         }
       })
     },
-    changeTimetableTerm(targetTerm, callback = function () {}) {
+    getScore (callback = function () {}, options) {
+      fetch({
+        url: API('score'),
+        ...options,
+        success(res) {
+          let data = res.data.data
+          store.setCommonState({
+            score: data
+          })
+          callback(res)
+        }
+      })
+    },
+    changeTimetableTerm (targetTerm, callback = function () {}, options) {
       fetch({
         url: API('timetable'),
         method: 'PUT',
+        ...options,
         data: {
           term: targetTerm,
         },

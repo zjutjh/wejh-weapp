@@ -129,6 +129,10 @@
                 <text class="item-content">{{item['起止周']}}周</text>
                 <text class="item-label"> (课程周数)</text>
               </view>
+              <view class="info-item">
+                <text class="item-content">{{item['学分修正']}}</text>
+                <text class="item-label"> (学分)</text>
+              </view>
             </view>
           </swiper-item>
 

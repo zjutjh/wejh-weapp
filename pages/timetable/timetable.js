@@ -30,7 +30,7 @@ Page({
       { begin: '20:25', end: '21:10', beginTop: 1100, endTop: 1200 },
       { begin: '21:11', end: '23:59', beginTop: 1200, endTop: 1300 } //休息
     ],
-    showLoading: false,
+    showLoading: true,
     weekday: ['日', '一', '二', '三', '四', '五', '六', '日'],
     _weeks : ['未开学','第一周','第二周','第三周','第四周','第五周','第六周','第七周','第八周','第九周','第十周','十一周','十二周','十三周','十四周','十五周','十六周','十七周','十八周','十九周','二十周'],
     scroll: {
@@ -85,9 +85,6 @@ Page({
         this.getTimetable(this.afterGetTimetable)
       } else {
         this.afterGetTimetable()
-        _this.setState({
-          showLoading: false
-        })
       }
     }, 500)
   },
@@ -151,6 +148,9 @@ Page({
     })
   },
   afterGetTimetable () {
+    this.setState({
+      showLoading: false
+    })
     try {
       const originalTimetableData = this.data.originalTimetableData
       const term = originalTimetableData.term
@@ -258,7 +258,9 @@ Page({
   getTimetable(callback = function () {}) {
     let _this = this
     if (app.hasToken()) {
-      app.services.getTimetable(callback)
+      app.services.getTimetable(callback, {
+        showError: true
+      })
     } else {
       setTimeout(() => {
         _this.getTimetable()

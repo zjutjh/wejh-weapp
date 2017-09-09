@@ -22,6 +22,8 @@ Page({
   onLoad: function () {
     app.$store.connect(this, 'index')
     this.observeCommon('userInfo')
+    this.observeCommon('apps')
+    this.observeCommon('icons')
     this.getData()
   },
   getData() {
@@ -40,16 +42,10 @@ Page({
     app.services.getTimetable()
   },
   getAppList() {
-    let _this = this
-    app.fetch({
-      url: app.API('app-list'),
-      success(res) {
-        let data = res.data.data
-        _this.setState({
-          apps: _this.fixAppList(data['app-list'])
-        })
-      }
-    })
+    app.services.getAppList(this.afterGetAppList)
+  },
+  afterGetAppList () {
+
   },
   showTip(content, duration = 1500) {
     this.setState({
@@ -85,12 +81,6 @@ Page({
     }
     wx.navigateTo({
       url: appItem.route
-    })
-  },
-  fixAppList (list) {
-    return list.map((item) => {
-      item.bg = '../../images/app-list/' + item.bg +'.png'
-      return item
     })
   }
 })

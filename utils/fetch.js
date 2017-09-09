@@ -31,6 +31,7 @@ export default function ($store) {
         }
         const data = res.data
         if(data.errcode < 0) {
+          console.error(data)
           toast({
             icon: 'error',
             duration: 2000,
@@ -42,6 +43,7 @@ export default function ($store) {
         success(res)
       }
       object.fail = (err) => {
+        console.error(err)
         toast({
           icon: 'error',
           duration: 2000,

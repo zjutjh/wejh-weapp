@@ -1,0 +1,44 @@
+<view class="m-loading-box" wx:if="{{showLoading}}">
+  <image class="icon-loading" src="/images/common/loading.gif"></image>
+</view>
+<view class="container f-bg-gray" wx:else>
+  <view class="m-score">
+    <view class="score-header">
+      <view class="info">
+        <text class="title">成绩查询</text>
+        <text class="info-item">学号：{{id}}</text>
+        <text class="info-item">姓名：{{name}}</text>
+      </view>
+      <view class="logo">
+        <image class="icon" src="{{icons.score.icon}}"></image>
+        <image class="bg" src="{{icons.score.bg}}"></image>
+      </view>
+    </view>
+
+    <view class="score-content">
+
+      <view class="content-header">
+        <view class="logo">
+          <image class="icon" src="{{icons.score.icon}}"></image>
+          <image class="bg" src="{{icons.score.bg}}"></image>
+        </view>
+        <view class="main">
+          <view class="semester">
+            <text class="term">{{score.term}}</text>
+            <text class="name">大{{score.grade_name}}{{score.semester}}学期</text>
+          </view>
+          <view class="gpa">
+            <text class="title">GPA</text>
+            <text class="content">{{score.gpa}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="score-list">
+        <view class="score-item" wx:for="{{score.list}}" wx:key="courseid">
+          <text class="name">{{item['名称']}}</text>
+          <text class="score">{{item['分数']}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
