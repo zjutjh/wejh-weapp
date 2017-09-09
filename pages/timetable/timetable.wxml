@@ -99,7 +99,7 @@
     </view>
 
     <!-- 底部详细介绍 -->
-    <view class="footer-card-tabs{{ targetLessons.length > 0 ? ' open' : '' }}">
+    <view class="footer-card-tabs{{ targetLessons.length > 0 ? ' open' : '' }}" catchtouchmove>
       <view class="header">
         <view class="week">{{targetLessonInfo.weekday}}</view>
         <view class="lesson-time">{{targetLessonInfo.lessonTime}}</view>
@@ -109,7 +109,7 @@
         <!--<view class="switch-left">
           <image src="/images/common/arrow-left.png" mode="aspectFit" data-direction="left" bindtap="swiperSwitch"></image>
         </view>-->
-        <swiper class="card-swiper" bindchange="onSwiper">
+        <swiper class="card-swiper" bindchange="onSwiper" current="{{targetIndex}}">
           <swiper-item
               wx:for="{{targetLessons}}" wx:key="footer_card_{{cid}}" wx:for-index="cid" wx:for-item="item"
               class="card"

@@ -225,7 +225,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
     justify-content: center;
     padding-bottom: 500rpx;
     background: rgba(166, 166, 166, .45);
-    transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: all .4s cubic-bezier(0.19, 1, 0.22, 1);
 
     .detail-content {
       display: flex;
@@ -242,7 +242,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
         text-align: center;
         border-radius: 5rpx;
         overflow: hidden;
-        transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
+        transition: all .4s cubic-bezier(0.19, 1, 0.22, 1);
 
         &:first-child {
           margin-left: 0;
@@ -303,7 +303,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
     align-items: stretch;
     height: 500rpx;
     background: $theme-blue;
-    transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: all .4s cubic-bezier(0.19, 1, 0.22, 1);
     transform: translate3d(0, 100%, 0);
 
     &.open {
@@ -379,13 +379,14 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
         align-items: center;
         justify-content: center;
         flex: 1;
-        margin: 0 40rpx;
+        // margin: 0 40rpx;
+        height: 400rpx;
 
         .card {
           position: relative;
           width: 600rpx !important;
           height: 320rpx !important;
-          margin: 16rpx 36rpx;
+          margin: 0 36rpx + 40rpx;
           padding-top: 20rpx;
           border-radius: 20rpx;
           box-shadow: -10rpx 20rpx 40rpx -10rpx rgba(100, 100, 100, .5);

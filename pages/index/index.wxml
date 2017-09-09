@@ -5,5 +5,11 @@
 <view class="container f-bg-gray">
   <template is="tiny-tip" data="{{ tinyTip, onClickApp }}"/>
 
-  <template is="app-list" data="{{ apps }}"/>
+  <template is="app-list" data="{{ apps, userInfo }}"/>
+
+  <view wx:if="{{!userInfo}}" class="m-remind-box">
+    <image class="remind-img" mode="aspectFit" src="/images/common/nothing.png"></image>
+    <text class="remind-text">请登录</text>
+    <navigator url="/pages/login/login" class="remind-btn">前往绑定</navigator>
+  </view>
 </view>

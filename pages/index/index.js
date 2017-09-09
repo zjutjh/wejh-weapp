@@ -21,6 +21,7 @@ Page({
   },
   onLoad: function () {
     app.$store.connect(this, 'index')
+    this.observeCommon('userInfo')
     this.getData()
   },
   getData() {
