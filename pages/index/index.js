@@ -27,7 +27,6 @@ Page({
     this.getData()
   },
   getData() {
-    this.getAppList()
     if (app.isLogin()) {
       this.getTimetable()
     }
@@ -40,12 +39,6 @@ Page({
   },
   getTimetable() {
     app.services.getTimetable()
-  },
-  getAppList() {
-    app.services.getAppList(this.afterGetAppList)
-  },
-  afterGetAppList () {
-
   },
   showTip(content, duration = 1500) {
     this.setState({

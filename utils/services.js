@@ -35,9 +35,14 @@ export default function ({ store, fetch }) {
         url: API('score'),
         ...options,
         success(res) {
-          let data = res.data.data
+          const data = res.data.data
+          const fixedData = util.fixScore(data)
+          const sortedData = Array.from(fixedData.list).sort((a, b) => {
+            return b['真实成绩'] - a['真实成绩']
+          })
           store.setCommonState({
-            score: data
+            score: fixedData,
+            sortedScoreList: sortedData,
           })
           callback(res)
         }
@@ -46,6 +51,20 @@ export default function ({ store, fetch }) {
     changeTimetableTerm (targetTerm, callback = function () {}, options) {
       fetch({
         url: API('timetable'),
+        method: 'PUT',
+        ...options,
+        data: {
+          term: targetTerm,
+        },
+        showError: true,
+        success(res) {
+          callback(res)
+        }
+      })
+    },
+    changeScoreTerm (targetTerm, callback = function () {}, options) {
+      fetch({
+        url: API('score'),
         method: 'PUT',
         ...options,
         data: {

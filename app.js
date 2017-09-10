@@ -38,6 +38,7 @@ App({
   getData() {
     this.getTermTime()
     this.getWeappInfo()
+    this.getAppList()
     this.login(this.getOpenid)
   },
   getTermTime: () => {
@@ -51,6 +52,9 @@ App({
         })
       }
     })
+  },
+  getAppList () {
+    services.getAppList()
   },
   getOpenid(code) {
     const _this = this

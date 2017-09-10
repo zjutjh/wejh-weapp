@@ -194,5 +194,34 @@ module.exports = {
       icons[key].bg = '../../images/app-list/' + icons[key].bg +'.png'
     }
     return icons
+  },
+  fixScore (scoreData) {
+    const list = scoreData.list
+    list.forEach((item) => {
+      item['真实成绩'] = this.getTrueScore(item['成绩'])
+    })
+    return scoreData
+  },
+  getTrueScore (scoreString) {
+    if (isNaN(scoreString)) {
+      switch(scoreString) {
+        case '优秀':
+          return 95
+        case '良好':
+          return 85
+        case '中等':
+          return 75
+          break;
+        case '及格':
+          return 65
+        default:
+          return 0
+      }
+    } else {
+      if (scoreString <= 5 && scoreString > 0) {
+        return (scoreString + 5) * 10
+      }
+      return +scoreString
+    }
   }
 }

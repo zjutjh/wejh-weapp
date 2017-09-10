@@ -2,3 +2,18 @@
   width: 250rpx;
   height: 250rpx;
 }
+.sort-touch {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100rpx;
+  width: 100rpx;
+}
+.icon-sort {
+  width: 40rpx;
+  height: 40rpx;
+
+  &.active {
+    animation: bubble-in 500ms ease-out;
+  }
+}

@@ -5,9 +5,12 @@
   <view class="m-score">
     <view class="score-header">
       <view class="info">
-        <text class="title">成绩查询</text>
-        <text class="info-item">学号：{{id}}</text>
-        <text class="info-item">姓名：{{name}}</text>
+        <view class="title">
+          <text class="content">成绩查询</text>
+          <image class="eye" src="/images/common/eye-{{hideInfo ? 'close-' : ''}}gray.png" bindtap="toggleHideInfo"></image>
+        </view>
+        <text class="info-item">学号：{{hideInfo ? '************' : userInfo.uno}}</text>
+        <text class="info-item">姓名：{{hideInfo ? '**' : userInfo.ext.school_info.name}}</text>
       </view>
       <view class="logo">
         <image class="icon" src="{{icons.score.icon}}"></image>
@@ -18,8 +21,9 @@
     <view class="score-content">
 
       <view class="content-header">
-        <view class="logo">
-          <image class="icon" src="{{icons.score.icon}}"></image>
+        <view class="logo" bindtap="toggleHideScore">
+          <image class="icon" src="{{icons.score.icon}}" wx:if="{{!hideScore}}"></image>
+          <image class="eye-close" src="/images/common/eye-close.png" wx:else></image>
           <image class="bg" src="{{icons.score.bg}}"></image>
         </view>
         <view class="main">
@@ -34,10 +38,28 @@
         </view>
       </view>
       <view class="score-list">
-        <view class="score-item" wx:for="{{score.list}}" wx:key="courseid">
+        <view class="score-item" wx:for="{{sort ? sortedScoreList : score.list}}" wx:key="course_{{course_id}}" wx:for-index="course_id">
           <text class="name">{{item['名称']}}</text>
-          <text class="score">{{item['分数']}}</text>
+          <text class="score">{{hideScore ? '**' : item['成绩']}}</text>
         </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部 -->
+  <view class="m-footer-bar red">
+    <view class="left">
+      <view class="sort-touch" bindtap="toggleSort">
+        <image class="icon-sort{{sortAnimation ? ' active' : ''}}" src="/images/common/sort-white.png"></image>
+      </view>
+    </view>
+    <view class="middle">
+      <view class="switch-btn" data-direction="left" bindtap="switchTerm">
+        <image src="/images/common/arrow-left.png" class="icon icon-arrow-left" mode="aspectFit"></image>
+      </view>
+      <text class="title">{{currentTerm}}</text>
+      <view class="switch-btn" data-direction="right" bindtap="switchTerm">
+        <image src="/images/common/arrow-right.png" class="icon icon-arrow-right" mode="aspectFit"></image>
       </view>
     </view>
   </view>

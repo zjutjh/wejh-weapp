@@ -1,7 +1,7 @@
 {
   "pages":[
-    "pages/index/index",
     "pages/score/score",
+    "pages/index/index",
     "pages/timetable/timetable",
     "pages/setting/setting",
     "pages/bind/ycjw",

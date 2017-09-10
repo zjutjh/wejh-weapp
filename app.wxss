@@ -9,6 +9,15 @@
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0); } }
+@keyframes bubble-in {
+  0% {
+    transform: scale(1); }
+  10% {
+    transform: scale(0.8); }
+  60% {
+    transform: scale(1.2); }
+  100% {
+    transform: scale(1); } }
 .f-text-ellipsis {
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -122,6 +131,19 @@ text {
 .icon-loading {
   width: 250rpx;
   height: 250rpx; }
+
+.sort-touch {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100rpx;
+  width: 100rpx; }
+
+.icon-sort {
+  width: 40rpx;
+  height: 40rpx; }
+  .icon-sort.active {
+    animation: bubble-in 500ms ease-out; }
 
 /**app.wxss**/
 .container {
@@ -1041,5 +1063,136 @@ text {
     border-radius: 3px;
     border-bottom: 2px solid #4fc08d;
     color: #fff; }
+
+.m-score {
+  flex: 1;
+  padding: 0 30rpx 180rpx 30rpx; }
+  .m-score .score-header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50rpx 25rpx; }
+    .m-score .score-header .info {
+      display: flex;
+      flex-direction: column; }
+      .m-score .score-header .info .title {
+        font-size: 52rpx;
+        font-weight: bold;
+        line-height: 150%;
+        margin-bottom: 15rpx;
+        color: #222; }
+        .m-score .score-header .info .title .eye {
+          margin-left: 14rpx;
+          width: 36rpx;
+          height: 36rpx; }
+      .m-score .score-header .info .info-item {
+        font-size: 30rpx;
+        line-height: 160%;
+        color: #888; }
+    .m-score .score-header .logo {
+      position: relative;
+      display: block;
+      width: 200rpx;
+      height: 200rpx;
+      padding-right: 5rpx;
+      opacity: .3; }
+      .m-score .score-header .logo .icon {
+        z-index: 2;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200rpx;
+        height: 200rpx; }
+      .m-score .score-header .logo .bg {
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200rpx;
+        height: 200rpx; }
+  .m-score .score-content {
+    background: #fff;
+    border-radius: 6rpx; }
+    .m-score .score-content .content-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 25rpx 30rpx; }
+      .m-score .score-content .content-header .main {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between; }
+        .m-score .score-content .content-header .main .semester {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around; }
+          .m-score .score-content .content-header .main .semester .term {
+            color: #495057;
+            font-size: 30rpx; }
+          .m-score .score-content .content-header .main .semester .name {
+            color: #868e96;
+            font-size: 26rpx; }
+        .m-score .score-content .content-header .main .gpa {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around; }
+          .m-score .score-content .content-header .main .gpa .title {
+            font-size: 46rpx;
+            color: #e78ab0;
+            font-weight: bold;
+            text-align: right; }
+          .m-score .score-content .content-header .main .gpa .content {
+            font-size: 40rpx;
+            color: #adb5bd;
+            text-align: right; }
+      .m-score .score-content .content-header .logo {
+        position: relative;
+        display: flex;
+        margin-right: 20rpx;
+        width: 100rpx;
+        height: 100rpx; }
+        .m-score .score-content .content-header .logo .icon {
+          z-index: 2;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 100rpx;
+          height: 100rpx; }
+        .m-score .score-content .content-header .logo .eye-close {
+          z-index: 2;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 50rpx;
+          height: 50rpx; }
+        .m-score .score-content .content-header .logo .bg {
+          z-index: 1;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 100rpx;
+          height: 100rpx; }
+    .m-score .score-content .score-list {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: stretch;
+      padding: 5rpx 30rpx 15rpx; }
+      .m-score .score-content .score-list .score-item {
+        background: #fff;
+        font-size: 30rpx;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #eee;
+        padding: 25rpx 10rpx 20rpx 5rpx; }
+        .m-score .score-content .score-list .score-item .score {
+          text-align: right;
+          width: 100rpx; }
 
 /*# sourceMappingURL=app.wxss.map */
