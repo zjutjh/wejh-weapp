@@ -1,7 +1,8 @@
 {
   "pages":[
-    "pages/score/score",
     "pages/index/index",
+    "pages/exam/exam",
+    "pages/score/score",
     "pages/timetable/timetable",
     "pages/setting/setting",
     "pages/bind/ycjw",

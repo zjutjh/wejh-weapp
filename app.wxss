@@ -1195,4 +1195,123 @@ text {
           text-align: right;
           width: 100rpx; }
 
+.m-exam {
+  flex: 1;
+  padding: 0 30rpx 180rpx 30rpx; }
+  .m-exam .exam-header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50rpx 25rpx; }
+    .m-exam .exam-header .info {
+      display: flex;
+      flex-direction: column; }
+      .m-exam .exam-header .info .title {
+        font-size: 52rpx;
+        font-weight: bold;
+        line-height: 150%;
+        margin-bottom: 15rpx;
+        color: #222; }
+        .m-exam .exam-header .info .title .eye {
+          margin-left: 14rpx;
+          width: 36rpx;
+          height: 36rpx; }
+      .m-exam .exam-header .info .info-item {
+        font-size: 30rpx;
+        line-height: 160%;
+        color: #888; }
+    .m-exam .exam-header .logo {
+      position: relative;
+      display: block;
+      width: 200rpx;
+      height: 200rpx;
+      padding-right: 5rpx;
+      opacity: .3; }
+      .m-exam .exam-header .logo .icon {
+        z-index: 2;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200rpx;
+        height: 200rpx; }
+      .m-exam .exam-header .logo .bg {
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200rpx;
+        height: 200rpx; }
+  .m-exam .exam-content .exam-list {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    padding: 5rpx 30rpx 15rpx; }
+    .m-exam .exam-content .exam-list .exam-item {
+      display: flex;
+      flex-direction: column;
+      font-size: 30rpx;
+      padding: 0 40rpx;
+      margin-bottom: 20rpx;
+      background-color: #fff;
+      border-radius: 3px; }
+      .m-exam .exam-content .exam-list .exam-item .head {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        height: 145rpx; }
+        .m-exam .exam-content .exam-list .exam-item .head .arrow {
+          flex-shrink: 0;
+          width: 30rpx;
+          height: 30rpx;
+          transition: transform .2s;
+          transform: rotate(0deg); }
+        .m-exam .exam-content .exam-list .exam-item .head .main-info {
+          max-width: 80%;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center; }
+        .m-exam .exam-content .exam-list .exam-item .head .name {
+          margin-bottom: 10rpx;
+          font-size: 32rpx;
+          transition: color .15s ease-in-out;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis; }
+        .m-exam .exam-content .exam-list .exam-item .head .subtitle {
+          font-size: 26rpx;
+          line-height: 100%;
+          color: #aaa; }
+          .m-exam .exam-content .exam-list .exam-item .head .subtitle .countdown {
+            font-size: 26rpx;
+            line-height: 100%;
+            color: #aaa; }
+            .m-exam .exam-content .exam-list .exam-item .head .subtitle .countdown.red {
+              color: #ff7b7d; }
+      .m-exam .exam-content .exam-list .exam-item .detail-info {
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        padding: 0; }
+        .m-exam .exam-content .exam-list .exam-item .detail-info .detail-item {
+          display: flex;
+          align-items: center;
+          padding: 25rpx 5rpx 20rpx;
+          border-top: 1px solid #eee; }
+          .m-exam .exam-content .exam-list .exam-item .detail-info .detail-item .label {
+            color: #888;
+            width: 150rpx; }
+          .m-exam .exam-content .exam-list .exam-item .detail-info .detail-item .content {
+            flex: 1; }
+      .m-exam .exam-content .exam-list .exam-item.open .head .name {
+        color: #7acfa6; }
+      .m-exam .exam-content .exam-list .exam-item.open .head .arrow {
+        transform: rotate(180deg); }
+      .m-exam .exam-content .exam-list .exam-item.open .detail-info {
+        display: flex;
+        padding: 5rpx 0 15rpx; }
+
 /*# sourceMappingURL=app.wxss.map */

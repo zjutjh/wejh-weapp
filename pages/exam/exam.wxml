@@ -1,0 +1,71 @@
+<view class="m-loading-box" wx:if="{{showLoading}}">
+  <image class="icon-loading" src="/images/common/loading.gif"></image>
+</view>
+<view class="container f-bg-gray" wx:else>
+  <view class="m-exam">
+    <view class="exam-header">
+      <view class="info">
+        <view class="title">
+          <text class="content">考试安排查询</text>
+          <image class="eye" src="/images/common/eye-{{hideInfo ? 'close-' : ''}}gray.png" bindtap="toggleHideInfo"></image>
+        </view>
+        <text class="info-item">学号：{{hideInfo ? '************' : userInfo.uno}}</text>
+        <text class="info-item">姓名：{{hideInfo ? '**' : userInfo.ext.school_info.name}}</text>
+      </view>
+      <view class="logo">
+        <image class="icon" src="{{icons.exam.icon}}"></image>
+        <image class="bg" src="{{icons.exam.bg}}"></image>
+      </view>
+    </view>
+
+    <view class="exam-content">
+      <view class="exam-list">
+        <view class="exam-item{{item.open ? ' open' : ''}}" wx:for="{{exam.list}}" wx:key="course_{{course_id}}" wx:for-index="course_id">
+          <view class="head" bindtap="toggleShowExam" data-index="{{course_id}}">
+            <view class="main-info">
+              <text class="name">{{item['课程']}}</text>
+              <text class="subtitle"><text class="countdown{{item['倒计时'] <= 3 && item['倒计时'] >= 0 ? ' red' : ''}}">{{item['倒计时名']}}</text> {{item['教室']}}</text>
+            </view>
+            <image class="arrow" src="/images/common/arrow-down-gray.png"></image>
+          </view>
+          <view class="detail-info">
+            <view class="detail-item">
+              <text class="label">日期</text>
+              <text class="content">{{item['日']}} ({{item['周'] ? item['周'] + '周-' : ''}}星期{{item['星期名']}})</text>
+            </view>
+            <view class="detail-item">
+              <text class="label">时间</text>
+              <text class="content">{{item['时段']}}</text>
+            </view>
+            <view class="detail-item">
+              <text class="label">地点</text>
+              <text class="content">{{item['教室']}}</text>
+            </view>
+            <view class="detail-item">
+              <text class="label">任课教师</text>
+              <text class="content">{{item['教师']}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{!exam.list.length}}" class="m-remind-box">
+      <image class="remind-img" mode="aspectFit" src="/images/common/nothing.png"></image>
+      <text class="remind-text">暂无排考信息</text>
+    </view>
+  </view>
+
+  <!-- 底部 -->
+  <view class="m-footer-bar green">
+    <view class="middle">
+      <view class="switch-btn" data-direction="left" bindtap="switchTerm">
+        <image src="/images/common/arrow-left.png" class="icon icon-arrow-left" mode="aspectFit"></image>
+      </view>
+      <text class="title">{{currentTerm}}</text>
+      <view class="switch-btn" data-direction="right" bindtap="switchTerm">
+        <image src="/images/common/arrow-right.png" class="icon icon-arrow-right" mode="aspectFit"></image>
+      </view>
+    </view>
+  </view>
+</view>

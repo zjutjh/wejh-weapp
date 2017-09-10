@@ -202,6 +202,15 @@ module.exports = {
     })
     return scoreData
   },
+  fixExam (examData) {
+    const list = examData.list
+    list.sort((a, b) => {
+      let tempA = a['倒计时'] < 0 ? -a['倒计时'] + 99 : a['倒计时']
+      let tempB = b['倒计时'] < 0 ? -b['倒计时'] + 99 : b['倒计时']
+      return tempA - tempB
+    })
+    return examData
+  },
   getTrueScore (scoreString) {
     if (isNaN(scoreString)) {
       switch(scoreString) {

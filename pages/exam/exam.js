@@ -2,19 +2,15 @@ let app = getApp()
 
 Page({
   data: {
-    sort: false,
-    sortAnimation: false,
-    hideScore: false,
     hideInfo: false,
     showLoading: true,
     currentTerm: ''
   },
   onLoad () {
     let _this = this
-    app.$store.connect(this, 'score')
-    this.observeCommon('score')
-    this.observeCommon('sortedScoreList')
+    app.$store.connect(this, 'exam')
     this.observeCommon('icons')
+    this.observeCommon('exam')
     this.observeCommon('userInfo')
     setTimeout(() => {
       // 判断是否登录
@@ -32,47 +28,38 @@ Page({
       }
 
       // 判断是否有成绩数据
-      if (!this.data.score) {
-        this.getScore(this.afterGetScore)
+      if (!this.data.exam) {
+        this.getExam(this.afterGetExam)
       } else {
-        this.afterGetScore()
+        this.afterGetExam()
       }
     }, 500)
-  },
-  toggleHideScore () {
-    this.setState({
-      hideScore: !this.data.hideScore
-    })
   },
   toggleHideInfo () {
     this.setState({
       hideInfo: !this.data.hideInfo
     })
   },
-  toggleSort () {
-    this.setState({
-      sortAnimation: true,
-      sort: !this.data.sort
+  toggleShowExam (e) {
+    const index = e.currentTarget.dataset.index
+    const exam = this.data.exam
+    exam.list[index].open = !exam.list[index].open
+    app.$store.setCommonState({
+      exam: exam
     })
-
-    setTimeout(() => {
-      this.setState({
-        sortAnimation: false
-      })
-    }, 500)
   },
-  getScore () {
-    app.services.getScore(this.afterGetScore, {
+  getExam () {
+    app.services.getExam(this.afterGetExam, {
       showError: true
     })
   },
-  afterGetScore () {
+  afterGetExam () {
     this.setState({
       showLoading: false
     })
     try {
-      const scoreData = this.data.score
-      const term = scoreData.term
+      const examData = this.data.exam
+      const term = examData.term
       this.setState({
         currentTerm: term,
       })
@@ -106,10 +93,10 @@ Page({
     wx.showLoading({
       title: '切换学期中'
     })
-    app.services.changeScoreTerm(targetTerm, () => {
-      app.services.getScore(() => {
+    app.services.changeExamTerm(targetTerm, () => {
+      app.services.getExam(() => {
         wx.hideLoading()
-        _this.afterGetScore()
+        _this.afterGetExam()
       })
     })
   },

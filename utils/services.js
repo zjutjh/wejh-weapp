@@ -48,6 +48,19 @@ export default function ({ store, fetch }) {
         }
       })
     },
+    getExam (callback = function () {}, options) {
+      fetch({
+        url: API('exam'),
+        ...options,
+        success(res) {
+          const data = res.data.data
+          store.setCommonState({
+            exam: util.fixExam(data),
+          })
+          callback(res)
+        }
+      })
+    },
     changeTimetableTerm (targetTerm, callback = function () {}, options) {
       fetch({
         url: API('timetable'),
@@ -65,6 +78,20 @@ export default function ({ store, fetch }) {
     changeScoreTerm (targetTerm, callback = function () {}, options) {
       fetch({
         url: API('score'),
+        method: 'PUT',
+        ...options,
+        data: {
+          term: targetTerm,
+        },
+        showError: true,
+        success(res) {
+          callback(res)
+        }
+      })
+    },
+    changeExamTerm (targetTerm, callback = function () {}, options) {
+      fetch({
+        url: API('exam'),
         method: 'PUT',
         ...options,
         data: {
