@@ -18,7 +18,7 @@
       </view>
     </view>
 
-    <view class="score-content">
+    <view class="score-content" wx:if="{{score.list.length > 0}}">
 
       <view class="content-header">
         <view class="logo" bindtap="toggleHideScore">
@@ -43,6 +43,10 @@
           <text class="score">{{hideScore ? '**' : item['成绩']}}</text>
         </view>
       </view>
+    </view>
+    <view class="m-remind-box" wx:else>
+      <image class="remind-img" mode="aspectFit" src="/images/common/nothing.png"></image>
+      <text class="remind-text">本学期暂无成绩信息</text>
     </view>
   </view>
 

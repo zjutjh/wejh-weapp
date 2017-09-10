@@ -223,6 +223,8 @@ module.exports = {
           break;
         case '及格':
           return 65
+        case '通过':
+          return 60
         default:
           return 0
       }
