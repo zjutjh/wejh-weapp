@@ -1246,7 +1246,7 @@ text {
     display: flex;
     flex-flow: column nowrap;
     align-items: stretch;
-    padding: 5rpx 30rpx 15rpx; }
+    padding: 5rpx 0 15rpx; }
     .m-exam .exam-content .exam-list .exam-item {
       display: flex;
       flex-direction: column;
