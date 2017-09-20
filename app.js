@@ -10,13 +10,17 @@ const store = new WeappStore({
     weappInfo: null
   }
 })
-const fetch = Fetch(store)
+const systemInfo = wx.getSystemInfoSync()
+const isDev = systemInfo.platform === 'devtools'
+const fetch = Fetch({
+  $store: store,
+  isDev
+})
 const services = Services({
   fetch,
   store
 })
 const staticKey = 'static'
-const systemInfo = wx.getSystemInfoSync()
 App({
   name: '微精弘',
   version: 'v0.0.1',

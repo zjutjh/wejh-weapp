@@ -211,6 +211,29 @@ module.exports = {
     })
     return examData
   },
+  fixFreeroom (freeroomData) {
+    const list = freeroomData.list
+    const roomMap = {}
+
+    list.forEach((item) => {
+      const buildName = item['区域名称']
+      if (!roomMap[buildName]) {
+        roomMap[buildName] = {}
+      }
+      if (!roomMap[buildName].list) {
+        roomMap[buildName].list = []
+      }
+      item['disabled'] = !!(item['使用部门'] || item['使用班级'])
+      roomMap[buildName].iconText = buildName.slice(0, 1)
+      roomMap[buildName].list.push(item)
+    })
+    for(let build in roomMap) {
+      roomMap[build].list.sort((a, b) => {
+        return b['容量'] - a['容量']
+      })
+    }
+    return roomMap
+  },
   getTrueScore (scoreString) {
     if (isNaN(scoreString)) {
       switch(scoreString) {

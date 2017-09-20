@@ -40,7 +40,7 @@ Page({
     }
 
     app.fetch({
-      url: app.API('ycjw/bind'),
+      url: app.API('zf/bind'),
       data: {
         password,
       },

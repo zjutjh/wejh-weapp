@@ -57,6 +57,7 @@
       align-items: flex-end;
       justify-content: center;
       height: 100%;
+      margin-right: 32rpx;
 
       .term {
         color: $white;
@@ -73,7 +74,6 @@
     }
 
     .icon-next {
-      margin-left: 32rpx;
       width: 32rpx;
       height: 32rpx;
     }

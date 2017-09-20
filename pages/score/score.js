@@ -23,12 +23,21 @@ Page({
           url: '/pages/login/login'
         })
       }
-
-      // 判断是否绑定原创
-      if (!this.data.userInfo.ext.passwords_bind.yc_password) {
-        return wx.redirectTo({
-          url: '/pages/bind/ycjw'
-        })
+      const year = this.data.userInfo.uno.slice(0, 4)
+      if (year <= 2013) {
+        // 判断是否绑定原创
+        if (!this.data.userInfo.ext.passwords_bind.yc_password) {
+          return wx.redirectTo({
+            url: '/pages/bind/ycjw'
+          })
+        }
+      } else {
+        // 判断是否绑定正方
+        if (!this.data.userInfo.ext.passwords_bind.zf_password) {
+          return wx.redirectTo({
+            url: '/pages/bind/zf'
+          })
+        }
       }
 
       // 判断是否有成绩数据

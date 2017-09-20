@@ -20,6 +20,7 @@ export default function ({ store, fetch }) {
       fetch({
         url: API('timetable'),
         ...options,
+        showError: true,
         success(res) {
           let data = res.data.data
           store.setCommonState({
@@ -33,6 +34,7 @@ export default function ({ store, fetch }) {
     getScore (callback = function () {}, options) {
       fetch({
         url: API('score'),
+        showError: true,
         ...options,
         success(res) {
           const data = res.data.data
@@ -52,10 +54,26 @@ export default function ({ store, fetch }) {
       fetch({
         url: API('exam'),
         ...options,
+        showError: true,
         success(res) {
           const data = res.data.data
           store.setCommonState({
             exam: util.fixExam(data),
+          })
+          callback(res)
+        }
+      })
+    },
+    getFreeroom (callback = function () {}, options) {
+      fetch({
+        url: API('freeroom'),
+        showError: true,
+        ...options,
+        success(res) {
+          const data = res.data.data
+          store.setCommonState({
+            originalFreeroomData: data,
+            freeroom: util.fixFreeroom(data),
           })
           callback(res)
         }

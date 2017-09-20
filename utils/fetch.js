@@ -1,6 +1,5 @@
 import toast from './toast'
-
-export default function ($store) {
+export default function ({$store, isDev}) {
   return function fetch(object) {
     const commonData = $store.getCommonState()
     const token = commonData.token || ''
@@ -51,6 +50,10 @@ export default function ($store) {
         })
       }
     }
+
+    //if (isDev) {
+      console.log(object)
+    //}
 
     wx.request(object)
   }

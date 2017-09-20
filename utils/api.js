@@ -18,6 +18,8 @@ const api = {
   'timetable': 'api/ycjw/timetable',
   'score': 'api/ycjw/score',
   'exam': 'api/ycjw/exam',
+  'freeroom': 'api/freeroom',
+  'zf/bind': 'api/zf/bind',
   'ycjw/bind': 'api/ycjw/bind',
   'card/bind': 'api/card/bind',
   'library/bind': 'api/library/bind',
