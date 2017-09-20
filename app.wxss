@@ -1317,7 +1317,7 @@ text {
 .m-freeroom .room-display {
   display: flex;
   flex-flow: column nowrap;
-  padding: 30rpx 45rpx 400rpx; }
+  padding: 30rpx 45rpx 480rpx; }
   .m-freeroom .room-display .build {
     display: flex;
     flex-direction: row; }

@@ -1,4 +1,4 @@
-$room-option-height: 100rpx;
+$room-option-height: 120rpx;
 
 .m-freeroom {
 
@@ -118,7 +118,7 @@ $room-option-height: 100rpx;
         display: inline-block;
         position: relative;
         margin-right: 30rpx;
-        width: 120rpx;
+        width: $room-option-height;
         height: 100%;
 
         .text {
