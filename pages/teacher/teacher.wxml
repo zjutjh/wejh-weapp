@@ -1,0 +1,66 @@
+<view class="container f-bg-gray">
+  <view class="m-teacher{{ wd ? '' : ' home' }}">
+    <view class="header">
+      <view class="logo">
+        <image class="icon" src="{{icons.teacher.icon}}"></image>
+        <image class="bg" src="{{icons.teacher.bg}}"></image>
+      </view>
+      <!--搜索框-->
+      <view class="search-input">
+        <view class="search-icon-box">
+          <image class="search-icon" src="/images/common/search-sign.png"></image>
+        </view>
+        <form class="input-form" bindreset="bindClearSearchTap" bindsubmit="bindConfirmSearchTap">
+          <input class="input-text" bindinput="bindSearchInput" type="text" name="search" placeholder="请输入教师姓名" bindconfirm="bindConfirmSearchTap" />
+          <button class="input-clear-button" formType="reset" hover-class="none" wx:if="{{header.inputValue}}">
+            <image class="clear-icon" src="/images/common/clear.png"></image>
+          </button>
+          <button class="input-confirm-button" formType="submit" hover-class="none">
+            <text>搜索</text>
+          </button>
+        </form>
+      </view>
+    </view>
+
+    <view class="main" wx:if="{{teacher.list.length > 0}}">
+      <!--主体部分标题-->
+      <view class="main-title">
+        <text class="title-text">相关教师 （{{teacher.list.length}}人）</text>
+      </view>
+      <!--主体部分内容列表-->
+      <view class="main-list" wx:for="{{teacher.list}}" wx:key="teacher_id">
+        <!--列表的一个元素的模板结构-->
+        <view class="list-item">
+          <!--信息直接显示部分-->
+          <view class="item" data-index="{{index}}" bindtap="bindOpenList">
+            <view class="item-content">
+              <view class="item-info">
+                <view class="name">
+                  <block wx:for="{{item.nameArr}}">
+                    <text wx:if="{{!item.active}}">{{item.value}}</text>
+                    <text wx:else class="highlight">{{item.value}}</text>
+                  </block>
+                </view>
+                <view class="info-list">
+                  <view class="info-item" wx:if="{{item.email}}">
+                    <text class="label">邮箱</text>
+                    <text class="value">{{item.email}}</text>
+                  </view>
+                  <view class="info-item" wx:if="{{item.office_phone}}">
+                    <text class="label">办公室电话</text>
+                    <text class="value">{{item.office_phone}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+
+        </view>
+
+      </view>
+
+    </view>
+
+  </view>
+
+</view>

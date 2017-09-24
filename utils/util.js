@@ -211,6 +211,50 @@ module.exports = {
     })
     return examData
   },
+  fixCard (cardData) {
+    const list = cardData['今日账单']
+    list.reverse()
+    function getTrueBalance (list, index) {
+      if (list[index]['卡余额'] !== 'N/A') {
+        return list[index]['卡余额'] - (+list[index]['交易额'])
+      } else {
+        if (index - 1 < 0) {
+          return +cardData['卡余额']
+        }
+        return getTrueBalance(list, index - 1) - (+list[index]['交易额'])
+      }
+    }
+    list.forEach((item, index) => {
+      item['商户'] = item['商户'].trim()
+      if (item['卡余额'] === 'N/A') {
+        item['卡余额'] = getTrueBalance(list, index).toFixed(2)
+      }
+    })
+    list.reverse()
+    return cardData
+  },
+  fixTeacher (teacherData) {
+    const wd = teacherData.wd
+    const list = teacherData.list
+    if (!wd) {
+      return teacherData
+    }
+    list.forEach((item) => {
+      const nameArr = item.name.split(new RegExp(wd, 'g')).map((item) => {
+        return JSON.stringify({
+          active: false,
+          value: item
+        })
+      })
+      const str = '[' + nameArr.join(JSON.stringify({
+        active: true,
+        value: wd
+      })).split('}{').join('},{') + ']'
+
+      item.nameArr = JSON.parse(str)
+    })
+    return teacherData
+  },
   fixFreeroom (freeroomData) {
     const list = freeroomData.list
     const roomMap = {}

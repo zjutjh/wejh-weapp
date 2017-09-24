@@ -1,0 +1,70 @@
+<view class="m-loading-box" wx:if="{{showLoading}}">
+  <image class="icon-loading" src="/images/common/loading.gif"></image>
+</view>
+<view class="container f-bg-gray" wx:else>
+  <view class="m-card">
+    <view class="card">
+      <view class="black-line"></view>
+      <image class="icon" src="{{icons.card.icon}}"></image>
+      <view class="content">
+        <view class="label">余额</view>
+        <view class="balance">
+          <text class="value">{{card['卡余额']}}</text>
+          <text class="unit">元</text>
+        </view>
+      </view>
+      <view class="date">截止时间: {{todayTime}}</view>
+      <view class="uno">学号: {{userInfo.uno}}</view>
+    </view>
+
+    <view class="balance-graph">
+      <view class="label">今日交易情况: </view>
+      <view class="tab-list" bindtap="switchTab">
+        <view class="tab{{tabIndex === index ? ' active' : ''}}" wx:key="tab_{{index}}" wx:for="{{tabs}}" wx:for-item="tab" wx:for-index="index">
+          {{tab}}
+        </view>
+      </view>
+      <view class="graph-area">
+        <view class="mask" wx:if="{{ card['今日账单'].length === 0 }}">今日暂无交易记录</view>
+        <canvas id="card-canvas" canvas-id="balanceCanvas" bindtap="canvasTap" wx:if="{{ card['今日账单'].length !== 0 }}"></canvas>
+        <view class="line" style="left: {{lineLeft}}rpx;" wx:if="{{ card['今日账单'].length !== 0 }}"></view>
+        <view class="y-text" wx:if="{{ card['今日账单'].length !== 0 }}">{{tabs[tabIndex]}}</view>
+        <view class="x-text" wx:if="{{ card['今日账单'].length !== 0 }}">最近交易</view>
+      </view>
+    </view>
+
+    <view class="tip" wx:if="{{ card['今日账单'].length !== 0 }}">点击上图查看对应交易详情</view>
+    <view class="card-detail" wx:if="{{ card['今日账单'].length !== 0 }}">
+      <view class="head">
+        <text class="text">交易详情</text>
+      </view>
+      <view class="detail-list">
+        <view class="detail-item">
+          <text class="detail-item-label">交易时间</text>
+          <text class="detail-item-value">{{tapDetail['到账时间']}}</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-item-label">交易类型</text>
+          <text class="detail-item-value">{{tapDetail['交易类型']}}</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-item-label">交易金额</text>
+          <text class="detail-item-value">{{(tapDetail['交易额'] > 0 ? '+' : '') + tapDetail['交易额']}}</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-item-label">交易商户</text>
+          <text class="detail-item-value">{{tapDetail['商户']}}</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-item-label">交易站点</text>
+          <text class="detail-item-value">{{tapDetail['站点']}}</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-item-label">交易余额</text>
+          <text class="detail-item-value">{{tapDetail['卡余额']}}</text>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</view>

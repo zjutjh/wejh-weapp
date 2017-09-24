@@ -79,6 +79,34 @@ export default function ({ store, fetch }) {
         }
       })
     },
+    getCard (callback = function () {}, options) {
+      fetch({
+        url: API('card'),
+        showError: true,
+        ...options,
+        success(res) {
+          const data = res.data.data
+          store.setCommonState({
+            card: util.fixCard(data)
+          })
+          callback(res)
+        }
+      })
+    },
+    getTeacher (callback = function () {}, options) {
+      fetch({
+        url: API('teacher'),
+        showError: true,
+        ...options,
+        success(res) {
+          const data = res.data.data
+          store.setCommonState({
+            teacher: util.fixTeacher(data)
+          })
+          callback(res)
+        }
+      })
+    },
     changeTimetableTerm (targetTerm, callback = function () {}, options) {
       fetch({
         url: API('timetable'),

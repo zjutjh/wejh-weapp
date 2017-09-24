@@ -170,6 +170,7 @@ App({
       })
     }
   },
+  systemInfo,
   isDev: systemInfo.platform === 'devtools',
   services,
   API,

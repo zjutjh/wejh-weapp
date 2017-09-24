@@ -138,7 +138,7 @@ Page({
     const value = e.currentTarget.dataset.value
     const form = this.data.form
     form[type] = value
-    if (form['endTime'] < form['startTime']) {
+    if (+form['endTime'] < +form['startTime']) {
       if (type === 'endTime') {
         form['startTime'] = form['endTime']
       } else {
