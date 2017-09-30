@@ -8,7 +8,7 @@ Page({
       '交易额'
     ],
     gridNum: 6,
-    lineLeft: 35 * 2 - 1,
+    lineLeft: 35 - 1,
     tabIndex: 0,
     fontSize: 12,
     canvasWidth: app.systemInfo.windowWidth,
@@ -63,7 +63,7 @@ Page({
     let i = Math.round((tapX - gridMarginLeft) / iwidth)
     points[i] && this.setState({
       tapDetail: points[i].detail,
-      lineLeft: gridMarginLeft * 2 + iwidth * i * 2 - 1,  // 详情竖线的left
+      lineLeft: gridMarginLeft + iwidth * i - 1,  // 详情竖线的left
       currentIndex: i  // 当前点的索引，即显示当前详情
     })
 
@@ -112,7 +112,7 @@ Page({
       if (i === 0) {
         numY = !!tabIndex ? 0 : minY.toFixed(0)
       } else {
-        numY = !!tabIndex ? (spaceYe * i).toFixed(0) : (minY + (spaceYe * i)).toFixed(0)
+        numY = !!tabIndex ? Math.abs(spaceYe * i).toFixed(1) : (minY + (spaceYe * i)).toFixed(0)
       }
       context.beginPath()
       context.moveTo(xArr[0] + gridMarginLeft, gridMarginTop + spaceY * i )
@@ -154,9 +154,9 @@ Page({
     } = this.data
     const list = card['今日账单']
     const balanceArr = !!tabIndex ? list.map((item) => item['交易额']) : list.map((item) => item['卡余额'])
-    const maxY = Math.max(...balanceArr) // 最大金额
-    const minY = Math.min(...balanceArr) // 最小金额
-    const spaceYe = !!tabIndex ? maxY / gridNum : (maxY - minY) / gridNum // 坐标系Y轴间隔
+    const maxY = !!tabIndex ? Math.max(...balanceArr.map(item => Math.abs(item))) : Math.max(...balanceArr) // 最大金额
+    const minY = !!tabIndex ? Math.min(...balanceArr.map(item => Math.abs(item))) : Math.min(...balanceArr) // 最小金额
+    const spaceYe = !!tabIndex ? Math.abs(maxY) / gridNum : Math.abs(maxY - minY) / gridNum // 坐标系Y轴间隔
     const gridHeight = canvasHeight - 2 * gridMarginTop // 坐标系高度
     const spaceY = gridHeight / gridNum // 横网格间距
     const switchBtn = !tabIndex
@@ -164,7 +164,9 @@ Page({
     const pointArr = []
     for (let i = 0; i < balanceArr.length; i++) {
       yArr.push(gridHeight - (maxY - (!!tabIndex ? Math.abs(balanceArr[i]) : balanceArr[i])) * spaceY / spaceYe)
+      console.log(maxY - (!!tabIndex ? Math.abs(balanceArr[i]) : balanceArr[i]))
     }
+    console.log(yArr)
     // 描点连线
     for(let i = 0; i < balanceArr.length; i ++){
       let x = xArr[i] + gridMarginLeft,               // 横坐标
@@ -211,7 +213,8 @@ Page({
       title: '获取数据中'
     })
     app.services.getCard(callback, {
-      showError: true
+      showError: true,
+      back: true
     })
   },
   drawCanvas () {

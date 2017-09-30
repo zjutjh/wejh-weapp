@@ -1,12 +1,13 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/borrow/borrow",
+    "pages/timetable/timetable",
     "pages/card/card",
     "pages/teacher/teacher",
     "pages/freeroom/freeroom",
     "pages/exam/exam",
     "pages/score/score",
-    "pages/timetable/timetable",
     "pages/setting/setting",
     "pages/bind/ycjw",
     "pages/bind/card",

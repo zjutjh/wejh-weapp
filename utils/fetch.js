@@ -36,6 +36,13 @@ export default function ({$store, isDev}) {
             duration: 2000,
             title: data.errmsg || '请求错误'
           })
+          if (object.back) {
+            setTimeout(() => {
+              wx.navigateBack({
+                delta: 1
+              })
+            }, 2000)
+          }
 
           return fail(res)
         }
@@ -48,6 +55,13 @@ export default function ({$store, isDev}) {
           duration: 2000,
           title: '请求错误'
         })
+        if (object.back) {
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 2000)
+        }
       }
     }
 

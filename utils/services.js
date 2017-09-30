@@ -93,6 +93,20 @@ export default function ({ store, fetch }) {
         }
       })
     },
+    getBorrow (callback = function () {}, options) {
+      fetch({
+        url: API('borrow'),
+        showError: true,
+        ...options,
+        success(res) {
+          const data = res.data.data
+          store.setCommonState({
+            borrow: data
+          })
+          callback(res)
+        }
+      })
+    },
     getTeacher (callback = function () {}, options) {
       fetch({
         url: API('teacher'),

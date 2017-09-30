@@ -1,0 +1,30 @@
+<view class="m-loading-box" wx:if="{{showLoading}}">
+  <image class="icon-loading" src="/images/common/loading.gif"></image>
+</view>
+<view class="container f-bg-gray" wx:else>
+  <view class="m-borrow">
+    <view class="main-info">
+      <view class="info-item">
+        <view class="label">当前借阅</view>
+        <view class="content">
+          <text class="value">{{borrow['borrow_num']}}</text>
+          <text class="unit">本</text>
+        </view>
+      </view>
+      <view class="info-item">
+        <view class="label">超期</view>
+        <view class="content">
+          <text class="value">{{borrow['overdue']}}</text>
+          <text class="unit">本</text>
+        </view>
+      </view>
+      <view class="info-item">
+        <view class="label">欠费</view>
+        <view class="content">
+          <text class="value">{{borrow['debt']}}</text>
+          <text class="unit">元</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

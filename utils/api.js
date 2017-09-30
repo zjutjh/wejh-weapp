@@ -1,5 +1,6 @@
 const prefix = {
   dev: 'http://wejh-server.dev/',
+  preview: 'https://server.wejh.imcr.me/',
   production: 'https://server.wejh.imcr.me/'
 }
 
@@ -19,6 +20,7 @@ const api = {
   'score': 'api/ycjw/score',
   'teacher': 'api/teacher',
   'exam': 'api/ycjw/exam',
+  'borrow': 'api/library/borrow',
   'card': 'api/card',
   'freeroom': 'api/freeroom',
   'zf/bind': 'api/zf/bind',
@@ -31,9 +33,14 @@ const api = {
  * @return {string}
  */
 function API(key) {
-  const domain = isDev ? prefix['dev'] : prefix['production']
+  const app = getApp()
+  let preview = false
+  if (app) {
+    preview = app.isPreview()
+  }
+  const domain = preview ? prefix['preview'] : isDev ? prefix['dev'] : prefix['production']
   const url = domain + api[key]
-  console.log(url)
+  console.log((preview ? '体验环境 ' : '') + (isDev ? '开发环境 ' : '') + url)
   return url
 }
 

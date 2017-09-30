@@ -1,0 +1,43 @@
+.m-borrow {
+  .main-info {
+    display: flex;
+    background: #fefefe;
+    border-bottom: 1rpx solid #eee;
+
+    .info-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      font-size: 30rpx;
+      line-height: 120%;
+      height: 150rpx;
+      padding: 20rpx;
+      border-right: 1rpx solid #eee;
+      .label {
+        color: #777;
+      }
+
+      .content {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: stretch;
+        .value {
+          font-size: 74rpx;
+          color: $theme-blue;
+          font-weight: bold;
+          line-height: 74rpx;
+        }
+
+        .unit {
+          margin-left: 10rpx;
+          display: flex;
+          color: #999;
+          font-size: 26rpx;
+          align-self: flex-end;
+        }
+      }
+    }
+  }
+}

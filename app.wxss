@@ -762,7 +762,7 @@ text {
                 height: 2.2em;
                 color: #fff;
                 font-size: 28rpx;
-                line-height: 120%; }
+                line-height: 38rpx; }
               .m-timetable-box .timetable-box .timetable-content .card-content .day-lessons .lesson .card .name {
                 flex: 1;
                 display: flex;
@@ -1612,7 +1612,7 @@ text {
   display: flex;
   flex-direction: column;
   height: 350rpx;
-  margin: 15rpx 50rpx 45rpx;
+  margin: 25rpx 50rpx 45rpx;
   background: #ffcb63;
   border-radius: 15rpx;
   box-shadow: 5rpx 5rpx 15rpx #ccc; }
@@ -1659,6 +1659,14 @@ text {
       .m-card .card .content .balance .unit {
         color: #777;
         font-size: 26rpx; }
+.m-card .mask {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300rpx;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #fff;
+  border-radius: 20rpx; }
 .m-card .balance-graph {
   position: relative; }
   .m-card .balance-graph .label {
@@ -1683,19 +1691,6 @@ text {
       .m-card .balance-graph .tab-list .tab.active {
         color: #fff;
         background: #ffcb63; }
-  .m-card .balance-graph .mask {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: -40rpx;
-    right: 15rpx;
-    left: 15rpx;
-    bottom: -15rpx;
-    z-index: 9999;
-    background-color: rgba(0, 0, 0, 0.1);
-    color: #fff;
-    border-radius: 20rpx; }
   .m-card .balance-graph .graph-area {
     position: relative;
     display: flex;
@@ -1772,5 +1767,38 @@ text {
       flex: 1;
       font-size: 30rpx;
       color: #666; }
+
+.m-borrow .main-info {
+  display: flex;
+  background: #fefefe;
+  border-bottom: 1rpx solid #eee; }
+  .m-borrow .main-info .info-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    font-size: 30rpx;
+    line-height: 120%;
+    height: 150rpx;
+    padding: 20rpx;
+    border-right: 1rpx solid #eee; }
+    .m-borrow .main-info .info-item .label {
+      color: #777; }
+    .m-borrow .main-info .info-item .content {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: stretch; }
+      .m-borrow .main-info .info-item .content .value {
+        font-size: 74rpx;
+        color: #73b4ef;
+        font-weight: bold;
+        line-height: 74rpx; }
+      .m-borrow .main-info .info-item .content .unit {
+        margin-left: 10rpx;
+        display: flex;
+        color: #999;
+        font-size: 26rpx;
+        align-self: flex-end; }
 
 /*# sourceMappingURL=app.wxss.map */

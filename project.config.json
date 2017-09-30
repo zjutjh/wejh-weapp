@@ -1,0 +1,54 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true
+	},
+	"compileType": "weapp",
+	"libVersion": "1.5.3",
+	"appid": "wxd4b11753654a636f",
+	"projectname": "%E5%BE%AE%E7%B2%BE%E5%BC%98",
+	"condition": {
+		"weapp": {
+			"current": 0,
+			"list": [
+				{
+					"id": 0,
+					"name": "体验版编译",
+					"pathName": "pages/index/index",
+					"query": "preview=true"
+				},
+				{
+					"id": -1,
+					"name": "正式编译",
+					"pathName": "pages/index/index",
+					"query": ""
+				}
+			]
+		},
+		"search": {
+			"current": -1,
+			"list": [
+				{
+					"name": "test",
+					"pathName": "",
+					"title": "",
+					"cacheKey": ""
+				}
+			]
+		},
+		"conversation": {
+			"current": 0,
+			"list": [
+				{
+					"name": "test",
+					"query": "",
+					"boxQI": "",
+					"service": {}
+				}
+			]
+		}
+	}
+}

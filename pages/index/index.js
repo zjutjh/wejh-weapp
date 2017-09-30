@@ -19,12 +19,13 @@ Page({
     },
     apps: initAppList
   },
-  onLoad: function () {
+  onLoad: function (options) {
     app.$store.connect(this, 'index')
     this.observeCommon('userInfo')
     this.observeCommon('apps')
     this.observeCommon('icons')
     this.getData()
+    app.set('preview', options.preview)
   },
   getData() {
     if (app.isLogin()) {
