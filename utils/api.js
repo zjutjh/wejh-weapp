@@ -7,7 +7,7 @@ const prefix = {
 const systemInfo = wx.getSystemInfoSync()
 const isDev = systemInfo.platform === 'devtools'
 
-const api = {
+const apiMap = {
   'app-list': 'api/app-list',
   'login': 'api/login',
   'user': 'api/user',
@@ -39,7 +39,7 @@ function API(key) {
     preview = app.isPreview()
   }
   const domain = preview ? prefix['preview'] : isDev ? prefix['dev'] : prefix['production']
-  const url = domain + api[key]
+  const url = domain + apiMap[key]
   console.log((preview ? '体验环境 ' : '') + (isDev ? '开发环境 ' : '') + url)
   return url
 }

@@ -40,4 +40,58 @@
       }
     }
   }
+
+  .book-list {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 25rpx 30rpx;
+
+    .tip {
+      color: #777;
+      font-size: 24rpx;
+      line-height: 200%;
+      margin-bottom: 15rpx;
+    }
+
+    .book-item {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: space-between;
+      overflow: hidden;
+      padding: 20rpx 30rpx;
+      margin-bottom: 20rpx;
+      background: $white;
+      border-radius: 3px;
+
+      .title {
+        padding: 10rpx 0 20rpx;
+        font-size: 36rpx;
+      }
+
+      .book-date {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: 24rpx;
+        color: #888;
+        .borrow-date {
+
+        }
+
+        .return-date {
+
+        }
+
+        .label {
+
+        }
+
+        .value {
+
+        }
+      }
+    }
+  }
 }

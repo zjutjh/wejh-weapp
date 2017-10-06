@@ -9,7 +9,7 @@ const store = new WeappStore({
     userInfo: null,
     weappInfo: null
   }
-})
+}, {})
 const systemInfo = wx.getSystemInfoSync()
 const isDev = systemInfo.platform === 'devtools'
 const fetch = Fetch({

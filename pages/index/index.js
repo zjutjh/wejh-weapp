@@ -17,6 +17,7 @@ Page({
       active: false,
       content: '请先登录'
     },
+    // indexCards: defaultCard,
     apps: initAppList
   },
   onLoad: function (options) {
@@ -24,12 +25,64 @@ Page({
     this.observeCommon('userInfo')
     this.observeCommon('apps')
     this.observeCommon('icons')
+    this.observeCommon('time', null, this.onTimeUpdate)
+    this.observeCommon('timetableFixed')
+    this.observeCommon('card')
+    this.observeCommon('cardCost')
+    this.observeCommon('borrow')
     this.getData()
     app.set('preview', options.preview)
+
+    this.setState({
+      indexCards: [
+        {
+          show: true,
+          url: '/pages/timetable/timetable',
+          bg: '/images/index/timetable-background.png',
+          icon: {
+            icon: this.data.icons.timetable.icon,
+            bg: this.data.icons.timetable.bg,
+          },
+          title: '今日课表',
+          content: `<h1 wx:if="{{timetableToday.length > 0}}">123</h1>`.trim(),
+          bottom: '查看完整课表',
+        }
+      ],
+      todayTime: new Date().toLocaleDateString()
+    })
+  },
+  onTimeUpdate () {
+    const timetableFixed = this.data.timetableFixed
+    if (!timetableFixed) {
+      return setTimeout(() => {
+        this.onTimeUpdate()
+      }, 500)
+    }
+    const weekday = this.data.time.day
+    const week = this.data.time.week
+    const todayTimetable = timetableFixed[weekday - 1]
+    const timetableToday = []
+    todayTimetable.forEach((lessons) => {
+      lessons.forEach((lesson) => {
+        const isAvailable = lesson['周'][week]
+        if (isAvailable) {
+          timetableToday.push(lesson)
+        }
+      })
+    })
+    this.setState({
+      timetableToday
+    })
   },
   getData() {
     if (app.isLogin()) {
       this.getTimetable()
+      this.getCard()
+      this.getBorrow()
+    } else {
+      setTimeout(() => {
+        this.getData()
+      }, 500)
     }
   },
   onPullDownRefresh () {
@@ -39,7 +92,19 @@ Page({
     }, 1000)
   },
   getTimetable() {
-    app.services.getTimetable()
+    app.services.getTimetable(undefined, {
+      showError: false
+    })
+  },
+  getBorrow () {
+    app.services.getBorrow(undefined, {
+      showError: false
+    })
+  },
+  getCard() {
+    app.services.getCard(undefined, {
+      showError: false
+    })
   },
   showTip(content, duration = 1500) {
     this.setState({

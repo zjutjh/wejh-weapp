@@ -2,7 +2,7 @@
 <import src="../../components/app-list/app-list.wxml"></import>
 <import src="../../components/tiny-tip/tiny-tip.wxml"></import>
 
-<view class="container f-bg-gray">
+<view class="container f-bg-gray f-pb-300">
   <template is="tiny-tip" data="{{ tinyTip, onClickApp }}"/>
 
   <template is="app-list" data="{{ apps, userInfo }}"/>
@@ -12,4 +12,88 @@
     <text class="remind-text">请登录</text>
     <navigator url="/pages/login/login" class="remind-btn">前往绑定</navigator>
   </view>
+
+  <navigator url="/pages/timetable/timetable" wx:if="{{timetableToday}}" class="m-index-card f-mt-20" style="background-image: url({{icons.timetable.card}});">
+    <view class="header">
+      <view class="image">
+        <image class="icon" src="{{icons.timetable.icon}}" mode="aspectFit" ></image>
+        <image class="icon-bg" src="{{icons.timetable.bg}}" mode="aspectFit" ></image>
+      </view>
+      <text class="title">今日课表</text>
+    </view>
+    <view class="content">
+      <view class="timetable-card">
+        <view class="timetable-item" wx:for="{{timetableToday}}" wx:for-item="lesson" wx:for-index="index" wx:key="lesson_{{index}}">
+          <view class="main-info">
+            <text class="name">{{lesson['课程名称']}}</text>
+            <text class="info">{{lesson['起止周'] ? lesson['起止周'] + '周 ' : ''}}{{lesson['起止节'] ? lesson['起止节'] + '节 ' : ''}}</text>
+          </view>
+          <view class="place">{{lesson['地点']}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="bottom">查看全部课表</view>
+  </navigator>
+
+  <navigator url="/pages/card/card" wx:if="{{card}}" class="m-index-card f-mt-20" style="background-image: url({{icons.card.card}});">
+    <view class="header">
+      <view class="image">
+        <image class="icon" src="{{icons.card.icon}}" mode="aspectFit" ></image>
+        <image class="icon-bg" src="{{icons.card.bg}}" mode="aspectFit" ></image>
+      </view>
+      <text class="title">一卡通</text>
+    </view>
+    <view class="content">
+      <view class="card-card">
+        <view class="header">
+          <text class="label">余额</text>
+          <text class="date">截止时间: {{todayTime}}</text>
+        </view>
+        <view class="balance">
+          <text class="value">{{card['卡余额']}}</text>
+          <text class="unit">元</text>
+        </view>
+        <view class="today" wx:if="{{cardCost.cost.length > 0}}">
+          <view class="label">今日消费: </view>
+          <view class="cost">
+            <rich-text type="text" nodes="{{cardCost.text}}"></rich-text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </navigator>
+
+  <navigator url="/pages/borrow/borrow" wx:if="{{borrow && borrow.borrow_list.length > 0}}" class="m-index-card f-mt-20" style="background-image: url({{icons.borrow.card}});">
+    <view class="header">
+      <view class="image">
+        <image class="icon" src="{{icons.borrow.icon}}" mode="aspectFit" ></image>
+        <image class="icon-bg" src="{{icons.borrow.bg}}" mode="aspectFit" ></image>
+      </view>
+      <text class="title">借阅信息</text>
+    </view>
+    <view class="content">
+      <view class="borrow-card">
+        <view class="header">
+          <text class="label">当前借阅: {{borrow.borrow_num}}</text>
+          <text class="date">欠费金额: {{borrow.debt}}元</text>
+        </view>
+        <view class="borrow-list">
+          <view class="borrow-item" wx:for="{{borrow.borrow_list}}" wx:for-item="book" wx:for-index="index" wx:key="book_{{index}}">
+            <view class="book">
+              <image class="icon-book" src="/images/index/borrow-book.png" mode="aspectFit" ></image>
+              <text class="title">{{book['书名']}}</text>
+            </view>
+            <view class="borrow">
+              <text class="date">{{book['借书日期']}}</text>
+              <text class="unit">借</text>
+            </view>
+            <view class="return{{book['超期天数'] > 0 ? ' red' : ''}}">
+              <text class="date">{{book['应还日期']}}</text>
+              <text class="unit">还</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </navigator>
 </view>

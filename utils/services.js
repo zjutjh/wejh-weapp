@@ -23,9 +23,11 @@ export default function ({ store, fetch }) {
         showError: true,
         success(res) {
           let data = res.data.data
+          const fixData = util.fixTimetable(data)
           store.setCommonState({
             timetable: data,
-            timetableFixed: util.fixTimetable(data)
+            timetableFixed: fixData,
+            timetableToday: util.fixTimetableToday(fixData)
           })
           callback(res)
         }
@@ -86,8 +88,10 @@ export default function ({ store, fetch }) {
         ...options,
         success(res) {
           const data = res.data.data
+          const fixedData = util.fixCard(data)
           store.setCommonState({
-            card: util.fixCard(data)
+            card: fixedData,
+            cardCost: util.fixCardCost(fixedData)
           })
           callback(res)
         }

@@ -25,15 +25,18 @@ Page({
 
       // 判断是否有成绩数据
       if (!this.data.borrow) {
-        this.getBorrow()
+        this.getBorrow(this.afterGetBorrow, {
+          back: true
+        })
       } else {
         this.afterGetBorrow()
       }
     }, 500)
   },
-  getBorrow (callback = this.afterGetBorrow) {
+  getBorrow (callback = this.afterGetBorrow, option = {}) {
     app.services.getBorrow(callback, {
-      showError: true
+      showError: true,
+      ...option
     })
   },
   afterGetBorrow () {

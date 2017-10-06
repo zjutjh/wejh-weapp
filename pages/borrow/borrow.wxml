@@ -26,5 +26,30 @@
         </view>
       </view>
     </view>
+
+    <view class="book-list" wx:if="{{borrow.borrow_list.length > 0}}">
+      <view class="tip">暂时只能显示5本借阅信息</view>
+      <view class="book-item" wx:for="{{borrow.borrow_list}}" wx:key="item_{{index}}" wx:for-index="index" wx:for-item="item">
+        <view class="title">
+          {{item['书名']}}
+        </view>
+        <view class="book-date">
+          <view class="borrow-date">
+            <text class="label">借阅日期：</text>
+            <text class="value">{{item['借书日期']}}</text>
+          </view>
+          <view class="return-date">
+            <text class="label">应还日期：</text>
+            <text class="value">{{item['应还日期']}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="m-remind-box" wx:else>
+      <image class="remind-img" mode="aspectFit" src="/images/common/nothing.png"></image>
+      <text class="remind-text">暂无借阅信息</text>
+    </view>
+
   </view>
 </view>
