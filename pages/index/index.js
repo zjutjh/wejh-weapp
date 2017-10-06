@@ -34,20 +34,6 @@ Page({
     app.set('preview', options.preview)
 
     this.setState({
-      indexCards: [
-        {
-          show: true,
-          url: '/pages/timetable/timetable',
-          bg: '/images/index/timetable-background.png',
-          icon: {
-            icon: this.data.icons.timetable.icon,
-            bg: this.data.icons.timetable.bg,
-          },
-          title: '今日课表',
-          content: `<h1 wx:if="{{timetableToday.length > 0}}">123</h1>`.trim(),
-          bottom: '查看完整课表',
-        }
-      ],
       todayTime: new Date().toLocaleDateString()
     })
   },

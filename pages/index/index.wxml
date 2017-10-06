@@ -2,7 +2,7 @@
 <import src="../../components/app-list/app-list.wxml"></import>
 <import src="../../components/tiny-tip/tiny-tip.wxml"></import>
 
-<view class="container f-bg-gray f-pb-300">
+<view class="container f-bg-gray f-pb-300 f-tri" style="background-image: url({{icons.tri.card}});">
   <template is="tiny-tip" data="{{ tinyTip, onClickApp }}"/>
 
   <template is="app-list" data="{{ apps, userInfo }}"/>
