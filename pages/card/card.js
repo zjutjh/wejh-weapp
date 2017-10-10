@@ -84,7 +84,7 @@ Page({
     const list = card['今日账单']
     const balanceArr = !!tabIndex ? list.map((item) => item['交易额']) : list.map((item) => item['卡余额'])
     const maxY = Math.max(...balanceArr) // 最小金额
-    const minY = Math.min(...balanceArr) // 最大金额
+    const minY = balanceArr.length === 1 ? 0 : Math.min(...balanceArr) // 最大金额
     const spaceYe = !!tabIndex ? maxY / gridNum : (maxY - minY) / gridNum // 坐标系Y轴间隔
     const gridHeight = canvasHeight - 2 * gridMarginTop // 坐标系高度
     const spaceY = gridHeight / gridNum // 横网格间距
@@ -156,7 +156,8 @@ Page({
     const balanceArr = !!tabIndex ? list.map((item) => item['交易额']) : list.map((item) => item['卡余额'])
     const maxY = !!tabIndex ? Math.max(...balanceArr.map(item => Math.abs(item))) : Math.max(...balanceArr) // 最大金额
     const minY = !!tabIndex ? Math.min(...balanceArr.map(item => Math.abs(item))) : Math.min(...balanceArr) // 最小金额
-    const spaceYe = !!tabIndex ? Math.abs(maxY) / gridNum : Math.abs(maxY - minY) / gridNum // 坐标系Y轴间隔
+    // const spaceYe = !!tabIndex ? Math.abs(maxY) / gridNum : Math.abs(maxY - minY) / gridNum // 坐标系Y轴间隔
+    const spaceYe = !!tabIndex ? Math.abs(maxY) / gridNum : (Math.abs(maxY - minY) || 1) / gridNum // 坐标系Y轴间隔
     const gridHeight = canvasHeight - 2 * gridMarginTop // 坐标系高度
     const spaceY = gridHeight / gridNum // 横网格间距
     const switchBtn = !tabIndex
@@ -164,9 +165,7 @@ Page({
     const pointArr = []
     for (let i = 0; i < balanceArr.length; i++) {
       yArr.push(gridHeight - (maxY - (!!tabIndex ? Math.abs(balanceArr[i]) : balanceArr[i])) * spaceY / spaceYe)
-      console.log(maxY - (!!tabIndex ? Math.abs(balanceArr[i]) : balanceArr[i]))
     }
-    console.log(yArr)
     // 描点连线
     for(let i = 0; i < balanceArr.length; i ++){
       let x = xArr[i] + gridMarginLeft,               // 横坐标
