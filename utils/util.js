@@ -175,8 +175,18 @@ module.exports = {
         lesson['起止周'] = info['开始周'] + '-' + info['结束周']
         lesson['起止节'] = info['开始节'] + '-' + info['结束节']
 
+        const type = info['周类型'] || 'default'
+
         for(let i = 1; i <= 18; i++) {
-          lesson['周'][i] = (i >= info['开始周'] && i <= info['结束周'])
+          if (type === 'odd' || type === 'even') {
+            if (type === 'odd') {
+              lesson['周'][i] = (i >= info['开始周'] && i <= info['结束周']) && ((i + 1) % 2 === 0)
+            } else {
+              lesson['周'][i] = (i >= info['开始周'] && i <= info['结束周']) && (i % 2 === 0)
+            }
+          } else {
+            lesson['周'][i] = (i >= info['开始周'] && i <= info['结束周'])
+          }
         }
         const jie = info['开始节'] - 1
         lessons[parseInt(info['星期']) - 1][jie].push(Object.assign({}, item, lesson))
