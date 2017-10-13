@@ -23,7 +23,8 @@ const services = Services({
 const staticKey = 'static'
 App({
   name: '微精弘',
-  version: 'v0.0.2',
+  version: 'v1.0.0',
+  versionType: '正式版',
   onLaunch: function() {
     store.connect(this, 'common')
     this.getData()

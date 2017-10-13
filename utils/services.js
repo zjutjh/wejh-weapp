@@ -167,5 +167,20 @@ export default function ({ store, fetch }) {
         }
       })
     },
+    getAnnouncement (callback = function () {},options) {
+      fetch({
+        url: API('announcement'),
+        method: 'GET',
+        ...options,
+        showError: true,
+        success(res) {
+          const data = res.data.data
+          store.setCommonState({
+            announcement: data
+          })
+          callback(res)
+        }
+      })
+    }
   }
 }

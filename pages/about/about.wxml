@@ -9,7 +9,7 @@
       <view class="left">
         <text class="title">{{ name }}</text>
         <text class="version">{{ version }}</text>
-        <text class="version">内测</text>
+        <text class="version">正式版</text>
       </view>
     </view>
 

@@ -23,12 +23,15 @@
     </view>
     <view class="content">
       <view class="timetable-card">
-        <view class="timetable-item" wx:for="{{timetableToday}}" wx:for-item="lesson" wx:for-index="index" wx:key="lesson_{{index}}">
+        <view class="timetable-item" wx:if="{{timetableToday.length}}" wx:for="{{timetableToday}}" wx:for-item="lesson" wx:for-index="index" wx:key="lesson_{{index}}">
           <view class="main-info">
             <text class="name">{{lesson['课程名称']}}</text>
             <text class="info">{{lesson['起止周'] ? lesson['起止周'] + '周 ' : ''}}{{lesson['起止节'] ? lesson['起止节'] + '节 ' : ''}}</text>
           </view>
           <view class="place">{{lesson['地点']}}</view>
+        </view>
+        <view class="timetable-nothing" wx:if="{{timetableToday.length === 0}}" >
+          <text>今天居然没有课~😆</text>
         </view>
       </view>
     </view>

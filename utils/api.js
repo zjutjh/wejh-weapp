@@ -9,6 +9,7 @@ const isDev = systemInfo.platform === 'devtools'
 
 const apiMap = {
   'app-list': 'api/app-list',
+  'announcement': 'api/announcement',
   'login': 'api/login',
   'user': 'api/user',
   'forgot': 'api/forgot',

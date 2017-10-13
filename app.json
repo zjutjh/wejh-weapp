@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/news/index",
     "pages/borrow/borrow",
     "pages/timetable/timetable",
     "pages/card/card",
@@ -37,6 +38,12 @@
         "text": "首页",
         "iconPath": "images/tabBar/index.png",
         "selectedIconPath": "images/tabBar/index@active.png"
+      },
+      {
+        "pagePath": "pages/news/index",
+        "text": "资讯",
+        "iconPath": "images/tabBar/news.png",
+        "selectedIconPath": "images/tabBar/news@active.png"
       },
       {
         "pagePath": "pages/home/home",

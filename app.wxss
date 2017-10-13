@@ -29,6 +29,9 @@
 .f-clearfix:after {
   clear: both; }
 
+.f-bg-white {
+  background-color: #ffffff; }
+
 .f-bg-gray {
   background-color: #f0eff5; }
 
@@ -1918,6 +1921,10 @@ text {
       .m-index-card .timetable-card .timetable-item .place {
         font-size: 38rpx;
         letter-spacing: 1px; }
+    .m-index-card .timetable-card .timetable-nothing {
+      padding: 30rpx 0;
+      font-size: 32rpx;
+      text-align: center; }
   .m-index-card .card-card .header {
     display: flex;
     flex-direction: row;
@@ -2008,5 +2015,46 @@ text {
           color: #acacac; }
         .m-index-card .borrow-card .borrow-list .borrow-item .return.red .date, .m-index-card .borrow-card .borrow-list .borrow-item .borrow.red .date {
           color: #ff7b7d; }
+
+.m-news .news-type-list {
+  display: flex;
+  flex-direction: row;
+  z-index: 1;
+  width: 100%;
+  padding: 20rpx 0;
+  margin-bottom: 20rpx;
+  white-space: nowrap; }
+  .m-news .news-type-list .news-type-item {
+    display: inline-block;
+    margin-left: 20rpx; }
+    .m-news .news-type-list .news-type-item .icon {
+      width: 120rpx;
+      height: 120rpx;
+      border-radius: 5rpx;
+      box-shadow: 1px 2px 3px #e5e5e5;
+      opacity: .66; }
+
+.m-announcement {
+  position: relative;
+  margin: 0 20rpx;
+  padding: 30rpx 70rpx 80rpx;
+  border-radius: 10rpx;
+  color: #444;
+  background: linear-gradient(to left top, transparent, rgba(0, 0, 0, 0.02) 0, rgba(0, 0, 0, 0.03)) 100% 0 no-repeat; }
+  .m-announcement .title {
+    margin: 10rpx 0 30rpx;
+    text-align: center;
+    font-size: 36rpx;
+    font-weight: bold;
+    color: #333; }
+  .m-announcement .content {
+    display: block;
+    width: 100%;
+    text-indent: 2em;
+    font-size: 28rpx;
+    overflow: hidden;
+    line-height: 180%;
+    color: #555;
+    letter-spacing: 4rpx; }
 
 /*# sourceMappingURL=app.wxss.map */
