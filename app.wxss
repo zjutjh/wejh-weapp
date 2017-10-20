@@ -581,7 +581,17 @@ text {
       .m-help-box .box .header .title {
         font-size: 32rpx; }
     .m-help-box .box .content {
+      font-size: 30rpx;
       padding: 25rpx 36rpx 40rpx; }
+      .m-help-box .box .content.announcement {
+        display: block;
+        width: 100%;
+        text-indent: 2em;
+        font-size: 28rpx;
+        overflow: hidden;
+        line-height: 180%;
+        color: #555;
+        letter-spacing: 4rpx; }
       .m-help-box .box .content .question {
         font-size: 30rpx;
         line-height: 200%;
@@ -1601,7 +1611,7 @@ text {
               .m-teacher .main .main-list .list-item .item .item-content .info-list .info-item .label {
                 margin-right: 20rpx;
                 text-align: right;
-                width: 120rpx;
+                width: 150rpx;
                 color: #666; }
               .m-teacher .main .main-list .list-item .item .item-content .info-list .info-item .value {
                 flex: 1;
@@ -2056,5 +2066,16 @@ text {
     line-height: 180%;
     color: #555;
     letter-spacing: 4rpx; }
+
+.m-cache-tip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  font-size: 30rpx;
+  text-align: center;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.4); }
 
 /*# sourceMappingURL=app.wxss.map */

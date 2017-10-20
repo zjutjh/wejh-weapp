@@ -18,6 +18,8 @@ export default function ({$store, isDev}) {
     const success = object.success || function () {}
     const fail = object.fail || function () {}
     object.success = (res) => {
+      console.log(object)
+      console.log(res)
       if (typeof res.data !== 'object') {
         object.showError && toast({
           icon: 'error',
@@ -48,6 +50,7 @@ export default function ({$store, isDev}) {
       success(res)
     }
     object.fail = (err) => {
+      console.log(object)
       console.error(err)
       object.showError && toast({
         icon: 'error',
@@ -64,7 +67,7 @@ export default function ({$store, isDev}) {
     }
 
     //if (isDev) {
-      console.log(object)
+    //  console.log(object)
     //}
 
     wx.request(object)

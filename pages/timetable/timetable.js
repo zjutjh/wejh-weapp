@@ -57,6 +57,7 @@ Page({
     this.observeCommon('timetableFixed', 'timetable')
     this.observeCommon('userInfo')
     this.observeCommon('time')
+    this.observeCommon('cacheStatus')
     this.startTimelineMoving()
     setTimeout(() => {
       const time = this.data.time || {}
@@ -209,7 +210,7 @@ Page({
   },
   backCurrentWeek () {
     this.setState({
-      currentWeek: this.data.time.week + 1
+      currentWeek: this.data.time.week
     })
   },
   switchWeek(e) {
@@ -269,7 +270,10 @@ Page({
     let _this = this
     if (app.hasToken()) {
       app.services.getTimetable(callback, {
-        showError: true
+        showError: true,
+        fail: () => {
+          callback()
+        }
       })
     } else {
       setTimeout(() => {

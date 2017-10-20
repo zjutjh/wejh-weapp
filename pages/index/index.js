@@ -17,6 +17,7 @@ Page({
       active: false,
       content: '请先登录'
     },
+    helpStatus: false,
     // indexCards: defaultCard,
     apps: initAppList
   },
@@ -30,11 +31,18 @@ Page({
     this.observeCommon('card')
     this.observeCommon('cardCost')
     this.observeCommon('borrow')
+    this.observeCommon('announcement')
+    this.observeCommon('cacheStatus')
     this.getData()
     app.set('preview', options.preview)
 
     this.setState({
       todayTime: new Date().toLocaleDateString()
+    })
+  },
+  hideHelp () {
+    this.setState({
+      helpStatus: false
     })
   },
   onTimeUpdate () {
@@ -61,6 +69,7 @@ Page({
     })
   },
   getData() {
+    this.getAnnouncement()
     if (app.isLogin()) {
       this.getTimetable()
       this.getCard()
@@ -76,6 +85,20 @@ Page({
     setTimeout(() => {
       wx.stopPullDownRefresh()
     }, 1000)
+  },
+  getAnnouncement() {
+    app.services.getAnnouncement((res) => {
+      const data = res.data.data
+      const announcementId = app.get('announcementId') || 0
+      if (announcementId < data.id) {
+        this.setState({
+          helpStatus: true
+        })
+        app.set('announcementId', data.id)
+      }
+    }, {
+      showError: false
+    })
   },
   getTimetable() {
     app.services.getTimetable(undefined, {

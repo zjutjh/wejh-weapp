@@ -31,7 +31,20 @@
     }
 
     .content {
+      font-size: 30rpx;
       padding: 25rpx 36rpx 40rpx;
+
+      &.announcement {
+        display: block;
+        width: 100%;
+        text-indent: 2em;
+        font-size: 28rpx;
+        // font-weight: 100;
+        overflow: hidden;
+        line-height: 180%;
+        color: #555;
+        letter-spacing: 4rpx;
+      }
 
       .question {
         font-size: 30rpx;

@@ -7,6 +7,17 @@
 
   <template is="app-list" data="{{ apps, userInfo }}"/>
 
+  <view class="m-help-box" wx:if="{{helpStatus}}">
+    <view class="box">
+      <view class="header">
+        <text class="title">公告</text>
+        <image class="icon-close" src="/images/common/close.png" bindtap="hideHelp" mode="aspectFit"></image>
+      </view>
+      <rich-text class="content announcement" type="text" nodes="{{announcement.content}}">
+      </rich-text>
+    </view>
+  </view>
+
   <view wx:if="{{!userInfo}}" class="m-remind-box">
     <image class="remind-img" mode="aspectFit" src="/images/common/nothing.png"></image>
     <text class="remind-text">请登录</text>
@@ -19,7 +30,7 @@
         <image class="icon" src="{{icons.timetable.icon}}" mode="aspectFit" ></image>
         <image class="icon-bg" src="{{icons.timetable.bg}}" mode="aspectFit" ></image>
       </view>
-      <text class="title">今日课表</text>
+      <text class="title">今日课表{{cacheStatus.timetable ? ' (离线模式)' : ''}}</text>
     </view>
     <view class="content">
       <view class="timetable-card">

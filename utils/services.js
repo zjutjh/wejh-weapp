@@ -17,6 +17,7 @@ export default function ({ store, fetch }) {
       })
     },
     getTimetable (callback = function () {}, options) {
+      const app = getApp()
       fetch({
         url: API('timetable'),
         ...options,
@@ -24,12 +25,34 @@ export default function ({ store, fetch }) {
         success(res) {
           let data = res.data.data
           const fixData = util.fixTimetable(data)
-          store.setCommonState({
+          const cache = app.get('cache') || {}
+          const newState = {
             timetable: data,
             timetableFixed: fixData,
             timetableToday: util.fixTimetableToday(fixData)
-          })
+          }
+          store.setCommonState(newState)
+          app.set('cache', Object.assign(cache, newState))
+
           callback(res)
+        },
+        fail (res) {
+          const cacheStatus = store.getCommonState('cacheStatus') || {}
+          const cache = app.get('cache') || {}
+          const cacheState = {}
+          if (cache.timetable) {
+            cacheState.timetable = cache.timetable
+            if (cache.timetableFixed) {
+              cacheState.timetableFixed = cache.timetableFixed
+              cacheState.timetableToday = util.fixTimetableToday(cache.timetableFixed)
+            }
+            cacheStatus.timetable = true
+          }
+          store.setCommonState({
+            cacheStatus,
+            ...cacheState
+          })
+          callback()
         }
       })
     },

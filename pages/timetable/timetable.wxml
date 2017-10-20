@@ -4,6 +4,7 @@
 </view>
 <view class="container" wx:else style="padding-bottom: {{ targetLessons.length > 0 ? ' 400rpx;' : '0;' }}">
   <view class="m-timetable-box">
+    <view class="m-cache-tip" wx:if="{{cacheStatus.timetable}}">离线模式</view>
     <!-- 左侧栏 -->
     <view class="lesson-number">
       <view class="date">月</view>
@@ -53,8 +54,8 @@
     <view class="m-footer-bar blue">
       <view class="left">
         <text wx:if="{{viewStatus != '*' && currentWeek == 0}}">放假中</text>
-        <text wx:elif="{{viewStatus != '*' && currentWeek > 0 && currentWeek == time.week + 1}}">第{{time.week + 1}}周周{{weekday[time.day]}}</text>
-        <text wx:elif="{{viewStatus != '*' && currentWeek != time.week + 1}}" bindtap="backCurrentWeek">返回第{{time.week + 1}}周</text>
+        <text wx:elif="{{viewStatus != '*' && currentWeek > 0 && currentWeek == time.week}}">第{{time.week + 1}}周周{{weekday[time.day]}}</text>
+        <text wx:elif="{{viewStatus != '*' && currentWeek != time.week}}" bindtap="backCurrentWeek">返回第{{time.week}}周</text>
         <text wx:else>星期{{weekday[time.day]}}</text>
       </view>
       <view class="middle">
