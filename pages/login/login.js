@@ -37,6 +37,11 @@ Page({
         showCancel: false
       })
     }
+    if (!openid) {
+      return app.login(undefined, () => {
+        this.login()
+      })
+    }
 
     app.fetch({
       url: app.API('login'),

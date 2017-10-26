@@ -18,17 +18,17 @@ for (let i = 0; i < 12; i++) {
   })
 }
 
-const weekArr = []
+const weekdayArr = []
 for (let i = 1; i < 8; i++) {
-  weekArr.push({
+  weekdayArr.push({
     text: `星期${_weekday[i]}`,
     value: `${i}`,
   })
 }
 
-const weekdayArr = []
+const weekArr = []
 for (let i = 1; i <= 20; i++) {
-  weekdayArr.push({
+  weekArr.push({
     text: `${_weeks[i]}`,
     value: `${i}`,
   })
@@ -78,14 +78,14 @@ Page({
       ],
       [
         {
-          name: 'week',
-          options: weekArr
+          name: 'weekday',
+          options: weekdayArr
         }
       ],
       [
         {
-          name: 'weekday',
-          options: weekdayArr
+          name: 'week',
+          options: weekArr
         }
       ]
     ]

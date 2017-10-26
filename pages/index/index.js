@@ -68,20 +68,27 @@ Page({
       timetableToday
     })
   },
-  getData() {
-    this.getAnnouncement()
+  getIndexCardData() {
     if (app.isLogin()) {
       this.getTimetable()
       this.getCard()
       this.getBorrow()
     } else {
       setTimeout(() => {
-        this.getData()
+        this.getIndexCardData()
       }, 500)
     }
   },
+  getData() {
+    this.getAnnouncement()
+    this.getIndexCardData()
+  },
   onPullDownRefresh () {
-    this.getData()
+    if (app.isLogin()) {
+      this.getData()
+    } else {
+      this.showTip('请先登录')
+    }
     setTimeout(() => {
       wx.stopPullDownRefresh()
     }, 1000)

@@ -1,7 +1,7 @@
 <view class="container f-bg-gray">
-  <scroll-view class="m-freeroom" scroll-y="true" enable-back-to-top="true">
+  <view class="m-freeroom" enable-back-to-top="true">
     <!--空教室的信息-->
-    <view class="room-display">
+    <scroll-view class="room-display" scroll-y="true" >
       <view class="build" wx:for="{{freeroom}}" wx:for-item="build" wx:for-index="build_id" wx:key="build_{{build_id}}">
         <!--单个空教室-->
         <view class="build-name">
@@ -14,7 +14,7 @@
           </view>
         </view>
       </view>
-    </view>
+    </scroll-view>
     <!--空教室的的查询选项-->
     <view class="room-condition">
       <!-- 查询块，一整条 -->
@@ -29,5 +29,5 @@
         </scroll-view>
       </view>
     </view>
-  </scroll-view>
+  </view>
 </view>

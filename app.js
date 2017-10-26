@@ -24,7 +24,7 @@ const staticKey = 'static'
 console.log(systemInfo)
 App({
   name: '微精弘',
-  version: 'v1.0.1',
+  version: 'v1.0.4',
   versionType: '正式版',
   onLaunch: function() {
     store.connect(this, 'common')
@@ -62,7 +62,7 @@ App({
   getAppList () {
     services.getAppList()
   },
-  getOpenid(code) {
+  getOpenid(code, afterLogin) {
     const _this = this
     const openid = _this.get('openid')
     if(openid) {
@@ -87,6 +87,7 @@ App({
         })
         _this.set('openid', openid)
         _this.autoLogin()
+        afterLogin()
       }
     })
   },
@@ -112,7 +113,7 @@ App({
   hasToken() {
     return !!store.getCommonState('token')
   },
-  login(callback) {
+  login(callback = this.getOpenid, afterLogin = function () {}) {
     wx.login({
       success: (res) => {
         if (!res.code) {
@@ -121,7 +122,7 @@ App({
             title: '获取用户登录态失败！' + res.errMsg
           })
         }
-        callback(res.code)
+        callback(res.code, afterLogin)
       }
     })
   },
