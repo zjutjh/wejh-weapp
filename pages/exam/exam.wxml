@@ -41,9 +41,13 @@
               <text class="label">地点</text>
               <text class="content">{{item['教室']}}</text>
             </view>
-            <view class="detail-item">
+            <view class="detail-item" wx:if="{{item['教师']}}">
               <text class="label">任课教师</text>
               <text class="content">{{item['教师']}}</text>
+            </view>
+            <view class="detail-item" wx:if="{{item['考试方式']}}">
+              <text class="label">考试方式</text>
+              <text class="content">{{item['考试方式']}}</text>
             </view>
           </view>
         </view>

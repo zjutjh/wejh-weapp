@@ -261,13 +261,13 @@ module.exports = {
   fixCardCost (cardData) {
     const cardRecords = cardData['今日账单']
     const records = cardRecords.map((item) => -item['交易额']).filter((item) => item > 0)
-    const total = records.reduce((sum, item) => {
-      return +sum + +item
-    }, 0)
+    const total = (records.reduce((sum, item) => {
+      return +sum + item * 100
+    }, 0)) / 100
     const iStyle = `font-style: normal;font-size: 26rpx;color: #777;font-weight: normal;`
     const totalStyle = `color: #ffbf92;font-weight: bold;`
     return {
-      total,
+      total: total,
       cost: records,
       text: records.map(item => `<i style="${iStyle}">${item}</i>`).join(' + ') + ' = ' + `<i style="${iStyle}${totalStyle}">${total}</i>`
     }

@@ -80,6 +80,7 @@ Page({
     }
   },
   getData() {
+    app.services.getAppList()
     this.getAnnouncement()
     this.getIndexCardData()
   },
@@ -147,12 +148,20 @@ Page({
     const isLogin = !!commonData['token']
     const target = e.currentTarget
     const index = target.dataset.index
+    if (!this.data.apps) {
+      return this.showTip('应用列表信息获取失败，请重启微信再试')
+    }
     const appItem = this.data.apps[index]
     if(!isLogin) {
       return this.showTip('请先登录')
     }
     if(appItem.disabled) {
       return this.showTip('服务暂不可用')
+    }
+    if (appItem.url) {
+      wx.navigateTo({
+        url: '/pages/webview/webview?' + Object.keys(appItem).map((key) => key + '=' + appItem[key]).join('&')
+      })
     }
     wx.navigateTo({
       url: appItem.route

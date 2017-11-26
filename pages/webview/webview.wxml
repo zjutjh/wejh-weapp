@@ -1,0 +1,3 @@
+<web-view class="m-main-webview" src="{{url}}">
+  抱歉，暂不支持webview，请升级微信
+</web-view>

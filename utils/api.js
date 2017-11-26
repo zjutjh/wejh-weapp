@@ -19,6 +19,7 @@ const apiMap = {
   'time': 'api/time',
   'timetable': 'api/ycjw/timetable',
   'score': 'api/ycjw/score',
+  'scoreDetail': 'api/ycjw/scoreDetail',
   'teacher': 'api/teacher',
   'exam': 'api/ycjw/exam',
   'borrow': 'api/library/borrow',

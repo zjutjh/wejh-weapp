@@ -75,6 +75,20 @@ export default function ({ store, fetch }) {
         }
       })
     },
+    getScoreDetail (callback = function () {}, options) {
+      fetch({
+        url: API('scoreDetail'),
+        showError: true,
+        ...options,
+        success(res) {
+          const data = res.data.data
+          store.setCommonState({
+            scoreDetail: data
+          })
+          callback(res)
+        }
+      })
+    },
     getExam (callback = function () {}, options) {
       fetch({
         url: API('exam'),

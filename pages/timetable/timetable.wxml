@@ -54,7 +54,7 @@
     <view class="m-footer-bar blue">
       <view class="left">
         <text wx:if="{{viewStatus != '*' && currentWeek == 0}}">放假中</text>
-        <text wx:elif="{{viewStatus != '*' && currentWeek > 0 && currentWeek == time.week}}">第{{time.week + 1}}周周{{weekday[time.day]}}</text>
+        <text wx:elif="{{viewStatus != '*' && currentWeek > 0 && currentWeek == time.week}}">第{{time.week}}周周{{weekday[time.day]}}</text>
         <text wx:elif="{{viewStatus != '*' && currentWeek != time.week}}" bindtap="backCurrentWeek">返回第{{time.week}}周</text>
         <text wx:else>星期{{weekday[time.day]}}</text>
       </view>

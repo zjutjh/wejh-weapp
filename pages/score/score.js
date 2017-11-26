@@ -3,7 +3,9 @@ let app = getApp()
 Page({
   data: {
     sort: false,
+    isDetail: false,
     sortAnimation: false,
+    detailAnimation: false,
     hideScore: false,
     hideInfo: false,
     showLoading: true,
@@ -13,6 +15,7 @@ Page({
     let _this = this
     app.$store.connect(this, 'score')
     this.observeCommon('score')
+    this.observeCommon('scoreDetail')
     this.observeCommon('sortedScoreList')
     this.observeCommon('icons')
     this.observeCommon('userInfo')
@@ -57,6 +60,43 @@ Page({
     this.setState({
       hideInfo: !this.data.hideInfo
     })
+  },
+  toggleShowScoreDetail (e) {
+    const index = e.currentTarget.dataset.index
+    const scoreDetail = this.data.scoreDetail
+    scoreDetail.list[index].open = !scoreDetail.list[index].open
+    app.$store.setCommonState({
+      scoreDetail: scoreDetail
+    })
+  },
+  toggleDetail () {
+    wx.showLoading({
+      title: '切换学期中'
+    })
+    const isDetail = this.data.isDetail
+    if (isDetail) {
+      this.setState({
+        detailAnimation: true,
+        isDetail: !isDetail
+      })
+      wx.hideLoading()
+    } else {
+      this.setState({
+        detailAnimation: true
+      })
+      app.services.getScoreDetail(() => {
+        wx.hideLoading()
+        this.setState({
+          isDetail: !isDetail
+        })
+      })
+    }
+
+    setTimeout(() => {
+      this.setState({
+        detailAnimation: false
+      })
+    }, 500)
   },
   toggleSort () {
     this.setState({

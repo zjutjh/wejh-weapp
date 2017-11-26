@@ -4,30 +4,14 @@
 		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
-		"minified": true
+		"minified": true,
+		"newFeature": true
 	},
-	"compileType": "weapp",
-	"libVersion": "1.6.0",
+	"compileType": "miniprogram",
+	"libVersion": "1.6.6",
 	"appid": "wxd4b11753654a636f",
 	"projectname": "%E5%BE%AE%E7%B2%BE%E5%BC%98",
 	"condition": {
-		"weapp": {
-			"current": 1,
-			"list": [
-				{
-					"id": 0,
-					"name": "体验版编译",
-					"pathName": "pages/index/index",
-					"query": "preview=true"
-				},
-				{
-					"id": -1,
-					"name": "正式编译",
-					"pathName": "pages/index/index",
-					"query": ""
-				}
-			]
-		},
 		"search": {
 			"current": -1,
 			"list": [
@@ -47,6 +31,23 @@
 					"query": "",
 					"boxQI": "",
 					"service": {}
+				}
+			]
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": 0,
+					"name": "体验版编译",
+					"pathName": "pages/index/index",
+					"query": "preview=true"
+				},
+				{
+					"id": -1,
+					"name": "正式编译",
+					"pathName": "pages/index/index",
+					"query": ""
 				}
 			]
 		}

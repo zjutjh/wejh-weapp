@@ -151,6 +151,14 @@ text {
   height: 100rpx;
   width: 100rpx; }
 
+.detail-touch {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100rpx;
+  width: 100rpx; }
+
 .icon-sort {
   width: 40rpx;
   height: 40rpx; }
@@ -1213,9 +1221,76 @@ text {
         align-items: center;
         border-top: 1px solid #eee;
         padding: 25rpx 10rpx 20rpx 5rpx; }
+        .m-score .score-content .score-list .score-item.detail {
+          display: flex;
+          flex-direction: column;
+          justify-content: inherit;
+          align-items: inherit;
+          font-size: 30rpx;
+          padding: 0 40rpx;
+          background-color: #fff;
+          border-radius: 3px; }
         .m-score .score-content .score-list .score-item .score {
           text-align: right;
           width: 100rpx; }
+        .m-score .score-content .score-list .score-item .head {
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          height: 145rpx; }
+          .m-score .score-content .score-list .score-item .head .arrow {
+            flex-shrink: 0;
+            width: 30rpx;
+            height: 30rpx;
+            transition: transform .2s;
+            transform: rotate(0deg); }
+          .m-score .score-content .score-list .score-item .head .main-info {
+            max-width: 80%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; }
+          .m-score .score-content .score-list .score-item .head .name {
+            margin-bottom: 10rpx;
+            font-size: 32rpx;
+            transition: color .15s ease-in-out;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis; }
+          .m-score .score-content .score-list .score-item .head .subtitle {
+            font-size: 26rpx;
+            line-height: 100%;
+            color: #aaa; }
+            .m-score .score-content .score-list .score-item .head .subtitle .countdown {
+              font-size: 26rpx;
+              line-height: 100%;
+              color: #aaa; }
+              .m-score .score-content .score-list .score-item .head .subtitle .countdown.red {
+                color: #ff7b7d; }
+        .m-score .score-content .score-list .score-item .detail-info {
+          display: none;
+          flex-direction: column;
+          overflow: hidden;
+          padding: 0; }
+          .m-score .score-content .score-list .score-item .detail-info .detail-item {
+            display: flex;
+            align-items: center;
+            padding: 25rpx 5rpx 20rpx;
+            border-top: 1px solid #eee; }
+            .m-score .score-content .score-list .score-item .detail-info .detail-item .label {
+              color: #888;
+              width: 150rpx; }
+            .m-score .score-content .score-list .score-item .detail-info .detail-item .content {
+              flex: 1; }
+        .m-score .score-content .score-list .score-item.open .head .name {
+          color: #7acfa6; }
+        .m-score .score-content .score-list .score-item.open .head .arrow {
+          transform: rotate(180deg); }
+        .m-score .score-content .score-list .score-item.open .detail-info {
+          display: flex;
+          padding: 5rpx 0 15rpx; }
 
 .m-exam {
   flex: 1;
@@ -2082,5 +2157,9 @@ text {
   text-align: center;
   color: #fff;
   background-color: rgba(0, 0, 0, 0.4); }
+
+.m-main-webview {
+  flex: 1;
+  background-color: #fff; }
 
 /*# sourceMappingURL=app.wxss.map */

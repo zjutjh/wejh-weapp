@@ -161,13 +161,107 @@
         align-items: center;
         border-top: 1px solid #eee;
         padding: 25rpx 10rpx 20rpx 5rpx;
-        .name {
-
+        &.detail {
+          display: flex;
+          flex-direction: column;
+          justify-content: inherit;
+          align-items: inherit;
+          font-size: 30rpx;
+          padding: 0 40rpx;
+          background-color: $white;
+          border-radius: 3px;
         }
 
         .score {
           text-align: right;
           width: 100rpx;
+        }
+
+        .head {
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          height: 145rpx;
+
+          .arrow {
+            flex-shrink: 0;
+            width: 30rpx;
+            height: 30rpx;
+            transition: transform .2s;
+            transform: rotate(0deg);
+          }
+
+          .main-info {
+            max-width: 80%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          }
+
+          .name {
+            margin-bottom: 10rpx;
+            font-size: 32rpx;
+            transition: color .15s ease-in-out;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+
+          .subtitle {
+            font-size: 26rpx;
+            line-height: 100%;
+            color: #aaa;
+
+            .countdown {
+              font-size: 26rpx;
+              line-height: 100%;
+              color: #aaa;
+
+              &.red {
+                color: #ff7b7d;
+              }
+            }
+          }
+        }
+
+        .detail-info {
+          display: none;
+          flex-direction: column;
+          overflow: hidden;
+          padding: 0;
+          .detail-item {
+            display: flex;
+            align-items: center;
+            padding: 25rpx 5rpx 20rpx;
+            border-top: 1px solid #eee;
+            .label {
+              color: #888;
+              width: 150rpx;
+            }
+
+            .content {
+              flex: 1;
+            }
+          }
+        }
+
+        &.open {
+          .head {
+            .name {
+              color: $theme-green;
+            }
+            .arrow {
+              transform: rotate(180deg);
+            }
+          }
+
+          .detail-info {
+            display: flex;
+            padding: 5rpx 0 15rpx;
+          }
         }
       }
     }
