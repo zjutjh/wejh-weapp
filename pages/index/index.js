@@ -160,7 +160,7 @@ Page({
     }
     if (appItem.url) {
       return wx.navigateTo({
-        url: '/pages/webview/webview?' + Object.keys(appItem).map((key) => key + '=' + appItem[key]).join('&')
+        url: '/pages/webview/webview?' + Object.keys(appItem).map((key) => key + '=' + encodeURIComponent(appItem[key])).join('&')
       })
     }
     wx.navigateTo({
