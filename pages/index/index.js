@@ -159,7 +159,7 @@ Page({
       return this.showTip('服务暂不可用')
     }
     if (appItem.url) {
-      wx.navigateTo({
+      return wx.navigateTo({
         url: '/pages/webview/webview?' + Object.keys(appItem).map((key) => key + '=' + appItem[key]).join('&')
       })
     }

@@ -23,10 +23,13 @@ export default function ({ store, fetch }) {
         ...options,
         showError: true,
         success(res) {
+          const cacheStatus = store.getCommonState('cacheStatus') || {}
+          cacheStatus.timetable = false
           let data = res.data.data
           const fixData = util.fixTimetable(data)
           const cache = app.get('cache') || {}
           const newState = {
+            cacheStatus,
             timetable: data,
             timetableFixed: fixData,
             timetableToday: util.fixTimetableToday(fixData)
