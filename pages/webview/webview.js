@@ -1,7 +1,7 @@
 let app = getApp()
 Page({
   data: {
-    url: 'https://server.wejh.imcr.me/walk'
+    url: 'https://server.wejh.imcr.me/'
   },
   onLoad: function (option) {
     console.log(option)
