@@ -8,6 +8,7 @@
       <view class="content">
         <view class="question">1、帐号和密码是什么？</view>
         <view class="answer">
+          <text>账号是学号，密码是你自己设置的，没有默认密码哦~</text>
           <text>请先确定是否激活过精弘通行证</text>
           <text>如未激活，请点击“激活账号”按钮进行激活通行证操作</text>
           <text>否则请进行忘记密码操作</text>

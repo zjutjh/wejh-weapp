@@ -6,6 +6,7 @@ const form = {
 
 Page({
   data: {
+    helpStatus: false,
     showLoading: true,
   },
   onLoad () {
@@ -20,6 +21,16 @@ Page({
   onInput (e) {
     const type = e.target.dataset.type
     form[type] = e.detail.value
+  },
+  showHelp() {
+    this.setState({
+      helpStatus: true
+    })
+  },
+  hideHelp() {
+    this.setState({
+      helpStatus: false
+    })
   },
   binding () {
     const password = form.password

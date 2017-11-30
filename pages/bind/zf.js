@@ -1,6 +1,7 @@
 const app = getApp()
 
 const form = {
+  helpStatus: false,
   password: ''
 }
 
@@ -16,6 +17,16 @@ Page({
         showLoading: false
       })
     }, 1000)
+  },
+  showHelp() {
+    this.setState({
+      helpStatus: true
+    })
+  },
+  hideHelp() {
+    this.setState({
+      helpStatus: false
+    })
   },
   onInput (e) {
     const type = e.target.dataset.type

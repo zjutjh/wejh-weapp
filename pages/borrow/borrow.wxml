@@ -28,7 +28,6 @@
     </view>
 
     <view class="book-list" wx:if="{{borrow.borrow_list.length > 0}}">
-      <view class="tip">暂时只能显示5本借阅信息</view>
       <view class="book-item" wx:for="{{borrow.borrow_list}}" wx:key="item_{{index}}" wx:for-index="index" wx:for-item="item">
         <view class="title">
           {{item['书名']}}

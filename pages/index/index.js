@@ -143,6 +143,9 @@ Page({
       }
     })
   },
+  feedback () {
+    app.goFeedback()
+  },
   onClickApp(e) {
     const commonData = app.$store.getCommonState()
     const isLogin = !!commonData['token']
@@ -162,6 +165,13 @@ Page({
       return wx.navigateTo({
         url: '/pages/webview/webview?' + Object.keys(appItem).map((key) => key + '=' + encodeURIComponent(appItem[key])).join('&')
       })
+    }
+    if (appItem.module) {
+      try {
+        return this[appItem.module]()
+      } catch (e) {
+        return
+      }
     }
     wx.navigateTo({
       url: appItem.route

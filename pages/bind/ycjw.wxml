@@ -11,10 +11,34 @@
       <text class="input-label">原创教务密码</text>
       <input password="true" data-type="password" cursor-spacing="30" bindinput="onInput" placeholder="请输入原创教务系统密码" value="{{password}}"/>
     </view>
+    <view class="login-help" bindtap="showHelp">
+      <text>帮助</text>
+      <image class="login-help-img" src="/images/common/help.png"></image>
+    </view>
     <view class="confirm-btn" bindtap="binding">
       <view class="u-confirm-btn">
         <text>确认绑定</text>
       </view>
     </view>
   </form>
+
+  <view class="m-help-box" wx:if="{{helpStatus}}">
+    <view class="box">
+      <view class="header">
+        <text class="title">帮助</text>
+        <image class="icon-close" src="/images/common/close.png" bindtap="hideHelp" mode="aspectFit"></image>
+      </view>
+      <view class="content">
+        <view class="question">1、原创教务系统是什么？</view>
+        <view class="answer">
+          <text>原创教务系统是以前的教务系统，为了老生的使用，所以依旧放着</text>
+          <text>17级及以后的学生大可忽略，不用绑定</text>
+        </view>
+        <view class="question">2、忘记密码？</view>
+        <view class="answer">
+          <text>请找自己的辅导员重置密码。</text>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

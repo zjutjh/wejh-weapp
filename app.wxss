@@ -181,7 +181,13 @@ text {
   justify-content: flex-start;
   padding: 20rpx 30rpx;
   background-color: #fff;
+  margin-left: inherit;
+  margin-right: inherit;
+  line-height: inherit;
+  border-radius: inherit;
   border-bottom: 1rpx solid #e9ecef; }
+  .u-setting-navigator:after {
+    content: normal; }
   .u-setting-navigator .icon {
     width: 42rpx;
     height: 42rpx;

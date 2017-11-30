@@ -6,9 +6,16 @@
   justify-content: flex-start;
   padding: 20rpx 30rpx;
   background-color: $white;
+  margin-left: inherit;
+  margin-right: inherit;
+  line-height: inherit;
+  border-radius: inherit;
   // border-top: 1rpx solid $gray-200;
   border-bottom: 1rpx solid $gray-200;
 
+  &:after {
+    content: normal;
+  }
   .icon {
     width: 42rpx;
     height: 42rpx;
