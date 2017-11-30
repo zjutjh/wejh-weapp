@@ -32,7 +32,7 @@ Page({
         }
         console.log('跳转到反馈社区', customData)
         wx.navigateToMiniProgram({
-          appId: app.env('wx8abaf00ee8c3202e'),
+          appId: app.env('tucaoAppId'),
           extraData: {
             id: '19048',
             customData
