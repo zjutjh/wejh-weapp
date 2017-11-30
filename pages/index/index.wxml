@@ -10,7 +10,7 @@
   <view class="m-help-box" wx:if="{{helpStatus}}">
     <view class="box">
       <view class="header">
-        <text class="title">公告</text>
+        <text class="title">{{announcement.title}}</text>
         <image class="icon-close" src="/images/common/close.png" bindtap="hideHelp" mode="aspectFit"></image>
       </view>
       <rich-text class="content announcement" type="text" nodes="{{announcement.content}}">

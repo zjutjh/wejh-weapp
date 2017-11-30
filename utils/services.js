@@ -20,8 +20,8 @@ export default function ({ store, fetch }) {
       const app = getApp()
       fetch({
         url: API('timetable'),
-        ...options,
         showError: true,
+        ...options,
         success(res) {
           const cacheStatus = store.getCommonState('cacheStatus') || {}
           cacheStatus.timetable = false
@@ -95,8 +95,8 @@ export default function ({ store, fetch }) {
     getExam (callback = function () {}, options) {
       fetch({
         url: API('exam'),
-        ...options,
         showError: true,
+        ...options,
         success(res) {
           const data = res.data.data
           store.setCommonState({

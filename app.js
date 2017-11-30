@@ -3,6 +3,7 @@ import Fetch from './utils/fetch'
 import API from './utils/api'
 import toast from './utils/toast'
 import Services from './utils/services'
+import envJson from '.env.json'
 
 const store = new WeappStore({
   common: {
@@ -10,6 +11,7 @@ const store = new WeappStore({
     weappInfo: null
   }
 }, {})
+const env = (key) => envJson[key]
 const systemInfo = wx.getSystemInfoSync()
 const isDev = systemInfo.platform === 'devtools'
 const fetch = Fetch({
@@ -24,7 +26,7 @@ const staticKey = 'static'
 console.log(systemInfo)
 App({
   name: '微精弘',
-  version: 'v1.0.5',
+  version: 'v1.0.6',
   versionType: '正式版',
   onLaunch: function() {
     store.connect(this, 'common')
@@ -176,6 +178,7 @@ App({
   isPreview: () => wx.getStorageSync(staticKey)['preview'],
   systemInfo,
   isDev: systemInfo.platform === 'devtools',
+  env,
   services,
   API,
   fetch,

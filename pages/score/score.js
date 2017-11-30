@@ -71,7 +71,7 @@ Page({
   },
   toggleDetail () {
     wx.showLoading({
-      title: '切换学期中'
+      title: '切换中'
     })
     const isDetail = this.data.isDetail
     if (isDetail) {
