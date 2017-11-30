@@ -8,4 +8,4 @@
 out
 gen
 *.map
-.env.json
+.env.js

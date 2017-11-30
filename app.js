@@ -3,7 +3,7 @@ import Fetch from './utils/fetch'
 import API from './utils/api'
 import toast from './utils/toast'
 import Services from './utils/services'
-import envJson from '.env.json'
+import envConfig from '.env'
 
 const store = new WeappStore({
   common: {
@@ -11,7 +11,7 @@ const store = new WeappStore({
     weappInfo: null
   }
 }, {})
-const env = (key) => envJson[key]
+const env = (key) => envConfig[key]
 const systemInfo = wx.getSystemInfoSync()
 const isDev = systemInfo.platform === 'devtools'
 const fetch = Fetch({
