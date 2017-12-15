@@ -1,5 +1,5 @@
 const prefix = {
-  dev: 'http://wejh-server.dev/',
+  dev: 'http://wejh-server.test/',
   preview: 'https://test.server.wejh.imcr.me/',
   production: 'https://server.wejh.imcr.me/'
 }

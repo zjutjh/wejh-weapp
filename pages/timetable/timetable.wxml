@@ -121,6 +121,7 @@
               <view class="info-item">
                 <text class="item-content">{{item['老师']}}</text>
                 <text class="item-label"> (任课教师)</text>
+                <image src="/images/common/teacher-contact.png" class="teacher-contact" mode="aspectFit" data-cid="{{cid}}" bindtap="contactTeacher"></image>
               </view>
               <view class="info-item">
                 <text class="item-content">{{item['地点']}}</text>

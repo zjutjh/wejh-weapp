@@ -4,17 +4,25 @@ Page({
   data: {
     wd: ''
   },
-  onLoad () {
+  onLoad (payload) {
     let _this = this
     app.$store.connect(this, 'teacher')
     this.observeCommon('teacher')
     this.observeCommon('icons')
     this.observeCommon('userInfo')
+
     setTimeout(() => {
       // 判断是否登录
       if (!app.isLogin() || !this.data.userInfo) {
         return wx.redirectTo({
           url: '/pages/login/login'
+        })
+      }
+      if (payload.name) {
+        this.setState({
+          wd: payload.name
+        }, () => {
+          this.getTeacher()
         })
       }
     }, 500)

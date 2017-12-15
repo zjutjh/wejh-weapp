@@ -11,7 +11,7 @@
           <image class="search-icon" src="/images/common/search-sign.png"></image>
         </view>
         <form class="input-form" bindreset="bindClearSearchTap" bindsubmit="bindConfirmSearchTap">
-          <input class="input-text" bindinput="bindSearchInput" type="text" name="search" placeholder="请输入教师姓名" bindconfirm="bindConfirmSearchTap" />
+          <input class="input-text" bindinput="bindSearchInput" type="text" name="search" value="{{wd}}" placeholder="请输入教师姓名" bindconfirm="bindConfirmSearchTap" />
           <button class="input-clear-button" formType="reset" hover-class="none" wx:if="{{header.inputValue}}">
             <image class="clear-icon" src="/images/common/clear.png"></image>
           </button>

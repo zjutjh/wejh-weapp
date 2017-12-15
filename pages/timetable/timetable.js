@@ -152,6 +152,22 @@ Page({
       })
     }
   },
+  contactTeacher (e) {
+    const dataset = e.currentTarget.dataset || {}
+    const cid = dataset.cid || 0
+    const lessonInfo = this.data.targetLessons ? this.data.targetLessons[cid] : {}
+    const teacherName = lessonInfo['老师'] || ''
+    if (!teacherName) {
+      app.toast({
+        icon: 'error',
+        title: '发生了一点错误，请反馈给管理员'
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/teacher/teacher?name=' + teacherName
+      })
+    }
+  },
   onSwiper (e) {
     const index = e.detail.current
     this.setState({

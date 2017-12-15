@@ -974,12 +974,18 @@ text {
             word-wrap: break-word; }
           .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content {
             margin: 10rpx 0 0 100rpx; }
-            .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content .info-item .item-content {
-              font-size: 32rpx;
-              color: #fff; }
-            .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content .info-item .item-label {
-              font-size: 26rpx;
-              color: #fff; }
+            .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content .info-item {
+              position: relative; }
+              .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content .info-item .item-content {
+                font-size: 32rpx;
+                color: #fff; }
+              .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content .info-item .item-label {
+                font-size: 26rpx;
+                color: #fff; }
+              .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content .info-item .teacher-contact {
+                position: absolute;
+                width: 60rpx;
+                height: 60rpx; }
 
 .m-footer-bar {
   position: fixed;

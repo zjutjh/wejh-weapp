@@ -421,6 +421,8 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
             margin: 10rpx 0 0 100rpx;
 
             .info-item {
+              position: relative;
+
               .item-content {
                 font-size: 32rpx;
                 color: $white;
@@ -429,6 +431,12 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
               .item-label {
                 font-size: 26rpx;
                 color: $white;
+              }
+
+              .teacher-contact {
+                position: absolute;
+                width: 60rpx;
+                height: 60rpx;
               }
             }
           }
