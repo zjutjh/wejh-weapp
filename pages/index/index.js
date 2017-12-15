@@ -146,6 +146,21 @@ Page({
   feedback () {
     app.goFeedback()
   },
+  clipboard () {
+    if (this.data.announcement && this.data.announcement.clipboard) {
+      const text = this.data.announcement.clipboard
+      const tip = this.data.announcement.clipboardTip
+      wx.setClipboardData({
+        data: text,
+        success(){
+          app.toast({
+            icon: 'success',
+            title: tip || '复制成功'
+          })
+        }
+      })
+    }
+  },
   onClickApp(e) {
     const commonData = app.$store.getCommonState()
     const isLogin = !!commonData['token']

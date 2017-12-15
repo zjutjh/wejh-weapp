@@ -13,6 +13,8 @@
     <view class="title" wx:if="{{announcement.title}}">{{announcement.title}}</view>
     <rich-text class="content" type="text" nodes="{{announcement.content}}">
     </rich-text>
+    <text class="footer" selectable="true" wx:if="{{announcement.footer}}">{{announcement.footer}}</text>
+    <text class="clipboard" selectable="true" bindtap="clipboard" wx:if="{{announcement.clipboard}}">{{announcement.clipboard}}</text>
   </view>
   <view class="m-remind-box" wx:else>
     <image class="remind-img" mode="aspectFit" src="/images/common/nothing.png"></image>

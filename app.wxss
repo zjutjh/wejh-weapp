@@ -619,6 +619,21 @@ text {
           line-height: 160%;
           word-break: break-all;
           color: #495057; }
+    .m-help-box .box .announcement.footer, .m-help-box .box .announcement.clipboard {
+      display: block;
+      text-indent: 2em;
+      font-size: 28rpx;
+      overflow: hidden;
+      line-height: 180%;
+      color: #555;
+      letter-spacing: 4rpx; }
+    .m-help-box .box .announcement.clipboard {
+      margin: 20rpx 30rpx;
+      padding: 20rpx;
+      font-size: 26rpx;
+      border-radius: 10rpx;
+      color: #fff;
+      background-color: #777e85; }
   .m-help-box .icon-close {
     position: absolute;
     right: 25rpx;
@@ -2149,7 +2164,7 @@ text {
     font-size: 36rpx;
     font-weight: bold;
     color: #333; }
-  .m-announcement .content {
+  .m-announcement .content, .m-announcement .footer, .m-announcement .clipboard {
     display: block;
     width: 100%;
     text-indent: 2em;
@@ -2158,6 +2173,13 @@ text {
     line-height: 180%;
     color: #555;
     letter-spacing: 4rpx; }
+  .m-announcement .clipboard {
+    margin-top: 20rpx;
+    padding: 20rpx;
+    font-size: 26rpx;
+    border-radius: 10rpx;
+    color: #fff;
+    background-color: #45494d; }
 
 .m-cache-tip {
   position: fixed;

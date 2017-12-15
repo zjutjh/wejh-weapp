@@ -33,6 +33,21 @@ Page({
       })
     }
   },
+  clipboard () {
+    if (this.data.announcement && this.data.announcement.clipboard) {
+      const text = this.data.announcement.clipboard
+      const tip = this.data.announcement.clipboardTip
+      wx.setClipboardData({
+        data: text,
+        success(){
+          app.toast({
+            icon: 'success',
+            title: tip || '复制成功'
+          })
+        }
+      })
+    }
+  },
   getData() {
     app.services.getAnnouncement()
   },
