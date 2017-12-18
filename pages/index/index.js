@@ -177,6 +177,8 @@ Page({
       return this.showTip('服务暂不可用')
     }
     if (appItem.url) {
+      appItem.url = appItem.url.replace(encodeURIComponent('{uno}'), this.data.userInfo.uno)
+      console.log('前往webview', appItem.url)
       return wx.navigateTo({
         url: '/pages/webview/webview?' + Object.keys(appItem).map((key) => key + '=' + encodeURIComponent(appItem[key])).join('&')
       })

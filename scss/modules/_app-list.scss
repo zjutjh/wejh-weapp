@@ -32,6 +32,15 @@
         width: 84rpx;
         height: 84rpx;
       }
+      .item-icon-text {
+        z-index: 9;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: $white;
+        font-weight: bold;
+      }
       .item-icon-bg {
         position: absolute;
         width: 84rpx;

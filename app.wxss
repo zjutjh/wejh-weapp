@@ -267,6 +267,14 @@ text {
         position: absolute;
         width: 84rpx;
         height: 84rpx; }
+      .m-app-list .item .item-image .item-icon-text {
+        z-index: 9;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-weight: bold; }
       .m-app-list .item .item-image .item-icon-bg {
         position: absolute;
         width: 84rpx;

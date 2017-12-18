@@ -18,7 +18,7 @@ Page({
           url: '/pages/login/login'
         })
       }
-      if (payload.name) {
+      if (payload && payload.name) {
         this.setState({
           wd: payload.name
         }, () => {

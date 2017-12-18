@@ -2,7 +2,8 @@
     <view class="m-app-list">
         <view wx:for="{{apps}}" catchtap="onClickApp" data-index="{{index}}" wx:key="apps_{{index}}" class="item {{item.disabled || !userInfo ? 'disabled' : ''}}">
             <view class="item-image">
-                <image src="{{item.icon}}" class="item-icon" mode="aspectFit"></image>
+                <image src="{{item.icon}}" class="item-icon" mode="aspectFit" wx:if="{{item.icon}}"></image>
+                <text class="item-icon-text" wx:else>{{item.title[0]}}</text>
                 <image src="/images/app-list/disabled.png" class="item-icon-bg" mode="aspectFit" wx:if="{{item.disabled || !userInfo ? 'disabled' : ''}}"></image>
                 <image src="{{item.bg}}" class="item-icon-bg" mode="aspectFit" wx:else></image>
             </view>
