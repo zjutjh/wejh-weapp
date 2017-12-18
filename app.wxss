@@ -1735,6 +1735,8 @@ text {
                 align-items: center;
                 color: #666;
                 white-space: nowrap; }
+              .m-teacher .main .main-list .list-item .item .item-content .info-list .info-item .phone {
+                color: #73b4ef; }
               .m-teacher .main .main-list .list-item .item .item-content .info-list .info-item:first-child {
                 margin-top: 20rpx; }
   .m-teacher.home .header .logo {

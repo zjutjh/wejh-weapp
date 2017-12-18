@@ -26,7 +26,7 @@ const staticKey = 'static'
 console.log(systemInfo)
 App({
   name: '微精弘',
-  version: 'v1.0.7',
+  version: 'v1.0.8',
   versionType: '正式版',
   onLaunch: function() {
     store.connect(this, 'common')

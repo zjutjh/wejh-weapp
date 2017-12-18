@@ -45,6 +45,10 @@
               <text class="label">任课教师</text>
               <text class="content">{{item['教师']}}</text>
             </view>
+            <view class="detail-item" wx:if="{{item['课程名称']}}">
+              <text class="label">课程名称</text>
+              <text class="content">{{item['课程名称']}}</text>
+            </view>
             <view class="detail-item" wx:if="{{item['考试方式']}}">
               <text class="label">考试方式</text>
               <text class="content">{{item['考试方式']}}</text>

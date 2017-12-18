@@ -32,11 +32,11 @@
         <!--列表的一个元素的模板结构-->
         <view class="list-item">
           <!--信息直接显示部分-->
-          <view class="item" data-index="{{index}}" bindtap="bindOpenList">
+          <view class="item" data-index="{{index}}">
             <view class="item-content">
               <view class="item-info">
                 <view class="name">
-                  <block wx:for="{{item.nameArr}}">
+                  <block wx:for="{{item.nameArr}}" wx:key="name_{{index}}}">
                     <text wx:if="{{!item.active}}">{{item.value}}</text>
                     <text wx:else class="highlight">{{item.value}}</text>
                   </block>
@@ -44,11 +44,11 @@
                 <view class="info-list">
                   <view class="info-item" wx:if="{{item.email}}">
                     <text class="label">邮箱</text>
-                    <text class="value">{{item.email}}</text>
+                    <text class="value" selectable="true">{{item.email}}</text>
                   </view>
                   <view class="info-item" wx:if="{{item.office_phone}}">
                     <text class="label">办公室电话</text>
-                    <text class="value">{{item.office_phone}}</text>
+                    <text class="value phone" data-phone="{{item.office_phone}}" bindtap="call">{{item.office_phone}}</text>
                   </view>
                 </view>
               </view>

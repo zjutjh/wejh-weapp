@@ -44,6 +44,23 @@ Page({
       wd: value
     })
   },
+  call(e) {
+    const phone = (e.target.dataset.phone || '').replace('－', '-')
+    if (phone.match(/[^0-9\-]/g)) {
+      wx.getClipboardData({
+        success: function(res) {
+          app.toast({
+            icon: 'success',
+            title: '复制成功'
+          })
+        }
+      })
+    } else {
+      wx.makePhoneCall({
+        phoneNumber: phone
+      })
+    }
+  },
   getTeacher (callback = this.afterGetTeacher) {
     wx.showLoading({
       title: '获取数据中'

@@ -40,9 +40,11 @@ Page({
       wx.setClipboardData({
         data: text,
         success(){
-          app.toast({
+          wx.showModal({
+            title: '提示',
             icon: 'success',
-            title: tip || '复制成功'
+            showCancel: false,
+            content: tip || '复制成功'
           })
         }
       })
