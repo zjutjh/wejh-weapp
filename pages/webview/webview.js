@@ -1,7 +1,7 @@
 let app = getApp()
 Page({
   data: {
-    url: 'https://server.wejh.imcr.me/'
+    url: ''
   },
   onLoad: function (option) {
     for (let key in option) {
