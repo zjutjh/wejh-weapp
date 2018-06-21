@@ -24,9 +24,10 @@ const services = Services({
 })
 const staticKey = 'static'
 console.log(systemInfo)
+const version = 'v1.0.10'
 App({
   name: '微精弘',
-  version: 'v1.0.9',
+  version,
   versionType: '正式版',
   onLaunch: function() {
     store.connect(this, 'common')
@@ -190,7 +191,7 @@ App({
           netType: networkType,
           customInfo: JSON.stringify({
             uno: userInfo.uno,
-            version: this.version
+            version
           })
         }
         console.log('跳转到反馈社区', customData)

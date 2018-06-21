@@ -44,10 +44,22 @@ export default function ({$store, isDev}) {
             })
           }, 2000)
         }
+        if (object.showError && data.redirect) {
+          return wx.navigateTo({
+            url: data.redirect
+          })
+        }
 
         return fail(res)
       }
+
       success(res)
+
+      if (object.showError && data.redirect) {
+        return wx.navigateTo({
+          url: data.redirect
+        })
+      }
     }
     object.fail = (err) => {
       console.log(object)
