@@ -24,17 +24,19 @@
       <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
     </navigator>
   </block>
-  <button class="u-setting-navigator"
-          open-type="contact"
-          type="default-light"
-          session-from="follow">
+  <view class="u-setting-navigator" bindtap="followUs">
     <image class="icon" mode="aspectFit"src="../../images/common/follow-us.png" ></image>
-    <text class="text">关注我们</text>
+    <text class="text">关注我们<text class="tip">zjutjh</text></text>
     <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
-  </button>
+  </view>
   <view class="u-setting-navigator f-mb-20" bindtap="goFeedback">
     <image class="icon" mode="aspectFit"src="../../images/common/feedback.png" ></image>
     <text class="text">反馈</text>
+    <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
+  </view>
+  <view class="u-setting-navigator f-mb-20" bindtap="donate">
+    <image class="icon" mode="aspectFit"src="../../images/common/money.png" ></image>
+    <text class="text">支持我们</text>
     <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
   </view>
   <navigator class="u-setting-navigator" url="/pages/about/about">
