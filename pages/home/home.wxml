@@ -2,10 +2,10 @@
   <view class="m-user-info f-mb-20" bindtap="userBlockClick">
     <view class="left">
       <view class="avatar">
-        <image src="{{ weappInfo.avatarUrl }}" mode="aspectFit"></image>
+        <open-data type="userAvatarUrl"></open-data>
       </view>
       <view class="main-info">
-        <text class="name">{{ weappInfo.nickName }}</text>
+        <open-data class="name" type='userNickName' />
         <text class="uno">{{ userInfo.uno || '未绑定'}}</text>
       </view>
     </view>

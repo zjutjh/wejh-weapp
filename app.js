@@ -7,8 +7,7 @@ import envConfig from 'env'
 
 const store = new WeappStore({
   common: {
-    userInfo: null,
-    weappInfo: null
+    userInfo: null
   }
 }, {})
 const env = (key) => envConfig[key]
@@ -46,7 +45,6 @@ App({
   },
   getData() {
     this.getTermTime()
-    this.getWeappInfo()
     this.getAppList()
     this.login(this.getOpenid)
   },

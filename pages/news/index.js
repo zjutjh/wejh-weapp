@@ -46,6 +46,9 @@ Page({
             showCancel: false,
             content: tip || '复制成功'
           })
+        },
+        fail(e) {
+          console.error(e)
         }
       })
     }

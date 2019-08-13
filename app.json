@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/news/index",
     "pages/webview/webview",
@@ -22,13 +22,18 @@
     "pages/about/about",
     "pages/logs/logs"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#7acfa6",
     "navigationBarTitleText": "微精弘",
-    "navigationBarTextStyle":"white",
+    "navigationBarTextStyle": "white",
     "enablePullDownRefresh": true
   },
+  "navigateToMiniProgramAppIdList": [
+    "wx18a2ac992306a5a4",
+    "wx8abaf00ee8c3202e",
+    "wx43b9394cba2c7241"
+  ],
   "tabBar": {
     "color": "#7f848a",
     "selectedColor": "#7acfa6",
@@ -58,5 +63,6 @@
     "request": 10000,
     "downloadFile": 10000
   },
-  "debug": true
+  "debug": true,
+  "sitemapLocation": "sitemap.json"
 }

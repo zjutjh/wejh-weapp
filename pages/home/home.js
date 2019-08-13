@@ -8,7 +8,6 @@ Page({
     let _this = this
     app.$store.connect(this, 'home')
     this.observeCommon('userInfo')
-    this.observeCommon('weappInfo')
     this.observeCommon('time')
   },
   goFeedback () {

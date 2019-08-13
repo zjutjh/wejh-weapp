@@ -190,6 +190,13 @@ Page({
         return
       }
     }
+    if (appItem.appId) {
+      return wx.navigateToMiniProgram({
+        appId: appItem.appId,
+        path: appItem.path,
+        extraData: appItem.extraData
+      })
+    }
     wx.navigateTo({
       url: appItem.route
     })
