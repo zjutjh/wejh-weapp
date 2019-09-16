@@ -23,7 +23,7 @@ const services = Services({
 })
 const staticKey = 'static'
 console.log(systemInfo)
-const version = 'v1.0.11'
+const version = 'v1.0.14'
 App({
   name: '微精弘',
   version,
@@ -48,7 +48,7 @@ App({
     this.getAppList()
     this.login(this.getOpenid)
   },
-  getTermTime: () => {
+  getTermTime: (callback) => {
     fetch({
       url: API('time'),
       showError: true,
@@ -57,6 +57,7 @@ App({
         store.setCommonState({
           time: result.data
         })
+        callback && callback()
       }
     })
   },

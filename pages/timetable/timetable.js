@@ -113,6 +113,11 @@ Page({
     function compareDate (dateStr1, dateStr2) {
       return parseMinute(dateStr1) <= parseMinute(dateStr2);
     }
+    if (!_this.data.time) {
+      return app.getTermTime(() => {
+        this.startTimelineMoving()
+      })
+    }
     const nowTime = _this.formatTime(new Date(), 'h:m')
     _this.data.timeline.forEach(function (e, i) {
       if (compareDate(e.begin, nowTime) && compareDate(nowTime, e.end)) {
