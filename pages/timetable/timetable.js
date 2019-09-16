@@ -114,9 +114,11 @@ Page({
       return parseMinute(dateStr1) <= parseMinute(dateStr2);
     }
     if (!_this.data.time) {
-      return app.getTermTime(() => {
-        this.startTimelineMoving()
-      })
+      return setTimeout(() => {
+        app.getTermTime(() => {
+          this.startTimelineMoving()
+        })
+      }, 5000)
     }
     const nowTime = _this.formatTime(new Date(), 'h:m')
     _this.data.timeline.forEach(function (e, i) {
