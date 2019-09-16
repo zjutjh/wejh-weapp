@@ -642,7 +642,8 @@ text {
       overflow: hidden;
       line-height: 180%;
       color: #555;
-      letter-spacing: 4rpx; }
+      letter-spacing: 4rpx;
+      padding: 0 36rpx 40rpx; }
     .m-help-box .box .announcement.clipboard {
       margin: 20rpx 30rpx;
       padding: 20rpx;

@@ -47,7 +47,7 @@
   <view class="f-bottom-btn">
     <navigator class="u-btn-binding" url="/pages/login/login">
       <text class="text" wx:if="{{ !userInfo }}" >立即绑定</text>
-      <text class="text" wx:else>切换绑定</text>
+      <text class="text" wx:else>切换账号</text>
     </navigator>
   </view>
 

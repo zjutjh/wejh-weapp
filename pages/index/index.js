@@ -80,6 +80,7 @@ Page({
     }
   },
   getData() {
+    app.getTermTime()
     app.services.getAppList()
     this.getAnnouncement()
     this.getIndexCardData()
