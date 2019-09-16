@@ -47,11 +47,16 @@ Page({
   },
   onTimeUpdate () {
     const timetableFixed = this.data.timetableFixed
-    if (!timetableFixed || !this.data.time) {
+    if (!this.data.time) {
       return setTimeout(() => {
         app.getTermTime(() => {
           this.onTimeUpdate()
         })
+      }, 5000)
+    }
+    if (!timetableFixed) {
+      return setTimeout(() => {
+        this.onTimeUpdate()
       }, 5000)
     }
     const weekday = this.data.time.day

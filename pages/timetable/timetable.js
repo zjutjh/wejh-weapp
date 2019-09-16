@@ -116,6 +116,7 @@ Page({
     if (!_this.data.time) {
       return setTimeout(() => {
         app.getTermTime(() => {
+          _this.observeCommon('time')
           this.startTimelineMoving()
         })
       }, 5000)

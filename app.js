@@ -23,7 +23,7 @@ const services = Services({
 })
 const staticKey = 'static'
 console.log(systemInfo)
-const version = 'v1.0.14'
+const version = 'v1.0.15'
 App({
   name: '微精弘',
   version,

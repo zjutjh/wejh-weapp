@@ -43,7 +43,7 @@ function colorLessons (lessons) {
   function getTopLessons (dayLessons, jie) {
     jie--
     while (jie >= 0) {
-      if (dayLessons[jie].length > 0) {
+      if (dayLessons[jie] && dayLessons[jie].length > 0) {
         return dayLessons[jie]
       }
       jie--
@@ -189,7 +189,7 @@ module.exports = {
           }
         }
         const jie = info['开始节'] - 1
-        lessons[parseInt(info['星期']) - 1][jie].push(Object.assign({}, item, lesson))
+        lessons[parseInt(info['星期']) - 1][jie] && lessons[parseInt(info['星期']) - 1][jie].push(Object.assign({}, item, lesson))
       })
     })
 
