@@ -255,6 +255,7 @@ text {
   background-color: #fff;
   border-bottom: 1px solid #e9ecef; }
   .m-app-list .item {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -294,6 +295,16 @@ text {
       opacity: .6; }
       .m-app-list .item.disabled image {
         filter: grayscale(100%); }
+    .m-app-list .item.ad .item-image:after {
+      content: 'AD';
+      position: absolute;
+      display: inline-block;
+      padding: 4rpx 12rpx;
+      right: 0;
+      bottom: 0;
+      font-size: 12rpx;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.2); }
 
 .m-user-info {
   display: flex;

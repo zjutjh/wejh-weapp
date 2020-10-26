@@ -9,6 +9,7 @@
   border-bottom: 1px solid $gray-200;
 
   .item {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -58,6 +59,22 @@
 
       image {
         filter: grayscale(100%);
+      }
+    }
+
+    &.ad {
+      .item-image {
+        &:after {
+          content: 'AD';
+          position: absolute;
+          display: inline-block;
+          padding: 4rpx 12rpx;
+          right: 0;
+          bottom: 0;
+          font-size: 12rpx;
+          color: white;
+          background-color: rgba(0, 0, 0, .2);
+        }
       }
     }
   }

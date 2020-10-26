@@ -3,7 +3,7 @@ import Fetch from './utils/fetch'
 import API from './utils/api'
 import toast from './utils/toast'
 import Services from './utils/services'
-import envConfig from 'env'
+import envConfig from './env'
 
 const store = new WeappStore({
   common: {
