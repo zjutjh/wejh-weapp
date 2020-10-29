@@ -41,11 +41,13 @@
     <text class="text">反馈</text>
     <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
   </view>
+  <!--
   <view class="u-setting-navigator f-mb-20" bindtap="donate">
     <image class="icon" mode="aspectFit"src="../../images/common/money.png" ></image>
     <text class="text">支持我们</text>
     <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
   </view>
+  -->
   <navigator class="u-setting-navigator" url="/pages/about/about">
     <image class="icon" mode="aspectFit" src="../../images/common/about.png"></image>
     <text class="text">关于</text>
