@@ -198,7 +198,7 @@ App({
         }
         console.log('跳转到反馈社区', customData)
         wx.navigateToMiniProgram({
-          appId: env('tucaoAppId'),
+          appId: 'wx8abaf00ee8c3202e',
           extraData: {
             id: '19048',
             customData
