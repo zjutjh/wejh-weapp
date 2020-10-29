@@ -13,9 +13,9 @@ Page({
     app.$store.connect(this, 'binding.library')
     setTimeout(() => {
       this.setState({
-        showLoading: false
-      })
-    }, 1000)
+        showLoading: false,
+      });
+    }, 1000);
   },
   onInput (e) {
     const type = e.target.dataset.type

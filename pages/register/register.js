@@ -32,12 +32,12 @@ Page({
     const iid = form.iid
     const email = form.email
 
-    if(!username || !password || !iid || !email) {
+    if (!username || !password || !iid || !email) {
       return wx.showModal({
-        title: '错误',
-        content: '表单项不能为空',
-        showCancel: false
-      })
+        title: "错误",
+        content: "表单项不能为空",
+        showCancel: false,
+      });
     }
 
     if(password !== validatePassword) {

@@ -1,4 +1,5 @@
 {
+  "editor.tabSize": 2,
   "minapp-vscode.wxmlFormatter": "prettier",
   "minapp-vscode.prettier": {
     "parser": "html",
