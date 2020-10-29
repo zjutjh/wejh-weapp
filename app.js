@@ -10,27 +10,56 @@ const store = new WeappStore({
     userInfo: null
   }
 }, {})
+
 const env = (key) => envConfig[key]
+
+const staticKey = 'static'
+const version = 'v1.0.18'
+
+let versionType = "unknown";
+let versionTypeName = "Unknown";
+
 const systemInfo = wx.getSystemInfoSync()
-const isDev = systemInfo.platform === 'devtools'
+
+if (typeof __wxConfig === "object") {
+  let envVersion = __wxConfig.envVersion;
+  switch (envVersion) {
+    case "develop":
+      versionType = "develop";
+      versionTypeName = "Dev";
+      break;
+    case "trail":
+      versionType = "beta";
+      versionTypeName = "Beta";
+      break;
+    case "release":
+      versionType = "release";
+      versionTypeName = "Release";
+      break;
+  }
+}
+
+const isDev = (versionType === 'develop') || (versionType === "beta");
+
+if (isDev) {
+  console.log("[App] 当前运行环境: " + envVersion);
+  console.log(systemInfo)
+}
+
 const fetch = Fetch({
   $store: store,
   isDev
 })
+
 const services = Services({
   fetch,
   store
 })
-const staticKey = 'static'
-console.log(systemInfo)
-
-const version = 'v1.0.18'
-const versionType = '正式版'
 
 App({
   name: '微精弘',
   version,
-  versionType: versionType,
+  versionType: versionTypeName,
   onLaunch: function() {
     store.connect(this, 'common')
     this.getData()
