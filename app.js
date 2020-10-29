@@ -45,7 +45,7 @@ if (typeof __wxConfig === "object") {
 const isDev = versionType === "develop" || versionType === "beta";
 
 if (isDev) {
-  console.log("[App] 当前运行环境: " + envVersion);
+  console.log("[App] 当前运行环境: " + versionType);
   console.log(systemInfo);
 }
 
