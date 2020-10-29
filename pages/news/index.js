@@ -24,13 +24,15 @@ Page({
   onClickNewsType(e) {
     const index = e.currentTarget.dataset.id
     const targetNewsType = this.data.newsTypeList[index]
-    if (targetNewsType && targetNewsType.enabled) {
-
-    } else {
+    if (targetNewsType) {
+      // if (targetNewsType.enabled) {
+      // 
+      // } else {
       app.toast({
         icon: 'error',
         title: '暂未开放'
       })
+      // }
     }
   },
   clipboard () {
