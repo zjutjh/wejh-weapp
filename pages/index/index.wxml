@@ -3,20 +3,33 @@
 <import src="../../components/tiny-tip/tiny-tip.wxml"></import>
 
 <view class="container f-bg-gray f-pb-300 f-tri" style="background-image: url({{icons.tri.card}});">
-  <template is="tiny-tip" data="{{ tinyTip, onClickApp }}"/>
+  <template is="tiny-tip" data="{{ tinyTip, onClickApp }}" />
 
-  <template is="app-list" data="{{ apps, userInfo }}"/>
+  <template is="app-list" data="{{ apps, userInfo }}" />
 
   <view class="m-help-box" wx:if="{{helpStatus}}">
     <view class="box">
       <view class="header">
         <text class="title">{{announcement.title}}</text>
-        <image class="icon-close" src="/images/common/close.png" bindtap="hideHelp" mode="aspectFit"></image>
+        <image
+          class="icon-close"
+          src="/images/common/close.png"
+          bindtap="hideHelp"
+          mode="aspectFit"
+        ></image>
       </view>
       <rich-text class="content announcement" type="text" nodes="{{announcement.content}}">
       </rich-text>
-      <text class="footer announcement" selectable="true" wx:if="{{announcement.footer}}">{{announcement.footer}}</text>
-      <text class="clipboard announcement" selectable="true" bindtap="clipboard" wx:if="{{announcement.clipboard}}">{{announcement.clipboard}}</text>
+      <text class="footer announcement" selectable="true" wx:if="{{announcement.footer}}"
+        >{{announcement.footer}}</text
+      >
+      <text
+        class="clipboard announcement"
+        selectable="true"
+        bindtap="clipboard"
+        wx:if="{{announcement.clipboard}}"
+        >{{announcement.clipboard}}</text
+      >
     </view>
   </view>
 
@@ -26,24 +39,39 @@
     <navigator url="/pages/login/login" class="remind-btn">前往绑定</navigator>
   </view>
 
-  <navigator url="/pages/timetable/timetable" wx:if="{{timetableToday}}" class="m-index-card f-mt-20" style="background-image: url({{icons.timetable.card}});">
+  <navigator
+    url="/pages/timetable/timetable"
+    wx:if="{{timetableToday}}"
+    class="m-index-card f-mt-20"
+    style="background-image: url({{icons.timetable.card}});"
+  >
     <view class="header">
       <view class="image">
-        <image class="icon" src="{{icons.timetable.icon}}" mode="aspectFit" ></image>
-        <image class="icon-bg" src="{{icons.timetable.bg}}" mode="aspectFit" ></image>
+        <image class="icon" src="{{icons.timetable.icon}}" mode="aspectFit"></image>
+        <image class="icon-bg" src="{{icons.timetable.bg}}" mode="aspectFit"></image>
       </view>
       <text class="title">今日课表{{cacheStatus.timetable ? ' (离线模式)' : ''}}</text>
     </view>
     <view class="content">
       <view class="timetable-card">
-        <view class="timetable-item" wx:if="{{timetableToday.length}}" wx:for="{{timetableToday}}" wx:for-item="lesson" wx:for-index="index" wx:key="index">
+        <view
+          class="timetable-item"
+          wx:if="{{timetableToday.length}}"
+          wx:for="{{timetableToday}}"
+          wx:for-item="lesson"
+          wx:for-index="index"
+          wx:key="index"
+        >
           <view class="main-info">
             <text class="name">{{lesson['课程名称']}}</text>
-            <text class="info">{{lesson['起止周'] ? lesson['起止周'] + '周 ' : ''}}{{lesson['起止节'] ? lesson['起止节'] + '节 ' : ''}}</text>
+            <text class="info"
+              >{{lesson['起止周'] ? lesson['起止周'] + '周 ' : ''}}{{lesson['起止节'] ?
+              lesson['起止节'] + '节 ' : ''}}</text
+            >
           </view>
           <view class="place">{{lesson['地点']}}</view>
         </view>
-        <view class="timetable-nothing" wx:if="{{timetableToday.length === 0}}" >
+        <view class="timetable-nothing" wx:if="{{timetableToday.length === 0}}">
           <text>今天居然没有课~😆</text>
         </view>
       </view>
@@ -51,11 +79,16 @@
     <view class="bottom">查看全部课表</view>
   </navigator>
 
-  <navigator url="/pages/card/card" wx:if="{{card}}" class="m-index-card f-mt-20" style="background-image: url({{icons.card.card}});">
+  <navigator
+    url="/pages/card/card"
+    wx:if="{{card}}"
+    class="m-index-card f-mt-20"
+    style="background-image: url({{icons.card.card}});"
+  >
     <view class="header">
       <view class="image">
-        <image class="icon" src="{{icons.card.icon}}" mode="aspectFit" ></image>
-        <image class="icon-bg" src="{{icons.card.bg}}" mode="aspectFit" ></image>
+        <image class="icon" src="{{icons.card.icon}}" mode="aspectFit"></image>
+        <image class="icon-bg" src="{{icons.card.bg}}" mode="aspectFit"></image>
       </view>
       <text class="title">一卡通</text>
     </view>
@@ -79,11 +112,16 @@
     </view>
   </navigator>
 
-  <navigator url="/pages/borrow/borrow" wx:if="{{borrow && borrow.borrow_list.length > 0}}" class="m-index-card f-mt-20" style="background-image: url({{icons.borrow.card}});">
+  <navigator
+    url="/pages/borrow/borrow"
+    wx:if="{{borrow && borrow.borrow_list.length > 0}}"
+    class="m-index-card f-mt-20"
+    style="background-image: url({{icons.borrow.card}});"
+  >
     <view class="header">
       <view class="image">
-        <image class="icon" src="{{icons.borrow.icon}}" mode="aspectFit" ></image>
-        <image class="icon-bg" src="{{icons.borrow.bg}}" mode="aspectFit" ></image>
+        <image class="icon" src="{{icons.borrow.icon}}" mode="aspectFit"></image>
+        <image class="icon-bg" src="{{icons.borrow.bg}}" mode="aspectFit"></image>
       </view>
       <text class="title">借阅信息</text>
     </view>
@@ -94,9 +132,15 @@
           <text class="date">欠费金额: {{borrow.debt}}元</text>
         </view>
         <view class="borrow-list">
-          <view class="borrow-item" wx:for="{{borrow.borrow_list}}" wx:for-item="book" wx:for-index="index" wx:key="index">
+          <view
+            class="borrow-item"
+            wx:for="{{borrow.borrow_list}}"
+            wx:for-item="book"
+            wx:for-index="index"
+            wx:key="index"
+          >
             <view class="book">
-              <image class="icon-book" src="/images/index/borrow-book.png" mode="aspectFit" ></image>
+              <image class="icon-book" src="/images/index/borrow-book.png" mode="aspectFit"></image>
               <text class="title">{{book['书名']}}</text>
             </view>
             <view class="borrow">

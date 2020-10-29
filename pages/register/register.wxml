@@ -9,23 +9,58 @@
   <form class="f-bg-gray-form-gradient m-wave-form closely">
     <view class="input-group {{userid_focus ? 'active' : ''}}">
       <text class="input-label">学号</text>
-      <input type="number" data-type="username" cursor-spacing="30" bindinput="onInput" placeholder="请输入学号" value="{{username}}"/>
+      <input
+        type="number"
+        data-type="username"
+        cursor-spacing="30"
+        bindinput="onInput"
+        placeholder="请输入学号"
+        value="{{username}}"
+      />
     </view>
     <view class="input-group {{passwd_focus ? 'active' : ''}}">
       <text class="input-label">密码</text>
-      <input password="true" data-type="password" cursor-spacing="30" bindinput="onInput" placeholder="请输入密码" value="{{password}}"/>
+      <input
+        password="true"
+        data-type="password"
+        cursor-spacing="30"
+        bindinput="onInput"
+        placeholder="请输入密码"
+        value="{{password}}"
+      />
     </view>
     <view class="input-group {{passwd_focus ? 'active' : ''}}">
       <text class="input-label">验证密码</text>
-      <input password="true" data-type="validatePassword" cursor-spacing="30" bindinput="onInput" placeholder="请再次输入密码" value="{{validatePassword}}"/>
+      <input
+        password="true"
+        data-type="validatePassword"
+        cursor-spacing="30"
+        bindinput="onInput"
+        placeholder="请再次输入密码"
+        value="{{validatePassword}}"
+      />
     </view>
     <view class="input-group {{userid_focus ? 'active' : ''}}">
       <text class="input-label">身份证号</text>
-      <input type="text" data-type="iid" cursor-spacing="30" bindinput="onInput" placeholder="请输入身份证号" value="{{iid}}"/>
+      <input
+        type="text"
+        data-type="iid"
+        cursor-spacing="30"
+        bindinput="onInput"
+        placeholder="请输入身份证号"
+        value="{{iid}}"
+      />
     </view>
     <view class="input-group {{userid_focus ? 'active' : ''}}">
       <text class="input-label">邮箱</text>
-      <input type="text" data-type="email" cursor-spacing="30" bindinput="onInput" placeholder="请输入邮箱" value="{{email}}"/>
+      <input
+        type="text"
+        data-type="email"
+        cursor-spacing="30"
+        bindinput="onInput"
+        placeholder="请输入邮箱"
+        value="{{email}}"
+      />
     </view>
     <view class="confirm-btn" bindtap="register">
       <view class="u-confirm-btn">

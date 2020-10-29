@@ -7,7 +7,11 @@
       <view class="info">
         <view class="title">
           <text class="content">成绩{{isDetail ? '明细' : ''}}查询</text>
-          <image class="eye" src="/images/common/eye-{{hideInfo ? 'close-' : ''}}gray.png" bindtap="toggleHideInfo"></image>
+          <image
+            class="eye"
+            src="/images/common/eye-{{hideInfo ? 'close-' : ''}}gray.png"
+            bindtap="toggleHideInfo"
+          ></image>
         </view>
         <text class="info-item">学号：{{hideInfo ? '************' : userInfo.uno}}</text>
         <text class="info-item">姓名：{{hideInfo ? '**' : userInfo.ext.school_info.name}}</text>
@@ -37,7 +41,12 @@
         </view>
       </view>
       <view class="score-list">
-        <view class="score-item" wx:for="{{sort ? sortedScoreList : score.list}}" wx:key="course_id" wx:for-index="course_id">
+        <view
+          class="score-item"
+          wx:for="{{sort ? sortedScoreList : score.list}}"
+          wx:key="course_id"
+          wx:for-index="course_id"
+        >
           <text class="name">{{item['名称']}}</text>
           <text class="score">{{hideScore ? '**' : item['成绩']}}</text>
         </view>
@@ -58,7 +67,12 @@
         </view>
       </view>
       <view class="score-list">
-        <view class="score-item detail{{item.open ? ' open' : ''}}" wx:for="{{scoreDetail.list}}" wx:key="course_{{course_id}}" wx:for-index="course_id">
+        <view
+          class="score-item detail{{item.open ? ' open' : ''}}"
+          wx:for="{{scoreDetail.list}}"
+          wx:key="course_{{course_id}}"
+          wx:for-index="course_id"
+        >
           <view class="head" bindtap="toggleShowScoreDetail" data-index="{{course_id}}">
             <view class="main-info">
               <text class="name">{{item['名称']}}</text>
@@ -67,7 +81,13 @@
             <image class="arrow" src="/images/common/arrow-down-gray.png"></image>
           </view>
           <view class="detail-info">
-            <view class="detail-item" wx:for="{{item}}" wx:key="item_{{course_id}}_{{item_name}}" wx:for-index="item_name" wx:if="{{item_name !== 'open'}}">
+            <view
+              class="detail-item"
+              wx:for="{{item}}"
+              wx:key="item_{{course_id}}_{{item_name}}"
+              wx:for-index="item_name"
+              wx:if="{{item_name !== 'open'}}"
+            >
               <text class="label">{{item_name}}</text>
               <text class="content">{{item}}</text>
             </view>
@@ -86,21 +106,35 @@
   <view class="m-footer-bar red">
     <view class="left">
       <view class="sort-touch" bindtap="toggleSort">
-        <image class="icon-sort{{sortAnimation ? ' active' : ''}}" src="/images/common/sort-white.png"></image>
+        <image
+          class="icon-sort{{sortAnimation ? ' active' : ''}}"
+          src="/images/common/sort-white.png"
+        ></image>
       </view>
     </view>
     <view class="middle">
       <view class="switch-btn" data-direction="left" bindtap="switchTerm">
-        <image src="/images/common/arrow-left.png" class="icon icon-arrow-left" mode="aspectFit"></image>
+        <image
+          src="/images/common/arrow-left.png"
+          class="icon icon-arrow-left"
+          mode="aspectFit"
+        ></image>
       </view>
       <text class="title">{{currentTerm}}</text>
       <view class="switch-btn" data-direction="right" bindtap="switchTerm">
-        <image src="/images/common/arrow-right.png" class="icon icon-arrow-right" mode="aspectFit"></image>
+        <image
+          src="/images/common/arrow-right.png"
+          class="icon icon-arrow-right"
+          mode="aspectFit"
+        ></image>
       </view>
     </view>
     <view class="right">
       <view class="detail-touch" bindtap="toggleDetail">
-        <image class="icon-sort{{detailAnimation ? ' active' : ''}}" src="/images/common/detail-white.png"></image>
+        <image
+          class="icon-sort{{detailAnimation ? ' active' : ''}}"
+          src="/images/common/detail-white.png"
+        ></image>
       </view>
     </view>
   </view>

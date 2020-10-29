@@ -1,0 +1,11 @@
+{
+  "minapp-vscode.wxmlFormatter": "prettier",
+  "minapp-vscode.prettier": {
+    "parser": "html",
+    "useTabs": false,
+    "tabWidth": 2,
+    "singleQuote": false,
+    "bracketSpacing": true,
+    "endOfLine": "lf"
+  }
+}
