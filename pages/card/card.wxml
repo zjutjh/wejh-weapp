@@ -26,7 +26,7 @@
       <view class="balance-graph">
         <view class="label">今日交易情况: </view>
         <view class="tab-list" bindtap="switchTab">
-          <view class="tab{{tabIndex === index ? ' active' : ''}}" wx:key="tab_{{index}}" wx:for="{{tabs}}" wx:for-item="tab" wx:for-index="index">
+          <view class="tab{{tabIndex === index ? ' active' : ''}}" wx:key="index" wx:for="{{tabs}}" wx:for-item="tab" wx:for-index="index">
             {{tab}}
           </view>
         </view>

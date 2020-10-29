@@ -2,9 +2,9 @@
     <view class="m-app-list">
         <view
             wx:for="{{apps}}"
+            wx:key="index"
             catchtap="onClickApp"
             data-index="{{index}}"
-            wx:key="apps_{{index}}"
             class="item{{item.disabled || !userInfo ? ' disabled' : ''}}{{item.ad || !userInfo ? ' ad' : ''}}"
         >
             <view class="item-image">

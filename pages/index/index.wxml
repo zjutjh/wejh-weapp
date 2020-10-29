@@ -36,7 +36,7 @@
     </view>
     <view class="content">
       <view class="timetable-card">
-        <view class="timetable-item" wx:if="{{timetableToday.length}}" wx:for="{{timetableToday}}" wx:for-item="lesson" wx:for-index="index" wx:key="lesson_{{index}}">
+        <view class="timetable-item" wx:if="{{timetableToday.length}}" wx:for="{{timetableToday}}" wx:for-item="lesson" wx:for-index="index" wx:key="index">
           <view class="main-info">
             <text class="name">{{lesson['课程名称']}}</text>
             <text class="info">{{lesson['起止周'] ? lesson['起止周'] + '周 ' : ''}}{{lesson['起止节'] ? lesson['起止节'] + '节 ' : ''}}</text>
@@ -94,7 +94,7 @@
           <text class="date">欠费金额: {{borrow.debt}}元</text>
         </view>
         <view class="borrow-list">
-          <view class="borrow-item" wx:for="{{borrow.borrow_list}}" wx:for-item="book" wx:for-index="index" wx:key="book_{{index}}">
+          <view class="borrow-item" wx:for="{{borrow.borrow_list}}" wx:for-item="book" wx:for-index="index" wx:key="index">
             <view class="book">
               <image class="icon-book" src="/images/index/borrow-book.png" mode="aspectFit" ></image>
               <text class="title">{{book['书名']}}</text>

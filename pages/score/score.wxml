@@ -37,7 +37,7 @@
         </view>
       </view>
       <view class="score-list">
-        <view class="score-item" wx:for="{{sort ? sortedScoreList : score.list}}" wx:key="course_{{course_id}}" wx:for-index="course_id">
+        <view class="score-item" wx:for="{{sort ? sortedScoreList : score.list}}" wx:key="course_id" wx:for-index="course_id">
           <text class="name">{{item['名称']}}</text>
           <text class="score">{{hideScore ? '**' : item['成绩']}}</text>
         </view>

@@ -8,13 +8,15 @@
     <!-- 左侧栏 -->
     <view class="lesson-number">
       <view class="date">月</view>
-      <view class="number" wx:for="{{12}}" wx:key="number_{{index}}">{{index + 1}}</view>
+      <view class="number" wx:for="{{12}}" wx:key="index">
+        {{index + 1}}
+      </view>
     </view>
 
     <!-- 滑动区域 -->
     <scroll-view class="timetable-box" scroll-x="true">
       <view class="timetable-header">
-        <view class="weekday" wx:for="{{7}}" wx:key="weekday_{{index}}">
+        <view class="weekday" wx:for="{{7}}" wx:key="index">
           周{{weekday[index + 1]}}
         </view>
       </view>
@@ -29,13 +31,13 @@
         </block>
         <view class="card-content">
           <!-- 每天的课程 -->
-          <view class="day-lessons" wx:for="{{timetable}}" wx:key="{{day_id}}" wx:for-index="day_id" wx:for-item="dayLessons" >
+          <view class="day-lessons" wx:for="{{timetable}}" wx:key="day_id" wx:for-index="day_id" wx:for-item="dayLessons" >
             <!-- 每节的课表 -->
-            <view class="lesson" wx:for="{{dayLessons}}" wx:key="{{lesson_id}}" wx:for-index="lesson_id" wx:for-item="lessonBlock">
+            <view class="lesson" wx:for="{{dayLessons}}" wx:key="lesson_id" wx:for-index="lesson_id" wx:for-item="lessonBlock">
               <view class="{{ (viewStatus === '*' && conflictLessons[day_id][lesson_id][0] || viewStatus !== '*' && conflictLessons[day_id][lesson_id][currentWeek]) ? ' conflict' : '' }}"></view>
               <view
                   class="card {{ item['颜色'] || 'red' }}"
-                  wx:for="{{lessonBlock}}" wx:key="{{card_id}}" wx:for-index="card_id" wx:for-item="item"
+                  wx:for="{{lessonBlock}}" wx:key="card_id" wx:for-index="card_id" wx:for-item="item"
                   style="height: {{ item['节数'] * 100 - 10 }}rpx;"
                   wx:if="{{!!item['周'][currentWeek] || viewStatus === '*'}}"
                   data-day="{{day_id}}" data-lesson="{{lesson_id}}" bindtap="showLessonDetail"
@@ -91,7 +93,7 @@
       <view class="detail-content">
         <view class="card {{ item['颜色'] }}{{ targetIndex === cid ? ' active' : '' }}"
               style="height: {{ item['节数'] * 100 - 10 }}rpx;"
-              wx:for="{{targetLessons}}" wx:key="detail_card_{{cid}}" wx:for-index="cid" wx:for-item="item"
+              wx:for="{{targetLessons}}" wx:key="cid" wx:for-index="cid" wx:for-item="item"
         >
           <text class="place" style="font-size: {{ 50 - item['地点长度'] * 2 }}rpx;">{{item['地点']}}</text>
           <text class="name" style="font-size: {{ item['课程名称长度'] < 10 && item['节数'] < 2 ? 12 : item['课程名称长度'] > (32 - 14) ? 14 : (32 - item['课程名称长度']) }}rpx;">{{item['课程名称']}}</text>
@@ -112,7 +114,7 @@
         </view>-->
         <swiper class="card-swiper" bindchange="onSwiper" current="{{targetIndex}}">
           <swiper-item
-              wx:for="{{targetLessons}}" wx:key="footer_card_{{cid}}" wx:for-index="cid" wx:for-item="item"
+              wx:for="{{targetLessons}}" wx:key="cid" wx:for-index="cid" wx:for-item="item"
               class="card"
           >
             <text class="name">{{item['名称']}}</text>

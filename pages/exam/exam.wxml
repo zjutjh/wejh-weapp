@@ -20,7 +20,7 @@
 
     <view class="exam-content">
       <view class="exam-list">
-        <view class="exam-item{{item.open ? ' open' : ''}}" wx:for="{{exam.list}}" wx:key="course_{{course_id}}" wx:for-index="course_id">
+        <view class="exam-item{{item.open ? ' open' : ''}}" wx:for="{{exam.list}}" wx:key="course_id" wx:for-index="course_id">
           <view class="head" bindtap="toggleShowExam" data-index="{{course_id}}">
             <view class="main-info">
               <text class="name">{{item['课程']}}</text>

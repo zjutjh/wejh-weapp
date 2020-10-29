@@ -2,7 +2,7 @@
   <view class="m-freeroom" enable-back-to-top="true">
     <!--空教室的信息-->
     <scroll-view class="room-display" scroll-y="true" >
-      <view class="build" wx:for="{{freeroom}}" wx:for-item="build" wx:for-index="build_id" wx:key="build_{{build_id}}">
+      <view class="build" wx:for="{{freeroom}}" wx:for-item="build" wx:for-index="build_id" wx:key="build_id">
         <!--单个空教室-->
         <view class="build-name">
           {{build.iconText}}
@@ -18,7 +18,7 @@
     <!--空教室的的查询选项-->
     <view class="room-condition">
       <!-- 查询块，一整条 -->
-      <view class="condition-block" wx:for="{{conditions}}" wx:for-item="block" data-index="{{block_id}}" wx:key="block_{{block_id}}" wx:for-index="block_id">
+      <view class="condition-block" wx:for="{{conditions}}" wx:for-item="block" data-index="{{block_id}}" wx:key="block_id" wx:for-index="block_id">
         <!-- 单个查询条件，选项条 -->
         <scroll-view scroll-x="true" class="condition {{condition.name}}" data-type="{{condition.name}}" wx:for="{{block}}" data-type="{{condition_key}}" wx:for-item="condition" wx:key="condition_{{block_id}}_{{condition_key}}" wx:for-index="condition_key">
           <!-- 选项 -->

@@ -3,7 +3,7 @@
   <view class="m-news">
     <!--新闻分类-->
     <scroll-view class="news-type-list" scroll-x="true">
-      <view class="news-type-item" wx:for="{{newsTypeList}}" wx:key="newsType_{{index}}" wx:for-index="index" bindtap="onClickNewsType" data-id="{{index}}" id="{{item.type}}">
+      <view class="news-type-item" wx:for="{{newsTypeList}}" wx:key="index" wx:for-index="index" bindtap="onClickNewsType" data-id="{{index}}" id="{{item.type}}">
         <image wx:if="{{item.enabled}}" class="icon {{active.type === item.type ? 'active' : ''}}" src="/images/news/{{item.type}}@colour.png"></image>
         <image wx:else class="icon disabled" src="/images/news/{{item.type}}@gray.png"></image>
       </view>
