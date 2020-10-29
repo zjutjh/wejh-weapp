@@ -1,36 +1,36 @@
-const app = getApp()
+const app = getApp();
 
 const form = {
-  username: '',
-  password: '',
-  validatePassword: '',
-  iid: '',
-  email: '',
-}
+  username: "",
+  password: "",
+  validatePassword: "",
+  iid: "",
+  email: "",
+};
 
 Page({
   data: {
     showLoading: true,
   },
-  onLoad () {
-    let _this = this
-    app.$store.connect(this, 'register')
+  onLoad() {
+    let _this = this;
+    app.$store.connect(this, "register");
     setTimeout(() => {
       this.setState({
-        showLoading: false
-      })
-    }, 1000)
+        showLoading: false,
+      });
+    }, 1000);
   },
-  onInput (e) {
-    const type = e.target.dataset.type
-    form[type] = e.detail.value
+  onInput(e) {
+    const type = e.target.dataset.type;
+    form[type] = e.detail.value;
   },
-  register () {
-    const username = form.username
-    const password = form.password
-    const validatePassword = form.validatePassword
-    const iid = form.iid
-    const email = form.email
+  register() {
+    const username = form.username;
+    const password = form.password;
+    const validatePassword = form.validatePassword;
+    const iid = form.iid;
+    const email = form.email;
 
     if (!username || !password || !iid || !email) {
       return wx.showModal({
@@ -40,33 +40,33 @@ Page({
       });
     }
 
-    if(password !== validatePassword) {
+    if (password !== validatePassword) {
       return wx.showModal({
-        title: '请重新填写',
-        content: '两次输入的密码不一致',
-        showCancel: false
-      })
+        title: "请重新填写",
+        content: "两次输入的密码不一致",
+        showCancel: false,
+      });
     }
 
     app.fetch({
-      url: app.API('register'),
+      url: app.API("register"),
       data: {
         username,
         password,
         iid,
-        email
+        email,
       },
       showError: true,
-      method: 'POST',
+      method: "POST",
       success: (res) => {
         wx.showToast({
           duration: 2000,
-          title: '激活成功'
-        })
+          title: "激活成功",
+        });
         setTimeout(() => {
-          wx.navigateBack()
-        },2000)
-      }
-    })
-  }
-})
+          wx.navigateBack();
+        }, 2000);
+      },
+    });
+  },
+});
