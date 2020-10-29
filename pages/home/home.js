@@ -21,7 +21,7 @@ Page({
           title: '提示',
           icon: 'success',
           showCancel: false,
-          content: '复制成功，粘贴至搜索栏关注我们'
+          content: '复制成功，粘贴至微信搜索栏关注我们'
         })
       }
     })

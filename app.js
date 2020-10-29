@@ -23,11 +23,14 @@ const services = Services({
 })
 const staticKey = 'static'
 console.log(systemInfo)
-const version = 'v1.0.15'
+
+const version = 'v1.0.18'
+const versionType = '正式版'
+
 App({
   name: '微精弘',
   version,
-  versionType: '正式版',
+  versionType: versionType,
   onLaunch: function() {
     store.connect(this, 'common')
     this.getData()

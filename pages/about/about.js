@@ -3,7 +3,8 @@ Page({
   data: {
     name: app.name,
     versionType: app.versionType,
-    version: app.version
+    version: app.version,
+    currentYear: new Date().getFullYear()
   },
   onLoad: function () {
     let _this = this
