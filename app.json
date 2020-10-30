@@ -20,7 +20,8 @@
     "pages/login/login",
     "pages/home/home",
     "pages/about/about",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/labs/labs"
   ],
   "window": {
     "backgroundTextStyle": "light",

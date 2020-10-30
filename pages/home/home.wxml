@@ -30,6 +30,11 @@
       <text class="text">设置</text>
       <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
     </navigator>
+    <navigator class="u-setting-navigator f-mb-20" url="/pages/labs/labs">
+      <image class="icon" mode="aspectFit" src="../../images/common/labs.png"></image>
+      <text class="text">实验室</text>
+      <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
+    </navigator>
   </block>
   <view class="u-setting-navigator" bindtap="followUs">
     <image class="icon" mode="aspectFit" src="../../images/common/follow-us.png"></image>

@@ -1,0 +1,6 @@
+<view class="container f-bg-gray">
+  <view class="m-remind-box">
+    <image class="remind-img" mode="aspectFit" src="/images/common/nothing.png"></image>
+    <text class="remind-text">暂无可供体验的实验性功能，敬请期待~</text>
+  </view>
+</view>
