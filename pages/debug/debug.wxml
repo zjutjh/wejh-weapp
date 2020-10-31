@@ -1,0 +1,39 @@
+<view class="container f-bg-gray">
+  <navigator class="u-setting-navigator f-mt-20 f-mb-20" url="/pages/about/about">
+    <text class="text">切换环境</text>
+    <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
+  </navigator>
+  <navigator class="u-setting-navigator" url="/pages/about/about">
+    <text class="text">修改 openId</text>
+    <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
+  </navigator>
+  <navigator class="u-setting-navigator f-mb-20" url="/pages/about/about">
+    <text class="text">修改 token</text>
+    <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
+  </navigator>
+  <navigator class="u-setting-navigator" url="/pages/setting/setting">
+    <text class="text">查看日志</text>
+    <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
+  </navigator>
+  <navigator class="u-setting-navigator f-mb-20" url="/pages/labs/labs">
+    <text class="text">清空日志</text>
+    <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
+  </navigator>
+  <view class="u-setting-navigator" bindtap="followUs">
+    <text class="text">清空 common 存储</text>
+    <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
+  </view>
+  <view class="u-setting-navigator" bindtap="goFeedback">
+    <text class="text">清空 static 存储</text>
+    <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
+  </view>
+  <navigator class="u-setting-navigator" url="/pages/about/about">
+    <text class="text">清空全部本地存储</text>
+    <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
+  </navigator>
+  <view class="f-bottom-btn">
+    <navigator class="u-btn-binding" url="/pages/login/login">
+      <text class="text">关闭调试彩蛋</text>
+    </navigator>
+  </view>
+</view>

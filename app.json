@@ -20,6 +20,7 @@
     "pages/login/login",
     "pages/home/home",
     "pages/about/about",
+    "pages/debug/debug",
     "pages/logs/logs",
     "pages/labs/labs"
   ],

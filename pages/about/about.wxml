@@ -3,7 +3,12 @@
     <view class="header">
       <view class="black-cover"></view>
       <image class="logo" src="/images/common/logo.png" mode="aspectFill"></image>
-      <image class="title" src="/images/common/title.png" mode="aspectFit"></image>
+      <image
+        class="title"
+        src="/images/common/title.png"
+        mode="aspectFit"
+        bindtap="headerTap"
+      ></image>
     </view>
     <view class="title-bar f-mb-20">
       <view class="left">

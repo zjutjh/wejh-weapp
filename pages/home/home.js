@@ -3,12 +3,18 @@ let app = getApp();
 Page({
   data: {
     weekday: ["日", "一", "二", "三", "四", "五", "六", "日"],
+    devMenuEnabled: false,
   },
   onLoad() {
     let _this = this;
     app.$store.connect(this, "home");
     this.observeCommon("userInfo");
     this.observeCommon("time");
+  },
+  onShow() {
+    this.setData({
+      devMenuEnabled: app.get("devMenuEnabled") || false,
+    });
   },
   goFeedback() {
     app.goFeedback();
