@@ -8,4 +8,7 @@
 out
 gen
 *.map
+
+node_modules/
+
 env.js
