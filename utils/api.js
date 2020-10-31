@@ -3,10 +3,8 @@
 //   preview: 'https://test.server.wejh.imcr.me/',
 //   production: 'https://server.wejh.imcr.me/'
 // }
-const prefix = "https://server.wejh.imcr.me/";
 
-const systemInfo = wx.getSystemInfoSync();
-const isDev = systemInfo.platform === "devtools";
+const prefix = "https://server.wejh.imcr.me/";
 
 const apiMap = {
   "app-list": "api/app-list",
@@ -42,9 +40,9 @@ function API(key) {
   //   preview = app.isPreview()
   // }
   // const domain = preview ? prefix['preview'] : isDev ? prefix['dev'] : prefix['production']
+  // console.log((preview ? '体验环境 ' : '') + (isDev ? '开发环境 ' : '') + url)
   const domain = prefix;
   const url = domain + apiMap[key];
-  // console.log((preview ? '体验环境 ' : '') + (isDev ? '开发环境 ' : '') + url)
   return url;
 }
 

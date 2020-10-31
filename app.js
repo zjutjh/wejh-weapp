@@ -3,6 +3,7 @@ import Fetch from "./utils/fetch";
 import API from "./utils/api";
 import toast from "./utils/toast";
 import Services from "./utils/services";
+import logger from "./utils/logger";
 import envConfig from "./env";
 
 const store = new WeappStore(
@@ -45,8 +46,8 @@ if (typeof __wxConfig === "object") {
 const isDev = versionType === "develop" || versionType === "beta";
 
 if (isDev) {
-  console.log("[App] 当前运行环境: " + versionType);
-  console.log(systemInfo);
+  logger.info("app", "当前运行环境: " + versionType);
+  logger.info("app", systemInfo);
 }
 
 const fetch = Fetch({
@@ -229,7 +230,7 @@ App({
             version,
           }),
         };
-        console.log("跳转到反馈社区", customData);
+        logger.info("app", "跳转到反馈社区", customData);
         wx.navigateToMiniProgram({
           appId: "wx8abaf00ee8c3202e",
           extraData: {
@@ -240,9 +241,8 @@ App({
       },
     });
   },
-  isPreview: () => wx.getStorageSync(staticKey)["preview"],
   systemInfo,
-  isDev: systemInfo.platform === "devtools",
+  isDev: isDev,
   env,
   services,
   API,

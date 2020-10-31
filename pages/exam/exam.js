@@ -1,3 +1,5 @@
+import logger from "../../utils/logger";
+
 let app = getApp();
 
 Page({
@@ -73,11 +75,11 @@ Page({
       this.setState({
         currentTerm: term,
       });
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
+      logger.error("exam", err);
       app.toast({
         icon: "error",
-        title: e.message,
+        title: err.message,
       });
     }
   },

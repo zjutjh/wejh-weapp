@@ -1,4 +1,6 @@
+import logger from "../../utils/logger";
 let app = getApp();
+
 Page({
   data: {
     url: "",
@@ -7,7 +9,7 @@ Page({
     for (let key in option) {
       option[key] = decodeURIComponent(option[key]);
     }
-    console.log(option);
+    logger.info("webview", option);
     let _this = this;
     app.$store.connect(this, "webview");
     this.setState({

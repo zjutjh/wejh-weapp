@@ -1,4 +1,7 @@
+import logger from "../../utils/logger";
+
 const app = getApp();
+
 Page({
   data: {
     newsTypeList: [
@@ -49,8 +52,8 @@ Page({
             content: tip || "复制成功",
           });
         },
-        fail(e) {
-          console.error(e);
+        fail(err) {
+          logger.error("news", err);
         },
       });
     }

@@ -43,13 +43,13 @@ Page({
     this.setState({
       showLoading: false,
     });
-    try {
-    } catch (e) {
-      console.error(e);
-      app.toast({
-        icon: "error",
-        title: e.message,
-      });
-    }
+    // try {
+    // } catch (e) {
+    //   console.error(e);
+    //   app.toast({
+    //     icon: "error",
+    //     title: e.message,
+    //   });
+    // }
   },
 });

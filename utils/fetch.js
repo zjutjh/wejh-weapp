@@ -1,6 +1,8 @@
 import toast from "./toast";
+import logger from "./logger";
+
 export default function ({ $store, isDev }) {
-  return function fetch(object) {
+  return (object) => {
     const commonData = $store.getCommonState();
     const token = commonData.token || "";
     if (token) {
@@ -18,9 +20,10 @@ export default function ({ $store, isDev }) {
 
     const success = object.success || function () {};
     const fail = object.fail || function () {};
+
     object.success = (res) => {
-      console.log(object);
-      console.log(res);
+      logger.info("fetch", object);
+      logger.info("fetch", res);
       if (typeof res.data !== "object") {
         object.showError &&
           toast({
@@ -31,9 +34,10 @@ export default function ({ $store, isDev }) {
 
         return fail(res);
       }
+
       const data = res.data;
       if (data.errcode < 0) {
-        console.error(data);
+        logger.error("fetch", data);
         object.showError &&
           toast({
             icon: "error",
@@ -52,7 +56,6 @@ export default function ({ $store, isDev }) {
             url: data.redirect,
           });
         }
-
         return fail(res);
       }
 
@@ -64,9 +67,10 @@ export default function ({ $store, isDev }) {
         });
       }
     };
+
     object.fail = (err) => {
-      console.log(object);
-      console.error(err);
+      logger.info("fetch", object);
+      logger.error("fetch", err);
       object.showError &&
         toast({
           icon: "error",
@@ -81,10 +85,6 @@ export default function ({ $store, isDev }) {
         }, 2000);
       }
     };
-
-    //if (isDev) {
-    //  console.log(object)
-    //}
 
     wx.request(object);
   };
