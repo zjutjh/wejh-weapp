@@ -1,5 +1,6 @@
 "use strict";
 
+// https://code.visualstudio.com/docs/languages/css
 // https://gist.github.com/jeromecoupe/0b807b0c1050647eb340360902c3203a
 
 // Load plugins

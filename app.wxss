@@ -248,6 +248,13 @@ text {
 
 .u-setting-navigator .text {
   font-size: 32rpx;
+  margin-right: auto;
+}
+
+.u-setting-navigator > input {
+  margin-left: 16rpx;
+  margin-right: 16rpx;
+  flex: 1;
 }
 
 .u-setting-navigator .tip {
@@ -282,12 +289,8 @@ text {
 }
 
 .u-setting-navigator .icon-next {
-  position: absolute;
-  top: 50%;
-  right: 32rpx;
   width: 30rpx;
   height: 30rpx;
-  transform: translateY(-50%);
 }
 
 .u-btn-binding {

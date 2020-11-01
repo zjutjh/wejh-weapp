@@ -24,6 +24,13 @@
 
   .text {
     font-size: 32rpx;
+    margin-right: auto;
+  }
+
+  &>input {
+    margin-left: 16rpx;
+    margin-right: 16rpx;
+    flex: 1;
   }
 
   .tip {
@@ -58,12 +65,8 @@
   }
 
   .icon-next {
-    position: absolute;
-    top: 50%;
-    right: 32rpx;
     width: 30rpx;
     height: 30rpx;
-    transform: translateY(-50%);
   }
 }
 

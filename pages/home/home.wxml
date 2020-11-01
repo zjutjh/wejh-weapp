@@ -60,7 +60,7 @@
   </navigator>
   <navigator
     class="u-setting-navigator f-mt-20"
-    url="/pages/debug/debug"
+    url="/pages/debug/index"
     wx:if="{{devMenuEnabled}}"
   >
     <image class="icon" mode="aspectFit" src="../../images/home/debug.png"></image>
