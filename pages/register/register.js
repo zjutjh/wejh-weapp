@@ -1,3 +1,5 @@
+import { API } from "../../utils/api";
+
 const app = getApp();
 
 const form = {
@@ -49,7 +51,7 @@ Page({
     }
 
     app.fetch({
-      url: app.API("register"),
+      url: API("register"),
       data: {
         username,
         password,

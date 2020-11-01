@@ -1,6 +1,6 @@
 import WeappStore from "./utils/store";
 import Fetch from "./utils/fetch";
-import API from "./utils/api";
+import { API } from "./utils/api";
 import toast from "./utils/toast";
 import Services from "./utils/services";
 import logger from "./utils/logger";
@@ -245,7 +245,6 @@ App({
   isDev: isDev,
   env,
   services,
-  API,
   fetch,
   toast,
   $store: store,

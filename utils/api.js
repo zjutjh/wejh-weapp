@@ -4,7 +4,21 @@
 //   production: 'https://server.wejh.imcr.me/'
 // }
 
-const prefix = "https://server.wejh.imcr.me/";
+const customEndpointKey = "custom_api_endpoint";
+
+const endpoints = [
+  {
+    name: "imcr.me",
+    url: "https://server.wejh.imcr.me/",
+  },
+];
+
+const defaultEndpoint = "https://server.wejh.imcr.me/";
+
+let customEndpoint = (() => {
+  const endpoint = wx.getStorageSync(customEndpointKey);
+  return endpoint && typeof endpoint === "string" ? endpoint : "";
+})();
 
 const apiMap = {
   "app-list": "api/app-list",
@@ -30,20 +44,41 @@ const apiMap = {
   "library/bind": "api/library/bind",
 };
 
+function setCustomEndpoint(url) {
+  if (typeof url === "string") {
+    try {
+      wx.setStorageSync(customEndpointKey, url);
+      customEndpoint = url;
+      return true;
+    } catch {
+      return false;
+    }
+  }
+  return false;
+}
+
+function removeCustomEndpoint() {
+  try {
+    wx.removeStorageSync(customEndpointKey);
+    customEndpoint = "";
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 /**
  * @return {string}
  */
 function API(key) {
-  // const app = getApp()
-  // let preview = false
-  // if (app) {
-  //   preview = app.isPreview()
-  // }
-  // const domain = preview ? prefix['preview'] : isDev ? prefix['dev'] : prefix['production']
-  // console.log((preview ? '体验环境 ' : '') + (isDev ? '开发环境 ' : '') + url)
-  const domain = prefix;
+  const domain = customEndpoint || defaultEndpoint;
   const url = domain + apiMap[key];
   return url;
 }
 
-export default API;
+module.exports = {
+  API,
+  endpoints,
+  setCustomEndpoint,
+  removeCustomEndpoint,
+};

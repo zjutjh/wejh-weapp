@@ -1,3 +1,5 @@
+import { API } from "../../utils/api";
+
 const app = getApp();
 
 const form = {
@@ -44,7 +46,7 @@ Page({
     }
 
     app.fetch({
-      url: app.API("zf/bind"),
+      url: API("zf/bind"),
       data: {
         password,
       },
