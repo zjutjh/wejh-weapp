@@ -15,7 +15,7 @@ export default function ({$store, isDev}) {
 
     object.header['content-type'] = object.header['content-type'] || 'application/json'
 
-    const success = object.success || function () {}
+    const success = object.success || function () {};
     const fail = object.fail || function () {}
     object.success = (res) => {
       console.log(object)

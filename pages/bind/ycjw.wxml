@@ -9,7 +9,14 @@
   <form class="f-bg-gray-form-gradient m-wave-form closely">
     <view class="input-group {{passwd_focus ? 'active' : ''}}">
       <text class="input-label">原创教务密码</text>
-      <input password="true" data-type="password" cursor-spacing="30" bindinput="onInput" placeholder="请输入原创教务系统密码" value="{{password}}"/>
+      <input
+        password="true"
+        data-type="password"
+        cursor-spacing="30"
+        bindinput="onInput"
+        placeholder="请输入原创教务系统密码"
+        value="{{password}}"
+      />
     </view>
     <view class="login-help" bindtap="showHelp">
       <text>帮助</text>
@@ -26,7 +33,12 @@
     <view class="box">
       <view class="header">
         <text class="title">帮助</text>
-        <image class="icon-close" src="/images/common/close.png" bindtap="hideHelp" mode="aspectFit"></image>
+        <image
+          class="icon-close"
+          src="/images/common/close.png"
+          bindtap="hideHelp"
+          mode="aspectFit"
+        ></image>
       </view>
       <view class="content">
         <view class="question">1、原创教务系统是什么？</view>

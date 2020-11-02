@@ -20,7 +20,7 @@ Page({
   onLoad () {
     let _this = this
     app.$store.connect(this, 'card')
-    this.observeCommon('card')
+    this.observeCommon("card");
     this.observeCommon('icons')
     this.observeCommon('userInfo')
     this.setState({

@@ -1,86 +1,86 @@
-const app = getApp()
+const app = getApp();
 
 const form = {
-  username: '',
-  password: ''
-}
+  username: "",
+  password: "",
+};
 
 Page({
   data: {
     showLoading: true,
     helpStatus: false,
   },
-  onLoad () {
-    let _this = this
-    app.$store.connect(this, 'login')
+  onLoad() {
+    let _this = this;
+    app.$store.connect(this, "login");
 
     // 直接显示会有动画bug，所以需要先挂载一段时间再显示
     setTimeout(() => {
       this.setState({
-        showLoading: false
-      })
-    }, 1000)
+        showLoading: false,
+      });
+    }, 1000);
   },
-  onInput (e) {
-    const type = e.target.dataset.type
-    form[type] = e.detail.value
+  onInput(e) {
+    const type = e.target.dataset.type;
+    form[type] = e.detail.value;
   },
-  login () {
-    const username = form.username
-    const password = form.password
-    const type = 'weapp'
-    const openid = app.$store.getCommonState('openid')
-    if(!username || !password) {
+  login() {
+    const username = form.username;
+    const password = form.password;
+    const type = "weapp";
+    const openid = app.$store.getCommonState("openid");
+    if (!username || !password) {
       return wx.showModal({
-        title: '错误',
-        content: '账号以及密码不能为空',
-        showCancel: false
-      })
+        title: "错误",
+        content: "账号以及密码不能为空",
+        showCancel: false,
+      });
     }
     if (!openid) {
       return app.login(undefined, () => {
-        this.login()
-      })
+        this.login();
+      });
     }
 
     app.fetch({
-      url: app.API('login'),
+      url: app.API("login"),
       data: {
         username,
         password,
         type,
-        openid
+        openid,
       },
       showError: true,
-      method: 'POST',
+      method: "POST",
       success: (res) => {
-        const data = res.data.data
-        const token = data.token
-        const userInfo = data.user
+        const data = res.data.data;
+        const token = data.token;
+        const userInfo = data.user;
         app.$store.setCommonState({
           token,
-          userInfo
-        })
+          userInfo,
+        });
         wx.showToast({
           duration: 2000,
-          title: '登录成功'
-        })
+          title: "登录成功",
+        });
         setTimeout(() => {
           wx.navigateBack({
-            delta: 1
-          })
-        },2000)
-      }
-    })
+            delta: 1,
+          });
+        }, 2000);
+      },
+    });
   },
   showHelp() {
     this.setState({
-      helpStatus: true
-    })
+      helpStatus: true,
+    });
   },
   hideHelp() {
     this.setState({
-      helpStatus: false
-    })
-  }
-})
+      helpStatus: false,
+    });
+  },
+});

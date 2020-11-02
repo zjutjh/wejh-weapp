@@ -23,8 +23,8 @@ Page({
       // 判断是否登录
       if (!app.isLogin() || !this.data.userInfo) {
         return wx.redirectTo({
-          url: '/pages/login/login'
-        })
+          url: "/pages/login/login",
+        });
       }
       const year = this.data.userInfo.uno.slice(0, 4)
       if (year <= 2013) {

@@ -10,11 +10,25 @@
   <form class="f-bg-gray-form-gradient m-wave-form">
     <view class="input-group {{userid_focus ? 'active' : ''}}">
       <text class="input-label">帐号</text>
-      <input type="number" data-type="username" cursor-spacing="30" bindinput="onInput" placeholder="请输入精弘通行证/学号" value="{{username}}"/>
+      <input
+        type="number"
+        data-type="username"
+        cursor-spacing="30"
+        bindinput="onInput"
+        placeholder="请输入精弘通行证/学号"
+        value="{{username}}"
+      />
     </view>
     <view class="input-group {{passwd_focus ? 'active' : ''}}">
       <text class="input-label">密码</text>
-      <input password="true" data-type="password" cursor-spacing="30" bindinput="onInput" placeholder="请输入密码" value="{{password}}"/>
+      <input
+        password="true"
+        data-type="password"
+        cursor-spacing="30"
+        bindinput="onInput"
+        placeholder="请输入密码"
+        value="{{password}}"
+      />
     </view>
     <view class="login-help" bindtap="showHelp">
       <text>帮助</text>
@@ -30,6 +44,6 @@
       <navigator class="forgot" url="/pages/forgot/forgot">忘记密码?</navigator>
     </view>
 
-    <template is="help-box" data="{{ helpStatus }}"/>
+    <template is="help-box" data="{{ helpStatus }}" />
   </form>
 </view>

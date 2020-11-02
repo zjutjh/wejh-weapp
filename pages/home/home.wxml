@@ -5,50 +5,56 @@
         <open-data type="userAvatarUrl"></open-data>
       </view>
       <view class="main-info">
-        <open-data class="name" type='userNickName' />
+        <open-data class="name" type="userNickName" />
         <text class="uno">{{ userInfo.uno || '未绑定'}}</text>
       </view>
     </view>
     <view class="right">
       <view class="time-info">
         <text class="term">{{time.term}}</text>
-        <text class="week" wx:if="{{ time !== undefined }}">{{time.is_begin ? '第' + time.week + '周' : '放假中'}} - 星期{{weekday[time.day]}}</text>
+        <text class="week" wx:if="{{ time !== undefined }}"
+          >{{time.is_begin ? '第' + time.week + '周' : '放假中'}} - 星期{{weekday[time.day]}}</text
+        >
       </view>
-      <image class="icon-next" src="/images/common/next.png" mode="aspectFit" wx:if="{{!userInfo}}"></image>
+      <image
+        class="icon-next"
+        src="/images/common/next.png"
+        mode="aspectFit"
+        wx:if="{{!userInfo}}"
+      ></image>
     </view>
   </view>
   <block wx:if="{{userInfo}}">
     <navigator class="u-setting-navigator f-mb-20" url="/pages/setting/setting">
-      <image class="icon" mode="aspectFit"src="../../images/home/setting.png" ></image>
+      <image class="icon" mode="aspectFit" src="../../images/home/setting.png"></image>
       <text class="text">设置</text>
       <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
     </navigator>
   </block>
   <view class="u-setting-navigator" bindtap="followUs">
-    <image class="icon" mode="aspectFit"src="../../images/common/follow-us.png" ></image>
+    <image class="icon" mode="aspectFit" src="../../images/common/follow-us.png"></image>
     <text class="text">关注我们<text class="tip">zjutjh</text></text>
     <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
   </view>
   <view class="u-setting-navigator f-mb-20" bindtap="goFeedback">
-    <image class="icon" mode="aspectFit"src="../../images/common/feedback.png" ></image>
+    <image class="icon" mode="aspectFit" src="../../images/common/feedback.png"></image>
     <text class="text">反馈</text>
     <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
   </view>
   <view class="u-setting-navigator f-mb-20" bindtap="donate">
-    <image class="icon" mode="aspectFit"src="../../images/common/money.png" ></image>
+    <image class="icon" mode="aspectFit" src="../../images/common/money.png"></image>
     <text class="text">支持我们</text>
     <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
   </view>
   <navigator class="u-setting-navigator" url="/pages/about/about">
-    <image class="icon" mode="aspectFit"src="../../images/common/about.png" ></image>
+    <image class="icon" mode="aspectFit" src="../../images/common/about.png"></image>
     <text class="text">关于</text>
     <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
   </navigator>
   <view class="f-bottom-btn">
     <navigator class="u-btn-binding" url="/pages/login/login">
-      <text class="text" wx:if="{{ !userInfo }}" >立即绑定</text>
+      <text class="text" wx:if="{{ !userInfo }}">立即绑定</text>
       <text class="text" wx:else>切换账号</text>
     </navigator>
   </view>
-
 </view>

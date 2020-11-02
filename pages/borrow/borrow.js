@@ -1,4 +1,4 @@
-let app = getApp()
+let app = getApp();
 
 Page({
   data: {
@@ -7,49 +7,49 @@ Page({
     hideScore: false,
     hideInfo: false,
     showLoading: true,
-    currentTerm: ''
+    currentTerm: "",
   },
-  onLoad () {
-    let _this = this
-    app.$store.connect(this, 'borrow')
-    this.observeCommon('borrow')
-    this.observeCommon('icons')
-    this.observeCommon('userInfo')
+  onLoad() {
+    let _this = this;
+    app.$store.connect(this, "borrow");
+    this.observeCommon("borrow");
+    this.observeCommon("icons");
+    this.observeCommon("userInfo");
     setTimeout(() => {
       // 判断是否登录
       if (!app.isLogin() || !this.data.userInfo) {
         return wx.redirectTo({
-          url: '/pages/login/login'
-        })
+          url: "/pages/login/login",
+        });
       }
 
       // 判断是否有成绩数据
       if (!this.data.borrow) {
         this.getBorrow(this.afterGetBorrow, {
-          back: true
-        })
+          back: true,
+        });
       } else {
-        this.afterGetBorrow()
+        this.afterGetBorrow();
       }
-    }, 500)
+    }, 500);
   },
-  getBorrow (callback = this.afterGetBorrow, option = {}) {
+  getBorrow(callback = this.afterGetBorrow, option = {}) {
     app.services.getBorrow(callback, {
       showError: true,
-      ...option
-    })
+      ...option,
+    });
   },
-  afterGetBorrow () {
+  afterGetBorrow() {
     this.setState({
-      showLoading: false
-    })
+      showLoading: false,
+    });
     try {
-    } catch(e) {
-      console.error(e)
+    } catch (e) {
+      console.error(e);
       app.toast({
-        icon: 'error',
-        title: e.message
-      })
+        icon: "error",
+        title: e.message,
+      });
     }
-  }
-})
+  },
+});

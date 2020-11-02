@@ -1,20 +1,45 @@
 <view class="container f-bg-gray">
-  <ad unit-id="adunit-149ba125a0678117" ad-type="grid" grid-opacity="0.8" grid-count="5" ad-theme="white"></ad>
+  <ad
+    unit-id="adunit-149ba125a0678117"
+    ad-type="grid"
+    grid-opacity="0.8"
+    grid-count="5"
+    ad-theme="white"
+  ></ad>
   <view class="m-news">
     <!--新闻分类-->
     <scroll-view class="news-type-list" scroll-x="true">
-      <view class="news-type-item" wx:for="{{newsTypeList}}" wx:key="newsType_{{index}}" wx:for-index="index" bindtap="onClickNewsType" data-id="{{index}}" id="{{item.type}}">
-        <image wx:if="{{item.enabled}}" class="icon {{active.type === item.type ? 'active' : ''}}" src="/images/news/{{item.type}}@colour.png"></image>
+      <view
+        class="news-type-item"
+        wx:for="{{newsTypeList}}"
+        wx:key="newsType_{{index}}"
+        wx:for-index="index"
+        bindtap="onClickNewsType"
+        data-id="{{index}}"
+        id="{{item.type}}"
+      >
+        <image
+          wx:if="{{item.enabled}}"
+          class="icon {{active.type === item.type ? 'active' : ''}}"
+          src="/images/news/{{item.type}}@colour.png"
+        ></image>
         <image wx:else class="icon disabled" src="/images/news/{{item.type}}@gray.png"></image>
       </view>
     </scroll-view>
   </view>
-  <view class="m-announcement" wx:if="{{newsTypeList[newsTypeIndex] && newsTypeList[newsTypeIndex].type === 'all'}}" wx:if="{{announcement && announcement.show}}">
+  <view
+    class="m-announcement"
+    wx:if="{{newsTypeList[newsTypeIndex] && newsTypeList[newsTypeIndex].type === 'all'}}"
+    wx:if="{{announcement && announcement.show}}"
+  >
     <view class="title" wx:if="{{announcement.title}}">{{announcement.title}}</view>
-    <rich-text class="content" type="text" nodes="{{announcement.content}}">
-    </rich-text>
-    <text class="footer" selectable="true" wx:if="{{announcement.footer}}">{{announcement.footer}}</text>
-    <text class="clipboard" selectable="true" bindtap="clipboard" wx:if="{{announcement.clipboard}}">{{announcement.clipboard}}</text>
+    <rich-text class="content" type="text" nodes="{{announcement.content}}"> </rich-text>
+    <text class="footer" selectable="true" wx:if="{{announcement.footer}}"
+      >{{announcement.footer}}</text
+    >
+    <text class="clipboard" selectable="true" bindtap="clipboard" wx:if="{{announcement.clipboard}}"
+      >{{announcement.clipboard}}</text
+    >
   </view>
   <view class="m-remind-box" wx:else>
     <image class="remind-img" mode="aspectFit" src="/images/common/nothing.png"></image>

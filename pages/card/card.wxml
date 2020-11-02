@@ -26,13 +26,23 @@
       <view class="balance-graph">
         <view class="label">今日交易情况: </view>
         <view class="tab-list" bindtap="switchTab">
-          <view class="tab{{tabIndex === index ? ' active' : ''}}" wx:key="tab_{{index}}" wx:for="{{tabs}}" wx:for-item="tab" wx:for-index="index">
+          <view
+            class="tab{{tabIndex === index ? ' active' : ''}}"
+            wx:key="tab_{{index}}"
+            wx:for="{{tabs}}"
+            wx:for-item="tab"
+            wx:for-index="index"
+          >
             {{tab}}
           </view>
         </view>
         <view class="graph-area">
           <canvas id="card-canvas" canvas-id="balanceCanvas" bindtap="canvasTap"></canvas>
-          <view class="line" style="left: {{lineLeft}}px;" wx:if="{{ card['今日账单'].length !== 0 }}"></view>
+          <view
+            class="line"
+            style="left: {{lineLeft}}px;"
+            wx:if="{{ card['今日账单'].length !== 0 }}"
+          ></view>
           <view class="y-text">{{tabs[tabIndex]}}</view>
           <view class="x-text">最近交易</view>
         </view>
@@ -54,7 +64,9 @@
           </view>
           <view class="detail-item">
             <text class="detail-item-label">交易金额</text>
-            <text class="detail-item-value">{{((tapDetail['交易额']) > 0 ? '+' : '') + tapDetail['交易额']}}</text>
+            <text class="detail-item-value"
+              >{{((tapDetail['交易额']) > 0 ? '+' : '') + tapDetail['交易额']}}</text
+            >
           </view>
           <view class="detail-item">
             <text class="detail-item-label">交易商户</text>
