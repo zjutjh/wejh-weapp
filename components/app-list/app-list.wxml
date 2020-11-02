@@ -5,7 +5,7 @@
       wx:key="index"
       catchtap="onClickApp"
       data-index="{{index}}"
-      class="item{{item.disabled || !userInfo ? ' disabled' : ''}}{{item.ad || !userInfo ? ' ad' : ''}}"
+      class="item{{item.disabled || !userInfo ? ' disabled' : ''}}{{item.ad ? ' ad' : ''}}"
     >
       <view class="item-image">
         <image src="{{item.icon}}" class="item-icon" mode="aspectFit" wx:if="{{item.icon}}"></image>
