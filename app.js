@@ -151,6 +151,31 @@ App({
   hasToken() {
     return !!store.getCommonState("token");
   },
+  reportUserInfo(userInfo) {
+    try {
+      const lastUpdateTime = Date.parse(userInfo.updated_at.split(" ")[0]);
+      const daysDiff =
+        (new Date().getTime() - lastUpdateTime) / (1000 * 3600 * 24);
+
+      const grade = userInfo.uno.substring(0, 4)
+
+      wx.reportAnalytics("user_login", {
+        uno: userInfo.uno,
+        grade: grade,
+        timetable_term: userInfo.ext.terms.class_term,
+        exam_term: userInfo.ext.terms.exam_term,
+        score_term: userInfo.ext.terms.score_term,
+        card_bind: userInfo.ext.passwords_bind.card_password,
+        lib_bind: userInfo.ext.passwords_bind.lib_password,
+        yc_bind: userInfo.ext.passwords_bind.yc_password,
+        zf_bind: userInfo.ext.passwords_bind.zf_password,
+        jh_bind: userInfo.ext.passwords_bind.jh_password,
+        last_update: Math.floor(daysDiff),
+      });
+    } catch (err) {
+      logger.error("app", "登录埋点上报异常", err);
+    }
+  },
   login(callback = this.getOpenid, afterLogin = function () {}) {
     wx.login({
       success: (res) => {
@@ -179,9 +204,13 @@ App({
             toast({
               title: "自动登录成功",
             });
+
+            const { token, user: userInfo } = result.data;
+            this.reportUserInfo(userInfo);
+
             store.setCommonState({
-              token: result.data.token,
-              userInfo: result.data.user,
+              token: token,
+              userInfo: userInfo,
             });
           }
         },
