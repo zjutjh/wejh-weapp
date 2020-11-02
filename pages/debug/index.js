@@ -1,7 +1,7 @@
 import {
   endpoints,
   setCustomEndpoint,
-  removeCustomEndpoint,
+  unsetCustomEndpoint,
 } from "../../utils/api";
 
 let app = getApp();
@@ -33,7 +33,7 @@ Page({
       itemList: endpointNames,
       success({ tapIndex }) {
         if (tapIndex === 0) {
-          if (removeCustomEndpoint()) {
+          if (unsetCustomEndpoint()) {
             wx.showModal({
               title: "提示",
               content: "恢复默认环境成功，请重启小程序",
@@ -63,7 +63,6 @@ Page({
     });
   },
   setOpenId(event) {
-    console.log(event);
     const { value } = event.detail;
     if (value) {
       app.$store.setCommonState({

@@ -1,19 +1,6 @@
-// const prefix = {
-//   dev: 'http://wejh-server.test/',
-//   preview: 'https://test.server.wejh.imcr.me/',
-//   production: 'https://server.wejh.imcr.me/'
-// }
+import { endpoints, defaultEndpoint } from "../env";
 
 const customEndpointKey = "custom_api_endpoint";
-
-const endpoints = [
-  {
-    name: "imcr.me",
-    url: "https://server.wejh.imcr.me/",
-  },
-];
-
-const defaultEndpoint = "https://server.wejh.imcr.me/";
 
 let customEndpoint = (() => {
   const endpoint = wx.getStorageSync(customEndpointKey);
@@ -57,7 +44,7 @@ function setCustomEndpoint(url) {
   return false;
 }
 
-function removeCustomEndpoint() {
+function unsetCustomEndpoint() {
   try {
     wx.removeStorageSync(customEndpointKey);
     customEndpoint = "";
@@ -78,7 +65,7 @@ function API(key) {
 
 module.exports = {
   API,
-  endpoints,
+  endpoints: endpoints || [],
   setCustomEndpoint,
-  removeCustomEndpoint,
+  unsetCustomEndpoint,
 };

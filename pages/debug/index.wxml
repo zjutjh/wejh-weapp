@@ -46,9 +46,15 @@
   <view class="u-setting-navigator" bindtap="clearStaticStorage">
     <text class="text">清空 static 存储</text>
   </view>
-  <view class="u-setting-navigator" bindtap="clearAllStorage">
+  <view class="u-setting-navigator f-mb-20" bindtap="clearAllStorage">
     <text class="text">清空本地存储</text>
   </view>
+  <navigator class="u-setting-navigator" open-type="reLaunch" url="/pages/index/index">
+    <text class="text">重载应用</text>
+  </navigator>
+  <navigator class="u-setting-navigator" open-type="exit" target="miniProgram">
+    <text class="text">退出应用</text>
+  </navigator>
   <view class="f-bottom-btn">
     <view class="u-btn-binding" bindtap="disableDebugMenu">
       <text class="text">关闭调试彩蛋</text>
