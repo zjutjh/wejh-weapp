@@ -28,7 +28,7 @@
     "navigationBarBackgroundColor": "#7acfa6",
     "navigationBarTitleText": "微精弘",
     "navigationBarTextStyle": "white",
-    "backgroundColor": "#ffffff",
+    "backgroundColor": "#f0eff5",
     "enablePullDownRefresh": true,
     "pageOrientation": "portrait"
   },
