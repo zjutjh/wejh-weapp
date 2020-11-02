@@ -10,7 +10,7 @@
         bindtap="headerTap"
       ></image>
     </view>
-    <view class="title-bar f-mb-20">
+    <view class="title-bar f-mb-20 f-mt-20">
       <view class="left">
         <text class="title">{{ name }}</text>
         <text class="version">{{ version }}</text>
