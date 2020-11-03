@@ -60,7 +60,7 @@
           wx:for="{{timetableToday}}"
           wx:for-item="lesson"
           wx:for-index="index"
-          wx:key="lesson_{{index}}"
+          wx:key="index"
         >
           <view class="main-info">
             <text class="name">{{lesson['课程名称']}}</text>
@@ -137,7 +137,7 @@
             wx:for="{{borrow.borrow_list}}"
             wx:for-item="book"
             wx:for-index="index"
-            wx:key="book_{{index}}"
+            wx:key="index"
           >
             <view class="book">
               <image class="icon-book" src="/images/index/borrow-book.png" mode="aspectFit"></image>

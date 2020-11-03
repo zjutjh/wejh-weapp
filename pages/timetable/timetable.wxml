@@ -11,13 +11,15 @@
     <!-- 左侧栏 -->
     <view class="lesson-number">
       <view class="date">月</view>
-      <view class="number" wx:for="{{12}}" wx:key="number_{{index}}">{{index + 1}}</view>
+      <view class="number" wx:for="{{12}}" wx:key="index">
+        {{index + 1}}
+      </view>
     </view>
 
     <!-- 滑动区域 -->
     <scroll-view class="timetable-box" scroll-x="true">
       <view class="timetable-header">
-        <view class="weekday" wx:for="{{7}}" wx:key="weekday_{{index}}">
+        <view class="weekday" wx:for="{{7}}" wx:key="index">
           周{{weekday[index + 1]}}
         </view>
       </view>
@@ -38,7 +40,7 @@
           <view
             class="day-lessons"
             wx:for="{{timetable}}"
-            wx:key="{{day_id}}"
+            wx:key="day_id"
             wx:for-index="day_id"
             wx:for-item="dayLessons"
           >
@@ -46,7 +48,7 @@
             <view
               class="lesson"
               wx:for="{{dayLessons}}"
-              wx:key="{{lesson_id}}"
+              wx:key="lesson_id"
               wx:for-index="lesson_id"
               wx:for-item="lessonBlock"
             >
@@ -56,7 +58,7 @@
               <view
                 class="card {{ item['颜色'] || 'red' }}"
                 wx:for="{{lessonBlock}}"
-                wx:key="{{card_id}}"
+                wx:key="card_id"
                 wx:for-index="card_id"
                 wx:for-item="item"
                 style="height: {{ item['节数'] * 100 - 10 }}rpx;"
@@ -151,7 +153,7 @@
           class="card {{ item['颜色'] }}{{ targetIndex === cid ? ' active' : '' }}"
           style="height: {{ item['节数'] * 100 - 10 }}rpx;"
           wx:for="{{targetLessons}}"
-          wx:key="detail_card_{{cid}}"
+          wx:key="cid"
           wx:for-index="cid"
           wx:for-item="item"
         >
@@ -187,7 +189,7 @@
         <swiper class="card-swiper" bindchange="onSwiper" current="{{targetIndex}}">
           <swiper-item
             wx:for="{{targetLessons}}"
-            wx:key="footer_card_{{cid}}"
+            wx:key="cid"
             wx:for-index="cid"
             wx:for-item="item"
             class="card"

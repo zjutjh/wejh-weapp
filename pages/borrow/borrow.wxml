@@ -31,7 +31,7 @@
       <view
         class="book-item"
         wx:for="{{borrow.borrow_list}}"
-        wx:key="item_{{index}}"
+        wx:key="index"
         wx:for-index="index"
         wx:for-item="item"
       >

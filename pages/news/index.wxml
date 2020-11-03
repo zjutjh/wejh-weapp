@@ -12,7 +12,7 @@
       <view
         class="news-type-item"
         wx:for="{{newsTypeList}}"
-        wx:key="newsType_{{index}}"
+        wx:key="index"
         wx:for-index="index"
         bindtap="onClickNewsType"
         data-id="{{index}}"

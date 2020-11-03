@@ -44,7 +44,7 @@
         <view
           class="score-item"
           wx:for="{{sort ? sortedScoreList : score.list}}"
-          wx:key="course_{{course_id}}"
+          wx:key="course_id"
           wx:for-index="course_id"
         >
           <text class="name">{{item['名称']}}</text>

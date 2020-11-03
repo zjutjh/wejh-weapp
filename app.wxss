@@ -174,7 +174,6 @@ page {
   width: 100%;
   font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
   color: #333;
-  background-color: #7acfa6;
 }
 
 text {
@@ -219,6 +218,8 @@ text {
   flex-direction: column;
   flex: 1;
   overflow: hidden;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .u-setting-navigator {
@@ -248,6 +249,13 @@ text {
 
 .u-setting-navigator .text {
   font-size: 32rpx;
+  margin-right: auto;
+}
+
+.u-setting-navigator > input {
+  margin-left: 16rpx;
+  margin-right: 16rpx;
+  flex: 1;
 }
 
 .u-setting-navigator .tip {
@@ -282,12 +290,8 @@ text {
 }
 
 .u-setting-navigator .icon-next {
-  position: absolute;
-  top: 50%;
-  right: 32rpx;
   width: 30rpx;
   height: 30rpx;
-  transform: translateY(-50%);
 }
 
 .u-btn-binding {
@@ -589,7 +593,7 @@ text {
   font-size: 24rpx;
   line-height: 160%;
   text-align: center;
-  padding: 100rpx 0 15rpx;
+  padding: 48rpx 0 15rpx;
 }
 
 .m-about .footer text {

@@ -1,8 +1,9 @@
 import WeappStore from "./utils/store";
 import Fetch from "./utils/fetch";
-import API from "./utils/api";
+import { API } from "./utils/api";
 import toast from "./utils/toast";
 import Services from "./utils/services";
+import logger from "./utils/logger";
 import envConfig from "./env";
 
 const store = new WeappStore(
@@ -13,9 +14,42 @@ const store = new WeappStore(
   },
   {}
 );
+
 const env = (key) => envConfig[key];
+
+const staticKey = "static";
+const version = "v1.0.18";
+
+let versionType = "unknown";
+let versionTypeName = "Unknown";
+
 const systemInfo = wx.getSystemInfoSync();
-const isDev = systemInfo.platform === "devtools";
+
+if (typeof __wxConfig === "object") {
+  let envVersion = __wxConfig.envVersion;
+  switch (envVersion) {
+    case "develop":
+      versionType = "develop";
+      versionTypeName = "Dev";
+      break;
+    case "trail":
+      versionType = "beta";
+      versionTypeName = "Beta";
+      break;
+    case "release":
+      versionType = "release";
+      versionTypeName = "Release";
+      break;
+  }
+}
+
+const isDev = versionType === "develop" || versionType === "beta";
+
+if (isDev) {
+  logger.info("app", "当前运行环境: " + versionType);
+  logger.info("app", systemInfo);
+}
+
 const fetch = Fetch({
   $store: store,
   isDev,
@@ -24,13 +58,11 @@ const services = Services({
   fetch,
   store,
 });
-const staticKey = "static";
-console.log(systemInfo);
-const version = "v1.0.15";
+
 App({
   name: "微精弘",
   version,
-  versionType: "正式版",
+  versionType: versionTypeName,
   onLaunch: function () {
     store.connect(this, "common");
     this.getData();
@@ -118,6 +150,31 @@ App({
   hasToken() {
     return !!store.getCommonState("token");
   },
+  reportUserInfo(userInfo) {
+    try {
+      const lastUpdateTime = Date.parse(userInfo.updated_at.split(" ")[0]);
+      const daysDiff =
+        (new Date().getTime() - lastUpdateTime) / (1000 * 3600 * 24);
+
+      const grade = userInfo.uno.substring(0, 4)
+
+      wx.reportAnalytics("user_login", {
+        uno: userInfo.uno,
+        grade: grade,
+        timetable_term: userInfo.ext.terms.class_term,
+        exam_term: userInfo.ext.terms.exam_term,
+        score_term: userInfo.ext.terms.score_term,
+        card_bind: userInfo.ext.passwords_bind.card_password,
+        lib_bind: userInfo.ext.passwords_bind.lib_password,
+        yc_bind: userInfo.ext.passwords_bind.yc_password,
+        zf_bind: userInfo.ext.passwords_bind.zf_password,
+        jh_bind: userInfo.ext.passwords_bind.jh_password,
+        last_update: Math.floor(daysDiff),
+      });
+    } catch (err) {
+      logger.error("app", "登录埋点上报异常", err);
+    }
+  },
   login(callback = this.getOpenid, afterLogin = function () {}) {
     wx.login({
       success: (res) => {
@@ -146,9 +203,13 @@ App({
             toast({
               title: "自动登录成功",
             });
+
+            const { token, user: userInfo } = result.data;
+            this.reportUserInfo(userInfo);
+
             store.setCommonState({
-              token: result.data.token,
-              userInfo: result.data.user,
+              token: token,
+              userInfo: userInfo,
             });
           }
         },
@@ -197,9 +258,9 @@ App({
             version,
           }),
         };
-        console.log("跳转到反馈社区", customData);
+        logger.info("app", "跳转到反馈社区", customData);
         wx.navigateToMiniProgram({
-          appId: env("tucaoAppId"),
+          appId: "wx8abaf00ee8c3202e",
           extraData: {
             id: "19048",
             customData,
@@ -208,12 +269,10 @@ App({
       },
     });
   },
-  isPreview: () => wx.getStorageSync(staticKey)["preview"],
   systemInfo,
-  isDev: systemInfo.platform === "devtools",
+  isDev: isDev,
   env,
   services,
-  API,
   fetch,
   toast,
   $store: store,

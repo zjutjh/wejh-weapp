@@ -11,6 +11,7 @@
     "pages/exam/exam",
     "pages/score/score",
     "pages/setting/setting",
+    "pages/bind/index",
     "pages/bind/ycjw",
     "pages/bind/card",
     "pages/bind/zf",
@@ -20,22 +21,18 @@
     "pages/login/login",
     "pages/home/home",
     "pages/about/about",
-    "pages/logs/logs"
+    "pages/debug/index",
+    "pages/labs/labs"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#7acfa6",
     "navigationBarTitleText": "微精弘",
     "navigationBarTextStyle": "white",
-    "enablePullDownRefresh": true
+    "backgroundColor": "#f0eff5",
+    "enablePullDownRefresh": true,
+    "pageOrientation": "portrait"
   },
-  "navigateToMiniProgramAppIdList": [
-    "wx18a2ac992306a5a4",
-    "wx8abaf00ee8c3202e",
-    "wx43b9394cba2c7241",
-    "wxb5abdabfd36aca7a",
-    "wx8c2b954cb7a8a700"
-  ],
   "tabBar": {
     "color": "#7f848a",
     "selectedColor": "#7acfa6",

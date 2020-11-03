@@ -28,7 +28,7 @@
         <view class="tab-list" bindtap="switchTab">
           <view
             class="tab{{tabIndex === index ? ' active' : ''}}"
-            wx:key="tab_{{index}}"
+            wx:key="index"
             wx:for="{{tabs}}"
             wx:for-item="tab"
             wx:for-index="index"

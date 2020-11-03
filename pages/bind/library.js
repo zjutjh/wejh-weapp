@@ -1,4 +1,6 @@
-const app = getApp();
+import { API } from "../../utils/api";
+
+const app = getApp()
 
 const form = {
   password: "",
@@ -33,7 +35,7 @@ Page({
     }
 
     app.fetch({
-      url: app.API("library/bind"),
+      url: API('library/bind'),
       data: {
         password,
       },

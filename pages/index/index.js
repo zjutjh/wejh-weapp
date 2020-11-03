@@ -1,4 +1,5 @@
 import util from "../../utils/util";
+import logger from "../../utils/logger";
 
 const initAppList = [];
 const initApp = {
@@ -192,7 +193,7 @@ Page({
         encodeURIComponent("{uno}"),
         this.data.userInfo.uno
       );
-      console.log("前往webview", appItem.url);
+      logger.info("index", "前往 webview", appItem.url);
       return wx.navigateTo({
         url:
           "/pages/webview/webview?" +

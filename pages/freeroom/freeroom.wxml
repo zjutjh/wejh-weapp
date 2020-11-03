@@ -7,7 +7,7 @@
         wx:for="{{freeroom}}"
         wx:for-item="build"
         wx:for-index="build_id"
-        wx:key="build_{{build_id}}"
+        wx:key="build_id"
       >
         <!--单个空教室-->
         <view class="build-name">
@@ -34,7 +34,7 @@
         wx:for="{{conditions}}"
         wx:for-item="block"
         data-index="{{block_id}}"
-        wx:key="block_{{block_id}}"
+        wx:key="block_id"
         wx:for-index="block_id"
       >
         <!-- 单个查询条件，选项条 -->

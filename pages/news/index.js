@@ -1,4 +1,7 @@
+import logger from "../../utils/logger";
+
 const app = getApp();
+
 Page({
   data: {
     newsTypeList: [
@@ -24,12 +27,15 @@ Page({
   onClickNewsType(e) {
     const index = e.currentTarget.dataset.id;
     const targetNewsType = this.data.newsTypeList[index];
-    if (targetNewsType && targetNewsType.enabled) {
-    } else {
+    if (targetNewsType) {
+      // if (targetNewsType.enabled) {
+      //
+      // } else {
       app.toast({
         icon: "error",
         title: "暂未开放",
       });
+      // }
     }
   },
   clipboard() {
@@ -46,8 +52,8 @@ Page({
             content: tip || "复制成功",
           });
         },
-        fail(e) {
-          console.error(e);
+        fail(err) {
+          logger.error("news", err);
         },
       });
     }
