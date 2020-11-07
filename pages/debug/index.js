@@ -27,7 +27,7 @@ Page({
     });
   },
   switchAPIEndpoint() {
-    let endpointNames = endpoints.map((endpoint) => endpoint.name);
+    let endpointNames = this.data.isDev ? endpoints.map((endpoint) => endpoint.name) : [];
     endpointNames.unshift("Default");
     wx.showActionSheet({
       itemList: endpointNames,

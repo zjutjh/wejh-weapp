@@ -18,10 +18,10 @@ const store = new WeappStore(
 const env = (key) => envConfig[key];
 
 const staticKey = "static";
-const version = "v1.0.18";
+const version = "1.0.18";
 
-let versionType = "unknown";
-let versionTypeName = "Unknown";
+let versionType = "release";
+let versionTypeName = "Release";
 
 const systemInfo = wx.getSystemInfoSync();
 
@@ -32,13 +32,9 @@ if (typeof __wxConfig === "object") {
       versionType = "develop";
       versionTypeName = "Dev";
       break;
-    case "trail":
+    case "trial":
       versionType = "beta";
       versionTypeName = "Beta";
-      break;
-    case "release":
-      versionType = "release";
-      versionTypeName = "Release";
       break;
   }
 }
