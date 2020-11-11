@@ -1,14 +1,25 @@
 <view class="container f-bg-gray">
   <view class="m-freeroom" enable-back-to-top="true">
     <!--空教室的信息-->
-    <scroll-view class="room-display" scroll-y="true" >
-      <view class="build" wx:for="{{freeroom}}" wx:for-item="build" wx:for-index="build_id" wx:key="build_{{build_id}}">
+    <scroll-view class="room-display" scroll-y="true">
+      <view
+        class="build"
+        wx:for="{{freeroom}}"
+        wx:for-item="build"
+        wx:for-index="build_id"
+        wx:key="build_id"
+      >
         <!--单个空教室-->
         <view class="build-name">
           {{build.iconText}}
         </view>
         <view class="room-list">
-          <view class="room-item {{item['disabled'] ? ' disabled' : ''}}" wx:for="{{build.list}}" wx:key="room_id" wx:key="room_{{build_id}}_{{room_id}}">
+          <view
+            class="room-item {{item['disabled'] ? ' disabled' : ''}}"
+            wx:for="{{build.list}}"
+            wx:key="room_id"
+            wx:key="room_{{build_id}}_{{room_id}}"
+          >
             <text class="name">{{item['教室名称']}}</text>
             <text class="capacity">{{item['容量']}}</text>
           </view>
@@ -18,13 +29,40 @@
     <!--空教室的的查询选项-->
     <view class="room-condition">
       <!-- 查询块，一整条 -->
-      <view class="condition-block" wx:for="{{conditions}}" wx:for-item="block" data-index="{{block_id}}" wx:key="block_{{block_id}}" wx:for-index="block_id">
+      <view
+        class="condition-block"
+        wx:for="{{conditions}}"
+        wx:for-item="block"
+        data-index="{{block_id}}"
+        wx:key="block_id"
+        wx:for-index="block_id"
+      >
         <!-- 单个查询条件，选项条 -->
-        <scroll-view scroll-x="true" class="condition {{condition.name}}" data-type="{{condition.name}}" wx:for="{{block}}" data-type="{{condition_key}}" wx:for-item="condition" wx:key="condition_{{block_id}}_{{condition_key}}" wx:for-index="condition_key">
+        <scroll-view
+          scroll-x="true"
+          class="condition {{condition.name}}"
+          data-type="{{condition.name}}"
+          wx:for="{{block}}"
+          data-type="{{condition_key}}"
+          wx:for-item="condition"
+          wx:key="condition_{{block_id}}_{{condition_key}}"
+          wx:for-index="condition_key"
+        >
           <!-- 选项 -->
-          <view catchtap="chooseOption" data-type="{{condition.name}}" data-value="{{item.value}}" class="option{{form[condition.name] == item.value ? ' active' : ''}}" wx:for="{{condition.options}}" wx:key="{{condition.name}}_{{option_id}}" wx:for-index="option_id">
+          <view
+            catchtap="chooseOption"
+            data-type="{{condition.name}}"
+            data-value="{{item.value}}"
+            class="option{{form[condition.name] == item.value ? ' active' : ''}}"
+            wx:for="{{condition.options}}"
+            wx:key="{{condition.name}}_{{option_id}}"
+            wx:for-index="option_id"
+          >
             <text class="text">{{item.text}}</text>
-            <image class="choose-bg" src="/images/app-list/{{optionsColor[condition.name]}}.png"></image>
+            <image
+              class="choose-bg"
+              src="/images/app-list/{{optionsColor[condition.name]}}.png"
+            ></image>
           </view>
         </scroll-view>
       </view>

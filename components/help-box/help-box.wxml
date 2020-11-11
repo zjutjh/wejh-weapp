@@ -3,7 +3,12 @@
     <view class="box">
       <view class="header">
         <text class="title">帮助</text>
-        <image class="icon-close" src="/images/common/close.png" bindtap="hideHelp" mode="aspectFit"></image>
+        <image
+          class="icon-close"
+          src="/images/common/close.png"
+          bindtap="hideHelp"
+          mode="aspectFit"
+        ></image>
       </view>
       <view class="content">
         <view class="question">1、帐号和密码是什么？</view>

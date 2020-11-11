@@ -1,20 +1,25 @@
-
 <view class="m-loading-box" wx:if="{{showLoading}}">
   <image class="icon-loading" src="/images/common/loading.gif"></image>
 </view>
-<view class="container" wx:else style="padding-bottom: {{ targetLessons.length > 0 ? ' 400rpx;' : '0;' }}">
+<view
+  class="container"
+  wx:else
+  style="padding-bottom: {{ targetLessons.length > 0 ? ' 400rpx;' : '0;' }}"
+>
   <view class="m-timetable-box">
     <view class="m-cache-tip" wx:if="{{cacheStatus.timetable}}">离线模式</view>
     <!-- 左侧栏 -->
     <view class="lesson-number">
       <view class="date">月</view>
-      <view class="number" wx:for="{{12}}" wx:key="number_{{index}}">{{index + 1}}</view>
+      <view class="number" wx:for="{{12}}" wx:key="index">
+        {{index + 1}}
+      </view>
     </view>
 
     <!-- 滑动区域 -->
     <scroll-view class="timetable-box" scroll-x="true">
       <view class="timetable-header">
-        <view class="weekday" wx:for="{{7}}" wx:key="weekday_{{index}}">
+        <view class="weekday" wx:for="{{7}}" wx:key="index">
           周{{weekday[index + 1]}}
         </view>
       </view>
@@ -24,28 +29,57 @@
         <!-- 当天高亮显示以及时间线 -->
         <block wx:if="{{originWeek === currentWeek}}">
           <view class="today" style="left: {{ timelineLeft }}rpx;"></view>
-          <view class="timeline" style="left: {{ timelineLeft }}rpx; top: {{ timelineTop }}rpx"></view>
+          <view
+            class="timeline"
+            style="left: {{ timelineLeft }}rpx; top: {{ timelineTop }}rpx"
+          ></view>
           <view class="timeline-arrow" style="top: {{ timelineTop }}rpx"></view>
         </block>
         <view class="card-content">
           <!-- 每天的课程 -->
-          <view class="day-lessons" wx:for="{{timetable}}" wx:key="{{day_id}}" wx:for-index="day_id" wx:for-item="dayLessons" >
+          <view
+            class="day-lessons"
+            wx:for="{{timetable}}"
+            wx:key="day_id"
+            wx:for-index="day_id"
+            wx:for-item="dayLessons"
+          >
             <!-- 每节的课表 -->
-            <view class="lesson" wx:for="{{dayLessons}}" wx:key="{{lesson_id}}" wx:for-index="lesson_id" wx:for-item="lessonBlock">
-              <view class="{{ (viewStatus === '*' && conflictLessons[day_id][lesson_id][0] || viewStatus !== '*' && conflictLessons[day_id][lesson_id][currentWeek]) ? ' conflict' : '' }}"></view>
+            <view
+              class="lesson"
+              wx:for="{{dayLessons}}"
+              wx:key="lesson_id"
+              wx:for-index="lesson_id"
+              wx:for-item="lessonBlock"
+            >
               <view
-                  class="card {{ item['颜色'] || 'red' }}"
-                  wx:for="{{lessonBlock}}" wx:key="{{card_id}}" wx:for-index="card_id" wx:for-item="item"
-                  style="height: {{ item['节数'] * 100 - 10 }}rpx;"
-                  wx:if="{{!!item['周'][currentWeek] || viewStatus === '*'}}"
-                  data-day="{{day_id}}" data-lesson="{{lesson_id}}" bindtap="showLessonDetail"
+                class="{{ (viewStatus === '*' && conflictLessons[day_id][lesson_id][0] || viewStatus !== '*' && conflictLessons[day_id][lesson_id][currentWeek]) ? ' conflict' : '' }}"
+              ></view>
+              <view
+                class="card {{ item['颜色'] || 'red' }}"
+                wx:for="{{lessonBlock}}"
+                wx:key="card_id"
+                wx:for-index="card_id"
+                wx:for-item="item"
+                style="height: {{ item['节数'] * 100 - 10 }}rpx;"
+                wx:if="{{!!item['周'][currentWeek] || viewStatus === '*'}}"
+                data-day="{{day_id}}"
+                data-lesson="{{lesson_id}}"
+                bindtap="showLessonDetail"
               >
-                <text class="place" style="font-size: {{ item['地点长度'] > 15 ? 24 : 50 - item['地点长度'] * 2 }}rpx;">{{item['地点']}}</text>
-                <text class="name" style="font-size: {{ item['课程名称长度'] < 10 && item['节数'] < 2 ? 12 : item['课程名称长度'] > (32 - 14) ? 14 : (32 - item['课程名称长度']) }}rpx;">{{item['课程名称']}}</text>
+                <text
+                  class="place"
+                  style="font-size: {{ item['地点长度'] > 15 ? 24 : 50 - item['地点长度'] * 2 }}rpx;"
+                  >{{item['地点']}}</text
+                >
+                <text
+                  class="name"
+                  style="font-size: {{ item['课程名称长度'] < 10 && item['节数'] < 2 ? 12 : item['课程名称长度'] > (32 - 14) ? 14 : (32 - item['课程名称长度']) }}rpx;"
+                  >{{item['课程名称']}}</text
+                >
               </view>
             </view>
           </view>
-
         </view>
       </view>
     </scroll-view>
@@ -54,27 +88,47 @@
     <view class="m-footer-bar blue">
       <view class="left">
         <text wx:if="{{viewStatus != '*' && currentWeek == 0}}">放假中</text>
-        <text wx:elif="{{viewStatus != '*' && currentWeek > 0 && currentWeek == time.week}}">第{{time.week}}周周{{weekday[time.day]}}</text>
-        <text wx:elif="{{viewStatus != '*' && currentWeek != time.week}}" bindtap="backCurrentWeek">返回第{{time.week}}周</text>
+        <text wx:elif="{{viewStatus != '*' && currentWeek > 0 && currentWeek == time.week}}"
+          >第{{time.week}}周周{{weekday[time.day]}}</text
+        >
+        <text wx:elif="{{viewStatus != '*' && currentWeek != time.week}}" bindtap="backCurrentWeek"
+          >返回第{{time.week}}周</text
+        >
         <text wx:else>星期{{weekday[time.day]}}</text>
       </view>
       <view class="middle">
         <block wx:if="{{viewStatus !== '*'}}">
           <view class="switch-btn" data-direction="left" bindtap="switchWeek">
-            <image src="/images/common/arrow-left.png" class="icon icon-arrow-left" mode="aspectFit"></image>
+            <image
+              src="/images/common/arrow-left.png"
+              class="icon icon-arrow-left"
+              mode="aspectFit"
+            ></image>
           </view>
           <text class="title">{{_weeks[currentWeek]}}</text>
           <view class="switch-btn" data-direction="right" bindtap="switchWeek">
-            <image src="/images/common/arrow-right.png" class="icon icon-arrow-right" mode="aspectFit"></image>
+            <image
+              src="/images/common/arrow-right.png"
+              class="icon icon-arrow-right"
+              mode="aspectFit"
+            ></image>
           </view>
         </block>
         <block wx:else>
           <view class="switch-btn" data-direction="left" bindtap="switchTerm">
-            <image src="/images/common/arrow-left.png" class="icon icon-arrow-left" mode="aspectFit"></image>
+            <image
+              src="/images/common/arrow-left.png"
+              class="icon icon-arrow-left"
+              mode="aspectFit"
+            ></image>
           </view>
           <text class="title">{{currentTerm}}</text>
           <view class="switch-btn" data-direction="right" bindtap="switchTerm">
-            <image src="/images/common/arrow-right.png" class="icon icon-arrow-right" mode="aspectFit"></image>
+            <image
+              src="/images/common/arrow-right.png"
+              class="icon icon-arrow-right"
+              mode="aspectFit"
+            ></image>
           </view>
         </block>
       </view>
@@ -87,14 +141,30 @@
     </view>
 
     <!-- 遮罩层 -->
-    <view bindtap="hideDetail" data-type="mask" class="lesson-detail" wx:if="{{targetLessons.length > 0}}" catchtouchmove>
+    <view
+      bindtap="hideDetail"
+      data-type="mask"
+      class="lesson-detail"
+      wx:if="{{targetLessons.length > 0}}"
+      catchtouchmove
+    >
       <view class="detail-content">
-        <view class="card {{ item['颜色'] }}{{ targetIndex === cid ? ' active' : '' }}"
-              style="height: {{ item['节数'] * 100 - 10 }}rpx;"
-              wx:for="{{targetLessons}}" wx:key="detail_card_{{cid}}" wx:for-index="cid" wx:for-item="item"
+        <view
+          class="card {{ item['颜色'] }}{{ targetIndex === cid ? ' active' : '' }}"
+          style="height: {{ item['节数'] * 100 - 10 }}rpx;"
+          wx:for="{{targetLessons}}"
+          wx:key="cid"
+          wx:for-index="cid"
+          wx:for-item="item"
         >
-          <text class="place" style="font-size: {{ 50 - item['地点长度'] * 2 }}rpx;">{{item['地点']}}</text>
-          <text class="name" style="font-size: {{ item['课程名称长度'] < 10 && item['节数'] < 2 ? 12 : item['课程名称长度'] > (32 - 14) ? 14 : (32 - item['课程名称长度']) }}rpx;">{{item['课程名称']}}</text>
+          <text class="place" style="font-size: {{ 50 - item['地点长度'] * 2 }}rpx;"
+            >{{item['地点']}}</text
+          >
+          <text
+            class="name"
+            style="font-size: {{ item['课程名称长度'] < 10 && item['节数'] < 2 ? 12 : item['课程名称长度'] > (32 - 14) ? 14 : (32 - item['课程名称长度']) }}rpx;"
+            >{{item['课程名称']}}</text
+          >
         </view>
       </view>
     </view>
@@ -104,7 +174,13 @@
       <view class="header">
         <view class="week">{{targetLessonInfo.weekday}}</view>
         <view class="lesson-time">{{targetLessonInfo.lessonTime}}</view>
-        <image data-type="mask" class="card-close" src="/images/common/arrow-down.png" mode="aspectFit" bindtap="hideDetail"></image>
+        <image
+          data-type="mask"
+          class="card-close"
+          src="/images/common/arrow-down.png"
+          mode="aspectFit"
+          bindtap="hideDetail"
+        ></image>
       </view>
       <view class="card-tabs">
         <!--<view class="switch-left">
@@ -112,8 +188,11 @@
         </view>-->
         <swiper class="card-swiper" bindchange="onSwiper" current="{{targetIndex}}">
           <swiper-item
-              wx:for="{{targetLessons}}" wx:key="footer_card_{{cid}}" wx:for-index="cid" wx:for-item="item"
-              class="card"
+            wx:for="{{targetLessons}}"
+            wx:key="cid"
+            wx:for-index="cid"
+            wx:for-item="item"
+            class="card"
           >
             <text class="name">{{item['名称']}}</text>
             <text class="type">{{item['课程类型']}}</text>
@@ -121,7 +200,13 @@
               <view class="info-item">
                 <text class="item-content">{{item['老师']}}</text>
                 <text class="item-label"> (任课教师)</text>
-                <image src="/images/common/teacher-contact.png" class="teacher-contact" mode="aspectFit" data-cid="{{cid}}" bindtap="contactTeacher"></image>
+                <image
+                  src="/images/common/teacher-contact.png"
+                  class="teacher-contact"
+                  mode="aspectFit"
+                  data-cid="{{cid}}"
+                  bindtap="contactTeacher"
+                ></image>
               </view>
               <view class="info-item">
                 <text class="item-content">{{item['地点']}}</text>
@@ -137,13 +222,11 @@
               </view>
             </view>
           </swiper-item>
-
         </swiper>
         <!--<view class="switch-right">
           <image src="/images/common/arrow-right.png" mode="aspectFit" data-direction="right" bindtap="swiperSwitch"></image>
         </view>-->
       </view>
     </view>
-
   </view>
 </view>

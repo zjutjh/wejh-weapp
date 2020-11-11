@@ -11,8 +11,21 @@
           <image class="search-icon" src="/images/common/search-sign.png"></image>
         </view>
         <form class="input-form" bindreset="bindClearSearchTap" bindsubmit="bindConfirmSearchTap">
-          <input class="input-text" bindinput="bindSearchInput" type="text" name="search" value="{{wd}}" placeholder="请输入教师姓名" bindconfirm="bindConfirmSearchTap" />
-          <button class="input-clear-button" formType="reset" hover-class="none" wx:if="{{header.inputValue}}">
+          <input
+            class="input-text"
+            bindinput="bindSearchInput"
+            type="text"
+            name="search"
+            value="{{wd}}"
+            placeholder="请输入教师姓名"
+            bindconfirm="bindConfirmSearchTap"
+          />
+          <button
+            class="input-clear-button"
+            formType="reset"
+            hover-class="none"
+            wx:if="{{header.inputValue}}"
+          >
             <image class="clear-icon" src="/images/common/clear.png"></image>
           </button>
           <button class="input-confirm-button" formType="submit" hover-class="none">
@@ -36,7 +49,7 @@
             <view class="item-content">
               <view class="item-info">
                 <view class="name">
-                  <block wx:for="{{item.nameArr}}" wx:key="name_{{index}}}">
+                  <block wx:for="{{item.nameArr}}" wx:key="index">
                     <text wx:if="{{!item.active}}">{{item.value}}</text>
                     <text wx:else class="highlight">{{item.value}}</text>
                   </block>
@@ -48,19 +61,16 @@
                   </view>
                   <view class="info-item" wx:if="{{item.office_phone}}">
                     <text class="label">办公室电话</text>
-                    <text class="value phone" data-phone="{{item.office_phone}}" bindtap="call">{{item.office_phone}}</text>
+                    <text class="value phone" data-phone="{{item.office_phone}}" bindtap="call"
+                      >{{item.office_phone}}</text
+                    >
                   </view>
                 </view>
               </view>
             </view>
           </view>
-
         </view>
-
       </view>
-
     </view>
-
   </view>
-
 </view>

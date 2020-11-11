@@ -1,89 +1,92 @@
-let app = getApp()
+let app = getApp();
 
 Page({
   data: {
-    wd: ''
+    wd: "",
   },
-  onLoad (payload) {
-    let _this = this
-    app.$store.connect(this, 'teacher')
-    this.observeCommon('teacher')
-    this.observeCommon('icons')
-    this.observeCommon('userInfo')
+  onLoad(payload) {
+    let _this = this;
+    app.$store.connect(this, "teacher");
+    this.observeCommon("teacher");
+    this.observeCommon("icons");
+    this.observeCommon("userInfo");
 
     setTimeout(() => {
       // 判断是否登录
       if (!app.isLogin() || !this.data.userInfo) {
         return wx.redirectTo({
-          url: '/pages/login/login'
-        })
+          url: "/pages/login/login",
+        });
       }
       if (payload && payload.name) {
-        this.setState({
-          wd: payload.name
-        }, () => {
-          this.getTeacher()
-        })
+        this.setState(
+          {
+            wd: payload.name,
+          },
+          () => {
+            this.getTeacher();
+          }
+        );
       }
-    }, 500)
+    }, 500);
   },
-  bindClearSearchTap () {
+  bindClearSearchTap() {
     app.$store.setCommonState({
       teacher: {
-        wd: '',
-        list: []
-      }
-    })
+        wd: "",
+        list: [],
+      },
+    });
   },
   bindSearchInput(e) {
-    const value = e.detail.value
+    const value = e.detail.value;
     if (!value) {
-      this.bindClearSearchTap()
+      this.bindClearSearchTap();
     }
     this.setState({
-      wd: value
-    })
+      wd: value,
+    });
   },
   call(e) {
-    const phone = (e.target.dataset.phone || '').replace('－', '-')
+    const phone = (e.target.dataset.phone || "").replace("－", "-");
     if (phone.match(/[^0-9\-]/g)) {
       wx.getClipboardData({
-        success: function(res) {
+        success: function (res) {
           app.toast({
-            icon: 'success',
-            title: '复制成功'
-          })
-        }
-      })
+            icon: "success",
+            title: "复制成功",
+          });
+        },
+      });
     } else {
       wx.makePhoneCall({
-        phoneNumber: phone
-      })
+        phoneNumber: phone,
+      });
     }
   },
-  getTeacher (callback = this.afterGetTeacher) {
+  getTeacher(callback = this.afterGetTeacher) {
     wx.showLoading({
-      title: '获取数据中'
-    })
+      title: "获取数据中",
+    });
     app.services.getTeacher(callback, {
       data: {
-        wd: this.data.wd
+        wd: this.data.wd,
       },
-      showError: true
-    })
+      showError: true,
+    });
   },
-  bindConfirmSearchTap () {
-    this.getTeacher()
+  bindConfirmSearchTap() {
+    this.getTeacher();
   },
-  afterGetTeacher () {
-    wx.hideLoading()
+  afterGetTeacher() {
+    wx.hideLoading();
     setTimeout(() => {
       if (!this.data.teacher || this.data.teacher.list.length === 0) {
         app.toast({
-          icon: 'error',
-          title: '没有相关教师'
-        })
+          icon: "error",
+          title: "没有相关教师",
+        });
       }
-    }, 300)
+    }, 300);
   },
-})
+});

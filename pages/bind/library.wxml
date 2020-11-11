@@ -9,7 +9,14 @@
   <form class="f-bg-gray-form-gradient m-wave-form closely">
     <view class="input-group {{passwd_focus ? 'active' : ''}}">
       <text class="input-label">图书馆密码</text>
-      <input password="true" data-type="password" cursor-spacing="30" bindinput="onInput" placeholder="请输入图书馆密码" value="{{password}}"/>
+      <input
+        password="true"
+        data-type="password"
+        cursor-spacing="30"
+        bindinput="onInput"
+        placeholder="请输入图书馆密码"
+        value="{{password}}"
+      />
     </view>
     <view class="confirm-btn" bindtap="binding">
       <view class="u-confirm-btn">

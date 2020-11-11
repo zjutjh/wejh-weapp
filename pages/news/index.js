@@ -1,59 +1,64 @@
-const app = getApp()
+import logger from "../../utils/logger";
+
+const app = getApp();
+
 Page({
   data: {
     newsTypeList: [
       {
-        type: 'all',
-        enabled: true
+        type: "all",
+        enabled: true,
       },
       {
-        type: 'new',
-        enabled: false
-      }
+        type: "new",
+        enabled: false,
+      },
     ],
-    newsTypeIndex: 0
+    newsTypeIndex: 0,
   },
   onLoad: function () {
-    app.$store.connect(this, 'news.index')
-    this.observeCommon('userInfo')
-    this.observeCommon('apps')
-    this.observeCommon('icons')
-    this.observeCommon('announcement')
-    this.getData()
+    app.$store.connect(this, "news.index");
+    this.observeCommon("userInfo");
+    this.observeCommon("apps");
+    this.observeCommon("icons");
+    this.observeCommon("announcement");
+    this.getData();
   },
   onClickNewsType(e) {
-    const index = e.currentTarget.dataset.id
-    const targetNewsType = this.data.newsTypeList[index]
-    if (targetNewsType && targetNewsType.enabled) {
-
-    } else {
+    const index = e.currentTarget.dataset.id;
+    const targetNewsType = this.data.newsTypeList[index];
+    if (targetNewsType) {
+      // if (targetNewsType.enabled) {
+      //
+      // } else {
       app.toast({
-        icon: 'error',
-        title: '暂未开放'
-      })
+        icon: "error",
+        title: "暂未开放",
+      });
+      // }
     }
   },
-  clipboard () {
+  clipboard() {
     if (this.data.announcement && this.data.announcement.clipboard) {
-      const text = this.data.announcement.clipboard
-      const tip = this.data.announcement.clipboardTip
+      const text = this.data.announcement.clipboard;
+      const tip = this.data.announcement.clipboardTip;
       wx.setClipboardData({
         data: text,
-        success(){
+        success() {
           wx.showModal({
-            title: '提示',
-            icon: 'success',
+            title: "提示",
+            icon: "success",
             showCancel: false,
-            content: tip || '复制成功'
-          })
+            content: tip || "复制成功",
+          });
         },
-        fail(e) {
-          console.error(e)
-        }
-      })
+        fail(err) {
+          logger.error("news", err);
+        },
+      });
     }
   },
   getData() {
-    app.services.getAnnouncement()
+    app.services.getAnnouncement();
   },
-})
+});
