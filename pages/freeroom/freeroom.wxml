@@ -18,7 +18,6 @@
             class="room-item {{item['disabled'] ? ' disabled' : ''}}"
             wx:for="{{build.list}}"
             wx:key="room_id"
-            wx:key="room_{{build_id}}_{{room_id}}"
           >
             <text class="name">{{item['教室名称']}}</text>
             <text class="capacity">{{item['容量']}}</text>
@@ -45,7 +44,7 @@
           wx:for="{{block}}"
           data-type="{{condition_key}}"
           wx:for-item="condition"
-          wx:key="condition_{{block_id}}_{{condition_key}}"
+          wx:key="block_id"
           wx:for-index="condition_key"
         >
           <!-- 选项 -->
@@ -55,7 +54,7 @@
             data-value="{{item.value}}"
             class="option{{form[condition.name] == item.value ? ' active' : ''}}"
             wx:for="{{condition.options}}"
-            wx:key="{{condition.name}}_{{option_id}}"
+            wx:key="name"
             wx:for-index="option_id"
           >
             <text class="text">{{item.text}}</text>
