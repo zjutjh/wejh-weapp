@@ -70,7 +70,7 @@ Page({
     targetLessonInfo: {},
     targetIndex: 0,
     detailIndex: 0,
-    timetable: [],
+    timetable: null,
   },
   onLoad: function () {
     app.$store.connect(this, "timetable");
@@ -96,14 +96,15 @@ Page({
       }
 
       const year = this.data.userInfo.uno.slice(0, 4);
-      if (year <= 2013) {
-        // 判断是否绑定原创
-        if (!this.data.userInfo.ext.passwords_bind.yc_password) {
-          return wx.redirectTo({
-            url: "/pages/bind/ycjw",
-          });
-        }
-      } else {
+      // if (year <= 2013) {
+      //   // 判断是否绑定原创
+      //   if (!this.data.userInfo.ext.passwords_bind.yc_password) {
+      //     return wx.redirectTo({
+      //       url: "/pages/bind/ycjw",
+      //     });
+      //   }
+      // } else {
+      if (year >= 2017) {
         // 判断是否绑定正方
         if (!this.data.userInfo.ext.passwords_bind.zf_password) {
           return wx.redirectTo({

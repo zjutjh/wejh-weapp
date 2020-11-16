@@ -57,15 +57,18 @@ export default class WejhStore {
      * 更新页面的状态
      */
     page.setPageState = function (value, callback = function () {}) {
-      if (this.debug) {
+      if (_this.debug) {
         logger.debug("store", `setPageState called with: `, value);
       }
 
       // 如果是 Page 类型，同时把数据更新到 data 中，并请求重新渲染，数据会被最终写入 Data 域
-      if (page.setData) {
+      if (this.setData) {
         // 更新到 data 中
-        page.setData(value);
+        this.setData(value);
       }
+      // if (_this.debug) {
+      //   console.log(`currentData: `, this.data);
+      // }
 
       callback();
     }.bind(page);
@@ -84,10 +87,13 @@ export default class WejhStore {
       }
       // 对当前域观察 targetField 域的 targetState，同步到 localState 中
       _this.observe(this, field, remoteField, remoteKey, localKey, callback);
-      page.setPageState({
-        // 用存储中的初始数据更新当前状态
-        [localKey]: _this.getState(remoteField, remoteKey) || null,
-      });
+      // 用存储中的初始数据更新当前状态
+      const targetState = _this.getState(remoteField, remoteKey) || null;
+      if (targetState || !(localKey in this.data)) {
+        page.setPageState({
+          [localKey]: targetState,
+        });
+      }
     }.bind(page);
   }
 
@@ -138,7 +144,7 @@ export default class WejhStore {
   /**
    * 向观察者通知状态变更
    */
-  notifyObservers(field) {
+  notifyObservers(field, value) {
     const observerForField = this.observers[field];
     for (let localField in observerForField) {
       const item = observerForField[localField];
@@ -147,15 +153,17 @@ export default class WejhStore {
 
       for (let localKey in keyMap) {
         const remoteKey = keyMap[localKey];
-        const callback = callbackMap[localKey];
-        const targetState = this.getState(field, remoteKey) || null;
+        if (value[remoteKey]) {
+          const callback = callbackMap[localKey];
+          const targetState = value[remoteKey] || null;
 
-        page.setPageState(
-          {
-            [localKey]: targetState,
-          },
-          callback
-        );
+          page.setPageState(
+            {
+              [localKey]: targetState,
+            },
+            callback
+          );
+        }
       }
     }
   }
@@ -178,6 +186,9 @@ export default class WejhStore {
         value
       );
     }
+
+    this.notifyObservers(field, value);
+
     value = {
       ...this.store[field].data,
       ...value,
@@ -193,7 +204,6 @@ export default class WejhStore {
         );
       }
     }
-    this.notifyObservers(field);
   }
 
   /**
