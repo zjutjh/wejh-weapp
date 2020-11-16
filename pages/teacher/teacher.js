@@ -30,12 +30,12 @@ Page({
     }, 500);
   },
   onUnload() {
-    this.disconnect()
+    this.disconnect();
   },
   bindClearSearchTap() {
-    app.$store.setCommonState({
+    this.setPageState({
+      wd: "",
       teacher: {
-        wd: "",
         list: [],
       },
     });
