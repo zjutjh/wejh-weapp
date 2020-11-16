@@ -171,9 +171,7 @@ Page({
     const day = dataset.day;
     const lesson = dataset.lesson;
     const targetLessons = this.data.timetable[day][lesson].filter((item) => {
-      return (
-        item["周"][this.data.currentWeek] || this.data.viewStatus === "*"
-      );
+      return item["周"][this.data.currentWeek] || this.data.viewStatus === "*";
     });
 
     this.setPageState({
@@ -193,8 +191,8 @@ Page({
       });
     }
   },
-  contactTeacher(e) {
-    const dataset = e.currentTarget.dataset || {};
+  contactTeacher(event) {
+    const dataset = event.currentTarget.dataset || {};
     const cid = dataset.cid || 0;
     const lessonInfo = this.data.targetLessons
       ? this.data.targetLessons[cid]
@@ -206,9 +204,21 @@ Page({
         title: "发生了一点错误，请反馈给管理员",
       });
     } else {
-      wx.navigateTo({
-        url: "/pages/teacher/teacher?name=" + teacherName,
-      });
+      const teachers = teacherName.split(",");
+      if (teachers.length === 1) {
+        wx.navigateTo({
+          url: "/pages/teacher/teacher?name=" + teacherName,
+        });
+      } else {
+        wx.showActionSheet({
+          itemList: teachers,
+          success({ tapIndex }) {
+            wx.navigateTo({
+              url: "/pages/teacher/teacher?name=" + teachers[tapIndex],
+            });
+          },
+        });
+      }
     }
   },
   onSwiper(e) {

@@ -6,24 +6,6 @@ import Services from "./utils/services";
 import logger from "./utils/logger";
 import envConfig from "./env";
 
-const store = new WejhStore({
-  debug: true,
-  fields: {
-    // session 域用于存储不可持久化的数据
-    session: {
-      isPersistent: false,
-    },
-    // common 域用于存放可持久化的、来源于请求的数据
-    common: {
-      isPersistent: true,
-    },
-    // static 域用于存储可持久化的，非来源于请求的数据
-    static: {
-      isPersistent: true,
-    },
-  },
-});
-
 const env = (key) => envConfig[key];
 
 const version = "1.0.19";
@@ -54,10 +36,29 @@ if (isDev) {
   logger.info("app", systemInfo);
 }
 
+const store = new WejhStore({
+  debug: isDev,
+  fields: {
+    // session 域用于存储不可持久化的数据
+    session: {
+      isPersistent: false,
+    },
+    // common 域用于存放可持久化的、来源于请求的数据
+    common: {
+      isPersistent: true,
+    },
+    // static 域用于存储可持久化的，非来源于请求的数据
+    static: {
+      isPersistent: true,
+    },
+  },
+});
+
 const fetch = Fetch({
   $store: store,
   isDev,
 });
+
 const services = Services({
   fetch,
   store,
