@@ -81,7 +81,7 @@ Page({
   },
   copyOpenId() {
     wx.setClipboardData({
-      data: app.$store.getState("common", "openid") || "",
+      data: app.$store.getState("common", "openId") || "",
       success() {
         app.toast({
           icon: "success",

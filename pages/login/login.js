@@ -53,7 +53,7 @@ Page({
         username,
         password,
         type,
-        openid,
+        openid: openId,
       },
       showError: true,
       method: "POST",
