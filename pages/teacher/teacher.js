@@ -5,11 +5,10 @@ Page({
     wd: "",
   },
   onLoad(payload) {
-    let _this = this;
     app.$store.connect(this, "teacher");
-    this.observeCommon("teacher");
-    this.observeCommon("icons");
-    this.observeCommon("userInfo");
+    this.observe("session", "teacher");
+    this.observe("session", "icons");
+    this.observe("session", "userInfo");
 
     setTimeout(() => {
       // 判断是否登录
@@ -19,7 +18,7 @@ Page({
         });
       }
       if (payload && payload.name) {
-        this.setState(
+        this.setPageState(
           {
             wd: payload.name,
           },
@@ -29,6 +28,9 @@ Page({
         );
       }
     }, 500);
+  },
+  onUnload() {
+    this.disconnect()
   },
   bindClearSearchTap() {
     app.$store.setCommonState({
@@ -43,7 +45,7 @@ Page({
     if (!value) {
       this.bindClearSearchTap();
     }
-    this.setState({
+    this.setPageState({
       wd: value,
     });
   },

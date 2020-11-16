@@ -18,11 +18,14 @@ Page({
   },
   onLoad: function () {
     app.$store.connect(this, "news.index");
-    this.observeCommon("userInfo");
-    this.observeCommon("apps");
-    this.observeCommon("icons");
-    this.observeCommon("announcement");
+    this.observe("session", "userInfo");
+    this.observe("session", "apps");
+    this.observe("session", "icons");
+    this.observe("session", "announcement");
     this.getData();
+  },
+  onUnload() {
+    this.disconnect();
   },
   onClickNewsType(e) {
     const index = e.currentTarget.dataset.id;

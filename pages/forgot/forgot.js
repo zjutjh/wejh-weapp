@@ -17,10 +17,13 @@ Page({
     let _this = this;
     app.$store.connect(this, "forgot");
     setTimeout(() => {
-      this.setState({
+      this.setPageState({
         showLoading: false,
       });
     }, 1000);
+  },
+  onUnload() {
+    this.disconnect()
   },
   onInput(e) {
     const type = e.target.dataset.type;

@@ -9,7 +9,7 @@
       type="text"
       cursor-spacing="30"
       placeholder="请输入 openId"
-      value="{{openId}}"
+      value="{{isDev ? openId : ''}}"
       bindconfirm="setOpenId"
     />
     <image
@@ -26,7 +26,7 @@
       type="text"
       cursor-spacing="30"
       placeholder="请输入 token"
-      value="{{token}}"
+      value="{{isDev ? token : ''}}"
       bindconfirm="setToken"
     />
     <image

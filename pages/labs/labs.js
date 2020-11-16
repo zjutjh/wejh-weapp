@@ -1,9 +1,10 @@
 let app = getApp();
 Page({
-  data: {
-  },
+  data: {},
   onLoad: function () {
-    let _this = this;
     app.$store.connect(this, "labs");
+  },
+  onUnload() {
+    this.disconnect()
   },
 });

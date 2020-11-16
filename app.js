@@ -1,4 +1,4 @@
-import WeappStore from "./utils/store";
+import WejhStore from "./utils/store";
 import Fetch from "./utils/fetch";
 import { API } from "./utils/api";
 import toast from "./utils/toast";
@@ -6,14 +6,23 @@ import Services from "./utils/services";
 import logger from "./utils/logger";
 import envConfig from "./env";
 
-const store = new WeappStore(
-  {
+const store = new WejhStore({
+  debug: true,
+  fields: {
+    // session 域用于存储不可持久化的数据
+    session: {
+      isPersistent: false,
+    },
+    // common 域用于存放可持久化的、来源于请求的数据
     common: {
-      userInfo: null,
+      isPersistent: true,
+    },
+    // static 域用于存储可持久化的，非来源于请求的数据
+    static: {
+      isPersistent: true,
     },
   },
-  {}
-);
+});
 
 const env = (key) => envConfig[key];
 
@@ -59,70 +68,47 @@ App({
   name: "微精弘",
   version,
   versionType: versionTypeName,
+  // set(key, value) {
+  //   const staticData = wx.getStorageSync(staticKey) || {};
+  //   Object.assign(staticData, {
+  //     [key]: value,
+  //   });
+  //   wx.setStorageSync(staticKey, staticData);
+  // },
+  // get(key) {
+  //   const staticData = wx.getStorageSync(staticKey);
+  //   return staticData[key];
+  // },
   onLaunch: function () {
-    store.connect(this, "common");
-    this.getData();
-  },
-  set(key, value) {
-    const staticData = wx.getStorageSync(staticKey) || {};
-    Object.assign(staticData, {
-      [key]: value,
-    });
-    wx.setStorageSync(staticKey, staticData);
-  },
-  get(key) {
-    const staticData = wx.getStorageSync(staticKey);
-    return staticData[key];
-  },
-  getData() {
-    this.getTermTime();
-    this.getAppList();
-    this.login(this.getOpenid);
-  },
-  getTermTime: (callback) => {
-    fetch({
-      url: API("time"),
-      showError: true,
-      success: (res) => {
-        const result = res.data;
-        store.setCommonState({
-          time: result.data,
-        });
-        callback && callback();
-      },
+    this.wxLogin(this.getOpenId, () => {
+      logger.info("app", "自动登录成功");
     });
   },
-  getAppList() {
-    services.getAppList();
-  },
-  getOpenid(code, afterLogin) {
+  getOpenId(code, afterLogin) {
     const _this = this;
-    const openid = _this.get("openid");
-    if (openid) {
-      store.setCommonState({
-        openid,
-      });
+    const openId = store.getState("common", "openId");
+    if (openId) {
       _this.autoLogin();
-      return;
+      afterLogin();
+    } else {
+      fetch({
+        url: API("code"),
+        data: {
+          code,
+        },
+        method: "POST",
+        showError: true,
+        success: (res) => {
+          const result = res.data;
+          const openId = result.data.openid;
+          store.setState("common", {
+            openId,
+          });
+          _this.autoLogin();
+          afterLogin();
+        },
+      });
     }
-    fetch({
-      url: API("code"),
-      data: {
-        code,
-      },
-      method: "POST",
-      showError: true,
-      success: (res) => {
-        const result = res.data;
-        const openid = result.data.openid;
-        store.setCommonState({
-          openid,
-        });
-        _this.set("openid", openid);
-        _this.autoLogin();
-        afterLogin();
-      },
-    });
   },
   getUserInfo() {
     fetch({
@@ -131,20 +117,17 @@ App({
       success: (res) => {
         const result = res.data;
         const userInfo = result.data;
-        store.setCommonState({
+        store.setState("session", {
           userInfo,
         });
       },
     });
   },
   isLogin() {
-    return !!store.getCommonState("userInfo");
-  },
-  hasOpenid() {
-    return !!store.getCommonState("openid");
+    return store.getState("session", "userInfo");
   },
   hasToken() {
-    return !!store.getCommonState("token");
+    return store.getState("session", "token");
   },
   reportUserInfo(userInfo) {
     try {
@@ -152,7 +135,7 @@ App({
       const daysDiff =
         (new Date().getTime() - lastUpdateTime) / (1000 * 3600 * 24);
 
-      const grade = userInfo.uno.substring(0, 4)
+      const grade = userInfo.uno.substring(0, 4);
 
       wx.reportAnalytics("user_login", {
         uno: userInfo.uno,
@@ -171,7 +154,7 @@ App({
       logger.error("app", "登录埋点上报异常", err);
     }
   },
-  login(callback = this.getOpenid, afterLogin = function () {}) {
+  wxLogin(callback = this.getOpenId, afterLogin = function () {}) {
     wx.login({
       success: (res) => {
         if (!res.code) {
@@ -185,13 +168,14 @@ App({
     });
   },
   autoLogin() {
-    this.hasOpenid() &&
+    const openId = store.getState("common", "openId");
+    openId &&
       fetch({
         url: API("autoLogin"),
         method: "POST",
         data: {
           type: "weapp",
-          openid: store.getCommonState("openid"),
+          openid: openId,
         },
         success: (res) => {
           const result = res.data;
@@ -203,7 +187,7 @@ App({
             const { token, user: userInfo } = result.data;
             this.reportUserInfo(userInfo);
 
-            store.setCommonState({
+            store.setState("session", {
               token: token,
               userInfo: userInfo,
             });
@@ -211,33 +195,33 @@ App({
         },
       });
   },
-  getWeappInfo: (cb) => {
-    let that = this;
-    const commonData = store.getCommonState();
-    if (commonData.userInfo) {
-      typeof cb === "function" && cb(commonData.userInfo);
-    } else {
-      //调用登录接口
-      wx.getUserInfo({
-        withCredentials: false,
-        success(res) {
-          const userInfo = res.userInfo;
-          store.setCommonState({
-            weappInfo: userInfo,
-          });
-          typeof cb === "function" && cb(userInfo);
-        },
-        fail() {
-          toast({
-            icon: "error",
-            title: "获取用户信息失败",
-          });
-        },
-      });
-    }
-  },
+  // getWeappInfo: (cb) => {
+  //   let that = this;
+  //   const commonData = store.getCommonStore();
+  //   if (commonData.userInfo) {
+  //     typeof cb === "function" && cb(commonData.userInfo);
+  //   } else {
+  //     //调用登录接口
+  //     wx.getUserInfo({
+  //       withCredentials: false,
+  //       success(res) {
+  //         const userInfo = res.userInfo;
+  //         store.setCommonState({
+  //           weappInfo: userInfo,
+  //         });
+  //         typeof cb === "function" && cb(userInfo);
+  //       },
+  //       fail() {
+  //         toast({
+  //           icon: "error",
+  //           title: "获取用户信息失败",
+  //         });
+  //       },
+  //     });
+  //   }
+  // },
   goFeedback: () => {
-    const userInfo = store.getCommonState("userInfo");
+    const userInfo = store.getState("session", "userInfo");
     wx.getNetworkType({
       success: function (res) {
         // 返回网络类型, 有效值：

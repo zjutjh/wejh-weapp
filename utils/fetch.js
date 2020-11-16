@@ -3,8 +3,7 @@ import logger from "./logger";
 
 export default function ({ $store, isDev }) {
   return (object) => {
-    const commonData = $store.getCommonState();
-    const token = commonData.token || "";
+    const token = $store.getState("session", "token") || "";
     if (token) {
       object.header = Object.assign({}, object.header, {
         Authorization: "Bearer " + token,

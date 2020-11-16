@@ -1,4 +1,3 @@
-import util from "../../utils/util";
 let app = getApp();
 
 Page({
@@ -74,17 +73,16 @@ Page({
     timetable: [],
   },
   onLoad: function () {
-    let _this = this;
     app.$store.connect(this, "timetable");
-    this.observeCommon("timetable", "originalTimetableData");
-    this.observeCommon("timetableFixed", "timetable");
-    this.observeCommon("userInfo");
-    this.observeCommon("time");
-    this.observeCommon("cacheStatus");
+    this.observe("session", "timetable", "originalTimetableData");
+    this.observe("session", "timetableFixed", "timetable");
+    this.observe("session", "userInfo");
+    this.observe("session", "time");
+    this.observe("session", "cacheStatus");
     this.startTimelineMoving();
     setTimeout(() => {
       const time = this.data.time || {};
-      this.setState({
+      this.setPageState({
         viewStatus: time.week,
         originWeek: time.week || 1,
         currentWeek: time.week || 1,
@@ -122,6 +120,9 @@ Page({
       }
     }, 500);
   },
+  onUnload() {
+    this.disconnect();
+  },
   setTitleTerm(term) {
     wx.setNavigationBarTitle({
       title: term + " 课程表",
@@ -138,8 +139,9 @@ Page({
     }
     if (!_this.data.time) {
       return setTimeout(() => {
-        app.getTermTime(() => {
-          _this.observeCommon("time");
+        app.services.getTermTime(() => {
+          // TODO: check if here is correct
+          _this.observe("session", "time");
           this.startTimelineMoving();
         });
       }, 5000);
@@ -153,7 +155,7 @@ Page({
               (parseMinute(nowTime) - parseMinute(e.begin))) /
               100
         );
-        _this.setState({
+        _this.setPageState({
           timelineTop,
           timelineLeft: 36 + (_this.data.time.day - 1) * 130,
         });
@@ -173,7 +175,7 @@ Page({
       );
     });
 
-    this.setState({
+    this.setPageState({
       targetLessons,
       targetLessonInfo: {
         weekday: `星期${this.data.weekday[day + 1]}`,
@@ -183,7 +185,7 @@ Page({
   },
   hideDetail(e) {
     if (e.target.dataset.type === "mask") {
-      this.setState({
+      this.setPageState({
         targetIndex: 0,
         targetLessons: [],
         targetLessonInfo: {},
@@ -210,19 +212,19 @@ Page({
   },
   onSwiper(e) {
     const index = e.detail.current;
-    this.setState({
+    this.setPageState({
       targetIndex: index,
     });
   },
   afterGetTimetable() {
-    this.setState({
+    this.setPageState({
       showLoading: false,
     });
     try {
       const originalTimetableData = this.data.originalTimetableData;
       const term = originalTimetableData.term;
       this.getConflictLessons();
-      this.setState({
+      this.setPageState({
         currentTerm: term,
       });
       this.setTitleTerm(term);
@@ -261,12 +263,12 @@ Page({
       }
     }
 
-    this.setState({
+    this.setPageState({
       conflictLessons,
     });
   },
   backCurrentWeek() {
-    this.setState({
+    this.setPageState({
       currentWeek: this.data.time.week,
     });
   },
@@ -278,7 +280,7 @@ Page({
     } else if (direction === "right") {
       dValue = this.data.currentWeek === 20 ? 0 : 1;
     }
-    this.setState({
+    this.setPageState({
       currentWeek: this.data.currentWeek + dValue,
     });
   },
@@ -321,7 +323,7 @@ Page({
       icon: "loading",
       duration: 500,
     });
-    this.setState({
+    this.setPageState({
       viewStatus: this.data.viewStatus === "*" ? this.data.currentWeek : "*",
     });
   },

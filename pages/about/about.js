@@ -5,24 +5,28 @@ Page({
     versionType: app.versionType,
     version: app.version,
     currentYear: new Date().getFullYear(),
-  },
-  pageData: {
     headerTapCount: 0,
+    // observed keys
+    devMenuEnabled: false,
   },
   onLoad() {
-    let _this = this;
     app.$store.connect(this, "about");
+    this.observe("static", "devMenuEnabled");
+  },
+  onUnload() {
+    this.disconnect()
   },
   onShow() {
-    this.pageData.headerTapCount = 0;
+    this.data.headerTapCount = 0;
   },
   headerTap() {
-    this.pageData.headerTapCount += 1;
-    if (this.pageData.headerTapCount === 5) {
-      const devMenuEnabled = app.get("devMenuEnabled");
-      if (!devMenuEnabled) {
-        app.set("devMenuEnabled", true);
-        this.pageData.headerTapCount = 0;
+    this.data.headerTapCount += 1;
+    if (this.data.headerTapCount === 5) {
+      if (!this.data.devMenuEnabled) {
+        app.$store.setState("static", {
+          devMenuEnabled: true,
+        });
+        this.data.headerTapCount = 0;
       }
       app.toast({
         icon: "success",

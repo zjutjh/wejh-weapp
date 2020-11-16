@@ -6,15 +6,13 @@ Page({
     devMenuEnabled: false,
   },
   onLoad() {
-    let _this = this;
     app.$store.connect(this, "home");
-    this.observeCommon("userInfo");
-    this.observeCommon("time");
+    this.observe("session", "userInfo");
+    this.observe("session", "time");
+    this.observe("static", "devMenuEnabled");
   },
-  onShow() {
-    this.setData({
-      devMenuEnabled: app.get("devMenuEnabled") || false,
-    });
+  onUnload() {
+    this.disconnect();
   },
   goFeedback() {
     app.goFeedback();
