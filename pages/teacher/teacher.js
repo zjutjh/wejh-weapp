@@ -78,7 +78,13 @@ Page({
     });
   },
   bindConfirmSearchTap() {
-    this.getTeacher();
+    // this.getTeacher();
+    wx.showModal({
+      title: "提示",
+      content: "教师搜索升级维护中，敬请期待~",
+      showCancel: false,
+      confirmText: "确定",
+    });
   },
   afterGetTeacher() {
     wx.hideLoading();
