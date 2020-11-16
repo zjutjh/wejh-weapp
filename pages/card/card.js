@@ -77,12 +77,12 @@ Page({
       context,
     } = this.data;
     const list = card["今日账单"];
-    const balanceArr = !!tabIndex
+    const balanceArr = tabIndex
       ? list.map((item) => item["交易额"])
       : list.map((item) => item["卡余额"]);
     const maxY = Math.max(...balanceArr); // 最小金额
     const minY = balanceArr.length === 1 ? 0 : Math.min(...balanceArr); // 最大金额
-    const spaceYe = !!tabIndex ? maxY / gridNum : (maxY - minY) / gridNum; // 坐标系Y轴间隔
+    const spaceYe = tabIndex ? maxY / gridNum : (maxY - minY) / gridNum; // 坐标系Y轴间隔
     const gridHeight = canvasHeight - 2 * gridMarginTop; // 坐标系高度
     const spaceY = gridHeight / gridNum; // 横网格间距
 
@@ -107,9 +107,9 @@ Page({
         diff = 0;
       // 纵轴金额
       if (i === 0) {
-        numY = !!tabIndex ? 0 : minY.toFixed(0);
+        numY = tabIndex ? 0 : minY.toFixed(0);
       } else {
-        numY = !!tabIndex
+        numY = tabIndex
           ? Math.abs(spaceYe * i).toFixed(1)
           : (minY + spaceYe * i).toFixed(0);
       }
@@ -162,17 +162,17 @@ Page({
       context,
     } = this.data;
     const list = card["今日账单"];
-    const balanceArr = !!tabIndex
+    const balanceArr = tabIndex
       ? list.map((item) => item["交易额"])
       : list.map((item) => item["卡余额"]);
-    const maxY = !!tabIndex
+    const maxY = tabIndex
       ? Math.max(...balanceArr.map((item) => Math.abs(item)))
       : Math.max(...balanceArr); // 最大金额
-    const minY = !!tabIndex
+    const minY = tabIndex
       ? Math.min(...balanceArr.map((item) => Math.abs(item)))
       : Math.min(...balanceArr); // 最小金额
-    // const spaceYe = !!tabIndex ? Math.abs(maxY) / gridNum : Math.abs(maxY - minY) / gridNum // 坐标系Y轴间隔
-    const spaceYe = !!tabIndex
+    // const spaceYe = tabIndex ? Math.abs(maxY) / gridNum : Math.abs(maxY - minY) / gridNum // 坐标系Y轴间隔
+    const spaceYe = tabIndex
       ? Math.abs(maxY) / gridNum
       : (Math.abs(maxY - minY) || 1) / gridNum; // 坐标系Y轴间隔
     const gridHeight = canvasHeight - 2 * gridMarginTop; // 坐标系高度
@@ -183,7 +183,7 @@ Page({
     for (let i = 0; i < balanceArr.length; i++) {
       yArr.push(
         gridHeight -
-          ((maxY - (!!tabIndex ? Math.abs(balanceArr[i]) : balanceArr[i])) *
+          ((maxY - (tabIndex ? Math.abs(balanceArr[i]) : balanceArr[i])) *
             spaceY) /
             spaceYe
       );

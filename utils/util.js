@@ -343,7 +343,7 @@ function fixFreeroom(freeroomData) {
     if (!roomMap[buildName].list) {
       roomMap[buildName].list = [];
     }
-    item["disabled"] = !!(item["使用部门"] || item["使用班级"]);
+    item["disabled"] = (item["使用部门"] || item["使用班级"]);
     roomMap[buildName].iconText = buildName.slice(0, 1);
     roomMap[buildName].list.push(item);
   });

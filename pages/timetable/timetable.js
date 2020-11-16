@@ -169,7 +169,7 @@ Page({
     const lesson = dataset.lesson;
     const targetLessons = this.data.timetable[day][lesson].filter((item) => {
       return (
-        !!item["周"][this.data.currentWeek] || this.data.viewStatus === "*"
+        item["周"][this.data.currentWeek] || this.data.viewStatus === "*"
       );
     });
 
@@ -253,8 +253,8 @@ Page({
           const weekStatus = item["周"];
           weekStatus.forEach((status, index) => {
             conflictLessons[i][j][index] =
-              isConflictMap[i][j][index] === true && !!status;
-            isConflictMap[i][j][index] = !!status;
+              isConflictMap[i][j][index] === true && status;
+            isConflictMap[i][j][index] = status;
           });
           conflictLessons[i][j][0] = lesson.length > 1;
         }

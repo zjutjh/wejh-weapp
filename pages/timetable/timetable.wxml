@@ -62,7 +62,7 @@
                 wx:for-index="card_id"
                 wx:for-item="item"
                 style="height: {{ item['节数'] * 100 - 10 }}rpx;"
-                wx:if="{{!!item['周'][currentWeek] || viewStatus === '*'}}"
+                wx:if="{{item['周'][currentWeek] || viewStatus === '*'}}"
                 data-day="{{day_id}}"
                 data-lesson="{{lesson_id}}"
                 bindtap="showLessonDetail"
