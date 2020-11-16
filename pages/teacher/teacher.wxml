@@ -24,7 +24,7 @@
             class="input-clear-button"
             formType="reset"
             hover-class="none"
-            wx:if="{{header.inputValue}}"
+            wx:if="{{wd}}"
           >
             <image class="clear-icon" src="/images/common/clear.png"></image>
           </button>
