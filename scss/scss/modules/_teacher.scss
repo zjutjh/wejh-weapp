@@ -13,7 +13,7 @@
       position: relative;
       width: 180rpx;
       height: 180rpx;
-      opacity: .9;
+      opacity: 0.9;
       margin: 100rpx 0 30rpx;
 
       .icon {
@@ -40,7 +40,7 @@
       display: flex;
       width: 100%;
       height: 75rpx;
-      transition: all .15s ease-in-out;
+      transition: all 0.15s ease-in-out;
 
       &:focus {
         box-shadow: 5rpx 5rpx 20rpx #d2d2d2;
@@ -105,11 +105,11 @@
       padding: 15rpx;
       margin-top: -30rpx;
 
-      &:active{
-        opacity: .8;
+      &:active {
+        opacity: 0.8;
       }
     }
-    .clear-icon{
+    .clear-icon {
       width: 30rpx;
       height: 30rpx;
     }
@@ -128,12 +128,12 @@
       color: $white;
       opacity: 1;
 
-      &>text {
+      & > text {
         color: $white;
       }
 
       &:active {
-        opacity: .8;
+        opacity: 0.8;
       }
     }
   }
@@ -187,7 +187,6 @@
         font-size: 30rpx;
 
         .item {
-
           display: flex;
           padding: 20rpx;
           padding-right: 0;
@@ -246,9 +245,7 @@
   }
 
   &.home {
-
     .header {
-
       .logo {
         display: block;
       }

@@ -46,7 +46,7 @@ $room-option-height: 10vh;
           background-color: $gray-100;
           border-radius: 10rpx;
 
-          &:nth-child(3n+0) {
+          &:nth-child(3n + 0) {
             margin-right: 0;
           }
 
@@ -88,7 +88,7 @@ $room-option-height: 10vh;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    border-top: 1rpx solid #F1F1F2;
+    border-top: 1rpx solid #f1f1f2;
     background-color: $white;
 
     .condition-block {
@@ -97,10 +97,10 @@ $room-option-height: 10vh;
       width: 100%;
 
       &:nth-child(even) {
-        background-color: #F1F1F2;
+        background-color: #f1f1f2;
       }
       &:nth-child(odd) {
-        background-color: #FBFAF8;
+        background-color: #fbfaf8;
       }
     }
 

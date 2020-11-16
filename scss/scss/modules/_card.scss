@@ -31,7 +31,7 @@
       left: 26rpx;
       bottom: 10rpx;
       font-size: 24rpx;
-      opacity: .6;
+      opacity: 0.6;
     }
 
     .uno {
@@ -39,7 +39,7 @@
       right: 26rpx;
       bottom: 10rpx;
       font-size: 26rpx;
-      opacity: .6;
+      opacity: 0.6;
     }
 
     .content {
@@ -74,7 +74,7 @@
     align-items: center;
     justify-content: center;
     height: 300rpx;
-    background-color: rgba(0, 0, 0, .1);
+    background-color: rgba(0, 0, 0, 0.1);
     color: $white;
     border-radius: 20rpx;
   }
@@ -108,7 +108,6 @@
           color: #fff;
           background: #ffcb63;
         }
-
       }
     }
 
@@ -121,7 +120,7 @@
       width: 100%;
       height: 300px;
 
-      &>canvas {
+      & > canvas {
         position: absolute;
         top: 0;
         right: 0;
@@ -150,7 +149,7 @@
         color: #999;
       }
 
-      .x-text{
+      .x-text {
         position: absolute;
         right: 25rpx;
         bottom: -10rpx;

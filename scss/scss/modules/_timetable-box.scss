@@ -101,7 +101,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
         width: $timetable-item-width;
         height: 5rpx;
         background: #0069d9;
-        opacity: .6;
+        opacity: 0.6;
       }
 
       .timeline-arrow {
@@ -114,7 +114,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
         border: 10rpx solid transparent;
         border-left-color: #0069d9;
         transform: translateY(-50%);
-        opacity: .6;
+        opacity: 0.6;
       }
 
       .today {
@@ -124,7 +124,14 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
         left: $left-bar-width;
         top: 0;
         bottom: 0;
-        background: -webkit-gradient(linear, left top, left bottom, from(#eff7ff), color-stop(0.5, #bbe1ff), to(#eff7ff));
+        background: -webkit-gradient(
+          linear,
+          left top,
+          left bottom,
+          from(#eff7ff),
+          color-stop(0.5, #bbe1ff),
+          to(#eff7ff)
+        );
       }
 
       .card-content {
@@ -224,8 +231,8 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
     align-items: center;
     justify-content: center;
     padding-bottom: 500rpx;
-    background: rgba(166, 166, 166, .45);
-    transition: all .4s cubic-bezier(0.19, 1, 0.22, 1);
+    background: rgba(166, 166, 166, 0.45);
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 
     .detail-content {
       display: flex;
@@ -242,7 +249,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
         text-align: center;
         border-radius: 5rpx;
         overflow: hidden;
-        transition: all .4s cubic-bezier(0.19, 1, 0.22, 1);
+        transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 
         &:first-child {
           margin-left: 0;
@@ -303,7 +310,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
     align-items: stretch;
     height: 500rpx;
     background: $theme-blue;
-    transition: all .4s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
     transform: translate3d(0, 100%, 0);
 
     &.open {
@@ -351,7 +358,8 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
       position: relative;
       margin-bottom: 30rpx;
 
-      .switch-left, .switch-right {
+      .switch-left,
+      .switch-right {
         position: absolute;
         display: flex;
         align-items: center;
@@ -360,8 +368,8 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
         top: 0;
         bottom: 0;
         padding: 0 10rpx;
-        opacity: .4;
-        &>image {
+        opacity: 0.4;
+        & > image {
           width: 30rpx;
           height: 30rpx;
         }
@@ -389,7 +397,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
           margin: 0 36rpx + 40rpx;
           padding-top: 20rpx;
           border-radius: 20rpx;
-          box-shadow: -10rpx 20rpx 40rpx -10rpx rgba(100, 100, 100, .5);
+          box-shadow: -10rpx 20rpx 40rpx -10rpx rgba(100, 100, 100, 0.5);
 
           .name {
             display: flex;

@@ -38,7 +38,7 @@
       width: 200rpx;
       height: 200rpx;
       padding-right: 5rpx;
-      opacity: .3;
+      opacity: 0.3;
 
       .icon {
         z-index: 2;
@@ -61,7 +61,6 @@
   }
 
   .exam-content {
-
     .exam-list {
       display: flex;
       flex-flow: column nowrap;
@@ -89,7 +88,7 @@
             flex-shrink: 0;
             width: 30rpx;
             height: 30rpx;
-            transition: transform .2s;
+            transition: transform 0.2s;
             transform: rotate(0deg);
           }
 
@@ -104,7 +103,7 @@
           .name {
             margin-bottom: 10rpx;
             font-size: 32rpx;
-            transition: color .15s ease-in-out;
+            transition: color 0.15s ease-in-out;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;

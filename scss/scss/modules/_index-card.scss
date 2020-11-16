@@ -5,7 +5,7 @@
   background-size: 100% auto;
   background-position: bottom center;
 
-  &>.header {
+  & > .header {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -44,11 +44,11 @@
     }
   }
 
-  &>.content {
+  & > .content {
     padding: 0 30rpx;
   }
 
-  &>.bottom {
+  & > .bottom {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -214,7 +214,8 @@
           }
         }
 
-        .return, .borrow {
+        .return,
+        .borrow {
           font-size: 26rpx;
 
           .date {

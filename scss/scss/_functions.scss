@@ -16,13 +16,19 @@
 }
 
 .f-bd-rise {
-  animation: bd-rise 2s cubic-bezier(0.23,1,0.32,1) .75s forwards;
+  animation: bd-rise 2s cubic-bezier(0.23, 1, 0.32, 1) 0.75s forwards;
   opacity: 0;
 }
 
-@keyframes bd-rise{
-  from {opacity: 0; transform: translate3d(0, 50%, 0); }
-  to {opacity: 1; transform: translate3d(0,0,0); }
+@keyframes bd-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 50%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @keyframes bubble-in {
@@ -30,7 +36,7 @@
     transform: scale(1);
   }
   10% {
-    transform: scale(.8);
+    transform: scale(0.8);
   }
   60% {
     transform: scale(1.2);
@@ -57,7 +63,14 @@
 }
 
 .f-bg-gray-form-gradient {
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(244,244,244,0)), color-stop(0.1, #f4f4f4), to(#f4f4f4));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(rgba(244, 244, 244, 0)),
+    color-stop(0.1, #f4f4f4),
+    to(#f4f4f4)
+  );
 }
 
 .f-mb-10 {
