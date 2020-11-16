@@ -26,8 +26,7 @@ const store = new WejhStore({
 
 const env = (key) => envConfig[key];
 
-const staticKey = "static";
-const version = "1.0.18";
+const version = "1.0.19";
 
 let versionType = "release";
 let versionTypeName = "Release";
@@ -48,7 +47,7 @@ if (typeof __wxConfig === "object") {
   }
 }
 
-const isDev = versionType === "develop" || versionType === "beta";
+const isDev = versionType === "develop";
 
 if (isDev) {
   logger.info("app", "当前运行环境: " + versionType);
