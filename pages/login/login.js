@@ -42,7 +42,7 @@ Page({
       });
     }
     if (!openId) {
-      return app.login(undefined, () => {
+      return app.wxLogin(undefined, () => {
         this.login();
       });
     }

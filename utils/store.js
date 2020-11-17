@@ -90,9 +90,12 @@ export default class WejhStore {
       // 用存储中的初始数据更新当前状态
       const targetState = _this.getState(remoteField, remoteKey) || null;
       if (targetState || !(localKey in this.data)) {
-        page.setPageState({
-          [localKey]: targetState,
-        });
+        page.setPageState(
+          {
+            [localKey]: targetState,
+          },
+          callback
+        );
       }
     }.bind(page);
   }

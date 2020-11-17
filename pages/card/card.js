@@ -39,7 +39,7 @@ Page({
     }, 500);
   },
   onUnload() {
-    this.disconnect()
+    this.disconnect();
   },
   switchTab(e) {
     this.setPageState(
@@ -255,6 +255,12 @@ Page({
   afterGetCard() {
     const { gridMarginLeft, canvasWidth, card } = this.data;
     wx.hideLoading();
+
+    // 临时修复线上 JS 错误，不知道为什么某些情况下 card 会读不到
+    if (!card) {
+      return;
+    }
+
     const context = wx.createCanvasContext("balanceCanvas");
     const len = 10;
     const spaceX = (canvasWidth - 2 * gridMarginLeft) / (len - 1); // 表示横坐标的间隔距离

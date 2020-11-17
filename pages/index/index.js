@@ -180,10 +180,16 @@ Page({
     const isLogin = app.$store.getState("session", "token");
     const target = e.currentTarget;
     const index = target.dataset.index;
+
     if (!this.data.apps) {
       return this.showTip("应用列表信息获取失败，请重启微信再试");
     }
     const appItem = this.data.apps[index];
+
+    if (!appItem) {
+      return
+    }
+
     if (!isLogin) {
       return this.showTip("请先登录");
     }
