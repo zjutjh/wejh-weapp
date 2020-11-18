@@ -48,7 +48,10 @@ Page({
           duration: 2000,
           title: "绑定成功",
         });
-        app.getUserInfo();
+        app.services.getUserInfo(null, {
+          showError: true,
+          ...option,
+        });
         setTimeout(() => {
           wx.navigateBack();
         }, 2000);

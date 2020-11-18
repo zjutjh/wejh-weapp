@@ -31,6 +31,21 @@ export default function ({ store, fetch }) {
         },
       });
     },
+    getUserInfo: (callback = function () {}, options) => {
+      fetch({
+        url: API("user"),
+        ...options,
+        // showError: true,
+        success: (res) => {
+          const result = res.data;
+          const userInfo = result.data;
+          store.setState("session", {
+            userInfo,
+          });
+          callback && callback();
+        },
+      });
+    },
     getTimetable(callback = function () {}, options) {
       fetch({
         url: API("timetable"),

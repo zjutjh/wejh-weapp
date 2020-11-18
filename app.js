@@ -110,19 +110,6 @@ App({
       });
     }
   },
-  getUserInfo() {
-    fetch({
-      url: API("user"),
-      showError: true,
-      success: (res) => {
-        const result = res.data;
-        const userInfo = result.data;
-        store.setState("session", {
-          userInfo,
-        });
-      },
-    });
-  },
   isLogin() {
     return store.getState("session", "userInfo");
   },
