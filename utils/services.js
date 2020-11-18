@@ -49,10 +49,10 @@ export default function ({ store, fetch }) {
             timetableToday: util.fixTimetableToday(fixData),
           };
           store.setState("session", {
-            ...cache
+            ...cache,
           });
           store.setState("common", {
-            cache
+            cache,
           });
 
           callback(res);
@@ -71,12 +71,12 @@ export default function ({ store, fetch }) {
               );
             }
             cacheStatus.timetable = true;
+            store.setState("session", {
+              cacheStatus,
+              ...cacheState,
+            });
+            callback();
           }
-          store.setState("session", {
-            cacheStatus,
-            ...cacheState,
-          });
-          callback();
         },
       });
     },

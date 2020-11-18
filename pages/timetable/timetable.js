@@ -301,10 +301,6 @@ Page({
     const term = this.data.currentTerm;
     const termArr = term.match(/(\d+)\/(\d+)\((\d)\)/);
 
-    if (!termArr.length === 3) {
-      return;
-    }
-
     let targetTerm;
     if (dataset.direction === "left") {
       if (+termArr[3] === 1) {
