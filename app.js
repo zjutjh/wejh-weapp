@@ -68,17 +68,6 @@ App({
   name: "微精弘",
   version,
   versionType: versionTypeName,
-  // set(key, value) {
-  //   const staticData = wx.getStorageSync(staticKey) || {};
-  //   Object.assign(staticData, {
-  //     [key]: value,
-  //   });
-  //   wx.setStorageSync(staticKey, staticData);
-  // },
-  // get(key) {
-  //   const staticData = wx.getStorageSync(staticKey);
-  //   return staticData[key];
-  // },
   onLaunch: function () {
     this.wxLogin(this.getOpenId, () => {
       logger.info("app", "自动登录成功");
