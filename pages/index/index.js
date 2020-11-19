@@ -18,16 +18,23 @@ Page({
       active: false,
       content: "请先登录",
     },
-    helpStatus: false,
     apps: initAppList,
+    // private
+    helpStatus: false,
+    timetableToday: null,
   },
   onLoad() {
     app.$store.connect(this, "index");
     this.observe("session", "userInfo");
     this.observe("session", "apps");
     this.observe("session", "icons");
-    this.observe("session", "time", null, this.onTimeUpdate);
-    this.observe("session", "timetableFixed");
+
+    this.observe("session", "time", null, () => {
+      this.updateTodayTimetable();
+    });
+    this.observe("session", "timetableFixed", null, () => {
+      this.updateTodayTimetable();
+    });
     this.observe("session", "card");
     this.observe("session", "cardCost");
     this.observe("session", "borrow");
@@ -47,19 +54,10 @@ Page({
       helpStatus: false,
     });
   },
-  onTimeUpdate() {
-    const timetableFixed = this.data.timetableFixed;
-    if (!this.data.time) {
-      return setTimeout(() => {
-        app.services.getTermTime(() => {
-          this.onTimeUpdate();
-        });
-      }, 5000);
-    }
-    if (!timetableFixed) {
-      return setTimeout(() => {
-        this.onTimeUpdate();
-      }, 5000);
+  updateTodayTimetable() {
+    const { timetableFixed, time } = this.data;
+    if (!timetableFixed || !time) {
+      return;
     }
 
     const weekday = this.data.time.day;
@@ -74,6 +72,7 @@ Page({
         }
       });
     });
+
     this.setPageState({
       timetableToday,
     });

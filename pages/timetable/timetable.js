@@ -240,6 +240,7 @@ Page({
       });
       this.setTitleTerm(term);
     } catch (e) {
+      console.error(e);
       app.toast({
         icon: "error",
         title: e.message,

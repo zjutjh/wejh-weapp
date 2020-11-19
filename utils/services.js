@@ -61,7 +61,7 @@ export default function ({ store, fetch }) {
             cacheStatus,
             timetable: data,
             timetableFixed: fixData,
-            timetableToday: util.fixTimetableToday(fixData),
+            // timetableToday: util.fixTimetableToday(fixData),
           };
           store.setState("session", {
             ...cache,
@@ -81,9 +81,9 @@ export default function ({ store, fetch }) {
             cacheState.timetable = cache.timetable;
             if (cache.timetableFixed) {
               cacheState.timetableFixed = cache.timetableFixed;
-              cacheState.timetableToday = util.fixTimetableToday(
-                cache.timetableFixed
-              );
+              // cacheState.timetableToday = util.fixTimetableToday(
+              //   cache.timetableFixed
+              // );
             }
             cacheStatus.timetable = true;
             store.setState("session", {
