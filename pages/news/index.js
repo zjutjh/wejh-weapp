@@ -14,15 +14,16 @@ Page({
         enabled: false,
       },
     ],
-    newsTypeIndex: 0,
   },
-  onLoad: function () {
+  onLoad() {
     app.$store.connect(this, "news.index");
-    this.observe("session", "userInfo");
-    this.observe("session", "apps");
-    this.observe("session", "icons");
     this.observe("session", "announcement");
-    this.getData();
+  },
+  onShow() {
+    // Fetch for announcement if not exists
+    if (!this.data.announcement) {
+      app.services.getAnnouncement();
+    }
   },
   onUnload() {
     this.disconnect();
@@ -60,8 +61,5 @@ Page({
         },
       });
     }
-  },
-  getData() {
-    app.services.getAnnouncement();
   },
 });
