@@ -25,6 +25,8 @@ Page({
   },
   onLoad() {
     app.$store.connect(this, "index");
+
+    this.loginTooltip = this.selectComponent("#tooltip");
     this.observe("session", "userInfo");
     this.observe("session", "apps");
     this.observe("session", "icons");
@@ -98,7 +100,7 @@ Page({
     if (app.isLogin()) {
       this.getData();
     } else {
-      this.showTip("请先登录");
+      this.tooltip.show("请先登录");
     }
     setTimeout(() => {
       wx.stopPullDownRefresh();
@@ -181,19 +183,21 @@ Page({
     const index = target.dataset.index;
 
     if (!this.data.apps) {
-      return this.showTip("应用列表信息获取失败，请重启微信再试");
+      this.tooltip.show("应用列表信息获取失败，请重启微信再试");
+      return;
     }
     const appItem = this.data.apps[index];
 
     if (!appItem) {
-      return
+      return;
     }
 
     if (!isLogin) {
-      return this.showTip("请先登录");
+      return this.loginTooltip.show("请先登录");
     }
     if (appItem.disabled) {
-      return this.showTip("服务暂不可用");
+      this.tooltip.show("服务暂不可用");
+      return;
     }
     if (appItem.url) {
       appItem.url = appItem.url.replace(

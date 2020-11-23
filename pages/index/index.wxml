@@ -1,9 +1,7 @@
-<!--index.wxml-->
 <import src="../../components/app-list/app-list.wxml"></import>
-<import src="../../components/tiny-tip/tiny-tip.wxml"></import>
 
 <view class="container f-bg-gray f-pb-300 f-tri" style="background-image: url({{icons.tri.card}});">
-  <template is="tiny-tip" data="{{ tinyTip, onClickApp }}" />
+  <tooltip id="tooltip"></tooltip>
 
   <template is="app-list" data="{{ apps, userInfo }}" />
 
@@ -36,7 +34,8 @@
   <view wx:if="{{!userInfo}}" class="m-remind-box">
     <image class="remind-img" mode="aspectFit" src="/images/common/nothing.png"></image>
     <text class="remind-text">请登录</text>
-    <navigator url="/pages/login/login" class="remind-btn">前往绑定</navigator>
+    <view class="remind-btn" bindtap="retryLogin">微信登录</view>
+    <navigator url="/pages/login/login" class="remind-btn">绑定精弘通行证</navigator>
   </view>
 
   <navigator
