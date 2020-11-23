@@ -1,4 +1,4 @@
-<import src="../../components/app-list/app-list.wxml"></import>
+<import src="../../templates/app-list/app-list.wxml"></import>
 
 <view class="container f-bg-gray f-pb-300 f-tri" style="background-image: url({{icons.tri.card}});">
   <tooltip id="tooltip"></tooltip>

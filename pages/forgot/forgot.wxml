@@ -1,4 +1,4 @@
-<import src="/components/wave-logo/wave-logo.wxml"></import>
+<import src="/templates/wave-logo/wave-logo.wxml"></import>
 
 <view class="m-loading-box" wx:if="{{showLoading}}">
   <image class="icon-loading" src="/images/common/loading.gif"></image>
