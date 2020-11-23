@@ -1,4 +1,5 @@
 import logger from "../../utils/logger";
+import toast from "../../utils/toast";
 
 const initAppList = [];
 const initApp = {
@@ -26,24 +27,48 @@ Page({
   onLoad() {
     app.$store.connect(this, "index");
 
-    this.loginTooltip = this.selectComponent("#tooltip");
+    this.tooltip = this.selectComponent("#tooltip");
+
+    this.observe("session", "isLogin", null, (newValues) => {
+      if (newValues.isLogin) {
+        this.getData();
+      }
+    });
+
     this.observe("session", "userInfo");
+
+    // apps 和 icons 在同一个请求得到
     this.observe("session", "apps");
     this.observe("session", "icons");
 
-    this.observe("session", "time", null, () => {
-      this.updateTodayTimetable();
+    this.observe("session", "announcement", null, (newValues) => {
+      const { announcement } = newValues;
+      if (!announcement) {
+        return;
+      }
+      const announcementId =
+        app.$store.getState("static", "announcementId") || 0;
+      if (announcementId < announcement.id) {
+        this.setPageState({
+          helpStatus: true,
+        });
+        app.$store.setState("static", { announcementId: announcement.id });
+      }
     });
+
+    this.observe("session", "time");
+
+    this.observe("session", "cacheStatus");
+
     this.observe("session", "timetableFixed", null, () => {
       this.updateTodayTimetable();
     });
+
     this.observe("session", "card");
     this.observe("session", "cardCost");
     this.observe("session", "borrow");
-    this.observe("session", "announcement");
-    this.observe("session", "cacheStatus");
-    this.getData();
 
+    // 这个优化掉
     this.setPageState({
       todayTime: new Date().toLocaleDateString(),
     });
@@ -79,25 +104,32 @@ Page({
       timetableToday,
     });
   },
-  getIndexCardData() {
-    if (app.isLogin()) {
-      this.getTimetable();
-      this.getCard();
-      this.getBorrow();
-    } else {
-      setTimeout(() => {
-        this.getIndexCardData();
-      }, 500);
-    }
-  },
   getData() {
-    app.services.getTermTime();
-    app.services.getAppList();
-    this.getAnnouncement();
-    this.getIndexCardData();
+    app.services.getAnnouncement(null, {
+      showError: false,
+    });
+    app.services.getTermTime(
+      () => {
+        app.services.getAppList(
+          () => {
+            app.services.getTimetable(null, {
+              showError: false,
+            });
+            app.services.getCard(null, {
+              showError: false,
+            });
+            app.services.getBorrow(null, {
+              showError: false,
+            });
+          },
+          { showError: false }
+        );
+      },
+      { showError: false }
+    );
   },
   onPullDownRefresh() {
-    if (app.isLogin()) {
+    if (this.data.isLogin) {
       this.getData();
     } else {
       this.tooltip.show("请先登录");
@@ -169,7 +201,7 @@ Page({
       wx.setClipboardData({
         data: text,
         success() {
-          app.toast({
+          toast({
             icon: "success",
             title: tip || "复制成功",
           });

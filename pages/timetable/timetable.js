@@ -1,4 +1,6 @@
-let app = getApp();
+import toast from "../../utils/toast";
+
+const app = getApp();
 
 Page({
   data: {
@@ -199,7 +201,7 @@ Page({
       : {};
     const teacherName = lessonInfo["老师"] || "";
     if (!teacherName) {
-      app.toast({
+      toast({
         icon: "error",
         title: "发生了一点错误，请反馈给管理员",
       });
@@ -241,7 +243,7 @@ Page({
       this.setTitleTerm(term);
     } catch (e) {
       console.error(e);
-      app.toast({
+      toast({
         icon: "error",
         title: e.message,
       });
@@ -331,7 +333,7 @@ Page({
     });
   },
   switchView() {
-    app.toast({
+    toast({
       title: "试图切换中",
       icon: "loading",
       duration: 500,

@@ -1,4 +1,5 @@
 import logger from "../../utils/logger";
+import toast from "../../utils/toast";
 
 const app = getApp();
 
@@ -35,7 +36,7 @@ Page({
       // if (targetNewsType.enabled) {
       //
       // } else {
-      app.toast({
+      toast({
         icon: "error",
         title: "暂未开放",
       });

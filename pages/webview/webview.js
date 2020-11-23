@@ -1,5 +1,5 @@
 import logger from "../../utils/logger";
-let app = getApp();
+const app = getApp();
 
 Page({
   data: {

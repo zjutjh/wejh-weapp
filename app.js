@@ -134,10 +134,11 @@ App({
     wx.login({
       success: (res) => {
         if (!res.code) {
-          return toast({
+          toast({
             icon: "error",
             title: "获取用户登录态失败！" + res.errMsg,
           });
+          return;
         }
         callback(res.code, afterLogin);
       },
@@ -230,6 +231,5 @@ App({
   env,
   services,
   fetch,
-  toast,
   $store: store,
 });

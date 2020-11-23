@@ -1,6 +1,7 @@
 import logger from "../../utils/logger";
+import toast from "../../utils/toast";
 
-let app = getApp();
+const app = getApp();
 
 Page({
   data: {
@@ -79,7 +80,7 @@ Page({
       });
     } catch (err) {
       logger.error("exam", err);
-      app.toast({
+      toast({
         icon: "error",
         title: err.message,
       });

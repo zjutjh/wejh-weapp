@@ -1,4 +1,6 @@
-let app = getApp();
+import toast from "../../utils/toast";
+
+const app = getApp();
 
 const _weekday = ["日", "一", "二", "三", "四", "五", "六", "日"];
 const _weeks = [
@@ -126,7 +128,7 @@ Page({
       const year = this.data.userInfo.uno.slice(0, 4);
       if (year <= 2013) {
         // 判断是否绑定原创
-        return app.toast({
+        toast({
           title: "毕业生暂不支持查空教室",
           duration: 3000,
           complete: () => {
@@ -137,6 +139,7 @@ Page({
             }, 3000);
           },
         });
+        return;
       } else {
         // 判断是否绑定正方
         if (!this.data.userInfo.ext.passwords_bind.zf_password) {

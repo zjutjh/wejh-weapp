@@ -4,7 +4,9 @@ import {
   unsetCustomEndpoint,
 } from "../../utils/api";
 
-let app = getApp();
+import toast from "../../utils/toast";
+
+const app = getApp();
 
 Page({
   data: {
@@ -45,7 +47,7 @@ Page({
               showCancel: false,
             });
           } else {
-            app.toast({
+            toast({
               icon: "error",
               title: "修改环境失败",
             });
@@ -58,7 +60,7 @@ Page({
               showCancel: false,
             });
           } else {
-            app.toast({
+            toast({
               icon: "error",
               title: "修改环境失败",
             });
@@ -73,7 +75,7 @@ Page({
       app.$store.setState("common", {
         openId: value,
       });
-      app.toast({
+      toast({
         icon: "success",
         title: "修改成功",
       });
@@ -83,7 +85,7 @@ Page({
     wx.setClipboardData({
       data: app.$store.getState("common", "openId") || "",
       success() {
-        app.toast({
+        toast({
           icon: "success",
           title: "复制成功",
         });
@@ -96,7 +98,7 @@ Page({
       app.$store.setState("session", {
         token: value,
       });
-      app.toast({
+      toast({
         icon: "success",
         title: "修改成功",
       });
@@ -106,7 +108,7 @@ Page({
     wx.setClipboardData({
       data: app.$store.getState("session", "token") || "",
       success() {
-        app.toast({
+        toast({
           icon: "success",
           title: "复制成功",
         });
@@ -124,7 +126,7 @@ Page({
         });
       },
       fail() {
-        app.toast({
+        toast({
           icon: "error",
           title: "清除数据失败",
         });
@@ -142,7 +144,7 @@ Page({
         });
       },
       fail() {
-        app.toast({
+        toast({
           icon: "error",
           title: "清除数据失败",
         });
@@ -159,7 +161,7 @@ Page({
         });
       },
       fail() {
-        app.toast({
+        toast({
           icon: "error",
           title: "清除数据失败",
         });
