@@ -102,9 +102,6 @@ App({
   isLogin() {
     return store.getState("session", "userInfo");
   },
-  hasToken() {
-    return store.getState("session", "token");
-  },
   reportUserInfo(userInfo) {
     try {
       const lastUpdateTime = Date.parse(userInfo.updated_at.split(" ")[0]);
@@ -165,6 +162,7 @@ App({
             this.reportUserInfo(userInfo);
 
             store.setState("session", {
+              isLogin: true,
               token: token,
               userInfo: userInfo,
             });
@@ -172,31 +170,6 @@ App({
         },
       });
   },
-  // getWeappInfo: (cb) => {
-  //   let that = this;
-  //   const commonData = store.getCommonStore();
-  //   if (commonData.userInfo) {
-  //     typeof cb === "function" && cb(commonData.userInfo);
-  //   } else {
-  //     //调用登录接口
-  //     wx.getUserInfo({
-  //       withCredentials: false,
-  //       success(res) {
-  //         const userInfo = res.userInfo;
-  //         store.setCommonState({
-  //           weappInfo: userInfo,
-  //         });
-  //         typeof cb === "function" && cb(userInfo);
-  //       },
-  //       fail() {
-  //         toast({
-  //           icon: "error",
-  //           title: "获取用户信息失败",
-  //         });
-  //       },
-  //     });
-  //   }
-  // },
   goFeedback: () => {
     const userInfo = store.getState("session", "userInfo");
     wx.getNetworkType({

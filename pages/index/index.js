@@ -138,62 +138,6 @@ Page({
       wx.stopPullDownRefresh();
     }, 1000);
   },
-  getAnnouncement() {
-    app.services.getAnnouncement(
-      (res) => {
-        const data = res.data.data;
-        const announcementId =
-          app.$store.getState("static", "announcementId") || 0;
-        if (announcementId < data.id) {
-          this.setPageState({
-            helpStatus: true,
-          });
-          app.$store.setState("static", { announcementId: data.id });
-        }
-      },
-      {
-        showError: false,
-      }
-    );
-  },
-  getTimetable() {
-    app.services.getTimetable(undefined, {
-      showError: false,
-    });
-  },
-  getBorrow() {
-    app.services.getBorrow(undefined, {
-      showError: false,
-    });
-  },
-  getCard() {
-    app.services.getCard(undefined, {
-      showError: false,
-    });
-  },
-  showTip(content, duration = 1500) {
-    this.setPageState({
-      tinyTip: {
-        active: true,
-        content: content,
-      },
-    });
-
-    setTimeout(() => {
-      this.hideTip();
-    }, duration);
-  },
-  hideTip() {
-    this.setPageState({
-      tinyTip: {
-        active: false,
-        content: "",
-      },
-    });
-  },
-  feedback() {
-    app.goFeedback();
-  },
   clipboard() {
     if (this.data.announcement && this.data.announcement.clipboard) {
       const text = this.data.announcement.clipboard;
@@ -210,7 +154,6 @@ Page({
     }
   },
   onClickApp(e) {
-    const isLogin = app.$store.getState("session", "token");
     const target = e.currentTarget;
     const index = target.dataset.index;
 
@@ -224,8 +167,9 @@ Page({
       return;
     }
 
-    if (!isLogin) {
-      return this.loginTooltip.show("请先登录");
+    if (!this.data.isLogin) {
+      this.tooltip.show("请先登录");
+      return;
     }
     if (appItem.disabled) {
       this.tooltip.show("服务暂不可用");

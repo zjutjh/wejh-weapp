@@ -34,7 +34,7 @@
   <view wx:if="{{!userInfo}}" class="m-remind-box">
     <image class="remind-img" mode="aspectFit" src="/images/common/nothing.png"></image>
     <text class="remind-text">请登录</text>
-    <view class="remind-btn" bindtap="retryLogin">微信登录</view>
+    <!-- <view class="remind-btn" bindtap="retryLogin">微信登录</view> -->
     <navigator url="/pages/login/login" class="remind-btn">绑定精弘通行证</navigator>
   </view>
 

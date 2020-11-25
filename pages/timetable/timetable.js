@@ -117,7 +117,17 @@ Page({
 
       // 判断是否有课表数据
       if (!this.data.timetable) {
-        this.getTimetable(this.afterGetTimetable);
+        app.services.getTimetable(
+          () => {
+            this.afterGetTimetable;
+          },
+          {
+            showError: true,
+            fail: () => {
+              this.afterGetTimetable();
+            },
+          }
+        );
       } else {
         this.afterGetTimetable();
       }
@@ -341,21 +351,6 @@ Page({
     this.setPageState({
       viewStatus: this.data.viewStatus === "*" ? this.data.currentWeek : "*",
     });
-  },
-  getTimetable(callback = function () {}) {
-    let _this = this;
-    if (app.hasToken()) {
-      app.services.getTimetable(callback, {
-        showError: true,
-        fail: () => {
-          callback();
-        },
-      });
-    } else {
-      setTimeout(() => {
-        _this.getTimetable();
-      }, 800);
-    }
   },
   //格式化时间
   formatTime(date, t) {
