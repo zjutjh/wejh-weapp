@@ -19,7 +19,7 @@ $footer-font-size: 28rpx;
   font-size: 30rpx;
   background-color: $white;
   border: 1rpx solid $gray-200;
-  transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
 
   &.green {
     border: none;
@@ -48,7 +48,7 @@ $footer-font-size: 28rpx;
 
   .left {
     padding-left: $footer-padding;
-    &>text {
+    & > text {
       font-size: $footer-font-size;
       color: $white;
     }
@@ -64,7 +64,7 @@ $footer-font-size: 28rpx;
     flex-direction: row;
     align-items: center;
 
-    &>text {
+    & > text {
       font-size: $footer-font-size;
       color: $white;
     }
@@ -72,7 +72,7 @@ $footer-font-size: 28rpx;
 
   .right {
     padding-right: $footer-padding;
-    &>text {
+    & > text {
       font-size: $footer-font-size;
       color: $white;
     }
@@ -85,7 +85,7 @@ $footer-font-size: 28rpx;
     height: 100%;
     width: 100rpx;
 
-    &>.icon {
+    & > .icon {
       width: 30rpx;
       height: 30rpx;
     }
@@ -100,7 +100,7 @@ $footer-font-size: 28rpx;
     width: 42rpx;
     height: 42rpx;
 
-    &>text {
+    & > text {
       position: absolute;
       z-index: 1;
       bottom: 0;

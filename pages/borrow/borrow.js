@@ -10,11 +10,10 @@ Page({
     currentTerm: "",
   },
   onLoad() {
-    let _this = this;
     app.$store.connect(this, "borrow");
-    this.observeCommon("borrow");
-    this.observeCommon("icons");
-    this.observeCommon("userInfo");
+    this.observe("session", "borrow");
+    this.observe("session", "icons");
+    this.observe("session", "userInfo");
     setTimeout(() => {
       // 判断是否登录
       if (!app.isLogin() || !this.data.userInfo) {
@@ -33,6 +32,9 @@ Page({
       }
     }, 500);
   },
+  onUnload() {
+    this.disconnect()
+  },
   getBorrow(callback = this.afterGetBorrow, option = {}) {
     app.services.getBorrow(callback, {
       showError: true,
@@ -40,7 +42,7 @@ Page({
     });
   },
   afterGetBorrow() {
-    this.setState({
+    this.setPageState({
       showLoading: false,
     });
     // try {

@@ -1,4 +1,3 @@
-import util from "../../utils/util";
 let app = getApp();
 
 Page({
@@ -71,20 +70,19 @@ Page({
     targetLessonInfo: {},
     targetIndex: 0,
     detailIndex: 0,
-    timetable: [],
+    timetable: null,
   },
   onLoad: function () {
-    let _this = this;
     app.$store.connect(this, "timetable");
-    this.observeCommon("timetable", "originalTimetableData");
-    this.observeCommon("timetableFixed", "timetable");
-    this.observeCommon("userInfo");
-    this.observeCommon("time");
-    this.observeCommon("cacheStatus");
+    this.observe("session", "timetable", "originalTimetableData");
+    this.observe("session", "timetableFixed", "timetable");
+    this.observe("session", "userInfo");
+    this.observe("session", "time");
+    this.observe("session", "cacheStatus");
     this.startTimelineMoving();
     setTimeout(() => {
       const time = this.data.time || {};
-      this.setState({
+      this.setPageState({
         viewStatus: time.week,
         originWeek: time.week || 1,
         currentWeek: time.week || 1,
@@ -98,14 +96,15 @@ Page({
       }
 
       const year = this.data.userInfo.uno.slice(0, 4);
-      if (year <= 2013) {
-        // 判断是否绑定原创
-        if (!this.data.userInfo.ext.passwords_bind.yc_password) {
-          return wx.redirectTo({
-            url: "/pages/bind/ycjw",
-          });
-        }
-      } else {
+      // if (year <= 2013) {
+      //   // 判断是否绑定原创
+      //   if (!this.data.userInfo.ext.passwords_bind.yc_password) {
+      //     return wx.redirectTo({
+      //       url: "/pages/bind/ycjw",
+      //     });
+      //   }
+      // } else {
+      if (year >= 2017) {
         // 判断是否绑定正方
         if (!this.data.userInfo.ext.passwords_bind.zf_password) {
           return wx.redirectTo({
@@ -121,6 +120,9 @@ Page({
         this.afterGetTimetable();
       }
     }, 500);
+  },
+  onUnload() {
+    this.disconnect();
   },
   setTitleTerm(term) {
     wx.setNavigationBarTitle({
@@ -138,8 +140,9 @@ Page({
     }
     if (!_this.data.time) {
       return setTimeout(() => {
-        app.getTermTime(() => {
-          _this.observeCommon("time");
+        app.services.getTermTime(() => {
+          // TODO: check if here is correct
+          _this.observe("session", "time");
           this.startTimelineMoving();
         });
       }, 5000);
@@ -153,7 +156,7 @@ Page({
               (parseMinute(nowTime) - parseMinute(e.begin))) /
               100
         );
-        _this.setState({
+        _this.setPageState({
           timelineTop,
           timelineLeft: 36 + (_this.data.time.day - 1) * 130,
         });
@@ -168,12 +171,10 @@ Page({
     const day = dataset.day;
     const lesson = dataset.lesson;
     const targetLessons = this.data.timetable[day][lesson].filter((item) => {
-      return (
-        !!item["周"][this.data.currentWeek] || this.data.viewStatus === "*"
-      );
+      return item["周"][this.data.currentWeek] || this.data.viewStatus === "*";
     });
 
-    this.setState({
+    this.setPageState({
       targetLessons,
       targetLessonInfo: {
         weekday: `星期${this.data.weekday[day + 1]}`,
@@ -183,15 +184,15 @@ Page({
   },
   hideDetail(e) {
     if (e.target.dataset.type === "mask") {
-      this.setState({
+      this.setPageState({
         targetIndex: 0,
         targetLessons: [],
         targetLessonInfo: {},
       });
     }
   },
-  contactTeacher(e) {
-    const dataset = e.currentTarget.dataset || {};
+  contactTeacher(event) {
+    const dataset = event.currentTarget.dataset || {};
     const cid = dataset.cid || 0;
     const lessonInfo = this.data.targetLessons
       ? this.data.targetLessons[cid]
@@ -203,26 +204,38 @@ Page({
         title: "发生了一点错误，请反馈给管理员",
       });
     } else {
-      wx.navigateTo({
-        url: "/pages/teacher/teacher?name=" + teacherName,
-      });
+      const teachers = teacherName.split(",");
+      if (teachers.length === 1) {
+        wx.navigateTo({
+          url: "/pages/teacher/teacher?name=" + teacherName,
+        });
+      } else {
+        wx.showActionSheet({
+          itemList: teachers,
+          success({ tapIndex }) {
+            wx.navigateTo({
+              url: "/pages/teacher/teacher?name=" + teachers[tapIndex],
+            });
+          },
+        });
+      }
     }
   },
   onSwiper(e) {
     const index = e.detail.current;
-    this.setState({
+    this.setPageState({
       targetIndex: index,
     });
   },
   afterGetTimetable() {
-    this.setState({
+    this.setPageState({
       showLoading: false,
     });
     try {
       const originalTimetableData = this.data.originalTimetableData;
       const term = originalTimetableData.term;
       this.getConflictLessons();
-      this.setState({
+      this.setPageState({
         currentTerm: term,
       });
       this.setTitleTerm(term);
@@ -253,20 +266,20 @@ Page({
           const weekStatus = item["周"];
           weekStatus.forEach((status, index) => {
             conflictLessons[i][j][index] =
-              isConflictMap[i][j][index] === true && !!status;
-            isConflictMap[i][j][index] = !!status;
+              isConflictMap[i][j][index] === true && status;
+            isConflictMap[i][j][index] = status;
           });
           conflictLessons[i][j][0] = lesson.length > 1;
         }
       }
     }
 
-    this.setState({
+    this.setPageState({
       conflictLessons,
     });
   },
   backCurrentWeek() {
-    this.setState({
+    this.setPageState({
       currentWeek: this.data.time.week,
     });
   },
@@ -278,7 +291,7 @@ Page({
     } else if (direction === "right") {
       dValue = this.data.currentWeek === 20 ? 0 : 1;
     }
-    this.setState({
+    this.setPageState({
       currentWeek: this.data.currentWeek + dValue,
     });
   },
@@ -287,6 +300,7 @@ Page({
     const dataset = e.currentTarget.dataset;
     const term = this.data.currentTerm;
     const termArr = term.match(/(\d+)\/(\d+)\((\d)\)/);
+
     let targetTerm;
     if (dataset.direction === "left") {
       if (+termArr[3] === 1) {
@@ -321,7 +335,7 @@ Page({
       icon: "loading",
       duration: 500,
     });
-    this.setState({
+    this.setPageState({
       viewStatus: this.data.viewStatus === "*" ? this.data.currentWeek : "*",
     });
   },

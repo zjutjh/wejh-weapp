@@ -15,12 +15,11 @@ Page({
     todayTime: "",
   },
   onLoad() {
-    let _this = this;
     app.$store.connect(this, "card");
-    this.observeCommon("card");
-    this.observeCommon("icons");
-    this.observeCommon("userInfo");
-    this.setState({
+    this.observe("session", "card");
+    this.observe("session", "icons");
+    this.observe("session", "userInfo");
+    this.setPageState({
       todayTime: new Date().toLocaleDateString(),
     });
     setTimeout(() => {
@@ -39,8 +38,11 @@ Page({
       }
     }, 500);
   },
+  onUnload() {
+    this.disconnect();
+  },
   switchTab(e) {
-    this.setState(
+    this.setPageState(
       {
         tabIndex: this.data.tabIndex === 0 ? 1 : 0,
       },
@@ -57,7 +59,7 @@ Page({
 
     let i = Math.round((tapX - gridMarginLeft) / iwidth);
     points[i] &&
-      this.setState({
+      this.setPageState({
         tapDetail: points[i].detail,
         lineLeft: gridMarginLeft + iwidth * i - 1, // 详情竖线的left
         currentIndex: i, // 当前点的索引，即显示当前详情
@@ -77,12 +79,12 @@ Page({
       context,
     } = this.data;
     const list = card["今日账单"];
-    const balanceArr = !!tabIndex
+    const balanceArr = tabIndex
       ? list.map((item) => item["交易额"])
       : list.map((item) => item["卡余额"]);
     const maxY = Math.max(...balanceArr); // 最小金额
     const minY = balanceArr.length === 1 ? 0 : Math.min(...balanceArr); // 最大金额
-    const spaceYe = !!tabIndex ? maxY / gridNum : (maxY - minY) / gridNum; // 坐标系Y轴间隔
+    const spaceYe = tabIndex ? maxY / gridNum : (maxY - minY) / gridNum; // 坐标系Y轴间隔
     const gridHeight = canvasHeight - 2 * gridMarginTop; // 坐标系高度
     const spaceY = gridHeight / gridNum; // 横网格间距
 
@@ -107,9 +109,9 @@ Page({
         diff = 0;
       // 纵轴金额
       if (i === 0) {
-        numY = !!tabIndex ? 0 : minY.toFixed(0);
+        numY = tabIndex ? 0 : minY.toFixed(0);
       } else {
-        numY = !!tabIndex
+        numY = tabIndex
           ? Math.abs(spaceYe * i).toFixed(1)
           : (minY + spaceYe * i).toFixed(0);
       }
@@ -162,17 +164,17 @@ Page({
       context,
     } = this.data;
     const list = card["今日账单"];
-    const balanceArr = !!tabIndex
+    const balanceArr = tabIndex
       ? list.map((item) => item["交易额"])
       : list.map((item) => item["卡余额"]);
-    const maxY = !!tabIndex
+    const maxY = tabIndex
       ? Math.max(...balanceArr.map((item) => Math.abs(item)))
       : Math.max(...balanceArr); // 最大金额
-    const minY = !!tabIndex
+    const minY = tabIndex
       ? Math.min(...balanceArr.map((item) => Math.abs(item)))
       : Math.min(...balanceArr); // 最小金额
-    // const spaceYe = !!tabIndex ? Math.abs(maxY) / gridNum : Math.abs(maxY - minY) / gridNum // 坐标系Y轴间隔
-    const spaceYe = !!tabIndex
+    // const spaceYe = tabIndex ? Math.abs(maxY) / gridNum : Math.abs(maxY - minY) / gridNum // 坐标系Y轴间隔
+    const spaceYe = tabIndex
       ? Math.abs(maxY) / gridNum
       : (Math.abs(maxY - minY) || 1) / gridNum; // 坐标系Y轴间隔
     const gridHeight = canvasHeight - 2 * gridMarginTop; // 坐标系高度
@@ -183,7 +185,7 @@ Page({
     for (let i = 0; i < balanceArr.length; i++) {
       yArr.push(
         gridHeight -
-          ((maxY - (!!tabIndex ? Math.abs(balanceArr[i]) : balanceArr[i])) *
+          ((maxY - (tabIndex ? Math.abs(balanceArr[i]) : balanceArr[i])) *
             spaceY) /
             spaceYe
       );
@@ -231,7 +233,7 @@ Page({
       context.closePath();
     }
 
-    this.setState({
+    this.setPageState({
       points: pointArr,
     });
   },
@@ -253,6 +255,12 @@ Page({
   afterGetCard() {
     const { gridMarginLeft, canvasWidth, card } = this.data;
     wx.hideLoading();
+
+    // 临时修复线上 JS 错误，不知道为什么某些情况下 card 会读不到
+    if (!card) {
+      return;
+    }
+
     const context = wx.createCanvasContext("balanceCanvas");
     const len = 10;
     const spaceX = (canvasWidth - 2 * gridMarginLeft) / (len - 1); // 表示横坐标的间隔距离
@@ -260,7 +268,7 @@ Page({
     for (let i = 0; i < len; i++) {
       xArr.push(i * spaceX);
     }
-    this.setState(
+    this.setPageState(
       {
         tapDetail: card["今日账单"][0] || {},
         spaceX,

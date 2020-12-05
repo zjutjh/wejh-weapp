@@ -113,10 +113,9 @@ Page({
     ],
   },
   onLoad: function () {
-    let _this = this;
     app.$store.connect(this, "freeroom");
-    this.observeCommon("freeroom");
-    this.observeCommon("userInfo");
+    this.observe("session", "freeroom");
+    this.observe("session", "userInfo");
     setTimeout(() => {
       // 判断是否登录
       if (!app.isLogin()) {
@@ -155,6 +154,9 @@ Page({
       }
     }, 600);
   },
+  onUnload() {
+    this.disconnect();
+  },
   chooseOption(e) {
     const type = e.currentTarget.dataset.type;
     const value = e.currentTarget.dataset.value;
@@ -167,7 +169,7 @@ Page({
         form["endTime"] = form["startTime"];
       }
     }
-    this.setState(
+    this.setPageState(
       {
         form,
       },

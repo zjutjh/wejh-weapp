@@ -10,10 +10,12 @@ Page({
       option[key] = decodeURIComponent(option[key]);
     }
     logger.info("webview", option);
-    let _this = this;
     app.$store.connect(this, "webview");
-    this.setState({
+    this.setPageState({
       ...option,
     });
+  },
+  onUnload() {
+    this.disconnect()
   },
 });

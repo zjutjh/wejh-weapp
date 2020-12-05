@@ -11,13 +11,15 @@ Page({
     showLoading: true,
   },
   onLoad() {
-    let _this = this;
     app.$store.connect(this, "binding.library");
     setTimeout(() => {
-      this.setState({
+      this.setPageState({
         showLoading: false,
       });
     }, 1000);
+  },
+  onUnload() {
+    this.disconnect()
   },
   onInput(e) {
     const type = e.target.dataset.type;

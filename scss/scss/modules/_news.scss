@@ -1,5 +1,4 @@
 .m-news {
-
   .news-type-list {
     display: flex;
     flex-direction: row;
@@ -20,7 +19,7 @@
         height: 120rpx;
         border-radius: 5rpx;
         box-shadow: 1px 2px 3px #e5e5e5;
-        opacity: .66;
+        opacity: 0.66;
       }
     }
   }
@@ -35,7 +34,13 @@
   border-radius: 10rpx;
   // color: $white;
   color: #444;
-  background:linear-gradient(to left top, transparent, rgba(0, 0, 0, .02) 0, rgba(0, 0, 0, .03)) 100% 0 no-repeat;
+  background: linear-gradient(
+      to left top,
+      transparent,
+      rgba(0, 0, 0, 0.02) 0,
+      rgba(0, 0, 0, 0.03)
+    )
+    100% 0 no-repeat;
   // box-shadow: -10rpx 20rpx 40rpx -10rpx rgba(100, 100, 100, .5);
 
   .title {
@@ -47,7 +52,9 @@
     color: #333;
   }
 
-  .content, .footer, .clipboard {
+  .content,
+  .footer,
+  .clipboard {
     display: block;
     width: 100%;
     text-indent: 2em;

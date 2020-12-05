@@ -9,11 +9,10 @@ Page({
     currentTerm: "",
   },
   onLoad() {
-    let _this = this;
     app.$store.connect(this, "exam");
-    this.observeCommon("icons");
-    this.observeCommon("exam");
-    this.observeCommon("userInfo");
+    this.observe("session", "icons");
+    this.observe("session", "exam");
+    this.observe("session", "userInfo");
     setTimeout(() => {
       // 判断是否登录
       if (!app.isLogin() || !this.data.userInfo) {
@@ -47,8 +46,11 @@ Page({
       }
     }, 500);
   },
+  onUnload() {
+    this.disconnect();
+  },
   toggleHideInfo() {
-    this.setState({
+    this.setPageState({
       hideInfo: !this.data.hideInfo,
     });
   },
@@ -56,7 +58,7 @@ Page({
     const index = e.currentTarget.dataset.index;
     const exam = this.data.exam;
     exam.list[index].open = !exam.list[index].open;
-    app.$store.setCommonState({
+    app.$store.setState("session", {
       exam: exam,
     });
   },
@@ -66,13 +68,13 @@ Page({
     });
   },
   afterGetExam() {
-    this.setState({
+    this.setPageState({
       showLoading: false,
     });
     try {
       const examData = this.data.exam;
       const term = examData.term;
-      this.setState({
+      this.setPageState({
         currentTerm: term,
       });
     } catch (err) {

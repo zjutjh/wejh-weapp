@@ -70,7 +70,7 @@
         <view
           class="score-item detail{{item.open ? ' open' : ''}}"
           wx:for="{{scoreDetail.list}}"
-          wx:key="course_{{course_id}}"
+          wx:key="course_id"
           wx:for-index="course_id"
         >
           <view class="head" bindtap="toggleShowScoreDetail" data-index="{{course_id}}">
@@ -84,7 +84,7 @@
             <view
               class="detail-item"
               wx:for="{{item}}"
-              wx:key="item_{{course_id}}_{{item_name}}"
+              wx:key="course_id"
               wx:for-index="item_name"
               wx:if="{{item_name !== 'open'}}"
             >

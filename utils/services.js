@@ -9,39 +9,58 @@ export default function ({ store, fetch }) {
         ...options,
         success(res) {
           let data = res.data.data;
-          store.setCommonState({
+          store.setState("session", {
             apps: util.fixAppList(data["app-list"]),
             icons: util.fixIcons(data["icons"]),
           });
+          callback && callback();
+        },
+      });
+    },
+    getTermTime: (callback = function () {}, options) => {
+      fetch({
+        url: API("time"),
+        ...options,
+        // showError: true,
+        success: (res) => {
+          const result = res.data;
+          store.setState("session", {
+            time: result.data,
+          });
+          callback && callback();
         },
       });
     },
     getTimetable(callback = function () {}, options) {
-      const app = getApp();
       fetch({
         url: API("timetable"),
         showError: true,
         ...options,
         success(res) {
-          const cacheStatus = store.getCommonState("cacheStatus") || {};
+          const cacheStatus = store.getState("session", "cacheStatus") || {};
           cacheStatus.timetable = false;
+
           let data = res.data.data;
           const fixData = util.fixTimetable(data);
-          const cache = app.get("cache") || {};
-          const newState = {
+          const cache = {
             cacheStatus,
             timetable: data,
             timetableFixed: fixData,
             timetableToday: util.fixTimetableToday(fixData),
           };
-          store.setCommonState(newState);
-          app.set("cache", Object.assign(cache, newState));
+          store.setState("session", {
+            ...cache,
+          });
+          store.setState("common", {
+            cache,
+          });
 
           callback(res);
         },
         fail(res) {
-          const cacheStatus = store.getCommonState("cacheStatus") || {};
-          const cache = app.get("cache") || {};
+          // 使用离线课表
+          const cacheStatus = store.getState("session", "cacheStatus") || {};
+          const cache = store.getState("common", "cache") || {};
           const cacheState = {};
           if (cache.timetable) {
             cacheState.timetable = cache.timetable;
@@ -52,12 +71,12 @@ export default function ({ store, fetch }) {
               );
             }
             cacheStatus.timetable = true;
+            store.setState("session", {
+              cacheStatus,
+              ...cacheState,
+            });
+            callback();
           }
-          store.setCommonState({
-            cacheStatus,
-            ...cacheState,
-          });
-          callback();
         },
       });
     },
@@ -72,7 +91,7 @@ export default function ({ store, fetch }) {
           const sortedData = Array.from(fixedData.list).sort((a, b) => {
             return b["真实成绩"] - a["真实成绩"];
           });
-          store.setCommonState({
+          store.setState("session", {
             score: fixedData,
             sortedScoreList: sortedData,
           });
@@ -87,7 +106,7 @@ export default function ({ store, fetch }) {
         ...options,
         success(res) {
           const data = res.data.data;
-          store.setCommonState({
+          store.setState("session", {
             scoreDetail: data,
           });
           callback(res);
@@ -101,7 +120,7 @@ export default function ({ store, fetch }) {
         ...options,
         success(res) {
           const data = res.data.data;
-          store.setCommonState({
+          store.setState("session", {
             exam: util.fixExam(data),
           });
           callback(res);
@@ -115,7 +134,7 @@ export default function ({ store, fetch }) {
         ...options,
         success(res) {
           const data = res.data.data;
-          store.setCommonState({
+          store.setState("session", {
             originalFreeroomData: data,
             freeroom: util.fixFreeroom(data),
           });
@@ -131,7 +150,7 @@ export default function ({ store, fetch }) {
         success(res) {
           const data = res.data.data;
           const fixedData = util.fixCard(data);
-          store.setCommonState({
+          store.setState("session", {
             card: fixedData,
             cardCost: util.fixCardCost(fixedData),
           });
@@ -146,7 +165,7 @@ export default function ({ store, fetch }) {
         ...options,
         success(res) {
           const data = res.data.data;
-          store.setCommonState({
+          store.setState("session", {
             borrow: data,
           });
           callback(res);
@@ -160,7 +179,7 @@ export default function ({ store, fetch }) {
         ...options,
         success(res) {
           const data = res.data.data;
-          store.setCommonState({
+          store.setState("session", {
             teacher: util.fixTeacher(data),
           });
           callback(res);
@@ -217,7 +236,7 @@ export default function ({ store, fetch }) {
         showError: true,
         success(res) {
           const data = res.data.data;
-          store.setCommonState({
+          store.setState("session", {
             announcement: data,
           });
           callback(res);

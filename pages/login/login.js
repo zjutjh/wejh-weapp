@@ -13,15 +13,17 @@ Page({
     helpStatus: false,
   },
   onLoad() {
-    let _this = this;
     app.$store.connect(this, "login");
 
     // 直接显示会有动画bug，所以需要先挂载一段时间再显示
     setTimeout(() => {
-      this.setState({
+      this.setPageState({
         showLoading: false,
       });
     }, 1000);
+  },
+  onUnload() {
+    this.disconnect();
   },
   onInput(e) {
     const type = e.target.dataset.type;
@@ -31,7 +33,7 @@ Page({
     const username = form.username;
     const password = form.password;
     const type = "weapp";
-    const openid = app.$store.getCommonState("openid");
+    const openId = app.$store.getState("common", "openId");
     if (!username || !password) {
       return wx.showModal({
         title: "错误",
@@ -39,8 +41,8 @@ Page({
         showCancel: false,
       });
     }
-    if (!openid) {
-      return app.login(undefined, () => {
+    if (!openId) {
+      return app.wxLogin(undefined, () => {
         this.login();
       });
     }
@@ -51,7 +53,7 @@ Page({
         username,
         password,
         type,
-        openid,
+        openid: openId,
       },
       showError: true,
       method: "POST",
@@ -59,7 +61,7 @@ Page({
         const data = res.data.data;
         const token = data.token;
         const userInfo = data.user;
-        app.$store.setCommonState({
+        app.$store.setState("session", {
           token,
           userInfo,
         });
@@ -76,12 +78,12 @@ Page({
     });
   },
   showHelp() {
-    this.setState({
+    this.setPageState({
       helpStatus: true,
     });
   },
   hideHelp() {
-    this.setState({
+    this.setPageState({
       helpStatus: false,
     });
   },

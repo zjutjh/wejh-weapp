@@ -27,7 +27,7 @@
     margin-right: auto;
   }
 
-  &>input {
+  & > input {
     margin-left: 16rpx;
     margin-right: 16rpx;
     flex: 1;
@@ -52,13 +52,13 @@
     right: 32rpx + 30rpx + 10rpx;
     transform: translateY(-50%);
 
-    &>image {
+    & > image {
       margin-right: 6rpx;
       width: 42rpx;
       height: 42rpx;
     }
 
-    &>text {
+    & > text {
       color: $gray-600;
       font-size: 28rpx;
     }

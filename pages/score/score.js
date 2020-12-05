@@ -13,13 +13,12 @@ Page({
     currentTerm: "",
   },
   onLoad() {
-    let _this = this;
     app.$store.connect(this, "score");
-    this.observeCommon("score");
-    this.observeCommon("scoreDetail");
-    this.observeCommon("sortedScoreList");
-    this.observeCommon("icons");
-    this.observeCommon("userInfo");
+    this.observe("session", "score");
+    this.observe("session", "scoreDetail");
+    this.observe("session", "sortedScoreList");
+    this.observe("session", "icons");
+    this.observe("session", "userInfo");
     setTimeout(() => {
       // 判断是否登录
       if (!app.isLogin() || !this.data.userInfo) {
@@ -52,13 +51,16 @@ Page({
       }
     }, 500);
   },
+  onUnload() {
+    this.disconnect();
+  },
   toggleHideScore() {
-    this.setState({
+    this.setPageState({
       hideScore: !this.data.hideScore,
     });
   },
   toggleHideInfo() {
-    this.setState({
+    this.setPageState({
       hideInfo: !this.data.hideInfo,
     });
   },
@@ -66,7 +68,7 @@ Page({
     const index = e.currentTarget.dataset.index;
     const scoreDetail = this.data.scoreDetail;
     scoreDetail.list[index].open = !scoreDetail.list[index].open;
-    app.$store.setCommonState({
+    app.$store.setState("session", {
       scoreDetail: scoreDetail,
     });
   },
@@ -76,37 +78,37 @@ Page({
     });
     const isDetail = this.data.isDetail;
     if (isDetail) {
-      this.setState({
+      this.setPageState({
         detailAnimation: true,
         isDetail: !isDetail,
       });
       wx.hideLoading();
     } else {
-      this.setState({
+      this.setPageState({
         detailAnimation: true,
       });
       app.services.getScoreDetail(() => {
         wx.hideLoading();
-        this.setState({
+        this.setPageState({
           isDetail: !isDetail,
         });
       });
     }
 
     setTimeout(() => {
-      this.setState({
+      this.setPageState({
         detailAnimation: false,
       });
     }, 500);
   },
   toggleSort() {
-    this.setState({
+    this.setPageState({
       sortAnimation: true,
       sort: !this.data.sort,
     });
 
     setTimeout(() => {
-      this.setState({
+      this.setPageState({
         sortAnimation: false,
       });
     }, 500);
@@ -117,13 +119,13 @@ Page({
     });
   },
   afterGetScore() {
-    this.setState({
+    this.setPageState({
       showLoading: false,
     });
     try {
       const scoreData = this.data.score;
       const term = scoreData.term;
-      this.setState({
+      this.setPageState({
         currentTerm: term,
       });
     } catch (err) {

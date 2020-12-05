@@ -55,7 +55,7 @@
     }
 
     &.disabled {
-      opacity: .6;
+      opacity: 0.6;
 
       image {
         filter: grayscale(100%);
@@ -65,7 +65,7 @@
     &.ad {
       .item-image {
         &:after {
-          content: 'AD';
+          content: "AD";
           position: absolute;
           display: inline-block;
           padding: 4rpx 12rpx;
@@ -73,7 +73,7 @@
           bottom: 0;
           font-size: 12rpx;
           color: white;
-          background-color: rgba(0, 0, 0, .2);
+          background-color: rgba(0, 0, 0, 0.2);
         }
       }
     }

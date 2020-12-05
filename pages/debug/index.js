@@ -16,18 +16,23 @@ Page({
     idDev: false,
   },
   onLoad() {
+    app.$store.connect(this, "debug");
+    this.observe("common", "openId");
+    this.observe("session", "token")
+    
     const info = wx.getStorageInfoSync() || {};
     const { currentSize: storageSize, limitSize: maxStorageSize } = info;
-    this.setData({
-      openId: app.isDev ? app.$store.getCommonState("openid") || "" : "",
-      token: app.isDev ? app.$store.getCommonState("token") || "" : "",
+
+    this.setPageState({
       storageSize: storageSize,
       maxStorageSize: maxStorageSize,
       isDev: app.isDev,
     });
   },
   switchAPIEndpoint() {
-    let endpointNames = this.data.isDev ? endpoints.map((endpoint) => endpoint.name) : [];
+    let endpointNames = this.data.isDev
+      ? endpoints.map((endpoint) => endpoint.name)
+      : [];
     endpointNames.unshift("Default");
     wx.showActionSheet({
       itemList: endpointNames,
@@ -65,7 +70,7 @@ Page({
   setOpenId(event) {
     const { value } = event.detail;
     if (value) {
-      app.$store.setCommonState({
+      app.$store.setState("common", {
         openId: value,
       });
       app.toast({
@@ -76,7 +81,7 @@ Page({
   },
   copyOpenId() {
     wx.setClipboardData({
-      data: app.$store.getCommonState("openid") || "",
+      data: app.$store.getState("common", "openId") || "",
       success() {
         app.toast({
           icon: "success",
@@ -88,7 +93,7 @@ Page({
   setToken(event) {
     const { value } = event.detail;
     if (value) {
-      app.$store.setCommonState({
+      app.$store.setState("session", {
         token: value,
       });
       app.toast({
@@ -99,7 +104,7 @@ Page({
   },
   copyToken() {
     wx.setClipboardData({
-      data: app.$store.getCommonState("token") || "",
+      data: app.$store.getState("session", "token") || "",
       success() {
         app.toast({
           icon: "success",
@@ -162,7 +167,9 @@ Page({
     });
   },
   disableDebugMenu() {
-    app.set("devMenuEnabled", false);
+    app.$store.setState("static", {
+      devMenuEnabled: false,
+    });
     wx.navigateBack();
   },
 });

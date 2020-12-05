@@ -1,139 +1,227 @@
-export default class WeappStore {
-  constructor(store, options = {}) {
-    this.commonKey = options.commonKey || "common";
-    this.debug = options.debug || false;
-    this.ctx = {};
-    this.observer = {};
-    this.store = store;
-    this.setStore(this.commonKey, store.common || {});
+import logger from "./logger";
+
+export default class WejhStore {
+  /**
+   * 创建一个通用存储对象
+   */
+  constructor(options = {}) {
+    const { debug = false, fields: store = {} } = options;
+
+    Object.assign(this, {
+      debug,
+      store,
+      observers: {},
+    });
+
+    for (const field in this.store) {
+      this.store[field].isPersistent = this.store[field].isPersistent
+        ? true
+        : false;
+      if (this.store[field].isPersistent) {
+        var storageData = {};
+        try {
+          storageData = this.readFromLocalStorage(field);
+        } catch (err) {
+          logger.warn(
+            `Failed to read key '${field}' from local storage with error: `,
+            err
+          );
+        }
+        this.store[field].data = Object.assign(
+          {},
+          storageData,
+          this.store[field].data
+        );
+      } else {
+        this.store[field].data = {};
+      }
+    }
   }
 
-  connect(ctx, field) {
+  /**
+   * 将页面的 data 字段与存储对象中的页面状态进行连接
+   */
+  connect(page, field) {
     let _this = this;
-    this.ctx[field] = ctx; // 储存上下文
 
-    // 初始化当前域的数据
-    this.setStore(field, Object.assign({}, this.getStore(field), ctx.data));
+    page.field = field;
 
-    // 为该上下文增加方法
-    ctx.setState = function (obj, callback = function () {}) {
-      _this._setState(field, obj);
-      if (ctx.setData) {
-        ctx.setData(obj);
+    /**
+     * 移除页面内注册的观察者
+     */
+    page.disconnect = function () {
+      _this.disconnect(page);
+    };
+
+    /**
+     * 更新页面的状态
+     */
+    page.setPageState = function (value, callback = function () {}) {
+      if (_this.debug) {
+        logger.debug("store", `setPageState called with: `, value);
       }
 
-      _this._refreshObserver(field);
+      // 如果是 Page 类型，同时把数据更新到 data 中，并请求重新渲染，数据会被最终写入 Data 域
+      if (this.setData) {
+        // 更新到 data 中
+        this.setData(value);
+      }
+      // if (_this.debug) {
+      //   console.log(`currentData: `, this.data);
+      // }
 
       callback();
-    }.bind(ctx);
+    }.bind(page);
 
-    ctx.observe = function (
-      tagetField,
-      targetState,
-      localState,
+    /**
+     * 观察存储对象中的字段，并立即将现有的状态值同步到页面状态中
+     */
+    page.observe = function (
+      remoteField,
+      remoteKey,
+      localKey,
       callback = function () {}
     ) {
-      if (!localState) {
-        localState = targetState;
+      if (!localKey) {
+        localKey = remoteKey;
       }
-      _this.observe(field, tagetField, targetState, localState, callback);
-      ctx.setState({
-        [localState]: _this.getStore(tagetField)[targetState],
-      });
-    }.bind(ctx);
-
-    ctx.observeCommon = function (
-      targetState,
-      localState,
-      callback = function () {}
-    ) {
-      ctx.observe(_this.commonKey, targetState, localState, callback);
-    }.bind(ctx);
-
-    // 初始化该上下文的数据
-    ctx.setState(this.getStore(field) || {});
+      // 对当前域观察 targetField 域的 targetState，同步到 localState 中
+      _this.observe(this, field, remoteField, remoteKey, localKey, callback);
+      // 用存储中的初始数据更新当前状态
+      const targetState = _this.getState(remoteField, remoteKey) || null;
+      if (targetState || !(localKey in this.data)) {
+        page.setPageState(
+          {
+            [localKey]: targetState,
+          },
+          callback
+        );
+      }
+    }.bind(page);
   }
 
+  /**
+   * 移除页面内注册的观察者
+   */
+  disconnect(page) {
+    if (page.field) {
+      for (let remoteField in this.observers) {
+        if (this.debug) {
+          logger.debug(
+            "store",
+            `Remove observation to ${remoteField} for ${page.field}`
+          );
+        }
+        delete this.observers[remoteField][page.field];
+      }
+    } else {
+      logger.error("store", `Failed to determine field for page`);
+    }
+  }
+
+  /**
+   * 为页面注册观察者
+   */
   observe(
+    page,
     localField,
-    targetField,
-    targetState,
-    localState,
+    remoteField,
+    remoteKey,
+    localKey,
     callback = function () {}
   ) {
-    const observer = this.observer[targetField] || {};
-    const localObserver = observer[localField] || {
-      ctx: localField,
-      data: {},
-      callback: {},
+    const remoteFieldObservers = this.observers[remoteField] || {};
+    const localFieldObserver = remoteFieldObservers[localField] || {
+      page: page,
+      keyMap: {},
+      callbackMap: {},
     };
-    localObserver.data[localState] = targetState;
-    localObserver.callback[localState] = callback;
 
-    observer[localField] = localObserver;
-    this.observer[targetField] = observer;
+    localFieldObserver.keyMap[localKey] = remoteKey;
+    localFieldObserver.callbackMap[localKey] = callback;
+
+    remoteFieldObservers[localField] = localFieldObserver;
+    this.observers[remoteField] = remoteFieldObservers;
   }
 
-  _refreshObserver(field) {
-    const observerObj = this.observer[field];
-    for (let key in observerObj) {
-      const item = observerObj[key];
-      const ctx = this.ctx[item.ctx];
-      const data = item.data;
-      const callbacks = item.callback;
+  /**
+   * 向观察者通知状态变更
+   */
+  notifyObservers(field, value) {
+    const observerForField = this.observers[field];
+    for (let localField in observerForField) {
+      const item = observerForField[localField];
 
-      const newState = {};
-      const callbackArr = [];
-      for (let localState in data) {
-        const targetKey = data[localState];
-        const callback = callbacks[localState];
-        const targetState = this.getStore(field)[targetKey];
-        newState[localState] = targetState;
-        callbackArr.push(callback);
+      const { page, keyMap, callbackMap } = item;
+
+      for (let localKey in keyMap) {
+        const remoteKey = keyMap[localKey];
+        if (value[remoteKey]) {
+          const callback = callbackMap[localKey];
+          const targetState = value[remoteKey] || null;
+
+          page.setPageState(
+            {
+              [localKey]: targetState,
+            },
+            callback
+          );
+        }
       }
-      ctx.setState(newState, () => {
-        callbackArr.forEach((callback) => {
-          callback();
-        });
-      });
     }
   }
 
-  setStore(key, value) {
-    if (key === this.commonKey || this.debug) {
-      wx.setStorageSync(key, value);
-    } else {
-      this.store[key] = value;
+  /**
+   * 获取特定域的状态值
+   */
+  getState(field, key) {
+    return key ? this.store[field].data[key] : this.store[field].data;
+  }
+
+  /**
+   * 为特定域的状态赋值
+   */
+  setState(field, value) {
+    if (this.debug) {
+      logger.debug(
+        "store",
+        `setState called with field: ${field}, value: `,
+        value
+      );
+    }
+
+    this.notifyObservers(field, value);
+
+    value = {
+      ...this.store[field].data,
+      ...value,
+    };
+    this.store[field].data = value;
+    if (this.store[field].isPersistent) {
+      try {
+        this.writeToLocalStorage(field, value);
+      } catch (err) {
+        logger.warn(
+          `Failed to write key '${field}' to local storage with error: `,
+          err
+        );
+      }
     }
   }
 
-  getStore(key) {
-    if (key === this.commonKey || this.debug) {
-      return wx.getStorageSync(key) || {};
-    } else {
-      return this.store[key];
-    }
+  /**
+   * 写入特定域的数据到本地存储
+   * @throws
+   */
+  writeToLocalStorage(field, value) {
+    return wx.setStorageSync(field, value);
   }
 
-  getCommonState(key) {
-    const commonData = this.getStore(this.commonKey);
-    if (key) {
-      return commonData[key];
-    }
-    return commonData;
-  }
-
-  setCommonState(obj) {
-    this.setFieldState(this.commonKey, obj);
-  }
-
-  _setState(field, obj) {
-    this.setStore(field, Object.assign(this.getStore(field), obj || {}));
-  }
-
-  setFieldState(field, obj) {
-    this.ctx[field] &&
-      this.ctx[field].setState &&
-      this.ctx[field].setState(obj);
+  /**
+   * 从本地存储读出特定数据域的值
+   * @throws
+   */
+  readFromLocalStorage(field) {
+    return wx.getStorageSync(field) || {};
   }
 }

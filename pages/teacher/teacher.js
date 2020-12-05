@@ -5,11 +5,10 @@ Page({
     wd: "",
   },
   onLoad(payload) {
-    let _this = this;
     app.$store.connect(this, "teacher");
-    this.observeCommon("teacher");
-    this.observeCommon("icons");
-    this.observeCommon("userInfo");
+    this.observe("session", "teacher");
+    this.observe("session", "icons");
+    this.observe("session", "userInfo");
 
     setTimeout(() => {
       // 判断是否登录
@@ -19,7 +18,7 @@ Page({
         });
       }
       if (payload && payload.name) {
-        this.setState(
+        this.setPageState(
           {
             wd: payload.name,
           },
@@ -30,10 +29,13 @@ Page({
       }
     }, 500);
   },
+  onUnload() {
+    this.disconnect();
+  },
   bindClearSearchTap() {
-    app.$store.setCommonState({
+    this.setPageState({
+      wd: "",
       teacher: {
-        wd: "",
         list: [],
       },
     });
@@ -43,7 +45,7 @@ Page({
     if (!value) {
       this.bindClearSearchTap();
     }
-    this.setState({
+    this.setPageState({
       wd: value,
     });
   },
@@ -76,7 +78,13 @@ Page({
     });
   },
   bindConfirmSearchTap() {
-    this.getTeacher();
+    // this.getTeacher();
+    wx.showModal({
+      title: "提示",
+      content: "教师搜索升级维护中，敬请期待~",
+      showCancel: false,
+      confirmText: "确定",
+    });
   },
   afterGetTeacher() {
     wx.hideLoading();

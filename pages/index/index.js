@@ -1,4 +1,3 @@
-import util from "../../utils/util";
 import logger from "../../utils/logger";
 
 const initAppList = [];
@@ -12,6 +11,7 @@ for (let i = 0; i < 10; i++) {
 }
 
 const app = getApp();
+
 Page({
   data: {
     tinyTip: {
@@ -19,30 +19,31 @@ Page({
       content: "请先登录",
     },
     helpStatus: false,
-    // indexCards: defaultCard,
     apps: initAppList,
   },
-  onLoad: function (options) {
+  onLoad() {
     app.$store.connect(this, "index");
-    this.observeCommon("userInfo");
-    this.observeCommon("apps");
-    this.observeCommon("icons");
-    this.observeCommon("time", null, this.onTimeUpdate);
-    this.observeCommon("timetableFixed");
-    this.observeCommon("card");
-    this.observeCommon("cardCost");
-    this.observeCommon("borrow");
-    this.observeCommon("announcement");
-    this.observeCommon("cacheStatus");
+    this.observe("session", "userInfo");
+    this.observe("session", "apps");
+    this.observe("session", "icons");
+    this.observe("session", "time", null, this.onTimeUpdate);
+    this.observe("session", "timetableFixed");
+    this.observe("session", "card");
+    this.observe("session", "cardCost");
+    this.observe("session", "borrow");
+    this.observe("session", "announcement");
+    this.observe("session", "cacheStatus");
     this.getData();
-    app.set("preview", options.preview);
 
-    this.setState({
+    this.setPageState({
       todayTime: new Date().toLocaleDateString(),
     });
   },
+  onUnload() {
+    this.disconnect();
+  },
   hideHelp() {
-    this.setState({
+    this.setPageState({
       helpStatus: false,
     });
   },
@@ -50,7 +51,7 @@ Page({
     const timetableFixed = this.data.timetableFixed;
     if (!this.data.time) {
       return setTimeout(() => {
-        app.getTermTime(() => {
+        app.services.getTermTime(() => {
           this.onTimeUpdate();
         });
       }, 5000);
@@ -60,6 +61,7 @@ Page({
         this.onTimeUpdate();
       }, 5000);
     }
+
     const weekday = this.data.time.day;
     const week = this.data.time.week;
     const todayTimetable = timetableFixed[weekday - 1];
@@ -72,7 +74,7 @@ Page({
         }
       });
     });
-    this.setState({
+    this.setPageState({
       timetableToday,
     });
   },
@@ -88,7 +90,7 @@ Page({
     }
   },
   getData() {
-    app.getTermTime();
+    app.services.getTermTime();
     app.services.getAppList();
     this.getAnnouncement();
     this.getIndexCardData();
@@ -107,12 +109,13 @@ Page({
     app.services.getAnnouncement(
       (res) => {
         const data = res.data.data;
-        const announcementId = app.get("announcementId") || 0;
+        const announcementId =
+          app.$store.getState("static", "announcementId") || 0;
         if (announcementId < data.id) {
-          this.setState({
+          this.setPageState({
             helpStatus: true,
           });
-          app.set("announcementId", data.id);
+          app.$store.setState("static", { announcementId: data.id });
         }
       },
       {
@@ -136,7 +139,7 @@ Page({
     });
   },
   showTip(content, duration = 1500) {
-    this.setState({
+    this.setPageState({
       tinyTip: {
         active: true,
         content: content,
@@ -148,7 +151,7 @@ Page({
     }, duration);
   },
   hideTip() {
-    this.setState({
+    this.setPageState({
       tinyTip: {
         active: false,
         content: "",
@@ -174,14 +177,19 @@ Page({
     }
   },
   onClickApp(e) {
-    const commonData = app.$store.getCommonState();
-    const isLogin = !!commonData["token"];
+    const isLogin = app.$store.getState("session", "token");
     const target = e.currentTarget;
     const index = target.dataset.index;
+
     if (!this.data.apps) {
       return this.showTip("应用列表信息获取失败，请重启微信再试");
     }
     const appItem = this.data.apps[index];
+
+    if (!appItem) {
+      return
+    }
+
     if (!isLogin) {
       return this.showTip("请先登录");
     }

@@ -10,14 +10,14 @@
   transform: translateX(-50%);
 
   & ~ .m-wave-form {
-    top: -100rpx
+    top: -100rpx;
   }
 
   .title {
     width: 320rpx;
     height: 120rpx;
   }
-  
+
   .logo {
     position: absolute;
     z-index: 2;
@@ -28,17 +28,31 @@
     margin-left: -80rpx;
     border-radius: 160rpx;
     animation: sway 10s ease-in-out infinite;
-    opacity: .95;
+    opacity: 0.95;
   }
 
-  @keyframes sway{
-    0% {transform: translate3d(0, 20rpx, 0) rotate(-15deg); }
-    17% {transform: translate3d(0, 0rpx, 0) rotate(25deg); }
-    34% {transform: translate3d(0, -20rpx, 0) rotate(-20deg); }
-    50% {transform: translate3d(0, -10rpx, 0) rotate(15deg); }
-    67% {transform: translate3d(0, 10rpx, 0) rotate(-25deg); }
-    84% {transform: translate3d(0, 15rpx, 0) rotate(15deg); }
-    100% {transform: translate3d(0, 20rpx, 0) rotate(-15deg); }
+  @keyframes sway {
+    0% {
+      transform: translate3d(0, 20rpx, 0) rotate(-15deg);
+    }
+    17% {
+      transform: translate3d(0, 0rpx, 0) rotate(25deg);
+    }
+    34% {
+      transform: translate3d(0, -20rpx, 0) rotate(-20deg);
+    }
+    50% {
+      transform: translate3d(0, -10rpx, 0) rotate(15deg);
+    }
+    67% {
+      transform: translate3d(0, 10rpx, 0) rotate(-25deg);
+    }
+    84% {
+      transform: translate3d(0, 15rpx, 0) rotate(15deg);
+    }
+    100% {
+      transform: translate3d(0, 20rpx, 0) rotate(-15deg);
+    }
   }
 
   .wave {
@@ -63,13 +77,21 @@
     animation-fill-mode: both;
   }
 
-  @keyframes wave{
-    from {transform: translate3d(125rpx, 0, 0);}
-    to {transform: translate3d(1125rpx, 0, 0);}
+  @keyframes wave {
+    from {
+      transform: translate3d(125rpx, 0, 0);
+    }
+    to {
+      transform: translate3d(1125rpx, 0, 0);
+    }
   }
 
-  @keyframes wave-bg{
-    from {transform: translate3d(375rpx, 0, 0);}
-    to {transform: translate3d(1375rpx, 0, 0);}
+  @keyframes wave-bg {
+    from {
+      transform: translate3d(375rpx, 0, 0);
+    }
+    to {
+      transform: translate3d(1375rpx, 0, 0);
+    }
   }
 }
