@@ -1,0 +1,48 @@
+<view class="container f-bg-gray">
+<view class="feedback-container">
+  <view class="feedback-logo">
+    image here
+  </view>
+
+  <view class="feedback-table">
+
+    <view class="feedback-item">
+      <view class="feedback-cg1-1">
+        <image class = "feedback-icon" mode = "aspectFit" src="../../images/feedback/feedback-1.png">
+        </image>
+      </view>
+      <view class="feedback-cg2">
+        功能异常反馈
+      </view>
+      <view class="feedback-cg3">
+        <button class="feedback-button" open-type="feedback">
+        前往反馈
+        </button>
+      </view>
+      
+      
+    </view>
+    
+    <view class="feedback-line">
+      
+    </view>
+    <view class="feedback-item">
+      <view class="feedback-cg1-2">
+        <image class = "feedback-icon" mode = "aspectFit" src="../../images/feedback/qq.png">
+        </image>
+      </view>
+      <view class="feedback-cg2">
+        加入交流群
+      </view>
+      <view class="feedback-cg3">
+        <button class="feedback-button" bindtap="copy">
+        复制群号
+        </button>
+      </view>
+    </view>
+    
+
+  </view>
+</view>
+  
+</view>

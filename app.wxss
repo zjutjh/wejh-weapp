@@ -3046,3 +3046,81 @@ text {
   flex: 1;
   background-color: #fff;
 }
+
+.feedback-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.feedback-container .feedback-logo {
+  align-self: center;
+}
+
+.feedback-container .feedback-table {
+  background-color: white;
+  width: 650rpx;
+  margin: 0 auto;
+  border-radius: 16rpx;
+}
+
+.feedback-container .feedback-table .feedback-item {
+  height: 89px;
+  display: flex;
+  font-size: 35rpx;
+  padding-left: 48rpx;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 50rpx;
+}
+
+.feedback-container .feedback-table .feedback-item .feedback-cg1-1 {
+  display: flex;
+  margin-right: 35rpx;
+  height: 65rpx;
+  width: 65rpx;
+  background-color: #FF6C6C;
+  border-radius: 12rpx;
+  justify-content: center;
+}
+
+.feedback-container .feedback-table .feedback-item .feedback-cg1-1 .feedback-icon {
+  height: 56rpx;
+  width: 56rpx;
+  align-self: center;
+}
+
+.feedback-container .feedback-table .feedback-item .feedback-cg1-2 {
+  display: flex;
+  margin-right: 35rpx;
+  height: 65rpx;
+  width: 65rpx;
+  background-color: #6CABFF;
+  border-radius: 12rpx;
+  justify-content: center;
+}
+
+.feedback-container .feedback-table .feedback-item .feedback-cg1-2 .feedback-icon {
+  height: 46rpx;
+  width: 46rpx;
+  align-self: center;
+}
+
+.feedback-container .feedback-table .feedback-item .feedback-cg2 {
+  width: 140px;
+}
+
+.feedback-container .feedback-table .feedback-item .feedback-cg3 .feedback-button {
+  color: white;
+  font-size: 30rpx;
+  display: flex;
+  float: left;
+  background-color: #8ecba9;
+  border-radius: 5px;
+}
+
+.feedback-container .feedback-table .feedback-line {
+  background-color: #efeff4;
+  height: 2px;
+}
