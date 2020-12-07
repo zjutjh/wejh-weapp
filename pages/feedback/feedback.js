@@ -1,5 +1,5 @@
 let app = getApp();
-const groups = new Array('123', '234');
+const groups = new Array('462530805', '282402782');
 Page({
   data: {
 
