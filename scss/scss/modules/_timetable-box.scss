@@ -199,7 +199,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
               }
 
               &.red {
-                background-color: $theme-red;
+                background-color: $theme-pink;
               }
 
               &.blue {
@@ -281,7 +281,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
         }
 
         &.red {
-          background-color: $theme-red;
+          background-color: $theme-pink;
         }
 
         &.blue {
@@ -419,7 +419,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
             color: $white;
             margin: 6rpx 0;
             border-radius: 8rpx;
-            background-color: $theme-red;
+            background-color: $theme-pink;
             line-height: 32rpx;
             text-align: center;
             word-wrap: break-word;

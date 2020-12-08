@@ -1,4 +1,5 @@
 {
+  "disableScroll": true,
   "enablePullDownRefresh": false,
   "navigationBarTitleText": "反馈"
 }

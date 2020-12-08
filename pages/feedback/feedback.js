@@ -1,20 +1,25 @@
 let app = getApp();
-const groups = new Array('462530805', '282402782');
-Page({
-  data: {
-
+let groupInfo = [
+  {
+    name: "一群",
+    id: "462530805",
   },
-  onLoad() { },
-  copy() {
+  {
+    name: "二群",
+    id: "282402782",
+  },
+];
+Page({
+  data: {},
+  onLoad() {},
+  copyGroupId() {
     wx.showActionSheet({
-      itemList: ['462530805（一群）', '282402782（二群）'],
+      itemList: groupInfo.map((info) => `${info.id}（${info.name}）`),
       success({ tapIndex }) {
         wx.setClipboardData({
-          data: groups[tapIndex],
+          data: groupInfo[tapIndex].id,
         });
       },
     });
   },
-
-
 });
