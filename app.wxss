@@ -3080,7 +3080,7 @@ text {
   margin-right: 35rpx;
   height: 65rpx;
   width: 65rpx;
-  background-color: #FF6C6C;
+  background-color: #ff6c6c;
   border-radius: 12rpx;
   justify-content: center;
 }
@@ -3096,7 +3096,7 @@ text {
   margin-right: 35rpx;
   height: 65rpx;
   width: 65rpx;
-  background-color: #6CABFF;
+  background-color: #6cabff;
   border-radius: 12rpx;
   justify-content: center;
 }
@@ -3108,14 +3108,13 @@ text {
 }
 
 .feedback-container .feedback-table .feedback-item .feedback-cg2 {
-  width: 140px;
+  width: 47%;
 }
 
 .feedback-container .feedback-table .feedback-item .feedback-cg3 .feedback-button {
   color: white;
   font-size: 30rpx;
   display: flex;
-  float: left;
   background-color: #8ecba9;
   border-radius: 5px;
 }
