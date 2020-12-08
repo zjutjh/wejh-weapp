@@ -220,35 +220,35 @@ App({
   //     });
   //   }
   // },
-  goFeedback: () => {
-    const userInfo = store.getState("session", "userInfo");
-    wx.getNetworkType({
-      success: function (res) {
-        // 返回网络类型, 有效值：
-        // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
-        const networkType = res.networkType;
-        const customData = {
-          clientInfo: systemInfo.SDKVersion,
-          clientVersion: systemInfo.version,
-          os: systemInfo.platform,
-          osVersion: systemInfo.system,
-          netType: networkType,
-          customInfo: JSON.stringify({
-            uno: userInfo.uno,
-            version,
-          }),
-        };
-        logger.info("app", "跳转到反馈社区", customData);
-        wx.navigateToMiniProgram({
-          appId: "wx8abaf00ee8c3202e",
-          extraData: {
-            id: "19048",
-            customData,
-          },
-        });
-      },
-    });
-  },
+  // goFeedback: () => {
+  //   const userInfo = store.getState("session", "userInfo");
+  //   wx.getNetworkType({
+  //     success: function (res) {
+  //       // 返回网络类型, 有效值：
+  //       // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
+  //       const networkType = res.networkType;
+  //       const customData = {
+  //         clientInfo: systemInfo.SDKVersion,
+  //         clientVersion: systemInfo.version,
+  //         os: systemInfo.platform,
+  //         osVersion: systemInfo.system,
+  //         netType: networkType,
+  //         customInfo: JSON.stringify({
+  //           uno: userInfo.uno,
+  //           version,
+  //         }),
+  //       };
+  //       logger.info("app", "跳转到反馈社区", customData);
+  //       wx.navigateToMiniProgram({
+  //         appId: "wx8abaf00ee8c3202e",
+  //         extraData: {
+  //           id: "19048",
+  //           customData,
+  //         },
+  //       });
+  //     },
+  //   });
+  // },
   systemInfo,
   isDev: isDev,
   env,

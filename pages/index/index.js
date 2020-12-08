@@ -158,9 +158,6 @@ Page({
       },
     });
   },
-  feedback() {
-    app.goFeedback();
-  },
   clipboard() {
     if (this.data.announcement && this.data.announcement.clipboard) {
       const text = this.data.announcement.clipboard;
