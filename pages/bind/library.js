@@ -1,6 +1,6 @@
 import { API } from "../../utils/api";
 
-const app = getApp()
+const app = getApp();
 
 const form = {
   password: "",
@@ -19,7 +19,7 @@ Page({
     }, 1000);
   },
   onUnload() {
-    this.disconnect()
+    this.disconnect();
   },
   onInput(e) {
     const type = e.target.dataset.type;
@@ -37,7 +37,7 @@ Page({
     }
 
     app.fetch({
-      url: API('library/bind'),
+      url: API("library/bind"),
       data: {
         password,
       },
@@ -48,7 +48,10 @@ Page({
           duration: 2000,
           title: "绑定成功",
         });
-        app.getUserInfo();
+        app.services.getUserInfo(null, {
+          showError: true,
+          ...option,
+        });
         setTimeout(() => {
           wx.navigateBack();
         }, 2000);

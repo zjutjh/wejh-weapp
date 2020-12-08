@@ -1,4 +1,6 @@
-let app = getApp();
+import toast from "../../utils/toast";
+
+const app = getApp();
 
 Page({
   data: {
@@ -54,7 +56,7 @@ Page({
     if (phone.match(/[^0-9\-]/g)) {
       wx.getClipboardData({
         success: function (res) {
-          app.toast({
+          toast({
             icon: "success",
             title: "复制成功",
           });
@@ -90,7 +92,7 @@ Page({
     wx.hideLoading();
     setTimeout(() => {
       if (!this.data.teacher || this.data.teacher.list.length === 0) {
-        app.toast({
+        toast({
           icon: "error",
           title: "没有相关教师",
         });

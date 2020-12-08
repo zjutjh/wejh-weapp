@@ -1,4 +1,7 @@
-let app = getApp();
+import toast from "../../utils/toast";
+
+const app = getApp();
+
 Page({
   data: {
     name: app.name,
@@ -14,7 +17,7 @@ Page({
     this.observe("static", "devMenuEnabled");
   },
   onUnload() {
-    this.disconnect()
+    this.disconnect();
   },
   onShow() {
     this.data.headerTapCount = 0;
@@ -28,7 +31,7 @@ Page({
         });
         this.data.headerTapCount = 0;
       }
-      app.toast({
+      toast({
         icon: "success",
         title: "调试彩蛋已打开",
       });

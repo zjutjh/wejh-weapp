@@ -1,4 +1,4 @@
-let app = getApp();
+const app = getApp();
 
 Page({
   data: {},
@@ -7,6 +7,6 @@ Page({
     this.observe("session", "userInfo");
   },
   onUnload() {
-    this.disconnect()
+    this.disconnect();
   },
 });

@@ -8,6 +8,7 @@ const del = require("del");
 const gulp = require("gulp");
 const rename = require("gulp-rename");
 const sass = require("gulp-sass");
+const merge = require("merge-stream");
 
 // Clean assets
 function clean() {
@@ -16,16 +17,28 @@ function clean() {
 
 // CSS task
 function css() {
-  return gulp
+  var appScss = gulp
     .src("./scss/**/*.scss")
     .pipe(sass({ outputStyle: "expanded" }))
     .pipe(rename("app.wxss"))
-    .pipe(gulp.dest("./"))
+    .pipe(gulp.dest("./"));
+
+  var componentsScss = gulp
+    .src("./components/**/*.scss", { base: "." })
+    .pipe(sass({ outputStyle: "expanded" }))
+    .pipe(
+      rename((path) => {
+        path.extname = ".wxss";
+      })
+    )
+    .pipe(gulp.dest("./"));
+  return merge(appScss, componentsScss);
 }
 
 // Watch files
 function watch() {
   gulp.watch("./scss/**/*", css);
+  gulp.watch("./components/**/*.scss", css);
 }
 
 // define complex tasks

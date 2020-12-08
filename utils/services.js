@@ -6,6 +6,7 @@ export default function ({ store, fetch }) {
     getAppList(callback = function () {}, options) {
       fetch({
         url: API("app-list"),
+        showError: true,
         ...options,
         success(res) {
           let data = res.data.data;
@@ -20,12 +21,27 @@ export default function ({ store, fetch }) {
     getTermTime: (callback = function () {}, options) => {
       fetch({
         url: API("time"),
+        showError: true,
         ...options,
-        // showError: true,
         success: (res) => {
           const result = res.data;
           store.setState("session", {
             time: result.data,
+          });
+          callback && callback();
+        },
+      });
+    },
+    getUserInfo: (callback = function () {}, options) => {
+      fetch({
+        url: API("user"),
+        showError: true,
+        ...options,
+        success: (res) => {
+          const result = res.data;
+          const userInfo = result.data;
+          store.setState("session", {
+            userInfo,
           });
           callback && callback();
         },
@@ -46,7 +62,6 @@ export default function ({ store, fetch }) {
             cacheStatus,
             timetable: data,
             timetableFixed: fixData,
-            timetableToday: util.fixTimetableToday(fixData),
           };
           store.setState("session", {
             ...cache,
@@ -54,8 +69,7 @@ export default function ({ store, fetch }) {
           store.setState("common", {
             cache,
           });
-
-          callback(res);
+          callback && callback(res);
         },
         fail(res) {
           // 使用离线课表
@@ -66,16 +80,16 @@ export default function ({ store, fetch }) {
             cacheState.timetable = cache.timetable;
             if (cache.timetableFixed) {
               cacheState.timetableFixed = cache.timetableFixed;
-              cacheState.timetableToday = util.fixTimetableToday(
-                cache.timetableFixed
-              );
+              // cacheState.timetableToday = util.fixTimetableToday(
+              //   cache.timetableFixed
+              // );
             }
             cacheStatus.timetable = true;
             store.setState("session", {
               cacheStatus,
               ...cacheState,
             });
-            callback();
+            callback && callback();
           }
         },
       });
@@ -95,7 +109,7 @@ export default function ({ store, fetch }) {
             score: fixedData,
             sortedScoreList: sortedData,
           });
-          callback(res);
+          callback && callback(res);
         },
       });
     },
@@ -109,7 +123,7 @@ export default function ({ store, fetch }) {
           store.setState("session", {
             scoreDetail: data,
           });
-          callback(res);
+          callback && callback(res);
         },
       });
     },
@@ -123,7 +137,7 @@ export default function ({ store, fetch }) {
           store.setState("session", {
             exam: util.fixExam(data),
           });
-          callback(res);
+          callback && callback(res);
         },
       });
     },
@@ -138,7 +152,7 @@ export default function ({ store, fetch }) {
             originalFreeroomData: data,
             freeroom: util.fixFreeroom(data),
           });
-          callback(res);
+          callback && callback(res);
         },
       });
     },
@@ -154,7 +168,7 @@ export default function ({ store, fetch }) {
             card: fixedData,
             cardCost: util.fixCardCost(fixedData),
           });
-          callback(res);
+          callback && callback(res);
         },
       });
     },
@@ -168,7 +182,7 @@ export default function ({ store, fetch }) {
           store.setState("session", {
             borrow: data,
           });
-          callback(res);
+          callback && callback(res);
         },
       });
     },
@@ -182,7 +196,7 @@ export default function ({ store, fetch }) {
           store.setState("session", {
             teacher: util.fixTeacher(data),
           });
-          callback(res);
+          callback && callback(res);
         },
       });
     },
@@ -190,13 +204,13 @@ export default function ({ store, fetch }) {
       fetch({
         url: API("timetable"),
         method: "PUT",
+        showError: true,
         ...options,
         data: {
           term: targetTerm,
         },
-        showError: true,
         success(res) {
-          callback(res);
+          callback && callback(res);
         },
       });
     },
@@ -204,13 +218,13 @@ export default function ({ store, fetch }) {
       fetch({
         url: API("score"),
         method: "PUT",
+        showError: true,
         ...options,
         data: {
           term: targetTerm,
         },
-        showError: true,
         success(res) {
-          callback(res);
+          callback && callback(res);
         },
       });
     },
@@ -218,13 +232,13 @@ export default function ({ store, fetch }) {
       fetch({
         url: API("exam"),
         method: "PUT",
+        showError: true,
         ...options,
         data: {
           term: targetTerm,
         },
-        showError: true,
         success(res) {
-          callback(res);
+          callback && callback(res);
         },
       });
     },
@@ -232,14 +246,14 @@ export default function ({ store, fetch }) {
       fetch({
         url: API("announcement"),
         method: "GET",
-        ...options,
         showError: true,
+        ...options,
         success(res) {
           const data = res.data.data;
           store.setState("session", {
             announcement: data,
           });
-          callback(res);
+          callback && callback(res);
         },
       });
     },
