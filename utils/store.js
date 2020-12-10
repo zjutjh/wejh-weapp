@@ -70,7 +70,7 @@ export default class WejhStore {
       //   console.log(`currentData: `, this.data);
       // }
 
-      callback();
+      callback(value);
     }.bind(page);
 
     /**
@@ -207,6 +207,10 @@ export default class WejhStore {
         );
       }
     }
+  }
+
+  clear(field) {
+    // 实现清空逻辑
   }
 
   /**

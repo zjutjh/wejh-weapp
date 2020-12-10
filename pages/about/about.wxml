@@ -2,7 +2,11 @@
   <view class="m-about">
     <view class="header">
       <view class="black-cover"></view>
-      <image class="logo" src="/images/common/logo.png" mode="aspectFill"></image>
+      <image
+        class="logo"
+        src="/images/common/logo.png"
+        mode="aspectFill"
+      ></image>
       <image
         class="title"
         src="/images/common/title.png"

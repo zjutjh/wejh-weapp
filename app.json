@@ -24,7 +24,6 @@
     "pages/debug/index",
     "pages/labs/labs",
     "pages/feedback/feedback"
-
   ],
   "window": {
     "backgroundTextStyle": "light",

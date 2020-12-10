@@ -1,4 +1,4 @@
-let app = getApp();
+const app = getApp();
 
 Page({
   data: {
@@ -33,7 +33,7 @@ Page({
     }, 500);
   },
   onUnload() {
-    this.disconnect()
+    this.disconnect();
   },
   getBorrow(callback = this.afterGetBorrow, option = {}) {
     app.services.getBorrow(callback, {

@@ -35,9 +35,7 @@
         wx:for-index="index"
         wx:for-item="item"
       >
-        <view class="title">
-          {{item['书名']}}
-        </view>
+        <view class="title"> {{item['书名']}} </view>
         <view class="book-date">
           <view class="borrow-date">
             <text class="label">借阅日期：</text>
@@ -52,7 +50,11 @@
     </view>
 
     <view class="m-remind-box" wx:else>
-      <image class="remind-img" mode="aspectFit" src="/images/common/nothing.png"></image>
+      <image
+        class="remind-img"
+        mode="aspectFit"
+        src="/images/common/nothing.png"
+      ></image>
       <text class="remind-text">暂无借阅信息</text>
     </view>
   </view>

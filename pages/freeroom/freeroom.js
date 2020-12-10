@@ -1,4 +1,6 @@
-let app = getApp();
+import toast from "../../utils/toast";
+
+const app = getApp();
 
 const _weekday = ["日", "一", "二", "三", "四", "五", "六", "日"];
 const _weeks = [
@@ -123,27 +125,11 @@ Page({
           url: "/pages/login/login",
         });
       }
-      const year = this.data.userInfo.uno.slice(0, 4);
-      if (year <= 2013) {
-        // 判断是否绑定原创
-        return app.toast({
-          title: "毕业生暂不支持查空教室",
-          duration: 3000,
-          complete: () => {
-            setTimeout(() => {
-              wx.navigateBack({
-                delta: 5,
-              });
-            }, 3000);
-          },
+
+      if (!this.data.userInfo.ext.passwords_bind.zf_password) {
+        return wx.redirectTo({
+          url: "/pages/bind/zf",
         });
-      } else {
-        // 判断是否绑定正方
-        if (!this.data.userInfo.ext.passwords_bind.zf_password) {
-          return wx.redirectTo({
-            url: "/pages/bind/zf",
-          });
-        }
       }
 
       // 判断是否有成绩数据

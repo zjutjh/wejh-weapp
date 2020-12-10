@@ -8,9 +8,16 @@
       <!--搜索框-->
       <view class="search-input">
         <view class="search-icon-box">
-          <image class="search-icon" src="/images/common/search-sign.png"></image>
+          <image
+            class="search-icon"
+            src="/images/common/search-sign.png"
+          ></image>
         </view>
-        <form class="input-form" bindreset="bindClearSearchTap" bindsubmit="bindConfirmSearchTap">
+        <form
+          class="input-form"
+          bindreset="bindClearSearchTap"
+          bindsubmit="bindConfirmSearchTap"
+        >
           <input
             class="input-text"
             bindinput="bindSearchInput"
@@ -28,7 +35,11 @@
           >
             <image class="clear-icon" src="/images/common/clear.png"></image>
           </button>
-          <button class="input-confirm-button" formType="submit" hover-class="none">
+          <button
+            class="input-confirm-button"
+            formType="submit"
+            hover-class="none"
+          >
             <text>搜索</text>
           </button>
         </form>
@@ -61,7 +72,10 @@
                   </view>
                   <view class="info-item" wx:if="{{item.office_phone}}">
                     <text class="label">办公室电话</text>
-                    <text class="value phone" data-phone="{{item.office_phone}}" bindtap="call"
+                    <text
+                      class="value phone"
+                      data-phone="{{item.office_phone}}"
+                      bindtap="call"
                       >{{item.office_phone}}</text
                     >
                   </view>

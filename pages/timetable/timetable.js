@@ -1,4 +1,6 @@
-let app = getApp();
+import toast from "../../utils/toast";
+
+const app = getApp();
 
 Page({
   data: {
@@ -95,27 +97,26 @@ Page({
         });
       }
 
-      const year = this.data.userInfo.uno.slice(0, 4);
-      // if (year <= 2013) {
-      //   // 判断是否绑定原创
-      //   if (!this.data.userInfo.ext.passwords_bind.yc_password) {
-      //     return wx.redirectTo({
-      //       url: "/pages/bind/ycjw",
-      //     });
-      //   }
-      // } else {
-      if (year >= 2017) {
-        // 判断是否绑定正方
-        if (!this.data.userInfo.ext.passwords_bind.zf_password) {
-          return wx.redirectTo({
-            url: "/pages/bind/zf",
-          });
-        }
+      // 判断是否绑定正方
+      if (!this.data.userInfo.ext.passwords_bind.zf_password) {
+        return wx.redirectTo({
+          url: "/pages/bind/zf",
+        });
       }
 
       // 判断是否有课表数据
       if (!this.data.timetable) {
-        this.getTimetable(this.afterGetTimetable);
+        app.services.getTimetable(
+          () => {
+            this.afterGetTimetable;
+          },
+          {
+            showError: true,
+            fail: () => {
+              this.afterGetTimetable();
+            },
+          }
+        );
       } else {
         this.afterGetTimetable();
       }
@@ -199,7 +200,7 @@ Page({
       : {};
     const teacherName = lessonInfo["老师"] || "";
     if (!teacherName) {
-      app.toast({
+      toast({
         icon: "error",
         title: "发生了一点错误，请反馈给管理员",
       });
@@ -240,7 +241,8 @@ Page({
       });
       this.setTitleTerm(term);
     } catch (e) {
-      app.toast({
+      console.error(e);
+      toast({
         icon: "error",
         title: e.message,
       });
@@ -330,7 +332,7 @@ Page({
     });
   },
   switchView() {
-    app.toast({
+    toast({
       title: "试图切换中",
       icon: "loading",
       duration: 500,
@@ -338,21 +340,6 @@ Page({
     this.setPageState({
       viewStatus: this.data.viewStatus === "*" ? this.data.currentWeek : "*",
     });
-  },
-  getTimetable(callback = function () {}) {
-    let _this = this;
-    if (app.hasToken()) {
-      app.services.getTimetable(callback, {
-        showError: true,
-        fail: () => {
-          callback();
-        },
-      });
-    } else {
-      setTimeout(() => {
-        _this.getTimetable();
-      }, 800);
-    }
   },
   //格式化时间
   formatTime(date, t) {
