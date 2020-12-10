@@ -1,15 +1,24 @@
 .m-feedback {
+  height: 100vh;
+  justify-content: center;
   .feedback-splash {
-    width: 60%;
-    margin: 64rpx auto 88rpx auto;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding-top: 20vh;
+
     image {
-      width: 100%;
-      height: 100%;
+      // max-width: 100%;
+      height: 30vh;
     }
   }
   .feedback-list {
+    position: fixed;
     background-color: $white;
-    margin: 0 64rpx;
+    left: 64rpx;
+    right: 64rpx;
+    top: 70vh;
     border-radius: 16rpx;
 
     &-item {

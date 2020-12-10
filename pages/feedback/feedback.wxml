@@ -1,7 +1,7 @@
 <view class="container f-bg-gray">
   <view class="m-feedback">
     <view class="feedback-splash">
-      <image mode="widthFix" src="../../images/feedback/splash.png"> </image>
+      <image mode="heightFix" src="../../images/feedback/splash.png"> </image>
     </view>
     <view class="feedback-list">
       <view class="feedback-list-item">
