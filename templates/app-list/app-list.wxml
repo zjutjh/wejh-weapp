@@ -8,7 +8,12 @@
       class="item{{item.disabled || !userInfo ? ' disabled' : ''}}{{item.ad ? ' ad' : ''}}"
     >
       <view class="item-image">
-        <image src="{{item.icon}}" class="item-icon" mode="aspectFit" wx:if="{{item.icon}}"></image>
+        <image
+          src="{{item.icon}}"
+          class="item-icon"
+          mode="aspectFit"
+          wx:if="{{item.icon}}"
+        ></image>
         <text class="item-icon-text" wx:else>{{item.title[0]}}</text>
         <image
           src="/images/app-list/disabled.png"
@@ -16,7 +21,12 @@
           mode="aspectFit"
           wx:if="{{item.disabled || !userInfo ? 'disabled' : ''}}"
         ></image>
-        <image src="{{item.bg}}" class="item-icon-bg" mode="aspectFit" wx:else></image>
+        <image
+          src="{{item.bg}}"
+          class="item-icon-bg"
+          mode="aspectFit"
+          wx:else
+        ></image>
       </view>
       <text class="item-title">{{item.title}}</text>
     </view>

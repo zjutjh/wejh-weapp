@@ -40,7 +40,9 @@
       </view>
     </view>
     <view class="account-help">
-      <navigator class="register" url="/pages/register/register">激活账号</navigator>
+      <navigator class="register" url="/pages/register/register"
+        >激活账号</navigator
+      >
       <navigator class="forgot" url="/pages/forgot/forgot">忘记密码?</navigator>
     </view>
 

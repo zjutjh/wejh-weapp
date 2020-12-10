@@ -23,25 +23,37 @@
           class="icon {{active.type === item.type ? 'active' : ''}}"
           src="/images/news/{{item.type}}@colour.png"
         ></image>
-        <image wx:else class="icon disabled" src="/images/news/{{item.type}}@gray.png"></image>
+        <image
+          wx:else
+          class="icon disabled"
+          src="/images/news/{{item.type}}@gray.png"
+        ></image>
       </view>
     </scroll-view>
   </view>
-  <view
-    class="m-announcement"
-    wx:if="{{announcement && announcement.show}}"
-  >
-    <view class="title" wx:if="{{announcement.title}}">{{announcement.title}}</view>
-    <rich-text class="content" type="text" nodes="{{announcement.content}}"> </rich-text>
+  <view class="m-announcement" wx:if="{{announcement && announcement.show}}">
+    <view class="title" wx:if="{{announcement.title}}"
+      >{{announcement.title}}</view
+    >
+    <rich-text class="content" type="text" nodes="{{announcement.content}}">
+    </rich-text>
     <text class="footer" selectable="true" wx:if="{{announcement.footer}}"
       >{{announcement.footer}}</text
     >
-    <text class="clipboard" selectable="true" bindtap="clipboard" wx:if="{{announcement.clipboard}}"
+    <text
+      class="clipboard"
+      selectable="true"
+      bindtap="clipboard"
+      wx:if="{{announcement.clipboard}}"
       >{{announcement.clipboard}}</text
     >
   </view>
   <view class="m-remind-box" wx:else>
-    <image class="remind-img" mode="aspectFit" src="/images/common/nothing.png"></image>
+    <image
+      class="remind-img"
+      mode="aspectFit"
+      src="/images/common/nothing.png"
+    ></image>
     <text class="remind-text">暂无公告信息</text>
   </view>
 </view>

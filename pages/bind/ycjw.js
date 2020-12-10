@@ -20,7 +20,7 @@ Page({
     }, 1000);
   },
   onUnload() {
-    this.disconnect()
+    this.disconnect();
   },
   onInput(e) {
     const type = e.target.dataset.type;

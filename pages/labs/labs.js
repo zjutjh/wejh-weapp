@@ -5,6 +5,6 @@ Page({
     app.$store.connect(this, "labs");
   },
   onUnload() {
-    this.disconnect()
+    this.disconnect();
   },
 });

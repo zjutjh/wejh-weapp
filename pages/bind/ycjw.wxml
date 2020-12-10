@@ -43,7 +43,9 @@
       <view class="content">
         <view class="question">1、原创教务系统是什么？</view>
         <view class="answer">
-          <text>原创教务系统是以前的教务系统，为了老生的使用，所以依旧放着</text>
+          <text
+            >原创教务系统是以前的教务系统，为了老生的使用，所以依旧放着</text
+          >
           <text>17级及以后的学生大可忽略，不用绑定</text>
         </view>
         <view class="question">2、忘记密码？</view>

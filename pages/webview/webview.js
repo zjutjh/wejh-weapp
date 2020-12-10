@@ -16,6 +16,6 @@ Page({
     });
   },
   onUnload() {
-    this.disconnect()
+    this.disconnect();
   },
 });

@@ -10,9 +10,7 @@
         wx:key="build_id"
       >
         <!--单个空教室-->
-        <view class="build-name">
-          {{build.iconText}}
-        </view>
+        <view class="build-name"> {{build.iconText}} </view>
         <view class="room-list">
           <view
             class="room-item {{item['disabled'] ? ' disabled' : ''}}"

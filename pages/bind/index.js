@@ -7,6 +7,6 @@ Page({
     this.observe("session", "userInfo");
   },
   onUnload() {
-    this.disconnect()
+    this.disconnect();
   },
 });

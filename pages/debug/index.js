@@ -20,8 +20,8 @@ Page({
   onLoad() {
     app.$store.connect(this, "debug");
     this.observe("common", "openId");
-    this.observe("session", "token")
-    
+    this.observe("session", "token");
+
     const info = wx.getStorageInfoSync() || {};
     const { currentSize: storageSize, limitSize: maxStorageSize } = info;
 
