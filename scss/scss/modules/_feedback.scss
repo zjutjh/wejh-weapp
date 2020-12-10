@@ -9,7 +9,6 @@
     padding-top: 20vh;
 
     image {
-      // max-width: 100%;
       height: 30vh;
     }
   }
@@ -22,7 +21,7 @@
     border-radius: 16rpx;
 
     &-item {
-      height: 120rpx;
+      min-height: 120rpx;
       display: flex;
       font-size: 12pt;
       padding: 0 48rpx;
@@ -54,12 +53,15 @@
       }
 
       &-content {
+        word-break: break-all;
+        width: 260rpx;
         margin-right: auto;
         font-weight: bold;
       }
 
       &-action {
         button {
+          word-break: keep-all;
           margin-right: 0;
           font-size: 10pt;
           color: $white;

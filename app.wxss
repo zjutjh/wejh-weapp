@@ -3049,7 +3049,7 @@ text {
 }
 
 .m-feedback .feedback-list-item {
-  height: 120rpx;
+  min-height: 120rpx;
   display: flex;
   font-size: 12pt;
   padding: 0 48rpx;
@@ -3082,11 +3082,14 @@ text {
 }
 
 .m-feedback .feedback-list-item-content {
+  word-break: break-all;
+  width: 260rpx;
   margin-right: auto;
   font-weight: bold;
 }
 
 .m-feedback .feedback-list-item-action button {
+  word-break: keep-all;
   margin-right: 0;
   font-size: 10pt;
   color: #fff;
