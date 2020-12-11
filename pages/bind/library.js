@@ -50,7 +50,6 @@ Page({
         });
         app.services.getUserInfo(null, {
           showError: true,
-          ...option,
         });
         setTimeout(() => {
           wx.navigateBack();
