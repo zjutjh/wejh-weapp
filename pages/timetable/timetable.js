@@ -5,29 +5,29 @@ Page({
     timeline: [
       //课程时间与指针位置的映射，{begin:课程开始,end:结束时间,top:指针距开始top格数}
       { begin: "0:00", end: "7:59", beginTop: -4, endTop: -4 }, //休息
-      { begin: "8:00", end: "8:45", beginTop: 0, endTop: 100 },
+      { begin: "8:00", end: "8:45", beginTop: 0, endTop: 100 }, //1
       { begin: "8:46", end: "8:54", beginTop: 100, endTop: 100 }, //下课
-      { begin: "8:55", end: "9:40", beginTop: 100, endTop: 200 },
+      { begin: "8:55", end: "9:40", beginTop: 100, endTop: 200 }, //2
       { begin: "9:41", end: "9:54", beginTop: 200, endTop: 200 }, //下课
-      { begin: "9:55", end: "10:40", beginTop: 200, endTop: 300 },
+      { begin: "9:55", end: "10:40", beginTop: 200, endTop: 300 }, //3
       { begin: "10:41", end: "10:54", beginTop: 300, endTop: 300 }, //下课
-      { begin: "10:50", end: "11:35", beginTop: 300, endTop: 400 },
+      { begin: "10:50", end: "11:35", beginTop: 300, endTop: 400 }, //4
       { begin: "11:36", end: "11:44", beginTop: 400, endTop: 400 }, //下课
-      { begin: "11:45", end: "12:30", beginTop: 400, endTop: 500 },
+      { begin: "11:45", end: "12:30", beginTop: 400, endTop: 500 }, //5
       { begin: "12:31", end: "13:29", beginTop: 500, endTop: 500 }, //休息，午饭
-      { begin: "13:30", end: "14:15", beginTop: 500, endTop: 600 },
+      { begin: "13:30", end: "14:15", beginTop: 500, endTop: 600 }, //6
       { begin: "14:16", end: "14:24", beginTop: 600, endTop: 600 }, //下课
-      { begin: "14:25", end: "15:10", beginTop: 600, endTop: 700 },
+      { begin: "14:25", end: "15:10", beginTop: 600, endTop: 700 }, //7
       { begin: "15:11", end: "15:24", beginTop: 700, endTop: 700 }, //下课
-      { begin: "15:25", end: "16:10", beginTop: 700, endTop: 800 },
+      { begin: "15:25", end: "16:10", beginTop: 700, endTop: 800 }, //8
       { begin: "16:11", end: "16:24", beginTop: 800, endTop: 800 }, //下课
-      { begin: "16:25", end: "17:10", beginTop: 800, endTop: 900 },
+      { begin: "16:25", end: "17:10", beginTop: 800, endTop: 900 }, //9
       { begin: "17:11", end: "18:29", beginTop: 900, endTop: 900 }, //休息，晚饭
-      { begin: "18:30", end: "19:15", beginTop: 900, endTop: 1000 },
+      { begin: "18:30", end: "19:15", beginTop: 900, endTop: 1000 }, //10
       { begin: "19:16", end: "19:24", beginTop: 1000, endTop: 1000 }, //下课
-      { begin: "19:25", end: "20:10", beginTop: 1000, endTop: 1100 },
+      { begin: "19:25", end: "20:10", beginTop: 1000, endTop: 1100 }, //11
       { begin: "20:11", end: "20:24", beginTop: 1100, endTop: 1100 }, //下课
-      { begin: "20:25", end: "21:10", beginTop: 1100, endTop: 1200 },
+      { begin: "20:25", end: "21:10", beginTop: 1100, endTop: 1200 }, //12
       { begin: "21:11", end: "23:59", beginTop: 1200, endTop: 1300 }, //休息
     ],
     showLoading: true,

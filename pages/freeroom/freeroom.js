@@ -59,7 +59,7 @@ for (let i = 1; i <= 20; i++) {
 Page({
   data: {
     form: {
-      area: "02",
+      area: "01",
       startTime: 0,
       endTime: 0,
       week: 1,
@@ -116,6 +116,7 @@ Page({
     app.$store.connect(this, "freeroom");
     this.observe("session", "freeroom");
     this.observe("session", "userInfo");
+    this.observe("session", "time");
     setTimeout(() => {
       // 判断是否登录
       if (!app.isLogin()) {
@@ -146,13 +147,41 @@ Page({
         }
       }
 
-      // 判断是否有成绩数据
+      // 判断是否有空教室数据
       if (!this.data.freeroom) {
         this.getFreeroom(this.afterGetFreeroom);
       } else {
         this.afterGetFreeroom();
       }
     }, 600);
+
+    //获取当前时间
+    const nowClass = this.formatTime(new Date(), "CurrentClass");
+    this.data.form["startTime"] = nowClass + 1;
+    this.data.form["endTime"] = nowClass + 2;
+    this.data.form["week"] = this.data.time.week;
+    this.data.form["weekday"] = this.data.time.day;
+    //如果时间在12节课之后，零点之前，那么向后看一天
+    //还未考虑跨周情况
+    if (nowClass == -1) {
+      if (this.data.time.day == 7) {
+        this.data.form["weekday"] = 1;
+      } else {
+        this.data.form["weekday"] += 1;
+      }
+    }
+    //刷新页面
+    const form = this.data.form;
+    this.setPageState(
+      {
+        form,
+      },
+      () => {
+        this.getFreeroom();
+      }
+    );
+    //更新滚动条位置
+
   },
   onUnload() {
     this.disconnect();
@@ -178,6 +207,7 @@ Page({
       }
     );
   },
+
   getFreeroom(callback = this.afterGetFreeroom) {
     wx.showLoading({
       title: "获取空教室中",
@@ -189,5 +219,105 @@ Page({
   },
   afterGetFreeroom() {
     wx.hideLoading();
+  },
+  //格式化时间
+  formatTime(date, t) {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hour = date.getHours();
+    const minute = date.getMinutes();
+    const second = date.getSeconds();
+    //将当前时间转换为当前节数
+    if (t === "CurrentClass") {
+      switch (hour) {
+        case 8:
+          if (minute < 55) {
+            return 1;
+          } else {
+            return 2;
+          }
+        case 9:
+          if (minute < 55) {
+            return 2;
+          } else {
+            return 3;
+          }
+        case 10:
+          if (minute < 55) {
+            return 3;
+          } else {
+            return 4;
+          }
+        case 11:
+          if (minute < 44) {
+            return 4;
+          } else {
+            return 5;
+          }
+        case 12:
+          return 5;
+        case 13:
+          if (minute < 30) {
+            return 5;
+          } else {
+            return 6;
+          }
+        case 14:
+          if (minute < 25) {
+            return 6;
+          } else {
+            return 7;
+          }
+        case 15:
+          if (minute < 25) {
+            return 7;
+          } else {
+            return 8;
+          }
+        case 16:
+          if (minute < 25) {
+            return 8;
+          } else {
+            return 9;
+          }
+        case 17:
+          return 9;
+        case 18:
+          if (minute < 30) {
+            return 9;
+          } else {
+            return 10;
+          }
+        case 19:
+          if (minute < 25) {
+            return 10;
+          } else {
+            return 11;
+          }
+        case 20:
+          if (minute < 25) {
+            return 11;
+          } else {
+            return 12;
+          }
+        default:
+          if (hour > 20 && hour < 24) {
+            return -1;
+          } else if (hour >= 0 && hour < 8) {
+            return 0;
+          }
+      }
+    } else {
+      return (
+        [year, month, day].map(this.formatNumber).join("-") +
+        " " +
+        [hour, minute, second].map(this.formatNumber).join(":")
+      );
+    }
+  },
+  formatNumber(n) {
+    n = n.toString();
+    return n[1] ? n : "0" + n;
   },
 });
