@@ -1,10 +1,7 @@
-import toast from "../../utils/toast";
-
 const app = getApp();
 
-const _weekday = ["日", "一", "二", "三", "四", "五", "六", "日"];
+const _weekday = ["一", "二", "三", "四", "五", "六", "日"];
 const _weeks = [
-  "未开学",
   "第一周",
   "第二周",
   "第三周",
@@ -42,21 +39,19 @@ for (let i = 0; i < 12; i++) {
   });
 }
 
-const weekdayArr = [];
-for (let i = 1; i < 8; i++) {
-  weekdayArr.push({
-    text: `星期${_weekday[i]}`,
-    value: `${i}`,
-  });
-}
+const weekdayArr = _weekday.map((weekDay, idx) => {
+  return {
+    text: `星期${weekDay}`,
+    value: `${idx}`,
+  };
+});
 
-const weekArr = [];
-for (let i = 1; i <= 20; i++) {
-  weekArr.push({
-    text: `${_weeks[i]}`,
-    value: `${i}`,
-  });
-}
+const weekArr = _weeks.map((week, idx) => {
+  return {
+    text: `${week}`,
+    value: `${idx}`,
+  };
+});
 
 Page({
   data: {
@@ -116,36 +111,23 @@ Page({
   },
   onLoad: function () {
     app.$store.connect(this, "freeroom");
-    this.observe("session", "freeroom");
-    this.observe("session", "userInfo");
-    setTimeout(() => {
-      // 判断是否登录
-      if (!app.isLogin()) {
-        return wx.redirectTo({
-          url: "/pages/login/login",
-        });
-      }
-
+    this.observe("session", "userInfo", null, () => {
       if (!this.data.userInfo.ext.passwords_bind.zf_password) {
-        return wx.redirectTo({
+        wx.redirectTo({
           url: "/pages/bind/zf",
         });
+        return;
       }
-
-      // 判断是否有成绩数据
-      if (!this.data.freeroom) {
-        this.getFreeroom(this.afterGetFreeroom);
-      } else {
-        this.afterGetFreeroom();
-      }
-    }, 600);
+      this.getFreeRoom(this.afterGetFreeRoom);
+    });
+    this.observe("session", "freeroom");
   },
   onUnload() {
     this.disconnect();
   },
-  chooseOption(e) {
-    const type = e.currentTarget.dataset.type;
-    const value = e.currentTarget.dataset.value;
+  chooseOption(event) {
+    const { type, value } = event.currentTarget.dataset;
+
     const form = this.data.form;
     form[type] = value;
     if (+form["endTime"] < +form["startTime"]) {
@@ -160,20 +142,20 @@ Page({
         form,
       },
       () => {
-        this.getFreeroom();
+        this.getFreeRoom(this.afterGetFreeRoom);
       }
     );
   },
-  getFreeroom(callback = this.afterGetFreeroom) {
+  getFreeRoom(callback) {
     wx.showLoading({
       title: "获取空教室中",
     });
-    app.services.getFreeroom(callback, {
+    app.services.getFreeRoom(callback, {
       showError: true,
       data: this.data.form,
     });
   },
-  afterGetFreeroom() {
+  afterGetFreeRoom() {
     wx.hideLoading();
   },
 });
