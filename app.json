@@ -22,7 +22,8 @@
     "pages/home/home",
     "pages/about/about",
     "pages/debug/index",
-    "pages/labs/labs"
+    "pages/labs/labs",
+    "pages/feedback/feedback"
   ],
   "window": {
     "backgroundTextStyle": "light",

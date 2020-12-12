@@ -14,9 +14,6 @@ Page({
   onUnload() {
     this.disconnect();
   },
-  goFeedback() {
-    app.goFeedback();
-  },
   followUs() {
     wx.setClipboardData({
       data: "zjutjh",

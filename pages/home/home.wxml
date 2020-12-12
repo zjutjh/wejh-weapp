@@ -53,7 +53,7 @@
       mode="aspectFit"
     ></image>
   </view>
-  <view class="u-setting-navigator f-mb-20" bindtap="goFeedback">
+  <navigator class="u-setting-navigator f-mb-20" url="/pages/feedback/feedback">
     <image
       class="icon"
       mode="aspectFit"
@@ -65,7 +65,7 @@
       src="/images/common/next-gray.png"
       mode="aspectFit"
     ></image>
-  </view>
+  </navigator>
   <!--
   <view class="u-setting-navigator f-mb-20" bindtap="donate">
     <image class="icon" mode="aspectFit" src="../../images/common/money.png"></image>
