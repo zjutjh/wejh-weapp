@@ -1,33 +1,33 @@
 .m-feedback {
-  height: 100vh;
-  justify-content: center;
-  .feedback-splash {
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    padding-top: 20vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
 
+  .feedback-splash {
+    flex-grow: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     image {
-      height: 30vh;
+      width: 525rpx;
     }
   }
   .feedback-list {
-    position: fixed;
-    background-color: $white;
-    left: 64rpx;
-    right: 64rpx;
-    top: 70vh;
+    margin: 0 64rpx 72rpx;
     border-radius: 16rpx;
+    background-color: $white;
 
     &-item {
       min-height: 120rpx;
       display: flex;
+      flex-direction: row;
+      flex-shrink: 0;
       font-size: 12pt;
       padding: 0 48rpx;
       align-items: center;
       justify-content: space-between;
-      flex-direction: row;
       &-icon {
         display: flex;
         align-items: center;
@@ -53,20 +53,23 @@
       }
 
       &-content {
-        word-break: break-all;
-        width: 260rpx;
+        padding-right: 16rpx;
         margin-right: auto;
         font-weight: bold;
+
+        @include text-ellipsis;
       }
 
       &-action {
         button {
-          word-break: keep-all;
+          max-width: 200rpx;
           margin-right: 0;
           font-size: 10pt;
           color: $white;
           background-color: $theme-green;
           border-radius: 10rpx;
+
+          @include text-ellipsis;
         }
       }
     }

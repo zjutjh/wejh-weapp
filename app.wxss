@@ -100,6 +100,14 @@
   padding-bottom: 300rpx;
 }
 
+.f-vw-100 {
+  width: 100vw;
+}
+
+.f-vh-100 {
+  height: 100vh;
+}
+
 .f-hide {
   display: none !important;
 }
@@ -3023,39 +3031,39 @@ text {
 }
 
 .m-feedback {
-  height: 100vh;
-  justify-content: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
 }
 
 .m-feedback .feedback-splash {
+  flex-grow: 2;
   display: flex;
+  align-items: center;
   justify-content: center;
-  height: 100%;
-  width: 100%;
-  padding-top: 20vh;
 }
 
 .m-feedback .feedback-splash image {
-  height: 30vh;
+  width: 525rpx;
 }
 
 .m-feedback .feedback-list {
-  position: fixed;
-  background-color: #fff;
-  left: 64rpx;
-  right: 64rpx;
-  top: 70vh;
+  margin: 0 64rpx 72rpx;
   border-radius: 16rpx;
+  background-color: #fff;
 }
 
 .m-feedback .feedback-list-item {
   min-height: 120rpx;
   display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
   font-size: 12pt;
   padding: 0 48rpx;
   align-items: center;
   justify-content: space-between;
-  flex-direction: row;
 }
 
 .m-feedback .feedback-list-item-icon {
@@ -3082,19 +3090,24 @@ text {
 }
 
 .m-feedback .feedback-list-item-content {
-  word-break: break-all;
-  width: 260rpx;
+  padding-right: 16rpx;
   margin-right: auto;
   font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .m-feedback .feedback-list-item-action button {
-  word-break: keep-all;
+  max-width: 200rpx;
   margin-right: 0;
   font-size: 10pt;
   color: #fff;
   background-color: #7acfa6;
   border-radius: 10rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .m-feedback .feedback-list-separator {
