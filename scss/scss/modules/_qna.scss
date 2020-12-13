@@ -1,28 +1,8 @@
 .m-qna {
   flex: 1;
   padding: 0 30rpx 180rpx 30rpx;
-
-  .qna-header {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 50rpx 25rpx;
-    .info {
-      display: flex;
-      flex-direction: column;
-
-      .title {
-        font-size: 52rpx;
-        font-weight: bold;
-        line-height: 150%;
-        margin-bottom: 15rpx;
-        color: #fff;
-      }
-    }
-  }
-
   .qna-content {
+    margin-top: 35rpx;
     .qna-list {
       display: flex;
       flex-flow: column nowrap;

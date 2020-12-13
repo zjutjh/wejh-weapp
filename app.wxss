@@ -3125,25 +3125,8 @@ text {
   padding: 0 30rpx 180rpx 30rpx;
 }
 
-.m-qna .qna-header {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-  padding: 50rpx 25rpx;
-}
-
-.m-qna .qna-header .info {
-  display: flex;
-  flex-direction: column;
-}
-
-.m-qna .qna-header .info .title {
-  font-size: 52rpx;
-  font-weight: bold;
-  line-height: 150%;
-  margin-bottom: 15rpx;
-  color: #fff;
+.m-qna .qna-content {
+  margin-top: 35rpx;
 }
 
 .m-qna .qna-content .qna-list {
@@ -3243,8 +3226,4 @@ text {
   display: flex;
   flex-direction: column;
   padding: 10rpx 0 50rpx;
-}
-
-.m-qna .qna-content .qna-list .qna-item.open .detail .textIndent {
-  text-indent: 2em;
 }
