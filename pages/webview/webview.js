@@ -1,5 +1,5 @@
 import logger from "../../utils/logger";
-let app = getApp();
+const app = getApp();
 
 Page({
   data: {
@@ -16,6 +16,6 @@ Page({
     });
   },
   onUnload() {
-    this.disconnect()
+    this.disconnect();
   },
 });

@@ -1,9 +1,10 @@
-<!--index.wxml-->
-<import src="../../components/app-list/app-list.wxml"></import>
-<import src="../../components/tiny-tip/tiny-tip.wxml"></import>
+<import src="../../templates/app-list/app-list.wxml"></import>
 
-<view class="container f-bg-gray f-pb-300 f-tri" style="background-image: url({{icons.tri.card}});">
-  <template is="tiny-tip" data="{{ tinyTip, onClickApp }}" />
+<view
+  class="container f-bg-gray f-pb-300 f-tri"
+  style="background-image: url({{icons.tri.card}});"
+>
+  <tooltip id="tooltip"></tooltip>
 
   <template is="app-list" data="{{ apps, userInfo }}" />
 
@@ -18,9 +19,16 @@
           mode="aspectFit"
         ></image>
       </view>
-      <rich-text class="content announcement" type="text" nodes="{{announcement.content}}">
+      <rich-text
+        class="content announcement"
+        type="text"
+        nodes="{{announcement.content}}"
+      >
       </rich-text>
-      <text class="footer announcement" selectable="true" wx:if="{{announcement.footer}}"
+      <text
+        class="footer announcement"
+        selectable="true"
+        wx:if="{{announcement.footer}}"
         >{{announcement.footer}}</text
       >
       <text
@@ -34,9 +42,16 @@
   </view>
 
   <view wx:if="{{!userInfo}}" class="m-remind-box">
-    <image class="remind-img" mode="aspectFit" src="/images/common/nothing.png"></image>
+    <image
+      class="remind-img"
+      mode="aspectFit"
+      src="/images/common/nothing.png"
+    ></image>
     <text class="remind-text">请登录</text>
-    <navigator url="/pages/login/login" class="remind-btn">前往绑定</navigator>
+    <!-- <view class="remind-btn" bindtap="retryLogin">微信登录</view> -->
+    <navigator url="/pages/login/login" class="remind-btn"
+      >绑定精弘通行证</navigator
+    >
   </view>
 
   <navigator
@@ -47,10 +62,20 @@
   >
     <view class="header">
       <view class="image">
-        <image class="icon" src="{{icons.timetable.icon}}" mode="aspectFit"></image>
-        <image class="icon-bg" src="{{icons.timetable.bg}}" mode="aspectFit"></image>
+        <image
+          class="icon"
+          src="{{icons.timetable.icon}}"
+          mode="aspectFit"
+        ></image>
+        <image
+          class="icon-bg"
+          src="{{icons.timetable.bg}}"
+          mode="aspectFit"
+        ></image>
       </view>
-      <text class="title">今日课表{{cacheStatus.timetable ? ' (离线模式)' : ''}}</text>
+      <text class="title"
+        >今日课表{{cacheStatus.timetable ? ' (离线模式)' : ''}}</text
+      >
     </view>
     <view class="content">
       <view class="timetable-card">
@@ -65,8 +90,8 @@
           <view class="main-info">
             <text class="name">{{lesson['课程名称']}}</text>
             <text class="info"
-              >{{lesson['起止周'] ? lesson['起止周'] + '周 ' : ''}}{{lesson['起止节'] ?
-              lesson['起止节'] + '节 ' : ''}}</text
+              >{{lesson['起止周'] ? lesson['起止周'] + '周 ' :
+              ''}}{{lesson['起止节'] ? lesson['起止节'] + '节 ' : ''}}</text
             >
           </view>
           <view class="place">{{lesson['地点']}}</view>
@@ -120,8 +145,16 @@
   >
     <view class="header">
       <view class="image">
-        <image class="icon" src="{{icons.borrow.icon}}" mode="aspectFit"></image>
-        <image class="icon-bg" src="{{icons.borrow.bg}}" mode="aspectFit"></image>
+        <image
+          class="icon"
+          src="{{icons.borrow.icon}}"
+          mode="aspectFit"
+        ></image>
+        <image
+          class="icon-bg"
+          src="{{icons.borrow.bg}}"
+          mode="aspectFit"
+        ></image>
       </view>
       <text class="title">借阅信息</text>
     </view>
@@ -140,7 +173,11 @@
             wx:key="index"
           >
             <view class="book">
-              <image class="icon-book" src="/images/index/borrow-book.png" mode="aspectFit"></image>
+              <image
+                class="icon-book"
+                src="/images/index/borrow-book.png"
+                mode="aspectFit"
+              ></image>
               <text class="title">{{book['书名']}}</text>
             </view>
             <view class="borrow">

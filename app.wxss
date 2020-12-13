@@ -100,6 +100,14 @@
   padding-bottom: 300rpx;
 }
 
+.f-vw-100 {
+  width: 100vw;
+}
+
+.f-vh-100 {
+  height: 100vh;
+}
+
 .f-hide {
   display: none !important;
 }
@@ -924,31 +932,6 @@ text {
   align-items: center;
   justify-content: center;
   padding-bottom: 300rpx;
-}
-
-.m-tiny-tip {
-  position: fixed;
-  bottom: 50rpx;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  opacity: 0;
-  transform: translate3d(0, 80rpx, 0);
-  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-.m-tiny-tip.active {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
-
-.m-tiny-tip .content {
-  font-size: 24rpx;
-  line-height: 100%;
-  padding: 10rpx 20rpx;
-  border-radius: 10rpx;
-  background: rgba(66, 66, 66, 0.6);
-  color: #fff;
 }
 
 .m-timetable-box {
@@ -3045,4 +3028,90 @@ text {
 .m-main-webview {
   flex: 1;
   background-color: #fff;
+}
+
+.m-feedback {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.m-feedback .feedback-splash {
+  flex-grow: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.m-feedback .feedback-splash image {
+  width: 525rpx;
+}
+
+.m-feedback .feedback-list {
+  margin: 0 64rpx 72rpx;
+  border-radius: 16rpx;
+  background-color: #fff;
+}
+
+.m-feedback .feedback-list-item {
+  min-height: 120rpx;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  font-size: 12pt;
+  padding: 0 48rpx;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.m-feedback .feedback-list-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64rpx;
+  width: 64rpx;
+  border-radius: 12rpx;
+  margin-right: 36rpx;
+}
+
+.m-feedback .feedback-list-item-icon-red {
+  background-color: #ff6c6c;
+}
+
+.m-feedback .feedback-list-item-icon-blue {
+  background-color: #73b4ef;
+}
+
+.m-feedback .feedback-list-item-icon-content {
+  height: 42rpx;
+  width: 42rpx;
+}
+
+.m-feedback .feedback-list-item-content {
+  padding-right: 16rpx;
+  margin-right: auto;
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.m-feedback .feedback-list-item-action button {
+  max-width: 200rpx;
+  margin-right: 0;
+  font-size: 10pt;
+  color: #fff;
+  background-color: #7acfa6;
+  border-radius: 10rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.m-feedback .feedback-list-separator {
+  margin-left: 48rpx;
+  height: 2rpx;
+  background-color: #f8f9fa;
 }

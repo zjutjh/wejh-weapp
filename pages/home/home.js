@@ -1,4 +1,4 @@
-let app = getApp();
+const app = getApp();
 
 Page({
   data: {
@@ -49,9 +49,6 @@ Page({
 
   onUnload() {
     this.disconnect();
-  },
-  goFeedback() {
-    app.goFeedback();
   },
   followUs() {
     wx.setClipboardData({

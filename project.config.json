@@ -32,10 +32,11 @@
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
     "packNpmManually": false,
-    "packNpmRelationList": []
+    "packNpmRelationList": [],
+    "minifyWXSS": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.8.0",
+  "libVersion": "2.10.4",
   "appid": "wxd4b11753654a636f",
   "projectname": "%E5%BE%AE%E7%B2%BE%E5%BC%98",
   "debugOptions": {

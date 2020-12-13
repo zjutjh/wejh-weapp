@@ -1,20 +1,34 @@
 <view class="container f-bg-gray">
-  <navigator class="u-setting-navigator f-mb-20 f-mt-20" url="/pages/bind/index">
-    <image class="icon" mode="aspectFit" src="../../images/home/binding.png"></image>
+  <navigator
+    class="u-setting-navigator f-mb-20 f-mt-20"
+    url="/pages/bind/index"
+  >
+    <image
+      class="icon"
+      mode="aspectFit"
+      src="../../images/home/binding.png"
+    ></image>
     <text class="text">账号关联</text>
-    <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
+    <image
+      class="icon-next"
+      src="/images/common/next-gray.png"
+      mode="aspectFit"
+    ></image>
   </navigator>
   <navigator class="u-setting-navigator f-mb-20" url="/pages/labs/labs">
-    <image class="icon" mode="aspectFit" src="../../images/home/labs.png"></image>
-    <text class="text">实验室</text>
-        <view class="reddot" hidden="{{hiddenName}}">
-          New
-        </view>
-    <!-- <image
-      class="icon-next"
-      src="{{dot?'/images/common/RedDot.png':'/images/common/none.png'}}"
+    <image
+      class="icon"
       mode="aspectFit"
-    ></image> -->
-    <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
+      src="../../images/home/labs.png"
+    ></image>
+    <text class="text">实验室</text>
+    <view class="reddot" hidden="{{hiddenName}}">
+      New
+    </view>
+    <image
+      class="icon-next"
+      src="/images/common/next-gray.png"
+      mode="aspectFit"
+    ></image>
   </navigator>
 </view>

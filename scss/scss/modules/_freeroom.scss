@@ -23,7 +23,7 @@ $room-option-height: 10vh;
         width: 80rpx;
         height: 80rpx;
         border-radius: 50%;
-        background-color: $theme-red;
+        background-color: $theme-pink;
         color: white;
         font-size: 32rpx;
       }
@@ -63,7 +63,7 @@ $room-option-height: 10vh;
           }
 
           &.disabled {
-            background-color: $theme-red;
+            background-color: $theme-pink;
 
             .name {
               color: $white;

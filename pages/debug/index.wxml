@@ -1,7 +1,11 @@
 <view class="container f-bg-gray">
   <view class="u-setting-navigator f-mt-20 f-mb-20" bindtap="switchAPIEndpoint">
     <text class="text">切换环境</text>
-    <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
+    <image
+      class="icon-next"
+      src="/images/common/next-gray.png"
+      mode="aspectFit"
+    ></image>
   </view>
   <view class="u-setting-navigator">
     <text class="text">修改 openId</text>
@@ -38,7 +42,9 @@
     ></image>
   </view>
   <view class="u-setting-navigator">
-    <text class="text">本地存储用量：{{storageSize}} K / {{maxStorageSize}} K</text>
+    <text class="text"
+      >本地存储用量：{{storageSize}} K / {{maxStorageSize}} K</text
+    >
   </view>
   <view class="u-setting-navigator" bindtap="clearCommonStorage">
     <text class="text">清空 common 存储</text>
@@ -49,7 +55,11 @@
   <view class="u-setting-navigator f-mb-20" bindtap="clearAllStorage">
     <text class="text">清空本地存储</text>
   </view>
-  <navigator class="u-setting-navigator" open-type="reLaunch" url="/pages/index/index">
+  <navigator
+    class="u-setting-navigator"
+    open-type="reLaunch"
+    url="/pages/index/index"
+  >
     <text class="text">重载应用</text>
   </navigator>
   <navigator class="u-setting-navigator" open-type="exit" target="miniProgram">

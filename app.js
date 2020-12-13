@@ -180,17 +180,6 @@ App({
   name: "微精弘",
   version,
   versionType: versionTypeName,
-  // set(key, value) {
-  //   const staticData = wx.getStorageSync(staticKey) || {};
-  //   Object.assign(staticData, {
-  //     [key]: value,
-  //   });
-  //   wx.setStorageSync(staticKey, staticData);
-  // },
-  // get(key) {
-  //   const staticData = wx.getStorageSync(staticKey);
-  //   return staticData[key];
-  // },
   onLaunch: function () {
     this.wxLogin(this.getOpenId, () => {
       logger.info("app", "自动登录成功");
@@ -222,24 +211,8 @@ App({
       });
     }
   },
-  getUserInfo() {
-    fetch({
-      url: API("user"),
-      showError: true,
-      success: (res) => {
-        const result = res.data;
-        const userInfo = result.data;
-        store.setState("session", {
-          userInfo,
-        });
-      },
-    });
-  },
   isLogin() {
     return store.getState("session", "userInfo");
-  },
-  hasToken() {
-    return store.getState("session", "token");
   },
   reportUserInfo(userInfo) {
     try {
@@ -270,10 +243,11 @@ App({
     wx.login({
       success: (res) => {
         if (!res.code) {
-          return toast({
+          toast({
             icon: "error",
             title: "获取用户登录态失败！" + res.errMsg,
           });
+          return;
         }
         callback(res.code, afterLogin);
       },
@@ -300,6 +274,7 @@ App({
             this.reportUserInfo(userInfo);
 
             store.setState("session", {
+              isLogin: true,
               token: token,
               userInfo: userInfo,
             });
@@ -307,65 +282,39 @@ App({
         },
       });
   },
-  // getWeappInfo: (cb) => {
-  //   let that = this;
-  //   const commonData = store.getCommonStore();
-  //   if (commonData.userInfo) {
-  //     typeof cb === "function" && cb(commonData.userInfo);
-  //   } else {
-  //     //调用登录接口
-  //     wx.getUserInfo({
-  //       withCredentials: false,
-  //       success(res) {
-  //         const userInfo = res.userInfo;
-  //         store.setCommonState({
-  //           weappInfo: userInfo,
-  //         });
-  //         typeof cb === "function" && cb(userInfo);
-  //       },
-  //       fail() {
-  //         toast({
-  //           icon: "error",
-  //           title: "获取用户信息失败",
-  //         });
-  //       },
-  //     });
-  //   }
+  // goFeedback: () => {
+  //   const userInfo = store.getState("session", "userInfo");
+  //   wx.getNetworkType({
+  //     success: function (res) {
+  //       // 返回网络类型, 有效值：
+  //       // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
+  //       const networkType = res.networkType;
+  //       const customData = {
+  //         clientInfo: systemInfo.SDKVersion,
+  //         clientVersion: systemInfo.version,
+  //         os: systemInfo.platform,
+  //         osVersion: systemInfo.system,
+  //         netType: networkType,
+  //         customInfo: JSON.stringify({
+  //           uno: userInfo.uno,
+  //           version,
+  //         }),
+  //       };
+  //       logger.info("app", "跳转到反馈社区", customData);
+  //       wx.navigateToMiniProgram({
+  //         appId: "wx8abaf00ee8c3202e",
+  //         extraData: {
+  //           id: "19048",
+  //           customData,
+  //         },
+  //       });
+  //     },
+  //   });
   // },
-  goFeedback: () => {
-    const userInfo = store.getState("session", "userInfo");
-    wx.getNetworkType({
-      success: function (res) {
-        // 返回网络类型, 有效值：
-        // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
-        const networkType = res.networkType;
-        const customData = {
-          clientInfo: systemInfo.SDKVersion,
-          clientVersion: systemInfo.version,
-          os: systemInfo.platform,
-          osVersion: systemInfo.system,
-          netType: networkType,
-          customInfo: JSON.stringify({
-            uno: userInfo.uno,
-            version,
-          }),
-        };
-        logger.info("app", "跳转到反馈社区", customData);
-        wx.navigateToMiniProgram({
-          appId: "wx8abaf00ee8c3202e",
-          extraData: {
-            id: "19048",
-            customData,
-          },
-        });
-      },
-    });
-  },
   systemInfo,
   isDev: isDev,
   env,
   services,
   fetch,
-  toast,
   $store: store,
 });

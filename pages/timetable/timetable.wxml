@@ -11,9 +11,7 @@
     <!-- 左侧栏 -->
     <view class="lesson-number">
       <view class="date">月</view>
-      <view class="number" wx:for="{{12}}" wx:key="index">
-        {{index + 1}}
-      </view>
+      <view class="number" wx:for="{{12}}" wx:key="index"> {{index + 1}} </view>
     </view>
 
     <!-- 滑动区域 -->
@@ -88,10 +86,13 @@
     <view class="m-footer-bar blue">
       <view class="left">
         <text wx:if="{{viewStatus != '*' && currentWeek == 0}}">放假中</text>
-        <text wx:elif="{{viewStatus != '*' && currentWeek > 0 && currentWeek == time.week}}"
+        <text
+          wx:elif="{{viewStatus != '*' && currentWeek > 0 && currentWeek == time.week}}"
           >第{{time.week}}周周{{weekday[time.day]}}</text
         >
-        <text wx:elif="{{viewStatus != '*' && currentWeek != time.week}}" bindtap="backCurrentWeek"
+        <text
+          wx:elif="{{viewStatus != '*' && currentWeek != time.week}}"
+          bindtap="backCurrentWeek"
           >返回第{{time.week}}周</text
         >
         <text wx:else>星期{{weekday[time.day]}}</text>
@@ -157,7 +158,9 @@
           wx:for-index="cid"
           wx:for-item="item"
         >
-          <text class="place" style="font-size: {{ 50 - item['地点长度'] * 2 }}rpx;"
+          <text
+            class="place"
+            style="font-size: {{ 50 - item['地点长度'] * 2 }}rpx;"
             >{{item['地点']}}</text
           >
           <text
@@ -170,7 +173,10 @@
     </view>
 
     <!-- 底部详细介绍 -->
-    <view class="footer-card-tabs{{ targetLessons.length > 0 ? ' open' : '' }}" catchtouchmove>
+    <view
+      class="footer-card-tabs{{ targetLessons.length > 0 ? ' open' : '' }}"
+      catchtouchmove
+    >
       <view class="header">
         <view class="week">{{targetLessonInfo.weekday}}</view>
         <view class="lesson-time">{{targetLessonInfo.lessonTime}}</view>
@@ -186,7 +192,11 @@
         <!--<view class="switch-left">
           <image src="/images/common/arrow-left.png" mode="aspectFit" data-direction="left" bindtap="swiperSwitch"></image>
         </view>-->
-        <swiper class="card-swiper" bindchange="onSwiper" current="{{targetIndex}}">
+        <swiper
+          class="card-swiper"
+          bindchange="onSwiper"
+          current="{{targetIndex}}"
+        >
           <swiper-item
             wx:for="{{targetLessons}}"
             wx:key="cid"
