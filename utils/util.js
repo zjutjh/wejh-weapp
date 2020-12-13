@@ -287,9 +287,9 @@ function fixCardCost(cardData) {
     .map((item) => -item["交易额"])
     .filter((item) => item > 0);
   const total =
-    records.reduce((sum, item) => {
+    (records.reduce((sum, item) => {
       return +sum + item * 100;
-    }, 0) / 100;
+    }, 0) / 100).toFixed(2);
   const iStyle = `font-style: normal;font-size: 26rpx;color: #777;font-weight: normal;`;
   const totalStyle = `color: #ffbf92;font-weight: bold;`;
   return {
