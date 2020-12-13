@@ -39,6 +39,9 @@
 
         margin-right: 36rpx;
 
+        &-yellow {
+          background-color: $theme-yellow;
+        }
         &-red {
           background-color: $theme-red;
         }

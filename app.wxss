@@ -3076,6 +3076,10 @@ text {
   margin-right: 36rpx;
 }
 
+.m-feedback .feedback-list-item-icon-yellow {
+  background-color: #ffcb63;
+}
+
 .m-feedback .feedback-list-item-icon-red {
   background-color: #ff6c6c;
 }
@@ -3114,4 +3118,133 @@ text {
   margin-left: 48rpx;
   height: 2rpx;
   background-color: #f8f9fa;
+}
+
+.m-qna {
+  flex: 1;
+  padding: 0 30rpx 180rpx 30rpx;
+}
+
+.m-qna .qna-header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50rpx 25rpx;
+}
+
+.m-qna .qna-header .info {
+  display: flex;
+  flex-direction: column;
+}
+
+.m-qna .qna-header .info .title {
+  font-size: 52rpx;
+  font-weight: bold;
+  line-height: 150%;
+  margin-bottom: 15rpx;
+  color: #fff;
+}
+
+.m-qna .qna-content .qna-list {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  padding: 5rpx 0 15rpx;
+}
+
+.m-qna .qna-content .qna-list .qna-item {
+  transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+  font-size: 30rpx;
+  padding: 0 40rpx;
+  margin-bottom: 20rpx;
+  background-color: #fff;
+  border-radius: 3px;
+  word-break: break-all;
+}
+
+.m-qna .qna-content .qna-list .qna-item .head {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 145rpx;
+}
+
+.m-qna .qna-content .qna-list .qna-item .head .arrow {
+  flex-shrink: 0;
+  width: 30rpx;
+  height: 30rpx;
+  transition: transform 0.2s;
+  transform: rotate(0deg);
+}
+
+.m-qna .qna-content .qna-list .qna-item .head .title {
+  max-width: 80%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.m-qna .qna-content .qna-list .qna-item .head .name {
+  margin-bottom: 10rpx;
+  font-size: 32rpx;
+  transition: color 0.15s ease-in-out;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.m-qna .qna-content .qna-list .qna-item .head .subtitle {
+  font-size: 26rpx;
+  line-height: 100%;
+  color: #aaa;
+}
+
+.m-qna .qna-content .qna-list .qna-item .head .subtitle .countdown {
+  font-size: 26rpx;
+  line-height: 100%;
+  color: #aaa;
+}
+
+.m-qna .qna-content .qna-list .qna-item .head .subtitle .countdown.red {
+  color: #ff7b7d;
+}
+
+.m-qna .qna-content .qna-list .qna-item .detail {
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+}
+
+.m-qna .qna-content .qna-list .qna-item .detail .label {
+  color: #888;
+  width: 150rpx;
+}
+
+.m-qna .qna-content .qna-list .qna-item .detail .content {
+  flex: 1;
+}
+
+.m-qna .qna-content .qna-list .qna-item.open .head {
+  color: #7acfa6;
+}
+
+.m-qna .qna-content .qna-list .qna-item.open .head .arrow {
+  transform: rotate(180deg);
+}
+
+.m-qna .qna-content .qna-list .qna-item.open .detail {
+  display: flex;
+  flex-direction: column;
+  padding: 10rpx 0 50rpx;
+}
+
+.m-qna .qna-content .qna-list .qna-item.open .detail .textIndent {
+  text-indent: 2em;
 }
