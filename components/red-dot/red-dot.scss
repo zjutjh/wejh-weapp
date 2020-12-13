@@ -1,0 +1,24 @@
+.red-dot {
+  background-color: red;
+  &-filled {
+    vertical-align: middle;
+    text-align: center;
+    width: auto;
+    border-radius: 15rpx;
+    font-size: 24rpx;
+    padding: 5rpx 12rpx;
+    color: white;
+  }
+  &-empty {
+    text-align: center;
+
+    // vertical-align: middle;
+    // text-align: center;
+    // width: auto;
+    // background-color: red;
+    // border-radius: 15rpx;
+    // font-size: 24rpx;
+    // padding: 5rpx 12rpx;
+    // color: white;
+  }
+}

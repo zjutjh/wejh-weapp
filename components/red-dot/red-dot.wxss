@@ -1,0 +1,17 @@
+.red-dot {
+  background-color: red;
+}
+
+.red-dot-filled {
+  vertical-align: middle;
+  text-align: center;
+  width: auto;
+  border-radius: 15rpx;
+  font-size: 24rpx;
+  padding: 5rpx 12rpx;
+  color: white;
+}
+
+.red-dot-empty {
+  text-align: center;
+}

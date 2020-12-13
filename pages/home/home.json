@@ -1,5 +1,8 @@
 {
   "disableScroll": true,
   "enablePullDownRefresh": false,
-  "navigationBarTitleText": "个人中心"
+  "navigationBarTitleText": "个人中心",
+  "usingComponents": {
+    "red-dot": "/components/red-dot/red-dot"
+  }
 }

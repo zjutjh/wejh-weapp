@@ -1,10 +1,13 @@
+import { clearRedDot } from "../../utils/red-dot";
+
 const app = getApp();
 
 Page({
   data: {
-    hiddenName: false,
     weekday: ["日", "一", "二", "三", "四", "五", "六", "日"],
     devMenuEnabled: false,
+
+    unclearedRedDots: ["/home/settings/111", "/home/settings/222"],
   },
   onLoad() {
     app.$store.connect(this, "home");
@@ -14,37 +17,37 @@ Page({
   },
   onShow() {
     const that = this;
-    wx.getStorage({
-      key: "home/setting",
-      success(res) {
-        wx.setStorage({
-          key: "home",
-          data: "1",
-        });
-      },
-      fail(res) {
-        wx.removeStorage({ key: "home" });
-        that.setData({
-          hiddenName: true,
-        })
-      },
-
-      complete(res) {
-        wx.getStorage({
-          key: "home",
-          success(res) {
-            wx.showTabBarRedDot({
-              index: 2,
-            });
-          },
-          fail(res) {
-            wx.hideTabBarRedDot({
-              index: 2,
-            });
-          },
-        });
-      },
-    });
+    clearRedDot("/home/settings/111");
+    // wx.getStorage({
+    //   key: "home/setting",
+    //   success(res) {
+    //     wx.setStorage({
+    //       key: "home",
+    //       data: "1",
+    //     });
+    //   },
+    //   fail(res) {
+    //     wx.removeStorage({ key: "home" });
+    //     that.setData({
+    //       hiddenName: true,
+    //     })
+    //   },
+    //   complete(res) {
+    //     wx.getStorage({
+    //       key: "home",
+    //       success(res) {
+    //         wx.showTabBarRedDot({
+    //           index: 2,
+    //         });
+    //       },
+    //       fail(res) {
+    //         wx.hideTabBarRedDot({
+    //           index: 2,
+    //         });
+    //       },
+    //     });
+    //   },
+    // });
   },
 
   onUnload() {

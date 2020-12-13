@@ -22,9 +22,11 @@
       src="../../images/home/labs.png"
     ></image>
     <text class="text">实验室</text>
-    <view class="reddot" hidden="{{hiddenName}}">
-      New
-    </view>
+    <red-dot
+      identifier="/home/settings/labs"
+      displayMode="{{ {type: 'count', content:'New'} }}"
+      unclearedRedDots="{{[]}}"
+    ></red-dot>
     <image
       class="icon-next"
       src="/images/common/next-gray.png"

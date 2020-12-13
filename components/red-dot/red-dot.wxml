@@ -1,0 +1,6 @@
+<view
+  class="red-dot {{hasContent ? 'red-dot-filled' : 'red-dot-empty'}}"
+  hidden="{{!isVisible}}"
+>
+  {{content}}
+</view>

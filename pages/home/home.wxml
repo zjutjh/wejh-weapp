@@ -33,9 +33,11 @@
         src="../../images/home/setting.png"
       ></image>
       <text class="text">设置</text>
-      <view class="reddot" hidden="{{hiddenName}}">
-        New
-      </view>
+      <red-dot
+        identifier="/home/settings/"
+        displayMode="{{ {type: 'count', content:'New'} }}"
+        unclearedRedDots="{{unclearedRedDots}}"
+      ></red-dot>
       <image
         class="icon-next"
         src="/images/common/next-gray.png"
