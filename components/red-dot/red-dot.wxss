@@ -14,4 +14,7 @@
 
 .red-dot-empty {
   text-align: center;
+  height: 18rpx;
+  width: 18rpx;
+  border-radius: 50%;
 }
