@@ -1,3 +1,5 @@
+import dayjs from "../../libs/dayjs/dayjs.min.js";
+
 const app = getApp();
 
 Page({
@@ -20,7 +22,7 @@ Page({
     this.observe("session", "icons");
     this.observe("session", "userInfo");
     this.setPageState({
-      todayTime: new Date().toLocaleDateString(),
+      todayTime: dayjs().format("YYYY-MM-DD"),
     });
     setTimeout(() => {
       // 判断是否登录

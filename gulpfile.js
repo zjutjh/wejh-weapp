@@ -35,6 +35,19 @@ function css() {
   return merge(appScss, componentsScss);
 }
 
+// Third party js libraries
+function jsLibs() {
+  const dayjsBasePath = "./node_modules/dayjs";
+  const dayjsSrcList = [
+    `${dayjsBasePath}/dayjs.min.js`,
+    `${dayjsBasePath}/plugin/customParseFormat.js`,
+    `${dayjsBasePath}/plugin/isBetween.js`,
+  ];
+  return gulp
+    .src(dayjsSrcList, { base: dayjsBasePath })
+    .pipe(gulp.dest("./libs/dayjs/"));
+}
+
 // Watch files
 function watch() {
   gulp.watch("./scss/**/*", css);
@@ -42,11 +55,12 @@ function watch() {
 }
 
 // define complex tasks
-const build = gulp.series(clean, gulp.parallel(css));
+const build = gulp.series(clean, gulp.parallel(css, jsLibs));
 
 // export tasks
 exports.clean = clean;
 exports.css = css;
+exports.jsLibs = jsLibs;
 exports.build = build;
 exports.watch = watch;
 exports.default = build;

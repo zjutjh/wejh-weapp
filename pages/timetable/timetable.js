@@ -1,4 +1,8 @@
 import toast from "../../utils/toast";
+import dayjs from "../../libs/dayjs/dayjs.min.js";
+import dayjs_isBetween from "../../libs/dayjs/plugin/isBetween.js";
+
+dayjs.extend(dayjs_isBetween);
 
 const app = getApp();
 
@@ -132,13 +136,6 @@ Page({
   },
   startTimelineMoving() {
     const _this = this;
-    function parseMinute(dateStr) {
-      return dateStr.split(":")[0] * 60 + parseInt(dateStr.split(":")[1]);
-    }
-
-    function compareDate(dateStr1, dateStr2) {
-      return parseMinute(dateStr1) <= parseMinute(dateStr2);
-    }
     if (!_this.data.time) {
       return setTimeout(() => {
         app.services.getTermTime(() => {
@@ -148,13 +145,18 @@ Page({
         });
       }, 5000);
     }
-    const nowTime = _this.formatTime(new Date(), "h:m");
     _this.data.timeline.forEach(function (e, i) {
-      if (compareDate(e.begin, nowTime) && compareDate(nowTime, e.end)) {
+      if (
+        dayjs().isBetween(
+          dayjs(e.begin, "H:mm"),
+          dayjs(e.end, "H:mm"),
+          "minute"
+        )
+      ) {
         const timelineTop = Math.round(
           e.beginTop +
             ((e.endTop - e.beginTop) *
-              (parseMinute(nowTime) - parseMinute(e.begin))) /
+              dayjs().diff(dayjs(e.begin, "H:mm"), "minute")) /
               100
         );
         _this.setPageState({
@@ -340,24 +342,6 @@ Page({
     this.setPageState({
       viewStatus: this.data.viewStatus === "*" ? this.data.currentWeek : "*",
     });
-  },
-  //格式化时间
-  formatTime(date, t) {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const hour = date.getHours();
-    const minute = date.getMinutes();
-    const second = date.getSeconds();
-    if (t === "h:m") {
-      return [hour, minute].map(this.formatNumber).join(":");
-    } else {
-      return (
-        [year, month, day].map(this.formatNumber).join("-") +
-        " " +
-        [hour, minute, second].map(this.formatNumber).join(":")
-      );
-    }
   },
   formatNumber(n) {
     n = n.toString();
