@@ -1,8 +1,10 @@
 .m-qna {
   flex: 1;
   padding: 0 30rpx 180rpx 30rpx;
+
   .qna-content {
     margin-top: 35rpx;
+
     .qna-list {
       display: flex;
       flex-flow: column nowrap;
@@ -10,7 +12,6 @@
       padding: 5rpx 0 15rpx;
 
       .qna-item {
-        transition: 0.5s;
         display: flex;
         flex-direction: column;
         font-size: 30rpx;
@@ -26,7 +27,13 @@
           flex-direction: row;
           align-items: center;
           justify-content: space-between;
-          height: 145rpx;
+          height: 120rpx;
+
+          .title {
+            font-size: 16px;
+            font-weight: 600;
+            color: $gray-900;
+          }
 
           .arrow {
             flex-shrink: 0;
@@ -35,59 +42,18 @@
             transition: transform 0.2s;
             transform: rotate(0deg);
           }
-
-          .title {
-            max-width: 80%;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-          }
-
-          .name {
-            margin-bottom: 10rpx;
-            font-size: 32rpx;
-            transition: color 0.15s ease-in-out;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-          }
-
-          .subtitle {
-            font-size: 26rpx;
-            line-height: 100%;
-            color: #aaa;
-
-            .countdown {
-              font-size: 26rpx;
-              line-height: 100%;
-              color: #aaa;
-
-              &.red {
-                color: #ff7b7d;
-              }
-            }
-          }
         }
 
         .detail {
           display: none;
-          flex-direction: column;
-          overflow: hidden;
-          padding: 0;
-          .label {
-            color: #888;
-            width: 150rpx;
-          }
-
-          .content {
-            flex: 1;
-          }
+          line-height: 1.75;
         }
 
         &.open {
           .head {
-            color: $theme-green;
+            title: {
+              color: $theme-green;
+            }
             .arrow {
               transform: rotate(180deg);
             }

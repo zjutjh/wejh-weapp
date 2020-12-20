@@ -15,7 +15,9 @@
         </view>
         <view class="feedback-list-item-content">常见问题</view>
         <view class="feedback-list-item-action">
-          <button bindtap="goQna">点击查看</button>
+          <navigator url="/pages/qna/qna">
+            <button>点击查看</button>
+          </navigator>
         </view>
       </view>
 

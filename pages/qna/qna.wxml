@@ -4,11 +4,15 @@
       <view class="qna-list">
         <view
           wx:for="{{messages}}"
-          wx:for-index="id"
-          class="qna-item{{flag[id]===1?' open' : ''}}"
+          wx:key="id"
+          class="qna-item{{disclosure[item.id] ? ' open' : ''}}"
         >
-          <view class="head" bindtap="toggleShowDetail" data-index="{{id}}">
-            {{item.title}}
+          <view
+            class="head"
+            bindtap="toggleShowDetail"
+            data-index="{{item.id}}"
+          >
+            <text class="title">{{item.title}}</text>
             <image
               class="arrow"
               src="/images/common/arrow-down-gray.png"

@@ -22,9 +22,4 @@ Page({
       },
     });
   },
-  goQna() {
-    wx.navigateTo({
-      url: "../qna/qna",
-    });
-  },
 });
