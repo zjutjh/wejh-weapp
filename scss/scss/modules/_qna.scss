@@ -1,0 +1,70 @@
+.m-qna {
+  flex: 1;
+  padding: 0 30rpx 180rpx 30rpx;
+
+  .qna-content {
+    margin-top: 35rpx;
+
+    .qna-list {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: stretch;
+      padding: 5rpx 0 15rpx;
+
+      .qna-item {
+        display: flex;
+        flex-direction: column;
+        font-size: 30rpx;
+        padding: 0 40rpx;
+        margin-bottom: 20rpx;
+        background-color: $white;
+        border-radius: 3px;
+        word-break: break-all;
+
+        .head {
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          height: 120rpx;
+
+          .title {
+            font-size: 16px;
+            font-weight: 600;
+            color: $gray-900;
+          }
+
+          .arrow {
+            flex-shrink: 0;
+            width: 30rpx;
+            height: 30rpx;
+            transition: transform 0.2s;
+            transform: rotate(0deg);
+          }
+        }
+
+        .detail {
+          display: none;
+          line-height: 1.75;
+        }
+
+        &.open {
+          .head {
+            title: {
+              color: $theme-green;
+            }
+            .arrow {
+              transform: rotate(180deg);
+            }
+          }
+          .detail {
+            display: flex;
+            flex-direction: column;
+            padding: 10rpx 0 50rpx;
+          }
+        }
+      }
+    }
+  }
+}

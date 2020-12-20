@@ -3076,6 +3076,10 @@ text {
   margin-right: 36rpx;
 }
 
+.m-feedback .feedback-list-item-icon-yellow {
+  background-color: #ffcb63;
+}
+
 .m-feedback .feedback-list-item-icon-red {
   background-color: #ff6c6c;
 }
@@ -3114,4 +3118,74 @@ text {
   margin-left: 48rpx;
   height: 2rpx;
   background-color: #f8f9fa;
+}
+
+.m-qna {
+  flex: 1;
+  padding: 0 30rpx 180rpx 30rpx;
+}
+
+.m-qna .qna-content {
+  margin-top: 35rpx;
+}
+
+.m-qna .qna-content .qna-list {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  padding: 5rpx 0 15rpx;
+}
+
+.m-qna .qna-content .qna-list .qna-item {
+  display: flex;
+  flex-direction: column;
+  font-size: 30rpx;
+  padding: 0 40rpx;
+  margin-bottom: 20rpx;
+  background-color: #fff;
+  border-radius: 3px;
+  word-break: break-all;
+  transition: 0.5s;
+}
+
+.m-qna .qna-content .qna-list .qna-item .head {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 120rpx;
+}
+
+.m-qna .qna-content .qna-list .qna-item .head .title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #212529;
+}
+
+.m-qna .qna-content .qna-list .qna-item .head .arrow {
+  flex-shrink: 0;
+  width: 30rpx;
+  height: 30rpx;
+  transition: transform 0.2s;
+  transform: rotate(0deg);
+}
+
+.m-qna .qna-content .qna-list .qna-item .detail {
+  display: none;
+  line-height: 1.75;
+}
+
+.m-qna .qna-content .qna-list .qna-item.open .head {
+  title-color: #7acfa6;
+}
+
+.m-qna .qna-content .qna-list .qna-item.open .head .arrow {
+  transform: rotate(180deg);
+}
+
+.m-qna .qna-content .qna-list .qna-item.open .detail {
+  display: flex;
+  flex-direction: column;
+  padding: 10rpx 0 50rpx;
 }
