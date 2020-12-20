@@ -207,4 +207,11 @@ Page({
       url: appItem.route,
     });
   },
+  //跳转微精弘问卷 2020.12.20
+  goSurvey() {
+    wx.navigateToMiniProgram({
+      appId: "wxd947200f82267e58",
+      path: "pages/wjxqList/wjxqList?activityId=101523577",
+    });
+  },
 });
