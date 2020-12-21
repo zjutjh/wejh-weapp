@@ -3144,8 +3144,6 @@ text {
   margin-bottom: 20rpx;
   background-color: #fff;
   border-radius: 3px;
-  word-break: break-all;
-  transition: 0.5s;
 }
 
 .m-qna .qna-content .qna-list .qna-item .head {
@@ -3154,19 +3152,22 @@ text {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 120rpx;
+  min-height: 120rpx;
 }
 
 .m-qna .qna-content .qna-list .qna-item .head .title {
+  flex: 1;
+  padding: 24rpx 0;
   font-size: 16px;
   font-weight: 600;
   color: #212529;
+  word-break: break-all;
 }
 
 .m-qna .qna-content .qna-list .qna-item .head .arrow {
-  flex-shrink: 0;
   width: 30rpx;
   height: 30rpx;
+  margin-left: 12rpx;
   transition: transform 0.2s;
   transform: rotate(0deg);
 }

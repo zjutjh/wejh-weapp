@@ -19,7 +19,6 @@
         margin-bottom: 20rpx;
         background-color: $white;
         border-radius: 3px;
-        word-break: break-all;
 
         .head {
           position: relative;
@@ -27,18 +26,21 @@
           flex-direction: row;
           align-items: center;
           justify-content: space-between;
-          height: 120rpx;
+          min-height: 120rpx;
 
           .title {
+            flex: 1;
+            padding: 24rpx 0;
             font-size: 16px;
             font-weight: 600;
             color: $gray-900;
+            word-break: break-all;
           }
 
           .arrow {
-            flex-shrink: 0;
             width: 30rpx;
             height: 30rpx;
+            margin-left: 12rpx;
             transition: transform 0.2s;
             transform: rotate(0deg);
           }
