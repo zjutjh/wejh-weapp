@@ -10,6 +10,7 @@ let customEndpoint = (() => {
 const apiMap = {
   "app-list": "api/app-list",
   announcement: "api/announcement",
+  bootstrap: "api/bootstrap",
   login: "api/login",
   user: "api/user",
   forgot: "api/forgot",

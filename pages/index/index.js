@@ -29,9 +29,9 @@ Page({
 
     this.tooltip = this.selectComponent("#tooltip");
 
-    this.observe("session", "isLogin", null, (newValues) => {
-      if (newValues.isLogin) {
-        this.getData();
+    this.observe("session", "isLoggedIn", null, (newVal) => {
+      if (newVal.isLoggedIn) {
+        this.fetchHomeCards();
       }
     });
 
@@ -67,6 +67,8 @@ Page({
     this.observe("session", "card");
     this.observe("session", "cardCost");
     this.observe("session", "borrow");
+
+    this.bootstrap();
 
     // 这个优化掉
     this.setPageState({
@@ -104,35 +106,25 @@ Page({
       timetableToday,
     });
   },
-  getData() {
-    app.services.getAnnouncement(null, {
+  bootstrap() {
+    app.services.getBootstrapInfo(null, { showError: false });
+  },
+  fetchHomeCards() {
+    app.services.getTimetable(null, {
       showError: false,
     });
-    app.services.getTermTime(
-      () => {
-        app.services.getAppList(
-          () => {
-            app.services.getTimetable(null, {
-              showError: false,
-            });
-            app.services.getCard(null, {
-              showError: false,
-            });
-            app.services.getBorrow(null, {
-              showError: false,
-            });
-          },
-          { showError: false }
-        );
-      },
-      { showError: false }
-    );
+    app.services.getCard(null, {
+      showError: false,
+    });
+    app.services.getBorrow(null, {
+      showError: false,
+    });
   },
   onPullDownRefresh() {
-    if (this.data.isLogin) {
-      this.getData();
-    } else {
-      this.tooltip.show("请先登录");
+    this.bootstrap();
+    if (!this.data.isLoggedIn) {
+      // 下拉刷新应当不考虑登录问题，下个迭代进行优化
+      app.wxLogin();
     }
     setTimeout(() => {
       wx.stopPullDownRefresh();
@@ -167,7 +159,7 @@ Page({
       return;
     }
 
-    if (!this.data.isLogin) {
+    if (!this.data.isLoggedIn) {
       this.tooltip.show("请先登录");
       return;
     }
