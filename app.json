@@ -22,7 +22,9 @@
     "pages/home/home",
     "pages/about/about",
     "pages/debug/index",
-    "pages/labs/labs"
+    "pages/labs/labs",
+    "pages/feedback/feedback",
+    "pages/qna/qna"
   ],
   "window": {
     "backgroundTextStyle": "light",

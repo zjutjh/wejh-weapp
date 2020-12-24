@@ -13,8 +13,12 @@
             bindtap="toggleHideInfo"
           ></image>
         </view>
-        <text class="info-item">学号：{{hideInfo ? '************' : userInfo.uno}}</text>
-        <text class="info-item">姓名：{{hideInfo ? '**' : userInfo.ext.school_info.name}}</text>
+        <text class="info-item"
+          >学号：{{hideInfo ? '************' : userInfo.uno}}</text
+        >
+        <text class="info-item"
+          >姓名：{{hideInfo ? '**' : userInfo.ext.school_info.name}}</text
+        >
       </view>
       <view class="logo">
         <image class="icon" src="{{icons.exam.icon}}"></image>
@@ -30,17 +34,25 @@
           wx:key="course_id"
           wx:for-index="course_id"
         >
-          <view class="head" bindtap="toggleShowExam" data-index="{{course_id}}">
+          <view
+            class="head"
+            bindtap="toggleShowExam"
+            data-index="{{course_id}}"
+          >
             <view class="main-info">
               <text class="name">{{item['课程']}}</text>
               <text class="subtitle"
-                ><text class="countdown{{item['倒计时'] <= 3 && item['倒计时'] >= 0 ? ' red' : ''}}"
+                ><text
+                  class="countdown{{item['倒计时'] <= 3 && item['倒计时'] >= 0 ? ' red' : ''}}"
                   >{{item['倒计时名']}}</text
                 >
                 {{item['教室']}}</text
               >
             </view>
-            <image class="arrow" src="/images/common/arrow-down-gray.png"></image>
+            <image
+              class="arrow"
+              src="/images/common/arrow-down-gray.png"
+            ></image>
           </view>
           <view class="detail-info">
             <view class="detail-item">
@@ -76,7 +88,11 @@
     </view>
 
     <view wx:if="{{!exam.list.length}}" class="m-remind-box">
-      <image class="remind-img" mode="aspectFit" src="/images/common/nothing.png"></image>
+      <image
+        class="remind-img"
+        mode="aspectFit"
+        src="/images/common/nothing.png"
+      ></image>
       <text class="remind-text">暂无排考信息</text>
     </view>
   </view>

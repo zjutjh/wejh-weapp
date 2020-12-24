@@ -1,10 +1,14 @@
-let app = getApp();
+import toast from "../../utils/toast";
+import dayjs from "../../libs/dayjs/dayjs.min.js";
+
+const app = getApp();
+
 Page({
   data: {
     name: app.name,
     versionType: app.versionType,
     version: app.version,
-    currentYear: new Date().getFullYear(),
+    currentYear: dayjs().format("YYYY"),
     headerTapCount: 0,
     // observed keys
     devMenuEnabled: false,
@@ -14,7 +18,7 @@ Page({
     this.observe("static", "devMenuEnabled");
   },
   onUnload() {
-    this.disconnect()
+    this.disconnect();
   },
   onShow() {
     this.data.headerTapCount = 0;
@@ -28,7 +32,7 @@ Page({
         });
         this.data.headerTapCount = 0;
       }
-      app.toast({
+      toast({
         icon: "success",
         title: "调试彩蛋已打开",
       });

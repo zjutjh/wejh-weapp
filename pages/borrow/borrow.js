@@ -1,4 +1,4 @@
-let app = getApp();
+const app = getApp();
 
 Page({
   data: {
@@ -14,26 +14,26 @@ Page({
     this.observe("session", "borrow");
     this.observe("session", "icons");
     this.observe("session", "userInfo");
-    setTimeout(() => {
-      // 判断是否登录
-      if (!app.isLogin() || !this.data.userInfo) {
-        return wx.redirectTo({
-          url: "/pages/login/login",
-        });
-      }
+    this.observe("session", "isLoggedIn");
 
-      // 判断是否有成绩数据
-      if (!this.data.borrow) {
-        this.getBorrow(this.afterGetBorrow, {
-          back: true,
-        });
-      } else {
-        this.afterGetBorrow();
-      }
-    }, 500);
+    // 判断是否登录
+    if (!this.data.isLoggedIn) {
+      return wx.redirectTo({
+        url: "/pages/login/login",
+      });
+    }
+
+    // 判断是否有数据
+    if (!this.data.borrow) {
+      this.getBorrow(this.afterGetBorrow, {
+        back: true,
+      });
+    } else {
+      this.afterGetBorrow();
+    }
   },
   onUnload() {
-    this.disconnect()
+    this.disconnect();
   },
   getBorrow(callback = this.afterGetBorrow, option = {}) {
     app.services.getBorrow(callback, {

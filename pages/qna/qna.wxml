@@ -1,0 +1,26 @@
+<view class="container f-bg-gray">
+  <view class="m-qna">
+    <view class="qna-content">
+      <view class="qna-list">
+        <view
+          wx:for="{{messages}}"
+          wx:key="id"
+          class="qna-item{{disclosure[item.id] ? ' open' : ''}}"
+        >
+          <view
+            class="head"
+            bindtap="toggleShowDetail"
+            data-index="{{item.id}}"
+          >
+            <text class="title">{{item.title}}</text>
+            <image
+              class="arrow"
+              src="/images/common/arrow-down-gray.png"
+            ></image>
+          </view>
+          <rich-text class="detail" nodes="{{item.content}}"> </rich-text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

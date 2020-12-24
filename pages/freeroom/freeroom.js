@@ -1,8 +1,7 @@
-let app = getApp();
+const app = getApp();
 
-const _weekday = ["日", "一", "二", "三", "四", "五", "六", "日"];
+const _weekday = ["一", "二", "三", "四", "五", "六", "日"];
 const _weeks = [
-  "未开学",
   "第一周",
   "第二周",
   "第三周",
@@ -40,21 +39,19 @@ for (let i = 0; i < 12; i++) {
   });
 }
 
-const weekdayArr = [];
-for (let i = 1; i < 8; i++) {
-  weekdayArr.push({
-    text: `星期${_weekday[i]}`,
-    value: `${i}`,
-  });
-}
+const weekdayArr = _weekday.map((weekDay, idx) => {
+  return {
+    text: `星期${weekDay}`,
+    value: `${idx}`,
+  };
+});
 
-const weekArr = [];
-for (let i = 1; i <= 20; i++) {
-  weekArr.push({
-    text: `${_weeks[i]}`,
-    value: `${i}`,
-  });
-}
+const weekArr = _weeks.map((week, idx) => {
+  return {
+    text: `${week}`,
+    value: `${idx}`,
+  };
+});
 
 Page({
   data: {
@@ -114,81 +111,49 @@ Page({
   },
   onLoad: function () {
     app.$store.connect(this, "freeroom");
-    this.observe("session", "freeroom");
-    this.observe("session", "userInfo");
-    this.observe("session", "time");
-    setTimeout(() => {
-      // 判断是否登录
-      if (!app.isLogin()) {
-        return wx.redirectTo({
-          url: "/pages/login/login",
+    this.observe("session", "userInfo", null, () => {
+      if (!this.data.userInfo.ext.passwords_bind.zf_password) {
+        wx.redirectTo({
+          url: "/pages/bind/zf",
         });
+        return;
       }
-      const year = this.data.userInfo.uno.slice(0, 4);
-      if (year <= 2013) {
-        // 判断是否绑定原创
-        return app.toast({
-          title: "毕业生暂不支持查空教室",
-          duration: 3000,
-          complete: () => {
-            setTimeout(() => {
-              wx.navigateBack({
-                delta: 5,
-              });
-            }, 3000);
-          },
-        });
-      } else {
-        // 判断是否绑定正方
-        if (!this.data.userInfo.ext.passwords_bind.zf_password) {
-          return wx.redirectTo({
-            url: "/pages/bind/zf",
-          });
+
+      //获取当前时间
+      const nowClass = this.formatTime(new Date(), "CurrentClass");
+      this.data.form["startTime"] = nowClass + 1;
+      this.data.form["endTime"] = nowClass + 2;
+      this.data.form["week"] = this.data.time.week;
+      this.data.form["weekday"] = this.data.time.day;
+      //如果时间在12节课之后，零点之前，那么向后看一天
+      //还未考虑跨周情况
+      if (nowClass == -1) {
+        if (this.data.time.day == 7) {
+          this.data.form["weekday"] = 1;
+        } else {
+          this.data.form["weekday"] += 1;
         }
       }
-
-      // 判断是否有空教室数据
-      if (!this.data.freeroom) {
-        this.getFreeroom(this.afterGetFreeroom);
-      } else {
-        this.afterGetFreeroom();
-      }
-    }, 600);
-
-    //获取当前时间
-    const nowClass = this.formatTime(new Date(), "CurrentClass");
-    this.data.form["startTime"] = nowClass + 1;
-    this.data.form["endTime"] = nowClass + 2;
-    this.data.form["week"] = this.data.time.week;
-    this.data.form["weekday"] = this.data.time.day;
-    //如果时间在12节课之后，零点之前，那么向后看一天
-    //还未考虑跨周情况
-    if (nowClass == -1) {
-      if (this.data.time.day == 7) {
-        this.data.form["weekday"] = 1;
-      } else {
-        this.data.form["weekday"] += 1;
-      }
-    }
-    //刷新页面
-    const form = this.data.form;
-    this.setPageState(
-      {
-        form,
-      },
-      () => {
-        this.getFreeroom();
-      }
-    );
-    //更新滚动条位置
-
+      //刷新页面
+      const form = this.data.form;
+      this.setPageState(
+        {
+          form,
+        },
+        () => {
+          this.getFreeroom();
+        }
+      );
+      //更新滚动条位置
+    });
+    this.observe("session", "freeroom");
   },
   onUnload() {
     this.disconnect();
   },
-  chooseOption(e) {
-    const type = e.currentTarget.dataset.type;
-    const value = e.currentTarget.dataset.value;
+  chooseOption(event) {
+    const { type, value } = event.currentTarget.dataset;
+
     const form = this.data.form;
     form[type] = value;
     if (+form["endTime"] < +form["startTime"]) {
@@ -203,21 +168,20 @@ Page({
         form,
       },
       () => {
-        this.getFreeroom();
+        this.getFreeRoom();
       }
     );
   },
-
   getFreeroom(callback = this.afterGetFreeroom) {
     wx.showLoading({
       title: "获取空教室中",
     });
-    app.services.getFreeroom(callback, {
+    app.services.getFreeRoom(callback, {
       showError: true,
       data: this.data.form,
     });
   },
-  afterGetFreeroom() {
+  afterGetFreeRoom() {
     wx.hideLoading();
   },
   //格式化时间

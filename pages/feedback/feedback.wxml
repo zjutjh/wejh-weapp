@@ -1,0 +1,59 @@
+<view class="container f-vh-100 f-bg-gray">
+  <view class="m-feedback">
+    <view class="feedback-splash">
+      <image mode="widthFix" src="../../images/feedback/splash.png"> </image>
+    </view>
+    <view class="feedback-list">
+      <view class="feedback-list-item">
+        <view class="feedback-list-item-icon feedback-list-item-icon-yellow">
+          <image
+            class="feedback-list-item-icon-content"
+            mode="aspectFit"
+            src="../../images/feedback/icon-qna.png"
+          >
+          </image>
+        </view>
+        <view class="feedback-list-item-content">常见问题</view>
+        <view class="feedback-list-item-action">
+          <navigator url="/pages/qna/qna">
+            <button>点击查看</button>
+          </navigator>
+        </view>
+      </view>
+
+      <view class="feedback-list-separator"></view>
+
+      <view class="feedback-list-item">
+        <view class="feedback-list-item-icon feedback-list-item-icon-red">
+          <image
+            class="feedback-list-item-icon-content"
+            mode="aspectFit"
+            src="../../images/feedback/icon-problem.png"
+          >
+          </image>
+        </view>
+        <view class="feedback-list-item-content">功能异常反馈</view>
+        <view class="feedback-list-item-action">
+          <button open-type="feedback">前往反馈</button>
+        </view>
+      </view>
+
+      <view class="feedback-list-separator"></view>
+
+      <view class="feedback-list-item">
+        <view class="feedback-list-item-icon feedback-list-item-icon-blue">
+          <image
+            class="feedback-list-item-icon-content"
+            mode="aspectFit"
+            src="../../images/feedback/icon-qq.png"
+          >
+          </image>
+        </view>
+        <view class="feedback-list-item-content">加入交流群</view>
+        <view class="feedback-list-item-action">
+          <button bindtap="copyGroupId">复制群号</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

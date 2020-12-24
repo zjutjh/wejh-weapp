@@ -20,7 +20,7 @@ Page({
     }, 1000);
   },
   onUnload() {
-    this.disconnect()
+    this.disconnect();
   },
   showHelp() {
     this.setPageState({
@@ -59,7 +59,9 @@ Page({
           duration: 2000,
           title: "绑定成功",
         });
-        app.getUserInfo();
+        app.services.getUserInfo(null, {
+          showError: true,
+        });
         setTimeout(() => {
           wx.navigateBack({
             delta: 5,

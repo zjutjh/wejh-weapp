@@ -1,4 +1,12 @@
-let app = getApp();
+import toast from "../../utils/toast";
+import dayjs from "../../libs/dayjs/dayjs.min.js";
+import dayjs_customParseFormat from "../../libs/dayjs/plugin/customParseFormat.js";
+import dayjs_isBetween from "../../libs/dayjs/plugin/isBetween.js";
+
+dayjs.extend(dayjs_customParseFormat);
+dayjs.extend(dayjs_isBetween);
+
+const app = getApp();
 
 Page({
   data: {
@@ -79,47 +87,54 @@ Page({
     this.observe("session", "userInfo");
     this.observe("session", "time");
     this.observe("session", "cacheStatus");
+    this.observe("session", "isLoggedIn");
+
     this.startTimelineMoving();
-    setTimeout(() => {
-      const time = this.data.time || {};
-      this.setPageState({
-        viewStatus: time.week,
-        originWeek: time.week || 1,
-        currentWeek: time.week || 1,
+
+    // 判断是否登录
+    if (!this.data.isLoggedIn) {
+      return wx.redirectTo({
+        url: "/pages/login/login",
       });
+    }
 
-      // 判断是否登录
-      if (!app.isLogin() || !this.data.userInfo) {
-        return wx.redirectTo({
-          url: "/pages/login/login",
-        });
-      }
+    const time = this.data.time || {};
+    this.setPageState({
+      viewStatus: time.week,
+      originWeek: time.week || 1,
+      currentWeek: time.week || 1,
+    });
 
-      const year = this.data.userInfo.uno.slice(0, 4);
-      // if (year <= 2013) {
-      //   // 判断是否绑定原创
-      //   if (!this.data.userInfo.ext.passwords_bind.yc_password) {
-      //     return wx.redirectTo({
-      //       url: "/pages/bind/ycjw",
-      //     });
-      //   }
-      // } else {
-      if (year >= 2017) {
-        // 判断是否绑定正方
-        if (!this.data.userInfo.ext.passwords_bind.zf_password) {
-          return wx.redirectTo({
-            url: "/pages/bind/zf",
-          });
+    // 判断是否登录
+    if (!this.data.isLoggedIn) {
+      return wx.redirectTo({
+        url: "/pages/login/login",
+      });
+    }
+
+    // 判断是否绑定正方
+    if (!this.data.userInfo.ext.passwords_bind.zf_password) {
+      return wx.redirectTo({
+        url: "/pages/bind/zf",
+      });
+    }
+
+    // 判断是否有课表数据
+    if (!this.data.timetable) {
+      app.services.getTimetable(
+        () => {
+          this.afterGetTimetable();
+        },
+        {
+          showError: true,
+          fail: () => {
+            this.afterGetTimetable();
+          },
         }
-      }
-
-      // 判断是否有课表数据
-      if (!this.data.timetable) {
-        this.getTimetable(this.afterGetTimetable);
-      } else {
-        this.afterGetTimetable();
-      }
-    }, 500);
+      );
+    } else {
+      this.afterGetTimetable();
+    }
   },
   onUnload() {
     this.disconnect();
@@ -131,29 +146,18 @@ Page({
   },
   startTimelineMoving() {
     const _this = this;
-    function parseMinute(dateStr) {
-      return dateStr.split(":")[0] * 60 + parseInt(dateStr.split(":")[1]);
-    }
-
-    function compareDate(dateStr1, dateStr2) {
-      return parseMinute(dateStr1) <= parseMinute(dateStr2);
-    }
-    if (!_this.data.time) {
-      return setTimeout(() => {
-        app.services.getTermTime(() => {
-          // TODO: check if here is correct
-          _this.observe("session", "time");
-          this.startTimelineMoving();
-        });
-      }, 5000);
-    }
-    const nowTime = _this.formatTime(new Date(), "h:m");
     _this.data.timeline.forEach(function (e, i) {
-      if (compareDate(e.begin, nowTime) && compareDate(nowTime, e.end)) {
+      if (
+        dayjs().isBetween(
+          dayjs(e.begin, "H:mm"),
+          dayjs(e.end, "H:mm"),
+          "minute"
+        )
+      ) {
         const timelineTop = Math.round(
           e.beginTop +
             ((e.endTop - e.beginTop) *
-              (parseMinute(nowTime) - parseMinute(e.begin))) /
+              dayjs().diff(dayjs(e.begin, "H:mm"), "minute")) /
               100
         );
         _this.setPageState({
@@ -199,7 +203,7 @@ Page({
       : {};
     const teacherName = lessonInfo["老师"] || "";
     if (!teacherName) {
-      app.toast({
+      toast({
         icon: "error",
         title: "发生了一点错误，请反馈给管理员",
       });
@@ -240,7 +244,8 @@ Page({
       });
       this.setTitleTerm(term);
     } catch (e) {
-      app.toast({
+      console.error(e);
+      toast({
         icon: "error",
         title: e.message,
       });
@@ -330,7 +335,7 @@ Page({
     });
   },
   switchView() {
-    app.toast({
+    toast({
       title: "试图切换中",
       icon: "loading",
       duration: 500,
@@ -338,39 +343,6 @@ Page({
     this.setPageState({
       viewStatus: this.data.viewStatus === "*" ? this.data.currentWeek : "*",
     });
-  },
-  getTimetable(callback = function () {}) {
-    let _this = this;
-    if (app.hasToken()) {
-      app.services.getTimetable(callback, {
-        showError: true,
-        fail: () => {
-          callback();
-        },
-      });
-    } else {
-      setTimeout(() => {
-        _this.getTimetable();
-      }, 800);
-    }
-  },
-  //格式化时间
-  formatTime(date, t) {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const hour = date.getHours();
-    const minute = date.getMinutes();
-    const second = date.getSeconds();
-    if (t === "h:m") {
-      return [hour, minute].map(this.formatNumber).join(":");
-    } else {
-      return (
-        [year, month, day].map(this.formatNumber).join("-") +
-        " " +
-        [hour, minute, second].map(this.formatNumber).join(":")
-      );
-    }
   },
   formatNumber(n) {
     n = n.toString();

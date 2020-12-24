@@ -1,0 +1,103 @@
+@import "../../scss/scss/_variables";
+
+.m-help-box {
+  position: fixed;
+  z-index: 99;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: fade-in 1s ease-out;
+
+  .box {
+    width: 600rpx;
+    background-color: $white;
+    border-radius: 25rpx;
+    box-shadow: 0 0 50px $gray-400;
+
+    .header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 80rpx;
+      border-bottom: 1px solid $gray-200;
+
+      .title {
+        font-size: 32rpx;
+      }
+    }
+
+    .content {
+      font-size: 30rpx;
+      padding: 25rpx 36rpx 40rpx;
+
+      &.announcement {
+        display: block;
+        width: 100%;
+        text-indent: 2em;
+        font-size: 28rpx;
+        // font-weight: 100;
+        overflow: hidden;
+        line-height: 180%;
+        color: #555;
+        letter-spacing: 4rpx;
+      }
+
+      .question {
+        font-size: 30rpx;
+        line-height: 200%;
+        color: $gray-600;
+      }
+
+      .answer {
+        display: flex;
+        flex-direction: column;
+        text-indent: 1em;
+        font-size: 24rpx;
+
+        text {
+          line-height: 160%;
+          word-break: break-all;
+          color: $gray-700;
+        }
+      }
+    }
+    .announcement {
+      &.footer,
+      &.clipboard {
+        display: block;
+        text-indent: 2em;
+        font-size: 28rpx;
+        // font-weight: 100;
+        overflow: hidden;
+        line-height: 180%;
+        color: #555;
+        letter-spacing: 4rpx;
+        padding: 0 36rpx 40rpx;
+      }
+
+      &.clipboard {
+        margin: 20rpx 30rpx;
+        padding: 20rpx;
+        font-size: 26rpx;
+        border-radius: 10rpx;
+        color: $white;
+        background-color: #777e85;
+      }
+    }
+  }
+
+  .icon-close {
+    position: absolute;
+    right: 25rpx;
+    top: 25rpx - 10rpx;
+    width: 50rpx;
+    height: 50rpx;
+    padding: 10rpx;
+  }
+}
