@@ -21,13 +21,13 @@ Page({
     },
     apps: initAppList,
     // private
-    helpStatus: false,
     timetableToday: null,
   },
   onLoad() {
     app.$store.connect(this, "index");
 
     this.tooltip = this.selectComponent("#tooltip");
+    this.noticeBox = this.selectComponent("#noticeBox");
 
     this.observe("session", "isLoggedIn", null, (newVal) => {
       if (newVal.isLoggedIn) {
@@ -49,9 +49,7 @@ Page({
       const announcementId =
         app.$store.getState("static", "announcementId") || 0;
       if (announcementId < announcement.id) {
-        this.setPageState({
-          helpStatus: true,
-        });
+        this.noticeBox.show();
         app.$store.setState("static", { announcementId: announcement.id });
       }
     });
