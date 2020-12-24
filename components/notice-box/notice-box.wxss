@@ -1,0 +1,97 @@
+.m-help-box {
+  position: fixed;
+  z-index: 99;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: fade-in 1s ease-out;
+}
+
+.m-help-box .box {
+  width: 600rpx;
+  background-color: #fff;
+  border-radius: 25rpx;
+  box-shadow: 0 0 50px #ced4da;
+}
+
+.m-help-box .box .header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80rpx;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.m-help-box .box .header .title {
+  font-size: 32rpx;
+}
+
+.m-help-box .box .content {
+  font-size: 30rpx;
+  padding: 25rpx 36rpx 40rpx;
+}
+
+.m-help-box .box .content.announcement {
+  display: block;
+  width: 100%;
+  text-indent: 2em;
+  font-size: 28rpx;
+  overflow: hidden;
+  line-height: 180%;
+  color: #555;
+  letter-spacing: 4rpx;
+}
+
+.m-help-box .box .content .question {
+  font-size: 30rpx;
+  line-height: 200%;
+  color: #868e96;
+}
+
+.m-help-box .box .content .answer {
+  display: flex;
+  flex-direction: column;
+  text-indent: 1em;
+  font-size: 24rpx;
+}
+
+.m-help-box .box .content .answer text {
+  line-height: 160%;
+  word-break: break-all;
+  color: #495057;
+}
+
+.m-help-box .box .announcement.footer, .m-help-box .box .announcement.clipboard {
+  display: block;
+  text-indent: 2em;
+  font-size: 28rpx;
+  overflow: hidden;
+  line-height: 180%;
+  color: #555;
+  letter-spacing: 4rpx;
+  padding: 0 36rpx 40rpx;
+}
+
+.m-help-box .box .announcement.clipboard {
+  margin: 20rpx 30rpx;
+  padding: 20rpx;
+  font-size: 26rpx;
+  border-radius: 10rpx;
+  color: #fff;
+  background-color: #777e85;
+}
+
+.m-help-box .icon-close {
+  position: absolute;
+  right: 25rpx;
+  top: 15rpx;
+  width: 50rpx;
+  height: 50rpx;
+  padding: 10rpx;
+}

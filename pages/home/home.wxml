@@ -59,7 +59,7 @@
       mode="aspectFit"
       src="../../images/home/feedback.png"
     ></image>
-    <text class="text">反馈</text>
+    <text class="text">帮助与反馈</text>
     <image
       class="icon-next"
       src="/images/common/next-gray.png"

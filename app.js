@@ -1,6 +1,5 @@
 import WejhStore from "./utils/store";
 import Fetch from "./utils/fetch";
-import { API } from "./utils/api";
 import toast from "./utils/toast";
 import Services from "./utils/services";
 import logger from "./utils/logger";
@@ -84,27 +83,18 @@ App({
       _this.autoLogin();
       afterLogin();
     } else {
-      fetch({
-        url: API("code"),
-        data: {
-          code,
-        },
-        method: "POST",
-        showError: true,
-        success: (res) => {
-          const result = res.data;
-          const openId = result.data.openid;
-          store.setState("common", {
-            openId,
-          });
+      this.services.getOpenId(
+        () => {
           _this.autoLogin();
           afterLogin();
         },
-      });
+        {
+          data: {
+            code,
+          },
+        }
+      );
     }
-  },
-  isLogin() {
-    return store.getState("session", "userInfo");
   },
   reportUserInfo(userInfo) {
     try {
@@ -150,31 +140,21 @@ App({
   autoLogin() {
     const openId = store.getState("common", "openId");
     openId &&
-      fetch({
-        url: API("autoLogin"),
-        method: "POST",
-        data: {
-          type: "weapp",
-          openid: openId,
+      this.services.autoLogin(
+        (res) => {
+          toast({
+            title: "自动登录成功",
+          });
+          const { user: userInfo } = res.data.data;
+          this.reportUserInfo(userInfo);
         },
-        success: (res) => {
-          const result = res.data;
-          if (result.errcode > 0) {
-            toast({
-              title: "自动登录成功",
-            });
-
-            const { token, user: userInfo } = result.data;
-            this.reportUserInfo(userInfo);
-
-            store.setState("session", {
-              isLogin: true,
-              token: token,
-              userInfo: userInfo,
-            });
-          }
-        },
-      });
+        {
+          data: {
+            type: "weapp",
+            openid: openId,
+          },
+        }
+      );
   },
   // goFeedback: () => {
   //   const userInfo = store.getState("session", "userInfo");

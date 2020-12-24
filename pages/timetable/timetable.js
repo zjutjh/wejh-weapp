@@ -85,46 +85,54 @@ Page({
     this.observe("session", "userInfo");
     this.observe("session", "time");
     this.observe("session", "cacheStatus");
+    this.observe("session", "isLoggedIn");
+
     this.startTimelineMoving();
-    setTimeout(() => {
-      const time = this.data.time || {};
-      this.setPageState({
-        viewStatus: time.week,
-        originWeek: time.week || 1,
-        currentWeek: time.week || 1,
+
+    // 判断是否登录
+    if (!this.data.isLoggedIn) {
+      return wx.redirectTo({
+        url: "/pages/login/login",
       });
+    }
 
-      // 判断是否登录
-      if (!app.isLogin() || !this.data.userInfo) {
-        return wx.redirectTo({
-          url: "/pages/login/login",
-        });
-      }
+    const time = this.data.time || {};
+    this.setPageState({
+      viewStatus: time.week,
+      originWeek: time.week || 1,
+      currentWeek: time.week || 1,
+    });
 
-      // 判断是否绑定正方
-      if (!this.data.userInfo.ext.passwords_bind.zf_password) {
-        return wx.redirectTo({
-          url: "/pages/bind/zf",
-        });
-      }
+    // 判断是否登录
+    if (!this.data.isLoggedIn) {
+      return wx.redirectTo({
+        url: "/pages/login/login",
+      });
+    }
 
-      // 判断是否有课表数据
-      if (!this.data.timetable) {
-        app.services.getTimetable(
-          () => {
-            this.afterGetTimetable;
+    // 判断是否绑定正方
+    if (!this.data.userInfo.ext.passwords_bind.zf_password) {
+      return wx.redirectTo({
+        url: "/pages/bind/zf",
+      });
+    }
+
+    // 判断是否有课表数据
+    if (!this.data.timetable) {
+      app.services.getTimetable(
+        () => {
+          this.afterGetTimetable();
+        },
+        {
+          showError: true,
+          fail: () => {
+            this.afterGetTimetable();
           },
-          {
-            showError: true,
-            fail: () => {
-              this.afterGetTimetable();
-            },
-          }
-        );
-      } else {
-        this.afterGetTimetable();
-      }
-    }, 500);
+        }
+      );
+    } else {
+      this.afterGetTimetable();
+    }
   },
   onUnload() {
     this.disconnect();
@@ -136,15 +144,6 @@ Page({
   },
   startTimelineMoving() {
     const _this = this;
-    if (!_this.data.time) {
-      return setTimeout(() => {
-        app.services.getTermTime(() => {
-          // TODO: check if here is correct
-          _this.observe("session", "time");
-          this.startTimelineMoving();
-        });
-      }, 5000);
-    }
     _this.data.timeline.forEach(function (e, i) {
       if (
         dayjs().isBetween(

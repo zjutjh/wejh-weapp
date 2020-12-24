@@ -2,7 +2,69 @@ import { API } from "./api";
 import util from "./util";
 
 export default function ({ store, fetch }) {
+  const updateLoggedInState = () => {
+    if (
+      store.getState("session", "token") &&
+      store.getState("session", "time")
+    ) {
+      store.setState("session", { isLoggedIn: true });
+    }
+  };
   return {
+    autoLogin(callback = function () {}, options) {
+      fetch({
+        url: API("autoLogin"),
+        method: "POST",
+        showError: true,
+        ...options,
+        success: (res) => {
+          const result = res.data;
+          if (result.errcode > 0) {
+            const { token, user: userInfo } = result.data;
+            store.setState("session", {
+              token: token,
+              userInfo: userInfo,
+            });
+            updateLoggedInState();
+            callback && callback(res);
+          }
+        },
+      });
+    },
+    getOpenId(callback = function () {}, options) {
+      fetch({
+        url: API("code"),
+        method: "POST",
+        showError: true,
+        ...options,
+        success: (res) => {
+          const result = res.data;
+          const openId = result.data.openid;
+          store.setState("common", {
+            openId,
+          });
+          callback && callback(res);
+        },
+      });
+    },
+    getBootstrapInfo(callback = function () {}, options) {
+      fetch({
+        url: API("bootstrap"),
+        showError: true,
+        ...options,
+        success(res) {
+          let data = res.data.data;
+          store.setState("session", {
+            apps: util.fixAppList(data.appList["app-list"]),
+            icons: util.fixIcons(data.appList.icons),
+            announcement: data.announcement,
+            time: data.termTime,
+          });
+          updateLoggedInState();
+          callback && callback(res);
+        },
+      });
+    },
     getAppList(callback = function () {}, options) {
       fetch({
         url: API("app-list"),
@@ -14,7 +76,7 @@ export default function ({ store, fetch }) {
             apps: util.fixAppList(data["app-list"]),
             icons: util.fixIcons(data["icons"]),
           });
-          callback && callback();
+          callback && callback(res);
         },
       });
     },
@@ -28,7 +90,7 @@ export default function ({ store, fetch }) {
           store.setState("session", {
             time: result.data,
           });
-          callback && callback();
+          callback && callback(res);
         },
       });
     },
@@ -43,7 +105,7 @@ export default function ({ store, fetch }) {
           store.setState("session", {
             userInfo,
           });
-          callback && callback();
+          callback && callback(res);
         },
       });
     },
@@ -89,7 +151,7 @@ export default function ({ store, fetch }) {
               cacheStatus,
               ...cacheState,
             });
-            callback && callback();
+            callback && callback(res);
           }
         },
       });
@@ -141,7 +203,7 @@ export default function ({ store, fetch }) {
         },
       });
     },
-    getFreeroom(callback = function () {}, options) {
+    getFreeRoom(callback = function () {}, options) {
       fetch({
         url: API("freeroom"),
         showError: true,

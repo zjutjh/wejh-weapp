@@ -11,25 +11,25 @@ Page({
     this.observe("session", "teacher");
     this.observe("session", "icons");
     this.observe("session", "userInfo");
+    this.observe("session", "isLoggedIn");
 
-    setTimeout(() => {
-      // 判断是否登录
-      if (!app.isLogin() || !this.data.userInfo) {
-        return wx.redirectTo({
-          url: "/pages/login/login",
-        });
-      }
-      if (payload && payload.name) {
-        this.setPageState(
-          {
-            wd: payload.name,
-          },
-          () => {
-            this.getTeacher();
-          }
-        );
-      }
-    }, 500);
+    // 判断是否登录
+    if (!this.data.isLoggedIn) {
+      return wx.redirectTo({
+        url: "/pages/login/login",
+      });
+    }
+
+    if (payload && payload.name) {
+      this.setPageState(
+        {
+          wd: payload.name,
+        },
+        () => {
+          this.getTeacher();
+        }
+      );
+    }
   },
   onUnload() {
     this.disconnect();
