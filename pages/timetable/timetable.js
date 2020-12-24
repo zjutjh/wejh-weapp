@@ -1,7 +1,9 @@
 import toast from "../../utils/toast";
 import dayjs from "../../libs/dayjs/dayjs.min.js";
+import dayjs_customParseFormat from "../../libs/dayjs/plugin/customParseFormat.js";
 import dayjs_isBetween from "../../libs/dayjs/plugin/isBetween.js";
 
+dayjs.extend(dayjs_customParseFormat);
 dayjs.extend(dayjs_isBetween);
 
 const app = getApp();
