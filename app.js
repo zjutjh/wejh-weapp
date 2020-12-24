@@ -4,6 +4,10 @@ import toast from "./utils/toast";
 import Services from "./utils/services";
 import logger from "./utils/logger";
 import envConfig from "./env";
+import dayjs from "./libs/dayjs/dayjs.min.js";
+import dayjs_customParseFormat from "./libs/dayjs/plugin/customParseFormat.js";
+
+dayjs.extend(dayjs_customParseFormat);
 
 const env = (key) => envConfig[key];
 
@@ -94,9 +98,11 @@ App({
   },
   reportUserInfo(userInfo) {
     try {
-      const lastUpdateTime = Date.parse(userInfo.updated_at.split(" ")[0]);
-      const daysDiff =
-        (new Date().getTime() - lastUpdateTime) / (1000 * 3600 * 24);
+      const lastUpdate = dayjs(userInfo.updated_at, "YYYY-MM-DD hh:mm:ss");
+      if (!lastUpdate.isValid()) {
+        throw "`update_at` is invalid";
+      }
+      const daysDiff = dayjs().diff(lastUpdate, "day");
 
       const grade = userInfo.uno.substring(0, 4);
 

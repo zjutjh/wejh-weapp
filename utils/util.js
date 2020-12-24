@@ -129,22 +129,6 @@ function colorLessons(lessons) {
 
 // exports
 
-function formatTime(date) {
-  let year = date.getFullYear();
-  let month = date.getMonth() + 1;
-  let day = date.getDate();
-
-  let hour = date.getHours();
-  let minute = date.getMinutes();
-  let second = date.getSeconds();
-
-  return (
-    [year, month, day].map(formatNumber).join("/") +
-    " " +
-    [hour, minute, second].map(formatNumber).join(":")
-  );
-}
-
 // function deepClone(obj) {
 //   if (!isPlainObject(obj)) {
 //     return false;
@@ -218,19 +202,19 @@ function fixTimetable(classResult) {
 
   return colorLessons(lessons);
 }
-/**
- * 计算今日课表
- * @param {Array} data
- * @returns {Array}
- */
-function fixTimetableToday(data) {
-  if (!data || Array.isArray(data)) {
-    return [];
-  }
-  const weekday = new Date().getDay();
-  const todayData = data[weekday];
-  return data;
-}
+// /**
+//  * 计算今日课表
+//  * @param {Array} data
+//  * @returns {Array}
+//  */
+// function fixTimetableToday(data) {
+//   if (!data || Array.isArray(data)) {
+//     return [];
+//   }
+//   const weekday = new Date().getDay();
+//   const todayData = data[weekday];
+//   return data;
+// }
 function fixAppList(list) {
   return list.map((item) => {
     item.bg = "../../images/app-list/" + item.bg + ".png";
@@ -286,10 +270,11 @@ function fixCardCost(cardData) {
   const records = cardRecords
     .map((item) => -item["交易额"])
     .filter((item) => item > 0);
-  const total =
-    (records.reduce((sum, item) => {
+  const total = (
+    records.reduce((sum, item) => {
       return +sum + item * 100;
-    }, 0) / 100).toFixed(2);
+    }, 0) / 100
+  ).toFixed(2);
   const iStyle = `font-style: normal;font-size: 26rpx;color: #777;font-weight: normal;`;
   const totalStyle = `color: #ffbf92;font-weight: bold;`;
   return {
@@ -383,10 +368,9 @@ function getTrueScore(scoreString) {
 }
 
 module.exports = {
-  formatTime,
   formatNumber,
   fixTimetable,
-  fixTimetableToday,
+  // fixTimetableToday,
   fixAppList,
   fixIcons,
   fixScore,

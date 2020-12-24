@@ -1,5 +1,6 @@
 import logger from "../../utils/logger";
 import toast from "../../utils/toast";
+import dayjs from "../../libs/dayjs/dayjs.min.js";
 
 const initAppList = [];
 const initApp = {
@@ -68,9 +69,9 @@ Page({
 
     this.bootstrap();
 
-    // 这个优化掉
+    // 后续移除该属性
     this.setPageState({
-      todayTime: new Date().toLocaleDateString(),
+      todayTime: dayjs().format("YYYY-MM-DD"),
     });
   },
   onUnload() {

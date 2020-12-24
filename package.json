@@ -1,7 +1,9 @@
 {
   "private": true,
   "name": "wejh-weapp",
-  "dependencies": {},
+  "dependencies": {
+    "dayjs": "^1.9.7"
+  },
   "devDependencies": {
     "del": "^6.0.0",
     "gulp": "^4.0.2",
