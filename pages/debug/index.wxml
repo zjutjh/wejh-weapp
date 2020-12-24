@@ -41,18 +41,21 @@
       wx:if="{{isDev}}"
     ></image>
   </view>
+  <view class="u-setting-navigator f-mb-20" bindtap="clearSessionStore">
+    <text class="text">清空 session 数据</text>
+  </view>
   <view class="u-setting-navigator">
     <text class="text"
       >本地存储用量：{{storageSize}} K / {{maxStorageSize}} K</text
     >
   </view>
-  <view class="u-setting-navigator" bindtap="clearCommonStorage">
-    <text class="text">清空 common 存储</text>
+  <view class="u-setting-navigator" bindtap="clearCommonStore">
+    <text class="text">清空 common 数据和存储</text>
   </view>
-  <view class="u-setting-navigator" bindtap="clearStaticStorage">
-    <text class="text">清空 static 存储</text>
+  <view class="u-setting-navigator" bindtap="clearStaticStore">
+    <text class="text">清空 static 数据和存储</text>
   </view>
-  <view class="u-setting-navigator f-mb-20" bindtap="clearAllStorage">
+  <view class="u-setting-navigator f-mb-20" bindtap="clearLocalStorage">
     <text class="text">清空本地存储</text>
   </view>
   <navigator

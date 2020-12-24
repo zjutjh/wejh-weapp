@@ -84,12 +84,6 @@ Page({
   copyOpenId() {
     wx.setClipboardData({
       data: app.$store.getState("common", "openId") || "",
-      success() {
-        toast({
-          icon: "success",
-          title: "复制成功",
-        });
-      },
     });
   },
   setToken(event) {
@@ -107,63 +101,45 @@ Page({
   copyToken() {
     wx.setClipboardData({
       data: app.$store.getState("session", "token") || "",
-      success() {
-        toast({
-          icon: "success",
-          title: "复制成功",
-        });
-      },
     });
   },
-  clearCommonStorage() {
-    wx.removeStorage({
-      key: "common",
-      success() {
-        wx.showModal({
-          title: "提示",
-          content: "清除数据成功，请重启小程序",
-          showCancel: false,
-        });
-      },
-      fail() {
-        toast({
-          icon: "error",
-          title: "清除数据失败",
-        });
-      },
+  clearCommonStore() {
+    app.$store.clear("common");
+    wx.showModal({
+      title: "提示",
+      content: "清除完成",
+      showCancel: false,
     });
   },
-  clearStaticStorage() {
-    wx.removeStorage({
-      key: "static",
-      success() {
-        wx.showModal({
-          title: "提示",
-          content: "清除数据成功，请重启小程序",
-          showCancel: false,
-        });
-      },
-      fail() {
-        toast({
-          icon: "error",
-          title: "清除数据失败",
-        });
-      },
+  clearSessionStore() {
+    app.$store.clear("session");
+    wx.showModal({
+      title: "提示",
+      content: "清除完成",
+      showCancel: false,
     });
   },
-  clearAllStorage() {
+  clearStaticStore() {
+    app.$store.clear("static");
+    wx.showModal({
+      title: "提示",
+      content: "清除完成",
+      showCancel: false,
+    });
+  },
+  clearLocalStorage() {
     wx.clearStorage({
       success() {
         wx.showModal({
           title: "提示",
-          content: "清除数据成功，请重启小程序",
+          content: "清除本地存储成功，请重启小程序",
           showCancel: false,
         });
       },
       fail() {
         toast({
           icon: "error",
-          title: "清除数据失败",
+          title: "清除失败",
         });
       },
     });

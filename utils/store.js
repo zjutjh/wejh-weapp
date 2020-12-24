@@ -105,7 +105,7 @@ export default class WejhStore {
    */
   disconnect(page) {
     if (page.field) {
-      for (let remoteField in this.observers) {
+      for (const remoteField in this.observers) {
         if (this.debug) {
           logger.debug(
             "store",
@@ -149,12 +149,12 @@ export default class WejhStore {
    */
   notifyObservers(field, value) {
     const observerForField = this.observers[field];
-    for (let localField in observerForField) {
+    for (const localField in observerForField) {
       const item = observerForField[localField];
 
       const { page, keyMap, callbackMap } = item;
 
-      for (let localKey in keyMap) {
+      for (const localKey in keyMap) {
         const remoteKey = keyMap[localKey];
         if (value[remoteKey]) {
           const callback = callbackMap[localKey];
@@ -209,8 +209,26 @@ export default class WejhStore {
     }
   }
 
+  /**
+   * 清空特定域的数据，不通知观察者
+   */
   clear(field) {
-    // 实现清空逻辑
+    if (!this.store[field]) {
+      return;
+    }
+
+    this.store[field].data = {};
+
+    if (this.store[field].isPersistent) {
+      try {
+        wx.removeStorageSync(field);
+      } catch (err) {
+        logger.warn(
+          `Failed to clear to local storage for field: '${field}' with error: `,
+          err
+        );
+      }
+    }
   }
 
   /**
