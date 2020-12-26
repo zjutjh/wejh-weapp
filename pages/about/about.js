@@ -1,4 +1,5 @@
 import toast from "../../utils/toast";
+import dayjs from "../../libs/dayjs/dayjs.min.js";
 
 const app = getApp();
 
@@ -7,7 +8,7 @@ Page({
     name: app.name,
     versionType: app.versionType,
     version: app.version,
-    currentYear: new Date().getFullYear(),
+    currentYear: dayjs().format("YYYY"),
     headerTapCount: 0,
     // observed keys
     devMenuEnabled: false,

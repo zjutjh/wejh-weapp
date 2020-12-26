@@ -1,3 +1,5 @@
+import dayjs from "../../libs/dayjs/dayjs.min.js";
+
 const app = getApp();
 
 Page({
@@ -19,24 +21,25 @@ Page({
     this.observe("session", "card");
     this.observe("session", "icons");
     this.observe("session", "userInfo");
-    this.setPageState({
-      todayTime: new Date().toLocaleDateString(),
-    });
-    setTimeout(() => {
-      // 判断是否登录
-      if (!app.isLogin() || !this.data.userInfo) {
-        return wx.redirectTo({
-          url: "/pages/login/login",
-        });
-      }
+    this.observe("session", "isLoggedIn");
 
-      // 判断是否有成绩数据
-      if (!this.data.card) {
-        this.getCard();
-      } else {
-        this.afterGetCard();
-      }
-    }, 500);
+    this.setPageState({
+      todayTime: dayjs().format("YYYY-MM-DD"),
+    });
+
+    // 判断是否登录
+    if (!this.data.isLoggedIn) {
+      return wx.redirectTo({
+        url: "/pages/login/login",
+      });
+    }
+
+    // 判断是否有数据
+    if (!this.data.card) {
+      this.getCard();
+    } else {
+      this.afterGetCard();
+    }
   },
   onUnload() {
     this.disconnect();

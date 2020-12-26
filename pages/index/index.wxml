@@ -8,7 +8,17 @@
 
   <template is="app-list" data="{{ apps, userInfo }}" />
 
-  <view class="m-help-box" wx:if="{{helpStatus}}">
+  <noticeBox
+    id="noticeBox"
+    title="{{announcement.title}}"
+    content="{{announcement.content}}"
+    footer="{{announcement.footer}}"
+    clipboard="{{announcement.clipboard}}"
+    clipboardTip="{{announcement.clipboardTip}}"
+  >
+  </noticeBox>
+
+  <!-- <view class="m-help-box" wx:if="{{helpStatus}}">
     <view class="box">
       <view class="header">
         <text class="title">{{announcement.title}}</text>
@@ -39,7 +49,7 @@
         >{{announcement.clipboard}}</text
       >
     </view>
-  </view>
+  </view> -->
 
   <view wx:if="{{!userInfo}}" class="m-remind-box">
     <image

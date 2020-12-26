@@ -14,27 +14,27 @@ Page({
     this.observe("session", "icons");
     this.observe("session", "exam");
     this.observe("session", "userInfo");
-    setTimeout(() => {
-      // 判断是否登录
-      if (!app.isLogin() || !this.data.userInfo) {
-        return wx.redirectTo({
-          url: "/pages/login/login",
-        });
-      }
+    this.observe("session", "isLoggedIn");
 
-      if (!this.data.userInfo.ext.passwords_bind.zf_password) {
-        return wx.redirectTo({
-          url: "/pages/bind/zf",
-        });
-      }
+    // 判断是否登录
+    if (!this.data.isLoggedIn) {
+      return wx.redirectTo({
+        url: "/pages/login/login",
+      });
+    }
 
-      // 判断是否有成绩数据
-      if (!this.data.exam) {
-        this.getExam(this.afterGetExam);
-      } else {
-        this.afterGetExam();
-      }
-    }, 500);
+    if (!this.data.userInfo.ext.passwords_bind.zf_password) {
+      return wx.redirectTo({
+        url: "/pages/bind/zf",
+      });
+    }
+
+    // 判断是否有数据
+    if (!this.data.exam) {
+      this.getExam(this.afterGetExam);
+    } else {
+      this.afterGetExam();
+    }
   },
   onUnload() {
     this.disconnect();

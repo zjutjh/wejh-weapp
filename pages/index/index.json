@@ -1,7 +1,9 @@
 {
   "enablePullDownRefresh": true,
   "backgroundTextStyle": "dark",
+  "backgroundColor": "#ffffff",
   "usingComponents": {
-    "tooltip": "/components/tooltip/tooltip"
+    "tooltip": "/components/tooltip/tooltip",
+    "noticeBox": "/components/notice-box/notice-box"
   }
 }
