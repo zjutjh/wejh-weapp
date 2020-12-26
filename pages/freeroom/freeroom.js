@@ -172,7 +172,12 @@ Page({
     const { week, day: weekday } = this.data.time;
 
     if (currentPeriodKey === "c12p") {
-      weekday = (week + 1) % 7;
+      if (weekday === 7) {
+        if (week < _weeks.length) {
+          week = week + 1;
+        }
+      }
+      weekday = (weekday + 1) % 7;
     }
 
     const oldForm = this.data.form;
