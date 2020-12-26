@@ -371,6 +371,13 @@ text {
   overflow: hidden;
 }
 
+.m-app-list .item .item-badge {
+  position: absolute;
+  top: 0;
+  right: 16rpx;
+  z-index: 99;
+}
+
 .m-app-list .item .item-image {
   position: relative;
   align-items: center;
@@ -2110,6 +2117,12 @@ text {
   margin-right: 30rpx;
   width: 10vh;
   height: 100%;
+}
+
+.m-freeroom .room-condition .condition .option .badge {
+  position: absolute;
+  top: 16rpx;
+  right: 16rpx;
 }
 
 .m-freeroom .room-condition .condition .option .text {

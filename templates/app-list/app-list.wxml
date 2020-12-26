@@ -7,6 +7,14 @@
       data-index="{{index}}"
       class="item{{item.disabled || !userInfo ? ' disabled' : ''}}{{item.ad ? ' ad' : ''}}"
     >
+      <red-dot
+        wx:if="{{item.badge}}"
+        class="item-badge"
+        enabled="{{userInfo}}"
+        path="{{item.badge.path}}"
+        displayMode="{{ {type: item.badge.type || 'simple', content: item.badge.content} }}"
+        unclearedBadges="{{unclearedBadges}}"
+      ></red-dot>
       <view class="item-image">
         <image
           src="{{item.icon}}"

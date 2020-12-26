@@ -6,7 +6,7 @@
 >
   <tooltip id="tooltip"></tooltip>
 
-  <template is="app-list" data="{{ apps, userInfo }}" />
+  <template is="app-list" data="{{ apps, userInfo, unclearedBadges }}" />
 
   <noticeBox
     id="noticeBox"

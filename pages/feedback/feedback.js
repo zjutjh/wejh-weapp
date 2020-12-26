@@ -1,5 +1,6 @@
-let app = getApp();
-let groupInfo = [
+const app = getApp();
+
+const groupInfo = [
   {
     name: "一群",
     id: "462530805",
@@ -9,9 +10,13 @@ let groupInfo = [
     id: "282402782",
   },
 ];
+
 Page({
   data: {},
   onLoad() {},
+  onShow() {
+    app.badgeManager.clearBadge("/home/feedback");
+  },
   copyGroupId() {
     wx.showActionSheet({
       itemList: groupInfo.map((info) => `${info.id}（${info.name}）`),

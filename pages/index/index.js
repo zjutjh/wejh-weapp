@@ -42,6 +42,8 @@ Page({
     this.observe("session", "apps");
     this.observe("session", "icons");
 
+    this.observe("session", "unclearedBadges");
+
     this.observe("session", "announcement", null, (newValues) => {
       const { announcement } = newValues;
       if (!announcement) {
@@ -73,6 +75,9 @@ Page({
     this.setPageState({
       todayTime: dayjs().format("YYYY-MM-DD"),
     });
+  },
+  onShow() {
+    app.badgeManager.updateBadgeForTabBar();
   },
   onUnload() {
     this.disconnect();
@@ -192,6 +197,18 @@ Page({
         appId: appItem.appId,
         path: appItem.path,
         extraData: appItem.extraData,
+        success() {
+          if (appItem.badge && appItem.badge.clearPath) {
+            app.badgeManager.clearBadge(appItem.badge.clearPath);
+          }
+        },
+        fail(err) {
+          logger.warn(
+            "index",
+            `Failed to navigate to weApp with appId: ${appItem.appId}, error: `,
+            err
+          );
+        },
       });
     }
     wx.navigateTo({

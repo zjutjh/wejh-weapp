@@ -51,6 +51,7 @@
             catchtap="chooseOption"
             data-type="{{condition.name}}"
             data-value="{{item.value}}"
+            data-badge-path="{{item.badge.path || ''}}"
             class="option{{form[condition.name] == item.value ? ' active' : ''}}"
             id="option_{{block_id}}_{{option_id}}"
             wx:for="{{condition.options}}"
@@ -62,6 +63,13 @@
               class="choose-bg"
               src="/images/app-list/{{optionsColor[condition.name]}}.png"
             ></image>
+            <red-dot
+              wx:if="{{item.badge}}"
+              class="badge"
+              path="{{item.badge.path}}"
+              displayMode="{{ {type: 'simple'} }}"
+              unclearedBadges="{{unclearedBadges}}"
+            ></red-dot>
           </view>
         </scroll-view>
       </view>

@@ -125,6 +125,12 @@ $room-option-height: 10vh;
         width: $room-option-height;
         height: 100%;
 
+        .badge {
+          position: absolute;
+          top: 16rpx;
+          right: 16rpx;
+        }
+
         .text {
           position: absolute;
           top: 50%;
