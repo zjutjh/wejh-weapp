@@ -117,6 +117,9 @@ Page({
             {
               text: "莫干山\n校区",
               value: "03",
+              badge: {
+                path: "/index/freeroom/moganshan",
+              },
             },
           ],
         },
@@ -152,6 +155,7 @@ Page({
     this.observe("session", "userInfo");
     this.observe("session", "time");
     this.observe("session", "freeroom");
+    this.observe("session", "unclearedBadges");
     this.observe("static", "cachedFreeRoomForm");
 
     if (!this.data.isLoggedIn) {
@@ -169,15 +173,17 @@ Page({
     }
 
     const currentPeriodKey = getCurrentPeriod().key;
-    const { week, day: weekday } = this.data.time;
+    let { week, day: weekday } = this.data.time;
 
     if (currentPeriodKey === "c12p") {
       if (weekday === 7) {
         if (week < _weeks.length) {
           week = week + 1;
         }
+        weekday = 1;
+      } else {
+        weekday = weekday + 1;
       }
-      weekday = (weekday + 1) % 7;
     }
 
     const oldForm = this.data.form;
@@ -203,7 +209,11 @@ Page({
     this.disconnect();
   },
   chooseOption(event) {
-    const { type, value } = event.currentTarget.dataset;
+    const { type, value, badgePath } = event.currentTarget.dataset;
+
+    if (badgePath) {
+      app.badgeManager.clearBadge(badgePath);
+    }
 
     const form = this.data.form;
     form[type] = value;

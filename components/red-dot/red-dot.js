@@ -12,9 +12,9 @@ Component({
       value: {
         type: "static",
         content: "",
-        observer: function (newVal, oldVal) {
-          this.refresh();
-        },
+      },
+      observer: function (newVal, oldVal) {
+        this.refresh();
       },
     },
     enabled: {

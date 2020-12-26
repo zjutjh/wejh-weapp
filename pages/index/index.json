@@ -4,6 +4,7 @@
   "backgroundColor": "#ffffff",
   "usingComponents": {
     "tooltip": "/components/tooltip/tooltip",
-    "noticeBox": "/components/notice-box/notice-box"
+    "noticeBox": "/components/notice-box/notice-box",
+    "red-dot": "/components/red-dot/red-dot"
   }
 }
