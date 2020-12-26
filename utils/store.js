@@ -65,6 +65,11 @@ export default class WejhStore {
       if (this.setData) {
         // 更新到 data 中
         this.setData(value);
+      } else {
+        this.data = {
+          ...this.data,
+          ...value,
+        };
       }
       // if (_this.debug) {
       //   console.log(`currentData: `, this.data);

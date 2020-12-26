@@ -9,7 +9,11 @@ Page({
     app.$store.connect(this, "home");
     this.observe("session", "userInfo");
     this.observe("session", "time");
+    this.observe("session", "unclearedBadges");
     this.observe("static", "devMenuEnabled");
+  },
+  onShow() {
+    app.badgeManager.updateBadgeForTabBar();
   },
   onUnload() {
     this.disconnect();

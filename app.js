@@ -1,5 +1,6 @@
 import WejhStore from "./utils/store";
 import Fetch from "./utils/fetch";
+import BadgeManager from "./utils/badgeManager";
 import toast from "./utils/toast";
 import Services from "./utils/services";
 import logger from "./utils/logger";
@@ -64,6 +65,10 @@ const fetch = Fetch({
 
 const services = Services({
   fetch,
+  store,
+});
+
+const badgeManager = BadgeManager({
   store,
 });
 
@@ -191,4 +196,5 @@ App({
   services,
   fetch,
   $store: store,
+  badgeManager,
 });

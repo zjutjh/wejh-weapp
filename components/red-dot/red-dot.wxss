@@ -1,0 +1,25 @@
+.red-dot {
+  background-color: #ff6c6c;
+}
+
+.red-dot.disabled {
+  background-color: #868e96;
+}
+
+.red-dot.filled {
+  height: 36rpx;
+  border-radius: calc(36rpx / 2);
+  padding: 0 12rpx;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  vertical-align: middle;
+  text-align: center;
+  color: white;
+}
+
+.red-dot.empty {
+  text-align: center;
+  height: 18rpx;
+  width: 18rpx;
+  border-radius: 50%;
+}
