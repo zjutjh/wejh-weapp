@@ -1,3 +1,5 @@
+import logger from "./logger";
+
 import dayjs from "../libs/dayjs/dayjs.min.js";
 import dayjs_customParseFormat from "../libs/dayjs/plugin/customParseFormat.js";
 import dayjs_isBetween from "../libs/dayjs/plugin/isBetween.js";
@@ -43,7 +45,9 @@ const getPeriodFromDate = (date) => {
     if (
       dayjs(date).isBetween(
         dayjs(period.begin, "H:mm"),
-        dayjs(period.end, "H:mm")
+        dayjs(period.end, "H:mm"),
+        "minute",
+        "[]"
       )
     ) {
       return {
@@ -52,6 +56,7 @@ const getPeriodFromDate = (date) => {
       };
     }
   }
+  logger.error("schedule", "No period key found for date: ", date);
   return null;
 };
 
