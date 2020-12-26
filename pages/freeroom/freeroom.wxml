@@ -44,6 +44,7 @@
           wx:for-item="condition"
           wx:key="block_id"
           wx:for-index="condition_key"
+          scroll-into-view="option_{{block_id}}_{{form[condition.name]}}"
         >
           <!-- 选项 -->
           <view
@@ -51,6 +52,7 @@
             data-type="{{condition.name}}"
             data-value="{{item.value}}"
             class="option{{form[condition.name] == item.value ? ' active' : ''}}"
+            id="option_{{block_id}}_{{option_id}}"
             wx:for="{{condition.options}}"
             wx:key="name"
             wx:for-index="option_id"
