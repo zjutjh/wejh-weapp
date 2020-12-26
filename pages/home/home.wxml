@@ -33,11 +33,6 @@
         src="../../images/home/setting.png"
       ></image>
       <text class="text">设置</text>
-      <red-dot
-        identifier="/home/settings/"
-        displayMode="{{ {type: 'count', content:'New'} }}"
-        unclearedRedDots="{{unclearedRedDots}}"
-      ></red-dot>
       <image
         class="icon-next"
         src="/images/common/next-gray.png"
@@ -65,6 +60,11 @@
       src="../../images/home/feedback.png"
     ></image>
     <text class="text">帮助与反馈</text>
+    <red-dot
+      path="/home/feedback"
+      displayMode="{{ {type: 'simple'} }}"
+      unclearedBadges="{{unclearedBadges}}"
+    ></red-dot>
     <image
       class="icon-next"
       src="/images/common/next-gray.png"

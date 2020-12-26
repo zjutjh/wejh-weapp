@@ -1,18 +1,26 @@
+@import "../../scss/scss/_variables";
+
 .red-dot {
-  background-color: red;
-  &-filled {
+  background-color: $theme-red;
+  &.disabled {
+    background-color: $gray-600;
+  }
+  &.filled {
+    $badge-height: 36rpx;
+    height: $badge-height;
+    border-radius: calc(#{$badge-height} / 2);
+    padding: 0 12rpx;
+    font-size: 24rpx;
+    line-height: $badge-height;
     vertical-align: middle;
     text-align: center;
-    width: auto;
-    border-radius: 15rpx;
-    font-size: 24rpx;
-    padding: 5rpx 12rpx;
     color: white;
   }
-  &-empty {
+  &.empty {
+    $badge-size: 18rpx;
     text-align: center;
-    height: 18rpx;
-    width: 18rpx;
+    height: $badge-size;
+    width: $badge-size;
     border-radius: 50%;
   }
 }

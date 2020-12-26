@@ -1,5 +1,6 @@
 import WejhStore from "./utils/store";
 import Fetch from "./utils/fetch";
+import BadgeManager from "./utils/badgeManager";
 import toast from "./utils/toast";
 import Services from "./utils/services";
 import logger from "./utils/logger";
@@ -8,118 +9,6 @@ import dayjs from "./libs/dayjs/dayjs.min.js";
 import dayjs_customParseFormat from "./libs/dayjs/plugin/customParseFormat.js";
 
 dayjs.extend(dayjs_customParseFormat);
-
-// wx.setStorage({
-//   key:"home/setting/labs",
-//   data:"1",
-// });
-// wx.setStorage("home/setting", "1");
-// wx.setStorage("home", "1");
-
-// if (wx.getStorageSync({key:"home/setting/labs"})) {
-//   wx.hideTabBarRedDot({
-//     index: 2,
-//   });
-// }
-
-// wx.removeStorage({key:"home"});
-// if (wx.getStorageSync({key:"home"})) {
-//   wx.showTabBarRedDot({
-//     index: 2,
-//   });
-// } else {
-//   wx.showTabBarRedDot({
-//     index: 0,
-//   });
-// }
-
-wx.setStorage({
-  key: "home/setting/labs",
-  data: "1",
-});
-wx.getStorage({
-  key: "home/setting/labs",
-  success(res) {
-    wx.setStorage({
-      key: "home/setting",
-      data: "1",
-    });
-  },
-  fail(res) {
-    wx.removeStorage({ key: "home/setting" });
-  },
-  complete(res) {
-    wx.getStorage({
-      key: "home/setting",
-      success(res) {
-        wx.setStorage({
-          key: "home",
-          data: "1",
-        });
-      },
-      fail(res) {
-        wx.removeStorage({ key: "home" });
-      },
-      complete(res) {
-        wx.getStorage({
-          key: "home",
-          success(res) {
-            wx.showTabBarRedDot({
-              index: 2,
-            });
-          },
-          fail(res) {
-            wx.hideTabBarRedDot({
-              index: 2,
-            });
-          },
-        });
-      },
-    });
-  },
-});
-
-// wx.removeStorage({key:"home/setting/labs"});
-// if (wx.getStorageSync({ key: "home/setting/labs" }) == "1") {
-//   // wx.setStorage({
-//   //   key:"home/setting",
-//   //   data:"1",
-//   // });
-//   wx.showTabBarRedDot({
-//     index: 2,
-//   });
-// } else {
-//   // wx.removeStorage({key:"home/setting"});
-//   wx.showTabBarRedDot({
-//     index: 0,
-//   });
-//   console.log(wx.getStorageSync({ key: "home/setting/labs" }));
-// }
-
-// if (wx.getStorageSync({ key: "home/setting" })) {
-//   wx.setStorage({
-//     key: "home",
-//     data: "1",
-//   });
-//   // wx.showTabBarRedDot({
-//   //   index: 2,
-//   // });
-// } else {
-//   wx.removeStorage({ key: "home" });
-//   // wx.showTabBarRedDot({
-//   //   index: 0,
-//   // });
-// }
-
-// // if (wx.getStorageSync({key:"home"})) {
-// //   wx.showTabBarRedDot({
-// //     index: 2,
-// //   });
-// // } else {
-// //   wx.showTabBarRedDot({
-// //     index: 0,
-// //   });
-// // }
 
 const env = (key) => envConfig[key];
 
@@ -176,6 +65,10 @@ const fetch = Fetch({
 
 const services = Services({
   fetch,
+  store,
+});
+
+const badgeManager = BadgeManager({
   store,
 });
 
@@ -303,4 +196,5 @@ App({
   services,
   fetch,
   $store: store,
+  badgeManager,
 });

@@ -58,6 +58,7 @@ export default function ({ store, fetch }) {
             apps: util.fixAppList(data.appList["app-list"]),
             icons: util.fixIcons(data.appList.icons),
             announcement: data.announcement,
+            badges: data.badges,
             time: data.termTime,
           });
           updateLoggedInState();

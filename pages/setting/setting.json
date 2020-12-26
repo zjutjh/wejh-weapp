@@ -1,7 +1,4 @@
 {
   "enablePullDownRefresh": false,
-  "navigationBarTitleText": "设置",
-  "usingComponents": {
-    "red-dot": "/components/red-dot/red-dot"
-  }
+  "navigationBarTitleText": "设置"
 }

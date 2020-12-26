@@ -1,17 +1,34 @@
+/**
+ * 红点提示组件，后续补全文档
+ */
 Component({
   properties: {
+    // {
+    //   type: "count|static|simple",
+    //   content: ""
+    // }
     displayMode: {
       type: Object,
       value: {
         type: "static",
         content: "",
+        observer: function (newVal, oldVal) {
+          this.refresh();
+        },
       },
     },
-    identifier: {
+    enabled: {
+      type: Boolean,
+      value: true,
+    },
+    path: {
       type: String,
       value: "",
+      observer: function (newVal, oldVal) {
+        this.refresh();
+      },
     },
-    unclearedRedDots: {
+    unclearedBadges: {
       type: Array,
       value: [],
       observer: function (newVal, oldVal) {
@@ -21,7 +38,7 @@ Component({
   },
   data: {
     isVisible: false,
-    content: "123123",
+    content: "",
   },
   lifetimes: {
     attached: function () {
@@ -33,19 +50,20 @@ Component({
   },
   methods: {
     refresh: function () {
-      const { displayMode, unclearedRedDots, identifier } = this.data;
+      const { displayMode, unclearedBadges, path } = this.data;
 
-      if (!displayMode || !displayMode.type) {
+      if (!(displayMode && displayMode.type)) {
         return;
       }
 
-      const cnt = unclearedRedDots.reduce((total, currentVal) => {
-        return total + (currentVal.startsWith(identifier) ? 1 : 0);
+      const cnt = unclearedBadges.reduce((total, currentVal) => {
+        return total + (currentVal.startsWith(path) ? 1 : 0);
       }, 0);
 
       if (cnt > 0) {
         if (displayMode.type == "static") {
           this.setData({
+            isVisible: true,
             content: displayMode.content || "",
           });
         } else if (displayMode.type == "count") {
@@ -53,18 +71,17 @@ Component({
             isVisible: true,
             content: cnt,
           });
+        } else {
+          this.setData({
+            isVisible: true,
+            content: "",
+          });
         }
       } else {
         this.setData({
           isVisible: false,
         });
       }
-      // /home/setting/
     },
   },
 });
-
-// {
-//   type: "count|static|simple",
-//   content: ""
-// }
