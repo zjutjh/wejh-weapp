@@ -211,6 +211,16 @@ Page({
   chooseOption(event) {
     const { type, value, badgePath } = event.currentTarget.dataset;
 
+    try {
+      wx.reportAnalytics('freeroom_options', {
+        uno: this.data.userInfo.uno,
+        freeroom_option_name: type,
+        freeroom_option_value: value,
+      });
+    } catch (err) {
+      logger.error("app", "空教室埋点上报异常", err);
+    }
+
     if (badgePath) {
       app.badgeManager.clearBadge(badgePath);
     }
