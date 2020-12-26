@@ -60,7 +60,7 @@ const weekArr = _weeks.map((week, idx) => {
 const periodRangeMap = {
   c0: { startTime: 0, endTime: 1 }, //     第 1 节前,   默认查询  1-2 节的空教室
   c1: { startTime: 0, endTime: 1 }, //     第 1 节中,   默认查询  1-2 节的空教室
-  c1p: { startTime: 2, endTime: 1 }, //    第 1 节课间, 默认查询第  2 节的空教室
+  c1p: { startTime: 2, endTime: 2 }, //    第 1 节课间, 默认查询第  2 节的空教室
   c2: { startTime: 2, endTime: 3 }, //     第 2 节中,   默认查询  3-4 节的空教室
   c2p: { startTime: 2, endTime: 3 }, //    第 2 节课间, 默认查询  3-4 节的空教室
   c3: { startTime: 2, endTime: 3 }, //     第 3 节中,   默认查询  3-4 节的空教室
