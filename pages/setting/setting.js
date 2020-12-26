@@ -1,3 +1,6 @@
 const app = getApp();
 
-Page({});
+Page({
+  data: {},
+  onLoad() {},
+});
