@@ -33,7 +33,7 @@ if (typeof __wxConfig === "object") {
   }
 }
 
-const isDev = versionType === "develop";
+const isDev = versionType === "develop" || versionType === "beta";
 
 if (isDev) {
   logger.info("app", "当前运行环境: " + versionType);
