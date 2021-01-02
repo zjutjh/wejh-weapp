@@ -1,9 +1,9 @@
 <import src="/templates/wave-logo/wave-logo.wxml"></import>
 
-<view class="m-loading-box" wx:if="{{showLoading}}">
+<!-- <view class="m-loading-box" wx:if="{{showLoading}}">
   <image class="icon-loading" src="/images/common/loading.gif"></image>
-</view>
-<view class="container f-bg-gray-form-gradient f-bd-rise" wx:else>
+</view> -->
+<view class="container f-bg-gray-form-gradient">
   <template is="wave-logo"></template>
 
   <form class="f-bg-gray-form-gradient m-wave-form closely">

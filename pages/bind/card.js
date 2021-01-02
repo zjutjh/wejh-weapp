@@ -7,16 +7,9 @@ const form = {
 };
 
 Page({
-  data: {
-    showLoading: true,
-  },
+  data: {},
   onLoad() {
     app.$store.connect(this, "binding.card");
-    setTimeout(() => {
-      this.setPageState({
-        showLoading: false,
-      });
-    }, 1000);
   },
   onUnload() {
     this.disconnect();

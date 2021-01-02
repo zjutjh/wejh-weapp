@@ -9,15 +9,9 @@ const form = {
 Page({
   data: {
     helpStatus: false,
-    showLoading: true,
   },
   onLoad() {
     app.$store.connect(this, "binding.ycjw");
-    setTimeout(() => {
-      this.setPageState({
-        showLoading: false,
-      });
-    }, 1000);
   },
   onUnload() {
     this.disconnect();

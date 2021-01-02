@@ -13,11 +13,6 @@ Page({
   },
   onLoad() {
     app.$store.connect(this, "binding.ycjw");
-    setTimeout(() => {
-      this.setPageState({
-        showLoading: false,
-      });
-    }, 1000);
   },
   onUnload() {
     this.disconnect();
