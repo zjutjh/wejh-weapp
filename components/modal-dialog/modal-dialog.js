@@ -38,19 +38,8 @@ Component({
     },
     clipboard() {
       if (this.data.clipboard) {
-        const text = this.data.clipboard;
-        const tip = this.data.clipboardTip;
-        wx.setClipboardData({
-          data: text,
-          success() {
-            if (tip) {
-              toast({
-                icon: "success",
-                title: tip,
-              });
-            }
-          },
-        });
+        const { clipboard: text, clipboardTip: tip } = this.data;
+        wx.setClipboardData({ data: text });
       }
     },
   },

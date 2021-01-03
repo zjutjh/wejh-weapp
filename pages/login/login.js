@@ -9,18 +9,21 @@ const form = {
 
 Page({
   data: {
-    showLoading: true,
-    helpStatus: false,
+    helpModal: {
+      title: "帮助",
+      content: `
+      <p class="question">1、帐号和密码是什么？</p>
+      <p class="answer">账号是学号，密码是你自己设置的，没有默认密码哦~</p>
+      <p class="answer">请先确定是否激活过精弘通行证</p>
+      <p class="answer">如未激活，请点击“激活账号”按钮进行激活通行证操作</p>
+      <p class="answer">否则请进行忘记密码操作</p>
+      <p class="question">2、忘记密码？</p>
+      <p class="answer">请点击下方 “忘记密码?” 按钮，并使用身份证进行重置密码</p>`,
+    },
   },
   onLoad() {
     app.$store.connect(this, "login");
-
-    // 直接显示会有动画bug，所以需要先挂载一段时间再显示
-    setTimeout(() => {
-      this.setPageState({
-        showLoading: false,
-      });
-    }, 1000);
+    this.helpModal = this.selectComponent("#helpModal");
   },
   onUnload() {
     this.disconnect();
@@ -78,13 +81,6 @@ Page({
     });
   },
   showHelp() {
-    this.setPageState({
-      helpStatus: true,
-    });
-  },
-  hideHelp() {
-    this.setPageState({
-      helpStatus: false,
-    });
+    this.helpModal.show();
   },
 });

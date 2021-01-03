@@ -28,7 +28,7 @@ Page({
     app.$store.connect(this, "index");
 
     this.tooltip = this.selectComponent("#tooltip");
-    this.noticeBox = this.selectComponent("#noticeBox");
+    this.announcementModal = this.selectComponent("#announcementModal");
 
     this.observe("session", "isLoggedIn", null, (newVal) => {
       if (newVal.isLoggedIn) {
@@ -52,7 +52,7 @@ Page({
       const announcementId =
         app.$store.getState("static", "announcementId") || 0;
       if (announcementId < announcement.id) {
-        this.noticeBox.show();
+        this.announcementModal.show();
         app.$store.setState("static", { announcementId: announcement.id });
       }
     });
