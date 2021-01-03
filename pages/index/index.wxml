@@ -18,39 +18,6 @@
   >
   </noticeBox>
 
-  <!-- <view class="m-help-box" wx:if="{{helpStatus}}">
-    <view class="box">
-      <view class="header">
-        <text class="title">{{announcement.title}}</text>
-        <image
-          class="icon-close"
-          src="/images/common/close.png"
-          bindtap="hideHelp"
-          mode="aspectFit"
-        ></image>
-      </view>
-      <rich-text
-        class="content announcement"
-        type="text"
-        nodes="{{announcement.content}}"
-      >
-      </rich-text>
-      <text
-        class="footer announcement"
-        selectable="true"
-        wx:if="{{announcement.footer}}"
-        >{{announcement.footer}}</text
-      >
-      <text
-        class="clipboard announcement"
-        selectable="true"
-        bindtap="clipboard"
-        wx:if="{{announcement.clipboard}}"
-        >{{announcement.clipboard}}</text
-      >
-    </view>
-  </view> -->
-
   <view wx:if="{{!userInfo}}" class="m-remind-box">
     <image
       class="remind-img"
