@@ -1,0 +1,24 @@
+<view class="m-help-box" wx:if="{{isVisible}}">
+  <view class="box">
+    <view class="header">
+      <text class="title">{{title}}</text>
+      <image
+        class="icon-close"
+        src="/images/common/close.png"
+        bindtap="hide"
+        mode="aspectFit"
+      ></image>
+    </view>
+    <view class="body">
+      <view class="content">
+        <rich-text type="text" nodes="{{content}}"></rich-text>
+      </view>
+      <view class="footer" selectable="true" wx:if="{{footer}}"
+        >{{footer}}</view
+      >
+      <view class="clipboard" bindtap="clipboard" wx:if="{{clipboard}}"
+        >{{clipboard}}</view
+      >
+    </view>
+  </view>
+</view>

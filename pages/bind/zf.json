@@ -1,5 +1,8 @@
 {
   "disableScroll": true,
   "enablePullDownRefresh": false,
-  "navigationBarTitleText": "绑定正方教务账号"
+  "navigationBarTitleText": "绑定正方教务账号",
+  "usingComponents": {
+    "modal-dialog": "/components/modal-dialog/modal-dialog"
+  }
 }

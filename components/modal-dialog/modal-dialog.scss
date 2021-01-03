@@ -1,3 +1,5 @@
+@import "../../scss/scss/_variables";
+
 .m-help-box {
   position: fixed;
   z-index: 99;
@@ -30,56 +32,47 @@
       }
     }
 
-    .content {
-      font-size: 30rpx;
-      padding: 25rpx 36rpx 40rpx;
+    .body {
+      display: block;
+      width: 100%;
+      color: #555;
+      overflow: hidden;
+      line-height: 180%;
+      letter-spacing: 2rpx;
+      text-align: justify;
+      word-break: break-all;
 
-      &.announcement {
-        display: block;
-        width: 100%;
-        text-indent: 2em;
+      .content {
+        padding: 25rpx 36rpx 40rpx;
         font-size: 28rpx;
-        // font-weight: 100;
-        overflow: hidden;
-        line-height: 180%;
-        color: #555;
-        letter-spacing: 4rpx;
-      }
+        text-indent: 2em;
 
-      .question {
-        font-size: 30rpx;
-        line-height: 200%;
-        color: $gray-600;
-      }
+        & .question {
+          font-size: 30rpx;
+          text-indent: 0;
+          line-height: 200%;
+          color: $gray-600;
+        }
 
-      .answer {
-        display: flex;
-        flex-direction: column;
-        text-indent: 1em;
-        font-size: 24rpx;
+        & .answer {
+          display: flex;
+          flex-direction: column;
+          font-size: 24rpx;
 
-        text {
-          line-height: 160%;
-          word-break: break-all;
-          color: $gray-700;
+          text {
+            line-height: 160%;
+            word-break: break-all;
+            color: $gray-700;
+          }
         }
       }
-    }
-    .announcement {
-      &.footer,
-      &.clipboard {
-        display: block;
-        text-indent: 2em;
-        font-size: 28rpx;
-        // font-weight: 100;
-        overflow: hidden;
-        line-height: 180%;
-        color: #555;
-        letter-spacing: 4rpx;
+
+      .footer {
         padding: 0 36rpx 40rpx;
+        font-size: 28rpx;
       }
 
-      &.clipboard {
+      .clipboard {
         margin: 20rpx 30rpx;
         padding: 20rpx;
         font-size: 26rpx;

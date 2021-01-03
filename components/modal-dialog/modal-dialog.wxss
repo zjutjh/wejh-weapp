@@ -32,53 +32,48 @@
   font-size: 32rpx;
 }
 
-.m-help-box .box .content {
-  font-size: 30rpx;
-  padding: 25rpx 36rpx 40rpx;
-}
-
-.m-help-box .box .content.announcement {
+.m-help-box .box .body {
   display: block;
   width: 100%;
-  text-indent: 2em;
-  font-size: 28rpx;
+  color: #555;
   overflow: hidden;
   line-height: 180%;
-  color: #555;
-  letter-spacing: 4rpx;
+  letter-spacing: 2rpx;
+  text-align: justify;
+  word-break: break-all;
 }
 
-.m-help-box .box .content .question {
+.m-help-box .box .body .content {
+  padding: 25rpx 36rpx 40rpx;
+  font-size: 28rpx;
+  text-indent: 2em;
+}
+
+.m-help-box .box .body .content .question {
   font-size: 30rpx;
+  text-indent: 0;
   line-height: 200%;
   color: #868e96;
 }
 
-.m-help-box .box .content .answer {
+.m-help-box .box .body .content .answer {
   display: flex;
   flex-direction: column;
-  text-indent: 1em;
   font-size: 24rpx;
 }
 
-.m-help-box .box .content .answer text {
+.m-help-box .box .body .content .answer text {
   line-height: 160%;
   word-break: break-all;
   color: #495057;
 }
 
-.m-help-box .box .announcement.footer, .m-help-box .box .announcement.clipboard {
-  display: block;
-  text-indent: 2em;
-  font-size: 28rpx;
-  overflow: hidden;
-  line-height: 180%;
-  color: #555;
-  letter-spacing: 4rpx;
+.m-help-box .box .body .footer {
   padding: 0 36rpx 40rpx;
+  font-size: 28rpx;
 }
 
-.m-help-box .box .announcement.clipboard {
+.m-help-box .box .body .clipboard {
   margin: 20rpx 30rpx;
   padding: 20rpx;
   font-size: 26rpx;
