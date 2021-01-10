@@ -6,7 +6,7 @@
   "backgroundColorBottom": "#f0eff5",
   "usingComponents": {
     "tooltip": "/components/tooltip/tooltip",
-    "noticeBox": "/components/notice-box/notice-box",
+    "modal-dialog": "/components/modal-dialog/modal-dialog",
     "red-dot": "/components/red-dot/red-dot"
   }
 }

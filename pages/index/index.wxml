@@ -8,15 +8,15 @@
 
   <template is="app-list" data="{{ apps, userInfo, unclearedBadges }}" />
 
-  <noticeBox
-    id="noticeBox"
+  <modal-dialog
+    id="announcementModal"
     title="{{announcement.title}}"
     content="{{announcement.content}}"
     footer="{{announcement.footer}}"
     clipboard="{{announcement.clipboard}}"
     clipboardTip="{{announcement.clipboardTip}}"
   >
-  </noticeBox>
+  </modal-dialog>
 
   <view wx:if="{{!userInfo}}" class="m-remind-box">
     <image

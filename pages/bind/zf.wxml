@@ -29,28 +29,10 @@
     </view>
   </form>
 
-  <view class="m-help-box" wx:if="{{helpStatus}}">
-    <view class="box">
-      <view class="header">
-        <text class="title">帮助</text>
-        <image
-          class="icon-close"
-          src="/images/common/close.png"
-          bindtap="hideHelp"
-          mode="aspectFit"
-        ></image>
-      </view>
-      <view class="content">
-        <view class="question">1、正方教务系统是什么？</view>
-        <view class="answer">
-          <text>正方教务系统就是你选课的系统哦~</text>
-          <text>那么密码就是你选课的密码~</text>
-        </view>
-        <view class="question">2、忘记密码？</view>
-        <view class="answer">
-          <text>请找自己的辅导员重置密码。</text>
-        </view>
-      </view>
-    </view>
-  </view>
+  <modal-dialog
+    id="helpModal"
+    title="{{helpModal.title}}"
+    content="{{helpModal.content}}"
+  >
+  </modal-dialog>
 </view>
