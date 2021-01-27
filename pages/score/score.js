@@ -7,8 +7,6 @@ Page({
   data: {
     sort: false,
     isDetail: false,
-    sortAnimation: false,
-    detailAnimation: false,
     hideScore: false,
     hideInfo: false,
     showLoading: true,
@@ -72,14 +70,10 @@ Page({
     const isDetail = this.data.isDetail;
     if (isDetail) {
       this.setPageState({
-        detailAnimation: true,
         isDetail: !isDetail,
       });
       wx.hideLoading();
     } else {
-      this.setPageState({
-        detailAnimation: true,
-      });
       app.services.getScoreDetail(() => {
         wx.hideLoading();
         this.setPageState({
@@ -87,24 +81,11 @@ Page({
         });
       });
     }
-
-    setTimeout(() => {
-      this.setPageState({
-        detailAnimation: false,
-      });
-    }, 500);
   },
   toggleSort() {
     this.setPageState({
-      sortAnimation: true,
       sort: !this.data.sort,
     });
-
-    setTimeout(() => {
-      this.setPageState({
-        sortAnimation: false,
-      });
-    }, 500);
   },
   getScore() {
     app.services.getScore(this.afterGetScore, {

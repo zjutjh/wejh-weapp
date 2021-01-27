@@ -213,29 +213,21 @@ text {
   height: 250rpx;
 }
 
-.sort-touch {
+.toolbar-icon {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   height: 100rpx;
   width: 100rpx;
 }
 
-.detail-touch {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-  height: 100rpx;
-  width: 100rpx;
-}
-
-.icon-sort {
+.toolbar-icon .icon {
   width: 40rpx;
   height: 40rpx;
 }
 
-.icon-sort.active {
+.toolbar-icon.active {
   animation: bubble-in 500ms ease-out;
 }
 
@@ -1654,37 +1646,35 @@ text {
   transform: rotate(0deg);
 }
 
+.m-score .score-content .score-list .score-item .head .sub-info {
+  font-size: 32rpx;
+  margin: 0 12rpx 0 auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .m-score .score-content .score-list .score-item .head .main-info {
   max-width: 80%;
+  padding-right: 32rpx;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.m-score .score-content .score-list .score-item .head .name {
+.m-score .score-content .score-list .score-item .head .main-info .name {
   margin-bottom: 10rpx;
   font-size: 32rpx;
-  transition: color 0.15s ease-in-out;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.m-score .score-content .score-list .score-item .head .subtitle {
+.m-score .score-content .score-list .score-item .head .main-info .subtitle {
   font-size: 26rpx;
   line-height: 100%;
   color: #aaa;
-}
-
-.m-score .score-content .score-list .score-item .head .subtitle .countdown {
-  font-size: 26rpx;
-  line-height: 100%;
-  color: #aaa;
-}
-
-.m-score .score-content .score-list .score-item .head .subtitle .countdown.red {
-  color: #ff7b7d;
 }
 
 .m-score .score-content .score-list .score-item .detail-info {

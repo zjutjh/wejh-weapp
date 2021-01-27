@@ -17,7 +17,8 @@
           >学号：{{hideInfo ? '************' : userInfo.uno}}</text
         >
         <text class="info-item"
-          >姓名：{{hideInfo ? '**' : userInfo.ext.school_info.name}}</text
+          >姓名：{{hideInfo ? '**' : (userInfo.ext.school_info.name ||
+          '暂无姓名')}}</text
         >
       </view>
       <view class="logo">
@@ -28,7 +29,7 @@
 
     <view
       class="score-content"
-      wx:if="{{!isDetail && (score.list.length > 0)}}"
+      wx:if="{{(!isDetail && score.list.length > 0) || (isDetail && scoreDetail.list.length > 0)}}"
     >
       <view class="content-header">
         <view class="logo" bindtap="toggleHideScore">
@@ -57,7 +58,7 @@
           </view>
         </view>
       </view>
-      <view class="score-list">
+      <view class="score-list" wx:if="{{!isDetail}}">
         <view
           class="score-item"
           wx:for="{{sort ? sortedScoreList : score.list}}"
@@ -68,35 +69,7 @@
           <text class="score">{{hideScore ? '**' : item['成绩']}}</text>
         </view>
       </view>
-    </view>
-    <view
-      class="score-content"
-      wx:elif="{{isDetail && (scoreDetail.list.length > 0)}}"
-    >
-      <view class="content-header">
-        <view class="logo" bindtap="toggleHideScore">
-          <image
-            class="icon"
-            src="{{icons.score.icon}}"
-            wx:if="{{!hideScore}}"
-          ></image>
-          <image
-            class="eye-close"
-            src="/images/common/eye-close.png"
-            wx:else
-          ></image>
-          <image class="bg" src="{{icons.score.bg}}"></image>
-        </view>
-        <view class="main">
-          <view class="semester">
-            <text class="term">{{score.term}}</text>
-            <text class="name"
-              >大{{score.grade_name}}{{score.semester}}学期</text
-            >
-          </view>
-        </view>
-      </view>
-      <view class="score-list">
+      <view class="score-list" wx:elif="{{isDetail}}">
         <view
           class="score-item detail{{item.open ? ' open' : ''}}"
           wx:for="{{scoreDetail.list}}"
@@ -112,6 +85,7 @@
               <text class="name">{{item['名称']}}</text>
               <text class="subtitle">{{item['成绩分项']}}</text>
             </view>
+            <text class="sub-info">{{item['成绩'] || '暂无成绩'}}</text>
             <image
               class="arrow"
               src="/images/common/arrow-down-gray.png"
@@ -146,11 +120,14 @@
   <!-- 底部 -->
   <view class="m-footer-bar red">
     <view class="left">
-      <view class="sort-touch" bindtap="toggleSort">
-        <image
-          class="icon-sort{{sortAnimation ? ' active' : ''}}"
-          src="/images/common/sort-white.png"
-        ></image>
+      <view
+        class="toolbar-icon"
+        hover-class="active"
+        hover-stay-time="500"
+        bindtap="toggleSort"
+        wx:if="{{!isDetail}}"
+      >
+        <image class="icon" src="/images/common/sort-white.png"></image>
       </view>
     </view>
     <view class="middle">
@@ -171,11 +148,13 @@
       </view>
     </view>
     <view class="right">
-      <view class="detail-touch" bindtap="toggleDetail">
-        <image
-          class="icon-sort{{detailAnimation ? ' active' : ''}}"
-          src="/images/common/detail-white.png"
-        ></image>
+      <view
+        class="toolbar-icon"
+        hover-class="active"
+        hover-stay-time="500"
+        bindtap="toggleDetail"
+      >
+        <image class="icon" src="/images/common/detail-white.png"></image>
       </view>
     </view>
   </view>
