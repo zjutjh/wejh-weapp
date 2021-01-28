@@ -1575,14 +1575,15 @@ text {
   height: 100rpx;
 }
 
-.m-score .score-content .content-header .logo .eye-close {
-  z-index: 2;
+.m-score .score-content .content-header .logo .eye {
+  z-index: 3;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50rpx;
-  height: 50rpx;
+  right: 12rpx;
+  bottom: 12rpx;
+  width: 32rpx;
+  height: 32rpx;
+  background-color: #e78ab0;
+  border-radius: 12rpx;
 }
 
 .m-score .score-content .content-header .logo .bg {

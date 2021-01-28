@@ -33,16 +33,13 @@
     >
       <view class="content-header">
         <view class="logo" bindtap="toggleHideScore">
+          <image class="icon" src="{{icons.score.icon}}"></image>
           <image
-            class="icon"
-            src="{{icons.score.icon}}"
+            class="eye"
+            src="/images/common/eye.png"
             wx:if="{{!hideScore}}"
           ></image>
-          <image
-            class="eye-close"
-            src="/images/common/eye-close.png"
-            wx:else
-          ></image>
+          <image class="eye" src="/images/common/eye-close.png" wx:else></image>
           <image class="bg" src="{{icons.score.bg}}"></image>
         </view>
         <view class="main">
@@ -138,7 +135,9 @@
           mode="aspectFit"
         ></image>
       </view>
-      <text class="title">{{currentTerm}}</text>
+      <view class="term-btn">
+        <text class="title">{{currentTerm}}</text>
+      </view>
       <view class="switch-btn" data-direction="right" bindtap="switchTerm">
         <image
           src="/images/common/arrow-right.png"

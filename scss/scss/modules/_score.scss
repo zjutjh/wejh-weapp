@@ -125,14 +125,15 @@
           height: 100rpx;
         }
 
-        .eye-close {
-          z-index: 2;
+        .eye {
+          z-index: 3;
           position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 50rpx;
-          height: 50rpx;
+          right: 12rpx;
+          bottom: 12rpx;
+          width: 32rpx;
+          height: 32rpx;
+          background-color: $theme-pink;
+          border-radius: 12rpx;
         }
 
         .bg {
