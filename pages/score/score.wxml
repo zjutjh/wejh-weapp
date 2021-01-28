@@ -116,44 +116,46 @@
 
   <!-- 底部 -->
   <view class="m-footer-bar red">
-    <view class="left">
-      <view
-        class="toolbar-icon"
-        hover-class="active"
-        hover-stay-time="500"
-        bindtap="toggleSort"
-        wx:if="{{!isDetail}}"
-      >
-        <image class="icon" src="/images/common/sort-white.png"></image>
+    <view class="content">
+      <view class="left">
+        <view
+          class="toolbar-icon"
+          hover-class="active"
+          hover-stay-time="500"
+          bindtap="toggleSort"
+          wx:if="{{!isDetail}}"
+        >
+          <image class="icon" src="/images/common/sort-white.png"></image>
+        </view>
       </view>
-    </view>
-    <view class="middle">
-      <view class="switch-btn" data-direction="left" bindtap="switchTerm">
-        <image
-          src="/images/common/arrow-left.png"
-          class="icon icon-arrow-left"
-          mode="aspectFit"
-        ></image>
+      <view class="middle">
+        <view class="switch-btn" data-direction="left" bindtap="switchTerm">
+          <image
+            src="/images/common/arrow-left.png"
+            class="icon icon-arrow-left"
+            mode="aspectFit"
+          ></image>
+        </view>
+        <view class="term-btn">
+          <text class="title">{{currentTerm}}</text>
+        </view>
+        <view class="switch-btn" data-direction="right" bindtap="switchTerm">
+          <image
+            src="/images/common/arrow-right.png"
+            class="icon icon-arrow-right"
+            mode="aspectFit"
+          ></image>
+        </view>
       </view>
-      <view class="term-btn">
-        <text class="title">{{currentTerm}}</text>
-      </view>
-      <view class="switch-btn" data-direction="right" bindtap="switchTerm">
-        <image
-          src="/images/common/arrow-right.png"
-          class="icon icon-arrow-right"
-          mode="aspectFit"
-        ></image>
-      </view>
-    </view>
-    <view class="right">
-      <view
-        class="toolbar-icon"
-        hover-class="active"
-        hover-stay-time="500"
-        bindtap="toggleDetail"
-      >
-        <image class="icon" src="/images/common/detail-white.png"></image>
+      <view class="right">
+        <view
+          class="toolbar-icon"
+          hover-class="active"
+          hover-stay-time="500"
+          bindtap="toggleDetail"
+        >
+          <image class="icon" src="/images/common/detail-white.png"></image>
+        </view>
       </view>
     </view>
   </view>
