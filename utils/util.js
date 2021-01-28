@@ -351,7 +351,6 @@ function getTrueScore(scoreString) {
         return 85;
       case "中等":
         return 75;
-        break;
       case "及格":
         return 65;
       case "通过":

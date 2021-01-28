@@ -1381,10 +1381,19 @@ text {
 .m-footer-bar .term-btn {
   padding: 8rpx 12rpx;
   border-radius: 12rpx;
+  min-height: 48rpx;
+  display: flex;
+  align-items: stretch;
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+.m-footer-bar .term-btn.active {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
 .m-footer-bar .term-btn text {
+  display: block;
+  padding: 0 12rpx;
   color: #fff;
 }
 

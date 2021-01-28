@@ -1,7 +1,8 @@
-<view class="m-loading-box" wx:if="{{showLoading}}">
+<!-- <view class="m-loading-box" wx:if="{{showLoading}}">
   <image class="icon-loading" src="/images/common/loading.gif"></image>
-</view>
-<view class="container f-bg-gray" wx:else>
+</view> -->
+<!-- 学期填入 -->
+<view class="container f-bg-gray">
   <view class="m-score">
     <view class="score-header">
       <view class="info">
@@ -129,23 +130,16 @@
         </view>
       </view>
       <view class="middle">
-        <view class="switch-btn" data-direction="left" bindtap="switchTerm">
-          <image
-            src="/images/common/arrow-left.png"
-            class="icon icon-arrow-left"
-            mode="aspectFit"
-          ></image>
-        </view>
-        <view class="term-btn">
-          <text class="title">{{currentTerm}}</text>
-        </view>
-        <view class="switch-btn" data-direction="right" bindtap="switchTerm">
-          <image
-            src="/images/common/arrow-right.png"
-            class="icon icon-arrow-right"
-            mode="aspectFit"
-          ></image>
-        </view>
+        <picker
+          class="term-btn"
+          hover-class="active"
+          mode="multiSelector"
+          value="{{termPickerData.value}}"
+          range="{{termPickerData.range}}"
+          bindchange="onTermPickerChange"
+        >
+          <text class="title">{{currentTerm || '选择学期'}}</text>
+        </picker>
       </view>
       <view class="right">
         <view
