@@ -21,9 +21,15 @@
     font-size: 9pt;
     padding: 5rpx 20rpx;
     text-align: center;
-    background-color: #7acfa6;
     border-radius: 3px;
-    border-bottom: 2px solid #4fc08d;
+
     color: #fff;
+    border-bottom: 2px solid rgba($color: #000000, $alpha: 0.1);
+
+    background-color: $theme-green;
+
+    &.red {
+      background-color: $theme-pink;
+    }
   }
 }

@@ -1458,15 +1458,19 @@ text {
   font-size: 9pt;
   padding: 5rpx 20rpx;
   text-align: center;
-  background-color: #7acfa6;
   border-radius: 3px;
-  border-bottom: 2px solid #4fc08d;
   color: #fff;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  background-color: #7acfa6;
+}
+
+.m-remind-box .remind-btn.red {
+  background-color: #e78ab0;
 }
 
 .m-score {
   flex: 1;
-  padding: 0 30rpx 180rpx 30rpx;
+  padding: 48rpx 30rpx 180rpx 30rpx;
 }
 
 .m-score .score-header {
@@ -1728,7 +1732,7 @@ text {
 }
 
 .m-score .score-content .score-list .score-item.open .head .name {
-  color: #7acfa6;
+  color: #e78ab0;
 }
 
 .m-score .score-content .score-list .score-item.open .head .arrow {
@@ -2956,6 +2960,32 @@ text {
   text-align: center;
   color: #fff;
   background-color: rgba(0, 0, 0, 0.4);
+}
+
+.m-cache-tip-new {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  height: 48rpx;
+  font-size: 24rpx;
+  text-align: center;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.m-cache-tip-new .icon {
+  margin-left: 8rpx;
+  width: 20rpx;
+  height: 20rpx;
+}
+
+.m-cache-tip-new.red {
+  background-color: #e78ab0;
 }
 
 .m-main-webview {

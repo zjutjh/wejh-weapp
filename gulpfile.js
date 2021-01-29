@@ -42,6 +42,8 @@ function jsLibs() {
     `${dayjsBasePath}/dayjs.min.js`,
     `${dayjsBasePath}/plugin/customParseFormat.js`,
     `${dayjsBasePath}/plugin/isBetween.js`,
+    `${dayjsBasePath}/plugin/isoWeek.js`,
+    `${dayjsBasePath}/plugin/duration.js`,
   ];
   return gulp
     .src(dayjsSrcList, { base: dayjsBasePath })

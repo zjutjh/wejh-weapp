@@ -136,10 +136,10 @@ function colorLessons(lessons) {
 //   return JSON.parse(JSON.stringify(obj));
 // }
 
-function formatNumber(n) {
-  n = n.toString();
-  return n[1] ? n : "0" + n;
-}
+// function formatNumber(n) {
+//   n = n.toString();
+//   return n[1] ? n : "0" + n;
+// }
 
 /**
  * 处理课表数据以便DOM渲染
@@ -351,6 +351,9 @@ function getTrueScore(scoreString) {
         return 85;
       case "中等":
         return 75;
+      case "合格":
+        // "合格" 在两级制成绩中才会出现, 对应 75 分
+        return 75;
       case "及格":
         return 65;
       case "通过":
@@ -367,7 +370,7 @@ function getTrueScore(scoreString) {
 }
 
 module.exports = {
-  formatNumber,
+  // formatNumber,
   fixTimetable,
   // fixTimetableToday,
   fixAppList,
