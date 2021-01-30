@@ -1,4 +1,4 @@
-let app = getApp();
+const app = getApp();
 
 Page({
   data: {
@@ -9,13 +9,14 @@ Page({
     app.$store.connect(this, "home");
     this.observe("session", "userInfo");
     this.observe("session", "time");
+    this.observe("session", "unclearedBadges");
     this.observe("static", "devMenuEnabled");
+  },
+  onShow() {
+    app.badgeManager.updateBadgeForTabBar();
   },
   onUnload() {
     this.disconnect();
-  },
-  goFeedback() {
-    app.goFeedback();
   },
   followUs() {
     wx.setClipboardData({

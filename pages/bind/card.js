@@ -19,7 +19,7 @@ Page({
     }, 1000);
   },
   onUnload() {
-    this.disconnect()
+    this.disconnect();
   },
   onInput(e) {
     const type = e.target.dataset.type;
@@ -48,7 +48,9 @@ Page({
           duration: 2000,
           title: "绑定成功",
         });
-        app.getUserInfo();
+        app.services.getUserInfo(null, {
+          showError: true,
+        });
         setTimeout(() => {
           wx.navigateBack();
         }, 2000);

@@ -1,0 +1,86 @@
+.m-feedback {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+
+  .feedback-splash {
+    flex-grow: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    image {
+      width: 525rpx;
+    }
+  }
+  .feedback-list {
+    margin: 0 64rpx 72rpx;
+    border-radius: 16rpx;
+    background-color: $white;
+
+    &-item {
+      min-height: 120rpx;
+      display: flex;
+      flex-direction: row;
+      flex-shrink: 0;
+      font-size: 12pt;
+      padding: 0 48rpx;
+      align-items: center;
+      justify-content: space-between;
+      &-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 64rpx;
+        width: 64rpx;
+        border-radius: 12rpx;
+
+        margin-right: 36rpx;
+
+        &-yellow {
+          background-color: $theme-yellow;
+        }
+        &-red {
+          background-color: $theme-red;
+        }
+        &-blue {
+          background-color: $theme-blue;
+        }
+
+        &-content {
+          height: 42rpx;
+          width: 42rpx;
+        }
+      }
+
+      &-content {
+        padding-right: 16rpx;
+        margin-right: auto;
+        font-weight: bold;
+
+        @include text-ellipsis;
+      }
+
+      &-action {
+        button {
+          max-width: 200rpx;
+          margin-right: 0;
+          font-size: 10pt;
+          color: $white;
+          background-color: $theme-green;
+          border-radius: 10rpx;
+
+          @include text-ellipsis;
+        }
+      }
+    }
+
+    &-separator {
+      margin-left: 48rpx;
+      height: 2rpx;
+      background-color: $gray-100;
+    }
+  }
+}

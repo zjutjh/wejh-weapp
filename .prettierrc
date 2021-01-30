@@ -4,5 +4,12 @@
   "trailingComma": "es5",
   "singleQuote": false,
   "bracketSpacing": true,
-  "endOfLine": "lf"
+  "endOfLine": "lf",
+  "printWidth": 80,
+  "overrides": [
+    {
+      "files": "*.wxml",
+      "options": { "parser": "html" }
+    }
+  ]
 }

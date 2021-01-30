@@ -1,35 +1,43 @@
-let app = getApp();
+import toast from "../../utils/toast";
+import { getCurrentPeriod } from "../../utils/schedule";
+
+import dayjs from "../../libs/dayjs/dayjs.min.js";
+import dayjs_customParseFormat from "../../libs/dayjs/plugin/customParseFormat.js";
+
+dayjs.extend(dayjs_customParseFormat);
+
+const app = getApp();
 
 Page({
   data: {
-    timeline: [
+    timeline: {
       //课程时间与指针位置的映射，{begin:课程开始,end:结束时间,top:指针距开始top格数}
-      { begin: "0:00", end: "7:59", beginTop: -4, endTop: -4 }, //休息
-      { begin: "8:00", end: "8:45", beginTop: 0, endTop: 100 },
-      { begin: "8:46", end: "8:54", beginTop: 100, endTop: 100 }, //下课
-      { begin: "8:55", end: "9:40", beginTop: 100, endTop: 200 },
-      { begin: "9:41", end: "9:54", beginTop: 200, endTop: 200 }, //下课
-      { begin: "9:55", end: "10:40", beginTop: 200, endTop: 300 },
-      { begin: "10:41", end: "10:54", beginTop: 300, endTop: 300 }, //下课
-      { begin: "10:50", end: "11:35", beginTop: 300, endTop: 400 },
-      { begin: "11:36", end: "11:44", beginTop: 400, endTop: 400 }, //下课
-      { begin: "11:45", end: "12:30", beginTop: 400, endTop: 500 },
-      { begin: "12:31", end: "13:29", beginTop: 500, endTop: 500 }, //休息，午饭
-      { begin: "13:30", end: "14:15", beginTop: 500, endTop: 600 },
-      { begin: "14:16", end: "14:24", beginTop: 600, endTop: 600 }, //下课
-      { begin: "14:25", end: "15:10", beginTop: 600, endTop: 700 },
-      { begin: "15:11", end: "15:24", beginTop: 700, endTop: 700 }, //下课
-      { begin: "15:25", end: "16:10", beginTop: 700, endTop: 800 },
-      { begin: "16:11", end: "16:24", beginTop: 800, endTop: 800 }, //下课
-      { begin: "16:25", end: "17:10", beginTop: 800, endTop: 900 },
-      { begin: "17:11", end: "18:29", beginTop: 900, endTop: 900 }, //休息，晚饭
-      { begin: "18:30", end: "19:15", beginTop: 900, endTop: 1000 },
-      { begin: "19:16", end: "19:24", beginTop: 1000, endTop: 1000 }, //下课
-      { begin: "19:25", end: "20:10", beginTop: 1000, endTop: 1100 },
-      { begin: "20:11", end: "20:24", beginTop: 1100, endTop: 1100 }, //下课
-      { begin: "20:25", end: "21:10", beginTop: 1100, endTop: 1200 },
-      { begin: "21:11", end: "23:59", beginTop: 1200, endTop: 1300 }, //休息
-    ],
+      c0: { beginTop: -4, endTop: -4 }, //休息
+      c1: { beginTop: 0, endTop: 100 },
+      c1p: { beginTop: 100, endTop: 100 }, //下课
+      c2: { beginTop: 100, endTop: 200 },
+      c2p: { beginTop: 200, endTop: 200 }, //下课
+      c3: { beginTop: 200, endTop: 300 },
+      c3p: { beginTop: 300, endTop: 300 }, //下课
+      c4: { beginTop: 300, endTop: 400 },
+      c4p: { beginTop: 400, endTop: 400 }, //下课
+      c5: { beginTop: 400, endTop: 500 },
+      c5p: { beginTop: 500, endTop: 500 }, //休息，午饭
+      c6: { beginTop: 500, endTop: 600 },
+      c6p: { beginTop: 600, endTop: 600 }, //下课
+      c7: { beginTop: 600, endTop: 700 },
+      c7p: { beginTop: 700, endTop: 700 }, //下课
+      c8: { beginTop: 700, endTop: 800 },
+      c8p: { beginTop: 800, endTop: 800 }, //下课
+      c9: { beginTop: 800, endTop: 900 },
+      c9p: { beginTop: 900, endTop: 900 }, //休息，晚饭
+      c10: { beginTop: 900, endTop: 1000 },
+      c10p: { beginTop: 1000, endTop: 1000 }, //下课
+      c11: { beginTop: 1000, endTop: 1100 },
+      c11p: { beginTop: 1100, endTop: 1100 }, //下课
+      c12: { beginTop: 1100, endTop: 1200 },
+      c12p: { beginTop: 1200, endTop: 1300 }, //休息
+    },
     showLoading: true,
     weekday: ["日", "一", "二", "三", "四", "五", "六", "日"],
     _weeks: [
@@ -79,47 +87,54 @@ Page({
     this.observe("session", "userInfo");
     this.observe("session", "time");
     this.observe("session", "cacheStatus");
+    this.observe("session", "isLoggedIn");
+
     this.startTimelineMoving();
-    setTimeout(() => {
-      const time = this.data.time || {};
-      this.setPageState({
-        viewStatus: time.week,
-        originWeek: time.week || 1,
-        currentWeek: time.week || 1,
+
+    // 判断是否登录
+    if (!this.data.isLoggedIn) {
+      return wx.redirectTo({
+        url: "/pages/login/login",
       });
+    }
 
-      // 判断是否登录
-      if (!app.isLogin() || !this.data.userInfo) {
-        return wx.redirectTo({
-          url: "/pages/login/login",
-        });
-      }
+    const time = this.data.time || {};
+    this.setPageState({
+      viewStatus: time.week,
+      originWeek: time.week || 1,
+      currentWeek: time.week || 1,
+    });
 
-      const year = this.data.userInfo.uno.slice(0, 4);
-      // if (year <= 2013) {
-      //   // 判断是否绑定原创
-      //   if (!this.data.userInfo.ext.passwords_bind.yc_password) {
-      //     return wx.redirectTo({
-      //       url: "/pages/bind/ycjw",
-      //     });
-      //   }
-      // } else {
-      if (year >= 2017) {
-        // 判断是否绑定正方
-        if (!this.data.userInfo.ext.passwords_bind.zf_password) {
-          return wx.redirectTo({
-            url: "/pages/bind/zf",
-          });
+    // 判断是否登录
+    if (!this.data.isLoggedIn) {
+      return wx.redirectTo({
+        url: "/pages/login/login",
+      });
+    }
+
+    // 判断是否绑定正方
+    if (!this.data.userInfo.ext.passwords_bind.zf_password) {
+      return wx.redirectTo({
+        url: "/pages/bind/zf",
+      });
+    }
+
+    // 判断是否有课表数据
+    if (!this.data.timetable) {
+      app.services.getTimetable(
+        () => {
+          this.afterGetTimetable();
+        },
+        {
+          showError: true,
+          fail: () => {
+            this.afterGetTimetable();
+          },
         }
-      }
-
-      // 判断是否有课表数据
-      if (!this.data.timetable) {
-        this.getTimetable(this.afterGetTimetable);
-      } else {
-        this.afterGetTimetable();
-      }
-    }, 500);
+      );
+    } else {
+      this.afterGetTimetable();
+    }
   },
   onUnload() {
     this.disconnect();
@@ -131,37 +146,20 @@ Page({
   },
   startTimelineMoving() {
     const _this = this;
-    function parseMinute(dateStr) {
-      return dateStr.split(":")[0] * 60 + parseInt(dateStr.split(":")[1]);
-    }
+    const currentPeriod = getCurrentPeriod();
+    const periodTimeline = this.data.timeline[currentPeriod.key];
 
-    function compareDate(dateStr1, dateStr2) {
-      return parseMinute(dateStr1) <= parseMinute(dateStr2);
-    }
-    if (!_this.data.time) {
-      return setTimeout(() => {
-        app.services.getTermTime(() => {
-          // TODO: check if here is correct
-          _this.observe("session", "time");
-          this.startTimelineMoving();
-        });
-      }, 5000);
-    }
-    const nowTime = _this.formatTime(new Date(), "h:m");
-    _this.data.timeline.forEach(function (e, i) {
-      if (compareDate(e.begin, nowTime) && compareDate(nowTime, e.end)) {
-        const timelineTop = Math.round(
-          e.beginTop +
-            ((e.endTop - e.beginTop) *
-              (parseMinute(nowTime) - parseMinute(e.begin))) /
-              100
-        );
-        _this.setPageState({
-          timelineTop,
-          timelineLeft: 36 + (_this.data.time.day - 1) * 130,
-        });
-      }
+    const timelineTop = Math.round(
+      periodTimeline.beginTop +
+        ((periodTimeline.endTop - periodTimeline.beginTop) *
+          dayjs().diff(dayjs(currentPeriod.begin, "H:mm"), "minute")) /
+          100
+    );
+    _this.setPageState({
+      timelineTop,
+      timelineLeft: 36 + (_this.data.time.day - 1) * 130,
     });
+
     setTimeout(() => {
       _this.startTimelineMoving();
     }, 60 * 1000);
@@ -199,7 +197,7 @@ Page({
       : {};
     const teacherName = lessonInfo["老师"] || "";
     if (!teacherName) {
-      app.toast({
+      toast({
         icon: "error",
         title: "发生了一点错误，请反馈给管理员",
       });
@@ -240,7 +238,8 @@ Page({
       });
       this.setTitleTerm(term);
     } catch (e) {
-      app.toast({
+      console.error(e);
+      toast({
         icon: "error",
         title: e.message,
       });
@@ -330,7 +329,7 @@ Page({
     });
   },
   switchView() {
-    app.toast({
+    toast({
       title: "试图切换中",
       icon: "loading",
       duration: 500,
@@ -338,39 +337,6 @@ Page({
     this.setPageState({
       viewStatus: this.data.viewStatus === "*" ? this.data.currentWeek : "*",
     });
-  },
-  getTimetable(callback = function () {}) {
-    let _this = this;
-    if (app.hasToken()) {
-      app.services.getTimetable(callback, {
-        showError: true,
-        fail: () => {
-          callback();
-        },
-      });
-    } else {
-      setTimeout(() => {
-        _this.getTimetable();
-      }, 800);
-    }
-  },
-  //格式化时间
-  formatTime(date, t) {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const hour = date.getHours();
-    const minute = date.getMinutes();
-    const second = date.getSeconds();
-    if (t === "h:m") {
-      return [hour, minute].map(this.formatNumber).join(":");
-    } else {
-      return (
-        [year, month, day].map(this.formatNumber).join("-") +
-        " " +
-        [hour, minute, second].map(this.formatNumber).join(":")
-      );
-    }
   },
   formatNumber(n) {
     n = n.toString();

@@ -18,7 +18,11 @@
     </view>
 
     <view class="m-remind-box" wx:if="{{card['今日账单'].length === 0}}">
-      <image class="remind-img" mode="aspectFit" src="/images/common/nothing.png"></image>
+      <image
+        class="remind-img"
+        mode="aspectFit"
+        src="/images/common/nothing.png"
+      ></image>
       <text class="remind-text">今日暂无交易信息</text>
     </view>
 
@@ -37,7 +41,11 @@
           </view>
         </view>
         <view class="graph-area">
-          <canvas id="card-canvas" canvas-id="balanceCanvas" bindtap="canvasTap"></canvas>
+          <canvas
+            id="card-canvas"
+            canvas-id="balanceCanvas"
+            bindtap="canvasTap"
+          ></canvas>
           <view
             class="line"
             style="left: {{lineLeft}}px;"
@@ -65,7 +73,8 @@
           <view class="detail-item">
             <text class="detail-item-label">交易金额</text>
             <text class="detail-item-value"
-              >{{((tapDetail['交易额']) > 0 ? '+' : '') + tapDetail['交易额']}}</text
+              >{{((tapDetail['交易额']) > 0 ? '+' : '') +
+              tapDetail['交易额']}}</text
             >
           </view>
           <view class="detail-item">

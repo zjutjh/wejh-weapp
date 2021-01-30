@@ -1,0 +1,26 @@
+@import "../../scss/scss/_variables";
+
+.red-dot {
+  background-color: $theme-red;
+  &.disabled {
+    background-color: $gray-600;
+  }
+  &.filled {
+    $badge-height: 36rpx;
+    height: $badge-height;
+    border-radius: calc(#{$badge-height} / 2);
+    padding: 0 12rpx;
+    font-size: 24rpx;
+    line-height: $badge-height;
+    vertical-align: middle;
+    text-align: center;
+    color: white;
+  }
+  &.empty {
+    $badge-size: 18rpx;
+    text-align: center;
+    height: $badge-size;
+    width: $badge-size;
+    border-radius: 50%;
+  }
+}

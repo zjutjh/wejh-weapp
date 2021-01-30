@@ -1,0 +1,3 @@
+<view class="m-tooltip {{isVisible ? 'active' : ''}}">
+  <text class="content">{{content}}</text>
+</view>

@@ -1,12 +1,31 @@
 <view class="container f-bg-gray">
-  <navigator class="u-setting-navigator f-mb-20 f-mt-20" url="/pages/bind/index">
-    <image class="icon" mode="aspectFit" src="../../images/home/binding.png"></image>
+  <navigator
+    class="u-setting-navigator f-mb-20 f-mt-20"
+    url="/pages/bind/index"
+  >
+    <image
+      class="icon"
+      mode="aspectFit"
+      src="../../images/home/binding.png"
+    ></image>
     <text class="text">账号关联</text>
-    <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
+    <image
+      class="icon-next"
+      src="/images/common/next-gray.png"
+      mode="aspectFit"
+    ></image>
   </navigator>
   <navigator class="u-setting-navigator f-mb-20" url="/pages/labs/labs">
-    <image class="icon" mode="aspectFit" src="../../images/home/labs.png"></image>
+    <image
+      class="icon"
+      mode="aspectFit"
+      src="../../images/home/labs.png"
+    ></image>
     <text class="text">实验室</text>
-    <image class="icon-next" src="/images/common/next-gray.png" mode="aspectFit"></image>
+    <image
+      class="icon-next"
+      src="/images/common/next-gray.png"
+      mode="aspectFit"
+    ></image>
   </navigator>
 </view>

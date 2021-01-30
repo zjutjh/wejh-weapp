@@ -1,6 +1,7 @@
 import logger from "../../utils/logger";
+import toast from "../../utils/toast";
 
-let app = getApp();
+const app = getApp();
 
 Page({
   data: {
@@ -13,38 +14,27 @@ Page({
     this.observe("session", "icons");
     this.observe("session", "exam");
     this.observe("session", "userInfo");
-    setTimeout(() => {
-      // 判断是否登录
-      if (!app.isLogin() || !this.data.userInfo) {
-        return wx.redirectTo({
-          url: "/pages/login/login",
-        });
-      }
+    this.observe("session", "isLoggedIn");
 
-      const year = this.data.userInfo.uno.slice(0, 4);
-      if (year <= 2013) {
-        // 判断是否绑定原创
-        if (!this.data.userInfo.ext.passwords_bind.yc_password) {
-          return wx.redirectTo({
-            url: "/pages/bind/ycjw",
-          });
-        }
-      } else {
-        // 判断是否绑定正方
-        if (!this.data.userInfo.ext.passwords_bind.zf_password) {
-          return wx.redirectTo({
-            url: "/pages/bind/zf",
-          });
-        }
-      }
+    // 判断是否登录
+    if (!this.data.isLoggedIn) {
+      return wx.redirectTo({
+        url: "/pages/login/login",
+      });
+    }
 
-      // 判断是否有成绩数据
-      if (!this.data.exam) {
-        this.getExam(this.afterGetExam);
-      } else {
-        this.afterGetExam();
-      }
-    }, 500);
+    if (!this.data.userInfo.ext.passwords_bind.zf_password) {
+      return wx.redirectTo({
+        url: "/pages/bind/zf",
+      });
+    }
+
+    // 判断是否有数据
+    if (!this.data.exam) {
+      this.getExam(this.afterGetExam);
+    } else {
+      this.afterGetExam();
+    }
   },
   onUnload() {
     this.disconnect();
@@ -79,7 +69,7 @@ Page({
       });
     } catch (err) {
       logger.error("exam", err);
-      app.toast({
+      toast({
         icon: "error",
         title: err.message,
       });

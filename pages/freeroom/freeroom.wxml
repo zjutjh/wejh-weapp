@@ -10,9 +10,7 @@
         wx:key="build_id"
       >
         <!--单个空教室-->
-        <view class="build-name">
-          {{build.iconText}}
-        </view>
+        <view class="build-name"> {{build.iconText}} </view>
         <view class="room-list">
           <view
             class="room-item {{item['disabled'] ? ' disabled' : ''}}"
@@ -46,13 +44,16 @@
           wx:for-item="condition"
           wx:key="block_id"
           wx:for-index="condition_key"
+          scroll-into-view="option_{{block_id}}_{{form[condition.name]}}"
         >
           <!-- 选项 -->
           <view
             catchtap="chooseOption"
             data-type="{{condition.name}}"
             data-value="{{item.value}}"
+            data-badge-path="{{item.badge.path || ''}}"
             class="option{{form[condition.name] == item.value ? ' active' : ''}}"
+            id="option_{{block_id}}_{{option_id}}"
             wx:for="{{condition.options}}"
             wx:key="name"
             wx:for-index="option_id"
@@ -62,6 +63,13 @@
               class="choose-bg"
               src="/images/app-list/{{optionsColor[condition.name]}}.png"
             ></image>
+            <red-dot
+              wx:if="{{item.badge}}"
+              class="badge"
+              path="{{item.badge.path}}"
+              displayMode="{{ {type: 'simple'} }}"
+              unclearedBadges="{{unclearedBadges}}"
+            ></red-dot>
           </view>
         </scroll-view>
       </view>

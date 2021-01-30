@@ -18,6 +18,13 @@
     margin-bottom: 20rpx;
     overflow: hidden;
 
+    .item-badge {
+      position: absolute;
+      top: 0;
+      right: 16rpx;
+      z-index: 99;
+    }
+
     .item-image {
       position: relative;
       align-items: center;

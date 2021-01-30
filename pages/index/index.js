@@ -1,4 +1,6 @@
 import logger from "../../utils/logger";
+import toast from "../../utils/toast";
+import dayjs from "../../libs/dayjs/dayjs.min.js";
 
 const initAppList = [];
 const initApp = {
@@ -18,26 +20,64 @@ Page({
       active: false,
       content: "请先登录",
     },
-    helpStatus: false,
     apps: initAppList,
+    // private
+    timetableToday: null,
   },
   onLoad() {
     app.$store.connect(this, "index");
+
+    this.tooltip = this.selectComponent("#tooltip");
+    this.noticeBox = this.selectComponent("#noticeBox");
+
+    this.observe("session", "isLoggedIn", null, (newVal) => {
+      if (newVal.isLoggedIn) {
+        this.fetchHomeCards();
+      }
+    });
+
     this.observe("session", "userInfo");
+
+    // apps 和 icons 在同一个请求得到
     this.observe("session", "apps");
     this.observe("session", "icons");
-    this.observe("session", "time", null, this.onTimeUpdate);
-    this.observe("session", "timetableFixed");
+
+    this.observe("session", "unclearedBadges");
+
+    this.observe("session", "announcement", null, (newValues) => {
+      const { announcement } = newValues;
+      if (!announcement) {
+        return;
+      }
+      const announcementId =
+        app.$store.getState("static", "announcementId") || 0;
+      if (announcementId < announcement.id) {
+        this.noticeBox.show();
+        app.$store.setState("static", { announcementId: announcement.id });
+      }
+    });
+
+    this.observe("session", "time");
+
+    this.observe("session", "cacheStatus");
+
+    this.observe("session", "timetableFixed", null, () => {
+      this.updateTodayTimetable();
+    });
+
     this.observe("session", "card");
     this.observe("session", "cardCost");
     this.observe("session", "borrow");
-    this.observe("session", "announcement");
-    this.observe("session", "cacheStatus");
-    this.getData();
 
+    this.bootstrap();
+
+    // 后续移除该属性
     this.setPageState({
-      todayTime: new Date().toLocaleDateString(),
+      todayTime: dayjs().format("YYYY-MM-DD"),
     });
+  },
+  onShow() {
+    app.badgeManager.updateBadgeForTabBar();
   },
   onUnload() {
     this.disconnect();
@@ -47,19 +87,10 @@ Page({
       helpStatus: false,
     });
   },
-  onTimeUpdate() {
-    const timetableFixed = this.data.timetableFixed;
-    if (!this.data.time) {
-      return setTimeout(() => {
-        app.services.getTermTime(() => {
-          this.onTimeUpdate();
-        });
-      }, 5000);
-    }
-    if (!timetableFixed) {
-      return setTimeout(() => {
-        this.onTimeUpdate();
-      }, 5000);
+  updateTodayTimetable() {
+    const { timetableFixed, time } = this.data;
+    if (!timetableFixed || !time) {
+      return;
     }
 
     const weekday = this.data.time.day;
@@ -74,92 +105,34 @@ Page({
         }
       });
     });
+
     this.setPageState({
       timetableToday,
     });
   },
-  getIndexCardData() {
-    if (app.isLogin()) {
-      this.getTimetable();
-      this.getCard();
-      this.getBorrow();
-    } else {
-      setTimeout(() => {
-        this.getIndexCardData();
-      }, 500);
-    }
+  bootstrap() {
+    app.services.getBootstrapInfo(null, { showError: false });
   },
-  getData() {
-    app.services.getTermTime();
-    app.services.getAppList();
-    this.getAnnouncement();
-    this.getIndexCardData();
+  fetchHomeCards() {
+    app.services.getTimetable(null, {
+      showError: false,
+    });
+    app.services.getCard(null, {
+      showError: false,
+    });
+    app.services.getBorrow(null, {
+      showError: false,
+    });
   },
   onPullDownRefresh() {
-    if (app.isLogin()) {
-      this.getData();
-    } else {
-      this.showTip("请先登录");
+    this.bootstrap();
+    if (!this.data.isLoggedIn) {
+      // 下拉刷新应当不考虑登录问题，下个迭代进行优化
+      app.wxLogin();
     }
     setTimeout(() => {
       wx.stopPullDownRefresh();
     }, 1000);
-  },
-  getAnnouncement() {
-    app.services.getAnnouncement(
-      (res) => {
-        const data = res.data.data;
-        const announcementId =
-          app.$store.getState("static", "announcementId") || 0;
-        if (announcementId < data.id) {
-          this.setPageState({
-            helpStatus: true,
-          });
-          app.$store.setState("static", { announcementId: data.id });
-        }
-      },
-      {
-        showError: false,
-      }
-    );
-  },
-  getTimetable() {
-    app.services.getTimetable(undefined, {
-      showError: false,
-    });
-  },
-  getBorrow() {
-    app.services.getBorrow(undefined, {
-      showError: false,
-    });
-  },
-  getCard() {
-    app.services.getCard(undefined, {
-      showError: false,
-    });
-  },
-  showTip(content, duration = 1500) {
-    this.setPageState({
-      tinyTip: {
-        active: true,
-        content: content,
-      },
-    });
-
-    setTimeout(() => {
-      this.hideTip();
-    }, duration);
-  },
-  hideTip() {
-    this.setPageState({
-      tinyTip: {
-        active: false,
-        content: "",
-      },
-    });
-  },
-  feedback() {
-    app.goFeedback();
   },
   clipboard() {
     if (this.data.announcement && this.data.announcement.clipboard) {
@@ -168,7 +141,7 @@ Page({
       wx.setClipboardData({
         data: text,
         success() {
-          app.toast({
+          toast({
             icon: "success",
             title: tip || "复制成功",
           });
@@ -177,24 +150,26 @@ Page({
     }
   },
   onClickApp(e) {
-    const isLogin = app.$store.getState("session", "token");
     const target = e.currentTarget;
     const index = target.dataset.index;
 
     if (!this.data.apps) {
-      return this.showTip("应用列表信息获取失败，请重启微信再试");
+      this.tooltip.show("应用列表信息获取失败，请重启微信再试");
+      return;
     }
     const appItem = this.data.apps[index];
 
     if (!appItem) {
-      return
+      return;
     }
 
-    if (!isLogin) {
-      return this.showTip("请先登录");
+    if (!this.data.isLoggedIn) {
+      this.tooltip.show("请先登录");
+      return;
     }
     if (appItem.disabled) {
-      return this.showTip("服务暂不可用");
+      this.tooltip.show("服务暂不可用");
+      return;
     }
     if (appItem.url) {
       appItem.url = appItem.url.replace(
@@ -222,6 +197,18 @@ Page({
         appId: appItem.appId,
         path: appItem.path,
         extraData: appItem.extraData,
+        success() {
+          if (appItem.badge && appItem.badge.clearPath) {
+            app.badgeManager.clearBadge(appItem.badge.clearPath);
+          }
+        },
+        fail(err) {
+          logger.warn(
+            "index",
+            `Failed to navigate to weApp with appId: ${appItem.appId}, error: `,
+            err
+          );
+        },
       });
     }
     wx.navigateTo({
