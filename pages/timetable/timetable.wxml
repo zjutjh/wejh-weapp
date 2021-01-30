@@ -84,59 +84,69 @@
 
     <!-- 底部 -->
     <view class="m-footer-bar blue">
-      <view class="left">
-        <text wx:if="{{viewStatus != '*' && currentWeek == 0}}">放假中</text>
-        <text
-          wx:elif="{{viewStatus != '*' && currentWeek > 0 && currentWeek == time.week}}"
-          >第{{time.week}}周周{{weekday[time.day]}}</text
-        >
-        <text
-          wx:elif="{{viewStatus != '*' && currentWeek != time.week}}"
-          bindtap="backCurrentWeek"
-          >返回第{{time.week}}周</text
-        >
-        <text wx:else>星期{{weekday[time.day]}}</text>
-      </view>
-      <view class="middle">
-        <block wx:if="{{viewStatus !== '*'}}">
-          <view class="switch-btn" data-direction="left" bindtap="switchWeek">
-            <image
-              src="/images/common/arrow-left.png"
-              class="icon icon-arrow-left"
-              mode="aspectFit"
-            ></image>
+      <view class="content">
+        <view class="left">
+          <text wx:if="{{viewStatus != '*' && currentWeek == 0}}">放假中</text>
+          <text
+            wx:elif="{{viewStatus != '*' && currentWeek > 0 && currentWeek == time.week}}"
+            >第{{time.week}}周周{{weekday[time.day]}}</text
+          >
+          <text
+            wx:elif="{{viewStatus != '*' && currentWeek != time.week}}"
+            bindtap="backCurrentWeek"
+            >返回第{{time.week}}周</text
+          >
+          <text wx:else>星期{{weekday[time.day]}}</text>
+        </view>
+        <view class="middle">
+          <block wx:if="{{viewStatus !== '*'}}">
+            <view class="switch-btn" data-direction="left" bindtap="switchWeek">
+              <image
+                src="/images/common/arrow-left.png"
+                class="icon icon-arrow-left"
+                mode="aspectFit"
+              ></image>
+            </view>
+            <text class="title">{{_weeks[currentWeek]}}</text>
+            <view
+              class="switch-btn"
+              data-direction="right"
+              bindtap="switchWeek"
+            >
+              <image
+                src="/images/common/arrow-right.png"
+                class="icon icon-arrow-right"
+                mode="aspectFit"
+              ></image>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="switch-btn" data-direction="left" bindtap="switchTerm">
+              <image
+                src="/images/common/arrow-left.png"
+                class="icon icon-arrow-left"
+                mode="aspectFit"
+              ></image>
+            </view>
+            <text class="title">{{currentTerm}}</text>
+            <view
+              class="switch-btn"
+              data-direction="right"
+              bindtap="switchTerm"
+            >
+              <image
+                src="/images/common/arrow-right.png"
+                class="icon icon-arrow-right"
+                mode="aspectFit"
+              ></image>
+            </view>
+          </block>
+        </view>
+        <view class="right">
+          <view class="choose-view" bindtap="switchView">
+            <text class="active">{{viewStatus == '*'?'期':'周'}}</text>
+            <text>{{viewStatus == '*'?'周':'期'}}</text>
           </view>
-          <text class="title">{{_weeks[currentWeek]}}</text>
-          <view class="switch-btn" data-direction="right" bindtap="switchWeek">
-            <image
-              src="/images/common/arrow-right.png"
-              class="icon icon-arrow-right"
-              mode="aspectFit"
-            ></image>
-          </view>
-        </block>
-        <block wx:else>
-          <view class="switch-btn" data-direction="left" bindtap="switchTerm">
-            <image
-              src="/images/common/arrow-left.png"
-              class="icon icon-arrow-left"
-              mode="aspectFit"
-            ></image>
-          </view>
-          <text class="title">{{currentTerm}}</text>
-          <view class="switch-btn" data-direction="right" bindtap="switchTerm">
-            <image
-              src="/images/common/arrow-right.png"
-              class="icon icon-arrow-right"
-              mode="aspectFit"
-            ></image>
-          </view>
-        </block>
-      </view>
-      <view class="right">
-        <view class="choose-view" bindtap="switchView">
-          <text class="active">{{viewStatus == '*'?'期':'周'}}</text>
-          <text>{{viewStatus == '*'?'周':'期'}}</text>
         </view>
       </view>
     </view>

@@ -8,16 +8,19 @@ const form = {
 
 Page({
   data: {
-    helpStatus: false,
-    showLoading: true,
+    helpModal: {
+      title: "帮助",
+      content: `
+      <p class="question">1、原创教务系统是什么？</p>
+      <p class="answer">原创教务系统是以前的教务系统，为了老生的使用，所以依旧放着</p>
+      <p class="answer">17级及以后的学生大可忽略，不用绑定</p>
+      <p class="question">2、忘记密码？</p>
+      <p class="answer">请找自己的辅导员重置密码。</p>`,
+    },
   },
   onLoad() {
     app.$store.connect(this, "binding.ycjw");
-    setTimeout(() => {
-      this.setPageState({
-        showLoading: false,
-      });
-    }, 1000);
+    this.helpModal = this.selectComponent("#helpModal");
   },
   onUnload() {
     this.disconnect();
@@ -27,14 +30,7 @@ Page({
     form[type] = e.detail.value;
   },
   showHelp() {
-    this.setPageState({
-      helpStatus: true,
-    });
-  },
-  hideHelp() {
-    this.setPageState({
-      helpStatus: false,
-    });
+    this.helpModal.show();
   },
   binding() {
     const password = form.password;

@@ -3,34 +3,30 @@ import { API } from "../../utils/api";
 const app = getApp();
 
 const form = {
-  helpStatus: false,
   password: "",
 };
 
 Page({
   data: {
-    showLoading: true,
+    helpModal: {
+      title: "帮助",
+      content: `
+      <p class="question">1、正方教务系统是什么？</p>
+      <p class="answer">正方教务系统就是你选课的系统哦~</p>
+      <p class="answer">那么密码就是你选课的密码~</p>
+      <p class="question">2、忘记密码？</p>
+      <p class="answer">请找自己的辅导员重置密码。</p>`,
+    },
   },
   onLoad() {
     app.$store.connect(this, "binding.ycjw");
-    setTimeout(() => {
-      this.setPageState({
-        showLoading: false,
-      });
-    }, 1000);
+    this.helpModal = this.selectComponent("#helpModal");
   },
   onUnload() {
     this.disconnect();
   },
   showHelp() {
-    this.setPageState({
-      helpStatus: true,
-    });
-  },
-  hideHelp() {
-    this.setPageState({
-      helpStatus: false,
-    });
+    this.helpModal.show();
   },
   onInput(e) {
     const type = e.target.dataset.type;

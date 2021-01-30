@@ -1,5 +1,8 @@
 {
   "disableScroll": true,
   "enablePullDownRefresh": false,
-  "navigationBarTitleText": "绑定精弘通行证"
+  "navigationBarTitleText": "绑定精弘通行证",
+  "usingComponents": {
+    "modal-dialog": "/components/modal-dialog/modal-dialog"
+  }
 }

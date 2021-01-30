@@ -99,21 +99,23 @@
 
   <!-- 底部 -->
   <view class="m-footer-bar green">
-    <view class="middle">
-      <view class="switch-btn" data-direction="left" bindtap="switchTerm">
-        <image
-          src="/images/common/arrow-left.png"
-          class="icon icon-arrow-left"
-          mode="aspectFit"
-        ></image>
-      </view>
-      <text class="title">{{currentTerm}}</text>
-      <view class="switch-btn" data-direction="right" bindtap="switchTerm">
-        <image
-          src="/images/common/arrow-right.png"
-          class="icon icon-arrow-right"
-          mode="aspectFit"
-        ></image>
+    <view class="content">
+      <view class="middle">
+        <view class="switch-btn" data-direction="left" bindtap="switchTerm">
+          <image
+            src="/images/common/arrow-left.png"
+            class="icon icon-arrow-left"
+            mode="aspectFit"
+          ></image>
+        </view>
+        <text class="title">{{currentTerm}}</text>
+        <view class="switch-btn" data-direction="right" bindtap="switchTerm">
+          <image
+            src="/images/common/arrow-right.png"
+            class="icon icon-arrow-right"
+            mode="aspectFit"
+          ></image>
+        </view>
       </view>
     </view>
   </view>

@@ -9,6 +9,11 @@
   }
 }
 
+@mixin safe-area-inset-bottom($property) {
+  #{$property}: constant(safe-area-inset-bottom);
+  #{$property}: env(safe-area-inset-bottom);
+}
+
 @mixin text-ellipsis {
   white-space: nowrap;
   text-overflow: ellipsis;

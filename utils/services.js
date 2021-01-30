@@ -1,5 +1,11 @@
 import { API } from "./api";
+
 import util from "./util";
+import termUtil from "./termPicker";
+
+import logger from "./logger";
+
+import dayjs from "../libs/dayjs/dayjs.min.js";
 
 export default function ({ store, fetch }) {
   const updateLoggedInState = () => {
@@ -157,35 +163,115 @@ export default function ({ store, fetch }) {
         },
       });
     },
-    getScore(callback = function () {}, options) {
+    getScore(termInfo, callback = function () {}, options) {
+      /*
+      cache_key: cache_score_termYear_semester (score_2020_1)
+      cache: {
+        last_updated: unix_stamp
+        ...payload
+      }
+      */
       fetch({
         url: API("score"),
         showError: true,
+        data: {
+          term_year: termInfo.year || "",
+          term_semester: termInfo.semester || "",
+        },
         ...options,
         success(res) {
           const data = res.data.data;
-          const fixedData = util.fixScore(data);
-          const sortedData = Array.from(fixedData.list).sort((a, b) => {
+
+          let scoreData = util.fixScore(data);
+          const sortedList = Array.from(scoreData.list).sort((a, b) => {
             return b["真实成绩"] - a["真实成绩"];
           });
+
+          scoreData = {
+            ...scoreData,
+            sortedList,
+            lastUpdated: dayjs().unix(),
+          };
+
           store.setState("session", {
-            score: fixedData,
-            sortedScoreList: sortedData,
+            score: scoreData,
           });
+
+          // 写 cache, 使用响应返回的学期生成 cache key
+          const termInfo = termUtil.getInfoFromTerm(scoreData.term);
+          if (termInfo.year && termInfo.semester) {
+            const cacheKey = `cache_score_${termInfo.year}_${termInfo.semester}`;
+            logger.info("service", "写入 cache 'score', key: ", cacheKey);
+            store.setState("common", {
+              [cacheKey]: scoreData,
+            });
+          }
+
+          callback && callback(res);
+        },
+        fail(res) {
+          // 请求失败时返回 cache
+          if (termInfo.year && termInfo.semester) {
+            const cacheKey = `cache_score_${termInfo.year}_${termInfo.semester}`;
+            logger.info("service", "读出 cache 'score', key: ", cacheKey);
+
+            const cachedScore = store.getState("common", cacheKey);
+            if (cachedScore) {
+              store.setState("session", {
+                score: cachedScore,
+              });
+            }
+          }
           callback && callback(res);
         },
       });
     },
-    getScoreDetail(callback = function () {}, options) {
+    getScoreDetail(termInfo, callback = function () {}, options) {
+      // cache_key: cache_scoreDetail_termYear_semester (score_2020_1)
       fetch({
         url: API("scoreDetail"),
         showError: true,
+        data: {
+          term_year: termInfo.year || "",
+          term_semester: termInfo.semester || "",
+        },
         ...options,
         success(res) {
-          const data = res.data.data;
+          let scoreDetail = res.data.data;
+
+          scoreDetail = {
+            ...scoreDetail,
+            lastUpdated: dayjs().unix(),
+          };
+
           store.setState("session", {
-            scoreDetail: data,
+            scoreDetail,
           });
+
+          // 写 cache
+          const termInfo = termUtil.getInfoFromTerm(scoreDetail.term);
+          if (termInfo.year && termInfo.semester) {
+            const cacheKey = `cache_scoreDetail_${termInfo.year}_${termInfo.semester}`;
+            logger.info("service", "写入 cache 'score', key: ", cacheKey);
+            store.setState("common", {
+              [cacheKey]: scoreDetail,
+            });
+          }
+          callback && callback(res);
+        },
+        fail(res) {
+          // 请求失败时返回 cache
+          if (termInfo.year && termInfo.semester) {
+            const cacheKey = `cache_scoreDetail_${termInfo.year}_${termInfo.semester}`;
+            logger.info("service", "读出 cache 'score', key: ", cacheKey);
+
+            const cachedScoreDetail = store.getState("common", cacheKey);
+            if (cachedScoreDetail) {
+              store.setState("session", {
+                scoreDetail: cachedScoreDetail,
+              });
+            }
+          }
           callback && callback(res);
         },
       });

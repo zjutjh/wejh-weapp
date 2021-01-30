@@ -2,25 +2,20 @@
   width: 250rpx;
   height: 250rpx;
 }
-.sort-touch {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 100rpx;
-  width: 100rpx;
-}
-.detail-touch {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-  height: 100rpx;
-  width: 100rpx;
-}
-.icon-sort {
-  width: 40rpx;
-  height: 40rpx;
 
+// 页面底部的功能按钮，目前只有成绩页面使用
+// TODO: 把其他页面上的功能按钮统一到这里
+.toolbar-icon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100rpx;
+  width: 100rpx;
+  .icon {
+    width: 40rpx;
+    height: 40rpx;
+  }
   &.active {
     animation: bubble-in 500ms ease-out;
   }
