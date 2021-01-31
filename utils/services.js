@@ -191,6 +191,7 @@ export default function ({ store, fetch }) {
             ...scoreData,
             sortedList,
             lastUpdated: dayjs().unix(),
+            isDetail: false,
           };
 
           store.setState("session", {
@@ -242,10 +243,11 @@ export default function ({ store, fetch }) {
           scoreDetail = {
             ...scoreDetail,
             lastUpdated: dayjs().unix(),
+            isDetail: true,
           };
 
           store.setState("session", {
-            scoreDetail,
+            score: scoreDetail,
           });
 
           // 写 cache
@@ -268,7 +270,7 @@ export default function ({ store, fetch }) {
             const cachedScoreDetail = store.getState("common", cacheKey);
             if (cachedScoreDetail) {
               store.setState("session", {
-                scoreDetail: cachedScoreDetail,
+                score: cachedScoreDetail,
               });
             }
           }
