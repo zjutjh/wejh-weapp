@@ -1,14 +1,6 @@
 <!-- <view class="m-loading-box" wx:if="{{showLoading}}">
   <image class="icon-loading" src="/images/common/loading.gif"></image>
 </view> -->
-<view class="m-cache-tip-new red"
-  >{{lastUpdated}}
-  <!-- <image
-    class="icon"
-    src="/images/common/refresh.png"
-    bindtap="toggleRefresh"
-  ></image> -->
-</view>
 <!-- 学期填入 -->
 <view class="container f-bg-gray">
   <view class="m-score">
@@ -149,7 +141,7 @@
           <image class="icon" src="/images/common/refresh.png"></image>
         </view>
       </view>
-      <view class="middle">
+      <view class="middle vertical">
         <picker
           class="term-btn"
           hover-class="active"
@@ -160,6 +152,7 @@
         >
           <text class="title">{{currentTerm || '选择学期'}}</text>
         </picker>
+        <text class="cache-tip">{{lastUpdated}}</text>
       </view>
       <view class="right">
         <view
@@ -171,14 +164,6 @@
         >
           <image class="icon" src="/images/common/sort-white.png"></image>
         </view>
-        <!-- <view
-          class="toolbar-icon"
-          hover-class="active"
-          hover-stay-time="500"
-          bindtap="toggleDetail"
-        >
-          <image class="icon" src="/images/common/detail-white.png"></image>
-        </view> -->
       </view>
     </view>
   </view>

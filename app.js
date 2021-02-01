@@ -111,6 +111,9 @@ App({
 
       const grade = userInfo.uno.substring(0, 4);
 
+      const info = wx.getStorageInfoSync() || {};
+      const { currentSize, limitSize } = info;
+
       wx.reportAnalytics("user_login", {
         uno: userInfo.uno,
         grade: grade,
@@ -123,6 +126,7 @@ App({
         zf_bind: userInfo.ext.passwords_bind.zf_password,
         jh_bind: userInfo.ext.passwords_bind.jh_password,
         last_update: Math.floor(daysDiff),
+        storage_free: limitSize - currentSize,
       });
     } catch (err) {
       logger.error("app", "登录埋点上报异常", err);

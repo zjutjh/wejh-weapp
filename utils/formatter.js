@@ -8,6 +8,8 @@ import logger from "./logger";
 dayjs.extend(dayjs_isoWeek);
 dayjs.extend(dayjs_duration);
 
+const weekMap = ["", "一", "二", "三", "四", "五", "六", "日"];
+
 const formatLastUpdate = (timestamp) => {
   const lastUpdate = dayjs.unix(timestamp);
 
@@ -31,9 +33,9 @@ const formatLastUpdate = (timestamp) => {
   } else if (lastUpdate.isSame(currentTime.subtract(2, "day"), "day")) {
     return `上次更新：前天 ${lastUpdate.format("H:mm")}`;
   } else if ((lastUpdate.isSame(currentTime), "isoWeek")) {
-    return `上次更新：星期${lastUpdate.isoWeekday()} ${lastUpdate.format(
-      "H:mm"
-    )}`;
+    return `上次更新：星期${
+      weekMap[lastUpdate.isoWeekday()]
+    } ${lastUpdate.format("H:mm")}`;
   } else {
     return `上次更新：${lastUpdate.format("YYYY-MM-DD H:mm")}`;
   }
