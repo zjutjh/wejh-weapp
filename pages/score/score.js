@@ -52,6 +52,7 @@ Page({
       });
     }
 
+    //获得学期数据
     const termInfo = termUtil.getInfoFromTerm(this.data.time.term);
     const grade = parseInt(this.data.userInfo.uno.substring(0, 4));
 
@@ -193,15 +194,9 @@ Page({
       sort: !this.data.sort,
     });
   },
-  onTermPickerChange: function (e) {
-    const { range } = this.data.termPickerData;
-    const termInfo = {
-      year: range[0][e.detail.value[0]].substring(0, 4),
-      semester: e.detail.value[1] + 1,
-    };
-
-    const isDetail = e.detail.value[2] === 1;
-
+  termChange: function (e) {
+    const termInfo = e.detail.termInfo;
+    const isDetail = e.detail.thirdData === 1;
     wx.showLoading({
       title: "获取成绩中",
       mask: true,

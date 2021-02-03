@@ -1,0 +1,10 @@
+<picker
+  class="term-btn"
+  hover-class="active"
+  mode="multiSelector"
+  value="{{value}}"
+  range="{{range}}"
+  bindchange="onPickerChange"
+>
+  <text class="title">{{currentTerm || '选择学期'}}</text>
+</picker>

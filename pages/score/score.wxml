@@ -142,16 +142,14 @@
         </view>
       </view>
       <view class="middle vertical">
-        <picker
-          class="term-btn"
-          hover-class="active"
-          mode="multiSelector"
-          value="{{termPickerData.value}}"
+        <term-picker
           range="{{termPickerData.range}}"
-          bindchange="onTermPickerChange"
+          value="{{termPickerData.value}}"
+          isThree="true"
+          currentTerm="{{currentTerm}}"
+          bindtermChange="termChange"
         >
-          <text class="title">{{currentTerm || '选择学期'}}</text>
-        </picker>
+        </term-picker>
         <text class="cache-tip">{{lastUpdated}}</text>
       </view>
       <view class="right">
