@@ -1,0 +1,173 @@
+<!-- <view class="m-loading-box" wx:if="{{showLoading}}">
+  <image class="icon-loading" src="/images/common/loading.gif"></image>
+</view> -->
+<view class="m-cache-tip-new red"
+  >{{lastUpdated}}
+  <!-- <image
+    class="icon"
+    src="/images/common/refresh.png"
+    bindtap="toggleRefresh"
+  ></image> -->
+</view>
+<!-- 学期填入 -->
+<view class="container f-bg-gray">
+  <view class="m-score">
+    <block wx:if="{{score1}}">
+      <view class="score-content" wx:if="{{score1.list.length > 0}}">
+        <view class="content-header">
+          <view class="main">
+            <!-- <view class="semester">
+              <text class="term">{{score.term}}</text>
+              <text class="name"
+                >大{{score.grade_name}}{{score.semester}}学期</text
+              >
+            </view> -->
+            <view class="gpa">
+              <text class="title">总学分数</text>
+              <text class="content" style="text-align: center">{{credit}}</text>
+            </view>
+            <view class="gpa">
+              <text class="title">平均绩点</text>
+              <text class="content" style="text-align: center">{{gpa}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="score-list" wx:if="{{score1}}">
+          <view
+            class="score-item"
+            wx:for="{{score1.list}}"
+            wx:key="course_id"
+            wx:for-index="course_id"
+            style="display: inline"
+          >
+            <view wx:if="{{!isdelete}}">
+              <view
+                class="img"
+                bindtap="toggleChangeCredit"
+                data-item="{{item}}"
+                data-index="{{course_id}}"
+              >
+                <image
+                  wx:if="{{item.ischeck}}"
+                  class="checked"
+                  src="/images/common/check.png"
+                />
+              </view>
+            </view>
+            <view wx:else>
+              <view
+                class="img"
+                bindtap="toggleDeletescore"
+                data-item="{{item}}"
+                data-index="{{course_id}}"
+              >
+                <image
+                  wx:if="{{item.ischeck}}"
+                  class="checked"
+                  src="/images/common/check.png"
+                />
+              </view>
+            </view>
+
+            <view class="name">{{item['名称']}}</view>
+            <picker
+              hover-class="active"
+              mode="multiSelector"
+              value="{{value}}"
+              range="{{range}}"
+              data-item="{{item}}"
+              data-index="{{course_id}}"
+              bindchange="onScorePickerChange"
+              bindcolumnchange="onScoreColumnChange"
+            >
+              <view class="score1">{{item['成绩']}}</view>
+            </picker>
+            <picker
+              hover-class="active"
+              value="{{creditPickerData.value}}"
+              range="{{creditPickerData.range}}"
+              data-item="{{item}}"
+              data-index="{{course_id}}"
+              bindchange="onCreditPickerChange"
+            >
+              <view class="score1">{{item['学分']}}学分</view>
+            </picker>
+          </view>
+
+          <view class="score-item">
+            <view bindtap="addscore">
+              <image class="img" src="/images/common/check.png" />
+              <text class="title">添加考试</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="m-remind-box" wx:else>
+        <image
+          class="remind-img"
+          mode="aspectFit"
+          src="/images/common/nothing.png"
+        ></image>
+        <text class="remind-text">暂无本学期成绩信息</text>
+      </view>
+    </block>
+    <view class="m-remind-box" wx:else>
+      <image
+        class="remind-img"
+        mode="aspectFit"
+        src="/images/common/nothing.png"
+      ></image>
+      <text class="remind-text">暂无成绩信息</text>
+    </view>
+  </view>
+
+  <!-- 底部 -->
+  <view class="m-footer-bar red">
+    <view class="content">
+      <view class="left">
+        <view
+          class="toolbar-icon"
+          hover-class="active"
+          hover-stay-time="500"
+          bindtap="toggleDelete"
+        >
+          <!-- <image class="icon" src="/images/common/refresh.png"></image> -->
+          <view class="bottom-text" wx:if="{{!isdelete}}">删除成绩</view>
+          <view class="bottom-text" wx:else>完成删除</view>
+        </view>
+      </view>
+      <view class="middle">
+        <picker
+          class="term-btn"
+          hover-class="active"
+          mode="multiSelector"
+          value="{{termPickerData.value}}"
+          range="{{termPickerData.range}}"
+          bindchange="onTermPickerChange"
+        >
+          <text class="title">{{currentTerm || '选择学期'}}</text>
+        </picker>
+      </view>
+      <view class="right">
+        <view
+          class="toolbar-icon"
+          hover-class="active"
+          hover-stay-time="500"
+          bindtap="toggleSort"
+          wx:if="{{score && !score.isDetail}}"
+        >
+          <image class="icon" src="/images/common/sort-white.png"></image>
+        </view>
+        <!-- <view
+          class="toolbar-icon"
+          hover-class="active"
+          hover-stay-time="500"
+          bindtap="toggleDetail"
+        >
+          <image class="icon" src="/images/common/detail-white.png"></image>
+        </view> -->
+      </view>
+    </view>
+  </view>
+</view>

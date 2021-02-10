@@ -1,0 +1,42 @@
+page {
+  background-color: #e78ab0;
+}
+
+.img{
+  float: left;
+  width: 40rpx;
+  height: 40rpx;
+  text-align: center;
+  background-color:white;
+  border-radius: 50%;
+  border: 4rpx solid #e78ab0; 
+}
+.checked{
+  width: 32rpx;
+  height: 32rpx;
+  margin-top: 0rpx;
+}
+/* .picker{
+  float: right;
+} */
+.score1{
+  margin-right: 20rpx;
+  float: right;
+  text-align: center;
+  vertical-align: middle;
+  width:100rpx;
+  height: 50rpx;
+  border-radius: 10rpx;
+  color: #e78ab0;
+  border: 4rpx solid #e78ab0; 
+}
+.name{
+  margin-left: 20rpx;
+  float: left;
+}
+.gpa{
+  text-align: center;
+}
+.bottom-text{
+  width: 60rpx;
+}
