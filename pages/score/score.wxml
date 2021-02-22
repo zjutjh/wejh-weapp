@@ -64,7 +64,9 @@
             </view>
             <view class="gpa">
               <text class="title">GPA</text>
-              <text class="content">{{score.gpa}}</text>
+              <navigator class="content" url="/pages/credit/credit"
+                >{{score.gpa}}</navigator
+              >
             </view>
           </view>
         </view>

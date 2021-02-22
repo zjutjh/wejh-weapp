@@ -233,6 +233,9 @@ Page({
   toggleDeletescore(e) {
     const index = e.currentTarget.dataset.index;
     var score1 = this.data.score1;
+    if (score1.list[index].ischeck == true) {
+      credit = credit - score1.list[index]["学分"];
+    }
     score1.list.splice(index, 1);
     // this.setData({
     //   credit : credit,
@@ -240,7 +243,7 @@ Page({
     this.setPageState({
       score1: score1,
     });
-    credit = this.data.score1.list.reduce((a, b) => a + b["学分"] * 1, 0);
+
     this.setData({
       credit: credit,
     });
