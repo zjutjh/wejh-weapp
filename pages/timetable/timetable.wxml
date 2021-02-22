@@ -92,7 +92,7 @@
             >第{{time.week}}周周{{weekday[time.day]}}</text
           >
           <text
-            wx:elif="{{viewStatus != '*' && currentWeek != time.week}}"
+            wx:elif="{{viewStatus != '*' && currentWeek != time.week && time.week > 0}}"
             bindtap="backCurrentWeek"
             >返回第{{time.week}}周</text
           >
