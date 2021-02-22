@@ -13,7 +13,7 @@ Page({
     lastUpdated: "暂无成绩",
 
     termPickerData: {
-      range: [["选择学年"], ["选择学期"], "类别"],
+      range: [["选择学年"], ["选择学期"], ["类别"]],
       value: [0, 0, 0],
     },
   },
@@ -38,20 +38,6 @@ Page({
       });
     });
 
-    // this.observe("session", "scoreDetail", "scoreDetail", (newValue) => {
-    //   if (!(newValue && newValue.scoreDetail)) {
-    //     return;
-    //   }
-    //   // 请求返回后, 更新学期和上次更新时间
-    //   const { lastUpdated, term } = newValue.scoreDetail;
-    //   const termInfo = termUtil.getInfoFromTerm(term);
-    //   this.setPageState({
-    //     termInfoDetail: termInfo,
-    //     currentTermDetail: termUtil.getPrettyTermStr(termInfo),
-    //     lastUpdatedScoreDetail: formatter.formatLastUpdate(lastUpdated),
-    //   });
-    // });
-
     // 判断是否登录
     if (!this.data.isLoggedIn) {
       return wx.redirectTo({
@@ -67,6 +53,7 @@ Page({
     }
 
     const termInfo = termUtil.getInfoFromTerm(this.data.time.term);
+    const grade = parseInt(this.data.userInfo.uno.substring(0, 4));
 
     let termPickerData = termUtil.getTermPickerData(grade, termInfo);
     termPickerData = {
@@ -75,7 +62,6 @@ Page({
     };
 
     // 填充学期选择器数据
-    const grade = parseInt(this.data.userInfo.uno.substring(0, 4));
     this.setPageState({
       termInfo: termInfo,
       currentTerm: termUtil.getPrettyTermStr(termInfo),
