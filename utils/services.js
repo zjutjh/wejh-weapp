@@ -288,14 +288,10 @@ export default function ({ store, fetch }) {
         },
       });
     },
-    getExam(termInfo, callback = function () {}, options) {
+    getExam(callback = function () {}, options) {
       fetch({
         url: API("exam"),
         showError: true,
-        data: {
-          term_year: termInfo.year || "",
-          term_semester: termInfo.semester || "",
-        },
         ...options,
         success(res) {
           const data = res.data.data;

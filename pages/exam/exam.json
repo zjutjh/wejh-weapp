@@ -1,8 +1,5 @@
 {
   "enablePullDownRefresh": false,
   "navigationBarBackgroundColor": "#7acfa6",
-  "navigationBarTitleText": "考试安排",
-  "usingComponents": {
-    "term-picker": "/components/term-picker/term-picker"
-  }
+  "navigationBarTitleText": "考试安排"
 }
