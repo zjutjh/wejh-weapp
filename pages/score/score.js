@@ -9,10 +9,9 @@ Page({
     hideScore: false,
     hideInfo: false,
 
-    currentTerm: "",
     lastUpdated: "暂无成绩",
 
-    termPickerData: {
+    termPickerPlaceHolder: {
       range: [["选择学年"], ["选择学期"], ["类别"]],
       value: [0, 0, 0],
     },
@@ -28,12 +27,14 @@ Page({
       if (!(newValue && newValue.score)) {
         return;
       }
-      // 请求返回后, 更新学期和上次更新时间
-      const { lastUpdated, term } = newValue.score;
+      // 请求返回后, 更新学期选择器的选中状态和上次更新时间
+      const { lastUpdated, term, isDetail } = newValue.score;
       const termInfo = termUtil.getInfoFromTerm(term);
       this.setPageState({
-        termInfo: termInfo,
-        currentTerm: termUtil.getPrettyTermStr(termInfo),
+        termPickerCurrentData: {
+          termInfo,
+          extraValues: isDetail ? [1] : [0],
+        },
         lastUpdated: formatter.formatLastUpdate(lastUpdated),
       });
     });
@@ -56,17 +57,17 @@ Page({
     const termInfo = termUtil.getInfoFromTerm(this.data.time.term);
     const grade = parseInt(this.data.userInfo.uno.substring(0, 4));
 
-    let termPickerData = termUtil.getTermPickerData(grade, termInfo);
-    termPickerData = {
-      range: [...termPickerData.range, ["总评", "分项"]],
-      value: [...termPickerData.value, 0],
-    };
-
     // 填充学期选择器数据
     this.setPageState({
-      termInfo: termInfo,
-      currentTerm: termUtil.getPrettyTermStr(termInfo),
-      termPickerData: termPickerData,
+      termPickerInfo: {
+        termInfo,
+        grade,
+        extraRanges: [["总评", "分项"]],
+      },
+      termPickerCurrentData: {
+        termInfo,
+        extraValues: [0],
+      },
     });
 
     // 判断是否有数据
@@ -101,13 +102,15 @@ Page({
   toggleRefresh() {
     const _this = this;
 
-    const isDetail = this.data.score && this.data.score.isDetail;
+    const { termInfo, extraValues } = this.data.termPickerCurrentData;
+    const isDetail = extraValues[0] === 1;
+
     if (isDetail) {
       wx.showLoading({
         title: "获取成绩中",
         mask: true,
       });
-      app.services.getScoreDetail(this.data.termInfo, () => {
+      app.services.getScoreDetail(termInfo, () => {
         _this.hideLoading();
       });
     } else {
@@ -115,7 +118,7 @@ Page({
         title: "获取成绩中",
         mask: true,
       });
-      app.services.getScore(this.data.termInfo, () => {
+      app.services.getScore(termInfo, () => {
         _this.hideLoading();
       });
     }
@@ -140,63 +143,17 @@ Page({
       });
     }
   },
-  // toggleDetail() {
-  //   const _this = this;
-  //   const isDetail = !this.data.isDetail;
-  //
-  //   const { termInfoDetail, termInfoNormal } = this.data;
-  //   const isTermSame =
-  //     termInfoDetail.year === termInfoNormal.year &&
-  //     termInfoDetail.semester === termInfoNormal.semester;
-  //
-  //   // 始终使用当前模式的学期去替换另一个模式的学期
-  //   const targetTerm = isDetail ? termInfoNormal : termInfoDetail;
-  //
-  //   this.setPageState({
-  //     isDetail: isDetail,
-  //     termInfoNormal: targetTerm,
-  //     currentTerm: termUtil.getPrettyTermStr(targetTerm),
-  //     termInfoDetail: targetTerm,
-  //     // currentTermDetail: termUtil.getPrettyTermStr(targetTerm),
-  //   });
-  //
-  //   // 如果目标模式的数据不存在或者不是同一个学期，需要拉取
-  //   if (isDetail) {
-  //     if (!this.data.scoreDetail || !isTermSame) {
-  //       this.setPageState({
-  //         scoreDetail: null,
-  //       });
-  //       wx.showLoading({
-  //         title: "切换中",
-  //         mask: true,
-  //       });
-  //       app.services.getScoreDetail(targetTerm, () => {
-  //         _this.hideLoading();
-  //       });
-  //     }
-  //   } else {
-  //     if (!this.data.score || !isTermSame) {
-  //       this.setPageState({
-  //         score: null,
-  //       });
-  //       wx.showLoading({
-  //         title: "切换中",
-  //         mask: true,
-  //       });
-  //       app.services.getScore(targetTerm, () => {
-  //         _this.hideLoading();
-  //       });
-  //     }
-  //   }
-  // },
   toggleSort() {
     this.setPageState({
       sort: !this.data.sort,
     });
   },
   termChange: function (e) {
-    const termInfo = e.detail.termInfo;
-    const isDetail = e.detail.thirdData === 1;
+    const { termInfo, extraValues } = e.detail;
+    let isDetail = false;
+    if (extraValues && extraValues[0]) {
+      isDetail = true;
+    }
     wx.showLoading({
       title: "获取成绩中",
       mask: true,

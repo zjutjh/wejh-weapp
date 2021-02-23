@@ -6,5 +6,5 @@
   range="{{range}}"
   bindchange="onPickerChange"
 >
-  <text class="title">{{currentTerm || '选择学期'}}</text>
+  <text class="title">{{currentTermStr || '选择学期'}}</text>
 </picker>

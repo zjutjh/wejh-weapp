@@ -143,10 +143,10 @@
       </view>
       <view class="middle vertical">
         <term-picker
-          range="{{termPickerData.range}}"
-          value="{{termPickerData.value}}"
-          isThree="true"
-          currentTerm="{{currentTerm}}"
+          placeHolder="{{termPickerPlaceHolder}}"
+          allowsShortTerm="true"
+          pickerInfo="{{termPickerInfo}}"
+          currentData="{{termPickerCurrentData}}"
           bindtermChange="termChange"
         >
         </term-picker>
