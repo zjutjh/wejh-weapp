@@ -106,7 +106,7 @@ Page({
         title: "获取成绩中",
         mask: true,
       });
-      app.services.getScoreDetail(this.data.termInfoDetail, () => {
+      app.services.getScoreDetail(this.data.termInfo, () => {
         _this.hideLoading();
       });
     } else {
