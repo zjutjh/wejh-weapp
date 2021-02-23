@@ -127,6 +127,7 @@ App({
         jh_bind: userInfo.ext.passwords_bind.jh_password,
         last_update: Math.floor(daysDiff),
         storage_free: limitSize - currentSize,
+        version: version,
       });
     } catch (err) {
       logger.error("app", "登录埋点上报异常", err);
