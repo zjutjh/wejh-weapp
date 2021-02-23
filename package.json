@@ -12,7 +12,8 @@
     "husky": ">=4",
     "lint-staged": ">=10",
     "merge-stream": "^2.0.0",
-    "prettier": "^2.2.0"
+    "prettier": "^2.2.0",
+    "gulp-replace": "^1.0.0"
   },
   "scripts": {
     "build": "gulp build",

@@ -9,7 +9,10 @@ const endpoints = [
   },
 ];
 
+const commitHash = "COMMIT_HASH";
+
 module.exports = {
   defaultEndpoint,
   endpoints,
+  commitHash,
 };
