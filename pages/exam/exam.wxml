@@ -100,7 +100,7 @@
   <!-- 底部 -->
   <view class="m-footer-bar green">
     <view class="content">
-      <view class="middle">
+      <view class="middle horizontal">
         <view class="switch-btn" data-direction="left" bindtap="switchTerm">
           <image
             src="/images/common/arrow-left.png"

@@ -191,6 +191,7 @@ export default function ({ store, fetch }) {
             ...scoreData,
             sortedList,
             lastUpdated: dayjs().unix(),
+            isDetail: false,
           };
 
           store.setState("session", {
@@ -215,8 +216,13 @@ export default function ({ store, fetch }) {
             const cacheKey = `cache_score_${termInfo.year}_${termInfo.semester}`;
             logger.info("service", "读出 cache 'score', key: ", cacheKey);
 
-            const cachedScore = store.getState("common", cacheKey);
+            let cachedScore = store.getState("common", cacheKey);
             if (cachedScore) {
+              // 上个版本写入 cache 的数据没有 isDetail key, 需要添加进去
+              cachedScore = {
+                ...cachedScore,
+                isDetail: false,
+              };
               store.setState("session", {
                 score: cachedScore,
               });
@@ -242,10 +248,11 @@ export default function ({ store, fetch }) {
           scoreDetail = {
             ...scoreDetail,
             lastUpdated: dayjs().unix(),
+            isDetail: true,
           };
 
           store.setState("session", {
-            scoreDetail,
+            score: scoreDetail,
           });
 
           // 写 cache
@@ -265,10 +272,15 @@ export default function ({ store, fetch }) {
             const cacheKey = `cache_scoreDetail_${termInfo.year}_${termInfo.semester}`;
             logger.info("service", "读出 cache 'score', key: ", cacheKey);
 
-            const cachedScoreDetail = store.getState("common", cacheKey);
+            let cachedScoreDetail = store.getState("common", cacheKey);
             if (cachedScoreDetail) {
+              // 上个版本写入 cache 的数据没有 isDetail 字段, 需要添加进去
+              cachedScoreDetail = {
+                ...cachedScoreDetail,
+                isDetail: true,
+              };
               store.setState("session", {
-                scoreDetail: cachedScoreDetail,
+                score: cachedScoreDetail,
               });
             }
           }

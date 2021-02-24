@@ -8,7 +8,10 @@ const del = require("del");
 const gulp = require("gulp");
 const rename = require("gulp-rename");
 const sass = require("gulp-sass");
+const replace = require("gulp-replace");
 const merge = require("merge-stream");
+
+const fs = require("fs");
 
 // Clean assets
 function clean() {
@@ -50,6 +53,24 @@ function jsLibs() {
     .pipe(gulp.dest("./libs/dayjs/"));
 }
 
+// Record commit id
+function commitHash(done) {
+  try {
+    const rev = fs.readFileSync(".git/HEAD").toString();
+    const hash = fs
+      .readFileSync(`.git/${rev.substring(5)}`.replace(/^\s+|\s+$/g, ""))
+      .toString()
+      .substring(0, 7);
+    gulp
+      .src(["env.js"])
+      .pipe(replace(/commitHash = ".*?"/g, `commitHash = "${hash}"`))
+      .pipe(gulp.dest("./"));
+  } catch (err) {
+    console.log("Failed to stamp commitHash: " + err);
+  }
+  done();
+}
+
 // Watch files
 function watch() {
   gulp.watch("./scss/**/*", css);
@@ -57,12 +78,13 @@ function watch() {
 }
 
 // define complex tasks
-const build = gulp.series(clean, gulp.parallel(css, jsLibs));
+const build = gulp.series(clean, gulp.parallel(css, jsLibs, commitHash));
 
 // export tasks
 exports.clean = clean;
 exports.css = css;
 exports.jsLibs = jsLibs;
+exports.commitHash = commitHash;
 exports.build = build;
 exports.watch = watch;
 exports.default = build;

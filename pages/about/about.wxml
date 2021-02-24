@@ -17,7 +17,11 @@
     <view class="title-bar f-mb-20 f-mt-20">
       <view class="left">
         <text class="title">{{ name }}</text>
-        <text class="version">{{ version }}</text>
+        <view bindtap="toggleShowCommitHash">
+          <text class="version"
+            >{{ isShowCommitHash ? commitHash : version }}</text
+          >
+        </view>
         <text class="version">{{ versionType }}</text>
       </view>
     </view>

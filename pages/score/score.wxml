@@ -1,21 +1,15 @@
 <!-- <view class="m-loading-box" wx:if="{{showLoading}}">
   <image class="icon-loading" src="/images/common/loading.gif"></image>
 </view> -->
-<view class="m-cache-tip-new red"
-  >{{isDetail ? lastUpdatedScoreDetail : lastUpdatedScore}}
-  <image
-    class="icon"
-    src="/images/common/refresh.png"
-    bindtap="toggleRefresh"
-  ></image>
-</view>
 <!-- 学期填入 -->
 <view class="container f-bg-gray">
   <view class="m-score">
     <view class="score-header">
       <view class="info">
         <view class="title">
-          <text class="content">成绩{{isDetail ? '明细' : ''}}查询</text>
+          <text class="content"
+            >我的成绩{{score && score.isDetail ? '明细' : ''}}</text
+          >
           <image
             class="eye"
             src="/images/common/eye-{{hideInfo ? 'close-' : ''}}gray.png"
@@ -36,11 +30,8 @@
       </view>
     </view>
 
-    <block wx:if="{{(!isDetail && score) || (isDetail && scoreDetail)}}">
-      <view
-        class="score-content"
-        wx:if="{{(!isDetail && score.list.length > 0) || (isDetail && scoreDetail.list.length > 0)}}"
-      >
+    <block wx:if="{{score}}">
+      <view class="score-content" wx:if="{{score.list.length > 0}}">
         <view class="content-header">
           <view class="logo" bindtap="toggleHideScore">
             <image class="icon" src="{{icons.score.icon}}"></image>
@@ -69,7 +60,7 @@
             </view>
           </view>
         </view>
-        <view class="score-list" wx:if="{{!isDetail}}">
+        <view class="score-list" wx:if="{{!score.isDetail}}">
           <view
             class="score-item"
             wx:for="{{sort ? score.sortedList : score.list}}"
@@ -80,10 +71,10 @@
             <text class="score">{{hideScore ? '**' : item['成绩']}}</text>
           </view>
         </view>
-        <view class="score-list" wx:elif="{{isDetail}}">
+        <view class="score-list" wx:elif="{{score.isDetail}}">
           <view
             class="score-item detail{{item.open ? ' open' : ''}}"
-            wx:for="{{scoreDetail.list}}"
+            wx:for="{{score.list}}"
             wx:key="course_id"
             wx:for-index="course_id"
           >
@@ -145,13 +136,12 @@
           class="toolbar-icon"
           hover-class="active"
           hover-stay-time="500"
-          bindtap="toggleSort"
-          wx:if="{{!isDetail}}"
+          bindtap="toggleRefresh"
         >
-          <image class="icon" src="/images/common/sort-white.png"></image>
+          <image class="icon" src="/images/common/refresh.png"></image>
         </view>
       </view>
-      <view class="middle">
+      <view class="middle vertical">
         <picker
           class="term-btn"
           hover-class="active"
@@ -160,20 +150,19 @@
           range="{{termPickerData.range}}"
           bindchange="onTermPickerChange"
         >
-          <text class="title"
-            >{{(isDetail ? currentTermDetail : currentTermNormal) ||
-            '选择学期'}}</text
-          >
+          <text class="title">{{currentTerm || '选择学期'}}</text>
         </picker>
+        <text class="cache-tip">{{lastUpdated}}</text>
       </view>
       <view class="right">
         <view
           class="toolbar-icon"
           hover-class="active"
           hover-stay-time="500"
-          bindtap="toggleDetail"
+          bindtap="toggleSort"
+          wx:if="{{score && !score.isDetail}}"
         >
-          <image class="icon" src="/images/common/detail-white.png"></image>
+          <image class="icon" src="/images/common/sort-white.png"></image>
         </view>
       </view>
     </view>

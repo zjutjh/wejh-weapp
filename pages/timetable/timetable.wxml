@@ -92,13 +92,13 @@
             >第{{time.week}}周周{{weekday[time.day]}}</text
           >
           <text
-            wx:elif="{{viewStatus != '*' && currentWeek != time.week}}"
+            wx:elif="{{viewStatus != '*' && currentWeek != time.week && time.week > 0}}"
             bindtap="backCurrentWeek"
             >返回第{{time.week}}周</text
           >
           <text wx:else>星期{{weekday[time.day]}}</text>
         </view>
-        <view class="middle">
+        <view class="middle horizontal">
           <block wx:if="{{viewStatus !== '*'}}">
             <view class="switch-btn" data-direction="left" bindtap="switchWeek">
               <image

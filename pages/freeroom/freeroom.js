@@ -175,6 +175,10 @@ Page({
     const currentPeriodKey = getCurrentPeriod().key;
     let { week, day: weekday } = this.data.time;
 
+    if (week <= 0) {
+      week = 1;
+    }
+
     if (currentPeriodKey === "c12p") {
       if (weekday === 7) {
         if (week < _weeks.length) {
@@ -212,7 +216,7 @@ Page({
     const { type, value, badgePath } = event.currentTarget.dataset;
 
     try {
-      wx.reportAnalytics('freeroom_options', {
+      wx.reportAnalytics("freeroom_options", {
         uno: this.data.userInfo.uno,
         freeroom_option_name: type,
         freeroom_option_value: value,

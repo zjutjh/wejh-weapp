@@ -6,18 +6,15 @@ const app = getApp();
 Page({
   data: {
     sort: false,
-    isDetail: false,
     hideScore: false,
     hideInfo: false,
 
-    currentTermNormal: "",
-    currentTermDetail: "",
-    lastUpdatedScore: "暂无成绩",
-    lastUpdatedScoreDetail: "暂无成绩",
+    currentTerm: "",
+    lastUpdated: "暂无成绩",
 
     termPickerData: {
-      range: [["选择学年"], ["选择学期"]],
-      value: [0, 0],
+      range: [["选择学年"], ["选择学期"], ["类别"]],
+      value: [0, 0, 0],
     },
   },
   onLoad() {
@@ -35,22 +32,9 @@ Page({
       const { lastUpdated, term } = newValue.score;
       const termInfo = termUtil.getInfoFromTerm(term);
       this.setPageState({
-        termInfoNormal: termInfo,
-        currentTermNormal: termUtil.getPrettyTermStr(termInfo),
-        lastUpdatedScore: formatter.formatLastUpdate(lastUpdated),
-      });
-    });
-    this.observe("session", "scoreDetail", "scoreDetail", (newValue) => {
-      if (!(newValue && newValue.scoreDetail)) {
-        return;
-      }
-      // 请求返回后, 更新学期和上次更新时间
-      const { lastUpdated, term } = newValue.scoreDetail;
-      const termInfo = termUtil.getInfoFromTerm(term);
-      this.setPageState({
-        termInfoDetail: termInfo,
-        currentTermDetail: termUtil.getPrettyTermStr(termInfo),
-        lastUpdatedScoreDetail: formatter.formatLastUpdate(lastUpdated),
+        termInfo: termInfo,
+        currentTerm: termUtil.getPrettyTermStr(termInfo),
+        lastUpdated: formatter.formatLastUpdate(lastUpdated),
       });
     });
 
@@ -69,15 +53,19 @@ Page({
     }
 
     const termInfo = termUtil.getInfoFromTerm(this.data.time.term);
+    const grade = parseInt(this.data.userInfo.uno.substring(0, 4));
+
+    let termPickerData = termUtil.getTermPickerData(grade, termInfo);
+    termPickerData = {
+      range: [...termPickerData.range, ["总评", "分项"]],
+      value: [...termPickerData.value, 0],
+    };
 
     // 填充学期选择器数据
-    const grade = parseInt(this.data.userInfo.uno.substring(0, 4));
     this.setPageState({
-      termInfoNormal: termInfo,
-      termInfoDetail: termInfo,
-      currentTermNormal: termUtil.getPrettyTermStr(termInfo),
-      currentTermDetail: termUtil.getPrettyTermStr(termInfo),
-      termPickerData: termUtil.getTermPickerData(grade, termInfo),
+      termInfo: termInfo,
+      currentTerm: termUtil.getPrettyTermStr(termInfo),
+      termPickerData: termPickerData,
     });
 
     // 判断是否有数据
@@ -111,12 +99,14 @@ Page({
   },
   toggleRefresh() {
     const _this = this;
-    if (this.data.isDetail) {
+
+    const isDetail = this.data.score && this.data.score.isDetail;
+    if (isDetail) {
       wx.showLoading({
         title: "获取成绩中",
         mask: true,
       });
-      app.services.getScoreDetail(this.data.termInfoDetail, () => {
+      app.services.getScoreDetail(this.data.termInfo, () => {
         _this.hideLoading();
       });
     } else {
@@ -124,7 +114,7 @@ Page({
         title: "获取成绩中",
         mask: true,
       });
-      app.services.getScore(this.data.termInfoNormal, () => {
+      app.services.getScore(this.data.termInfo, () => {
         _this.hideLoading();
       });
     }
@@ -141,61 +131,63 @@ Page({
   },
   toggleShowScoreDetail(e) {
     const index = e.currentTarget.dataset.index;
-    const scoreDetail = this.data.scoreDetail;
-    scoreDetail.list[index].open = !scoreDetail.list[index].open;
-    app.$store.setState("session", {
-      scoreDetail,
-    });
-  },
-  toggleDetail() {
-    const _this = this;
-    const isDetail = !this.data.isDetail;
-
-    const { termInfoDetail, termInfoNormal } = this.data;
-    const isTermSame =
-      termInfoDetail.year === termInfoNormal.year &&
-      termInfoDetail.semester === termInfoNormal.semester;
-
-    // 始终使用当前模式的学期去替换另一个模式的学期
-    const targetTerm = isDetail ? termInfoNormal : termInfoDetail;
-
-    this.setPageState({
-      isDetail: isDetail,
-      termInfoNormal: targetTerm,
-      currentTermNormal: termUtil.getPrettyTermStr(targetTerm),
-      termInfoDetail: targetTerm,
-      currentTermDetail: termUtil.getPrettyTermStr(targetTerm),
-    });
-
-    // 如果目标模式的数据不存在或者不是同一个学期，需要拉取
-    if (isDetail) {
-      if (!this.data.scoreDetail || !isTermSame) {
-        this.setPageState({
-          scoreDetail: null,
-        });
-        wx.showLoading({
-          title: "切换中",
-          mask: true,
-        });
-        app.services.getScoreDetail(targetTerm, () => {
-          _this.hideLoading();
-        });
-      }
-    } else {
-      if (!this.data.score || !isTermSame) {
-        this.setPageState({
-          score: null,
-        });
-        wx.showLoading({
-          title: "切换中",
-          mask: true,
-        });
-        app.services.getScore(targetTerm, () => {
-          _this.hideLoading();
-        });
-      }
+    const scoreDetail = this.data.score;
+    if (scoreDetail && scoreDetail.isDetail) {
+      scoreDetail.list[index].open = !scoreDetail.list[index].open;
+      this.setPageState({
+        score: scoreDetail,
+      });
     }
   },
+  // toggleDetail() {
+  //   const _this = this;
+  //   const isDetail = !this.data.isDetail;
+  //
+  //   const { termInfoDetail, termInfoNormal } = this.data;
+  //   const isTermSame =
+  //     termInfoDetail.year === termInfoNormal.year &&
+  //     termInfoDetail.semester === termInfoNormal.semester;
+  //
+  //   // 始终使用当前模式的学期去替换另一个模式的学期
+  //   const targetTerm = isDetail ? termInfoNormal : termInfoDetail;
+  //
+  //   this.setPageState({
+  //     isDetail: isDetail,
+  //     termInfoNormal: targetTerm,
+  //     currentTerm: termUtil.getPrettyTermStr(targetTerm),
+  //     termInfoDetail: targetTerm,
+  //     // currentTermDetail: termUtil.getPrettyTermStr(targetTerm),
+  //   });
+  //
+  //   // 如果目标模式的数据不存在或者不是同一个学期，需要拉取
+  //   if (isDetail) {
+  //     if (!this.data.scoreDetail || !isTermSame) {
+  //       this.setPageState({
+  //         scoreDetail: null,
+  //       });
+  //       wx.showLoading({
+  //         title: "切换中",
+  //         mask: true,
+  //       });
+  //       app.services.getScoreDetail(targetTerm, () => {
+  //         _this.hideLoading();
+  //       });
+  //     }
+  //   } else {
+  //     if (!this.data.score || !isTermSame) {
+  //       this.setPageState({
+  //         score: null,
+  //       });
+  //       wx.showLoading({
+  //         title: "切换中",
+  //         mask: true,
+  //       });
+  //       app.services.getScore(targetTerm, () => {
+  //         _this.hideLoading();
+  //       });
+  //     }
+  //   }
+  // },
   toggleSort() {
     this.setPageState({
       sort: !this.data.sort,
@@ -208,12 +200,14 @@ Page({
       semester: e.detail.value[1] + 1,
     };
 
+    const isDetail = e.detail.value[2] === 1;
+
     wx.showLoading({
-      title: "切换学期中",
+      title: "获取成绩中",
       mask: true,
     });
     const _this = this;
-    if (this.data.isDetail) {
+    if (isDetail) {
       app.services.getScoreDetail(termInfo, () => {
         _this.hideLoading();
       });

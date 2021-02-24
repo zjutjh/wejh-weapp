@@ -8,8 +8,10 @@ Page({
     name: app.name,
     versionType: app.versionType,
     version: app.version,
+    commitHash: app.env("commitHash"),
     currentYear: dayjs().format("YYYY"),
     headerTapCount: 0,
+    isShowCommitHash: false,
     // observed keys
     devMenuEnabled: false,
   },
@@ -37,5 +39,10 @@ Page({
         title: "调试彩蛋已打开",
       });
     }
+  },
+  toggleShowCommitHash() {
+    this.setPageState({
+      isShowCommitHash: !this.data.isShowCommitHash,
+    });
   },
 });
