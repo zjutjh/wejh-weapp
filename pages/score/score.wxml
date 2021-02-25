@@ -31,7 +31,7 @@
     </view>
 
     <block wx:if="{{score}}">
-      <view class="score-content" wx:if="{{score.list.length > 0}}">
+      <view class="score-content">
         <view class="content-header">
           <view class="logo" bindtap="toggleHideScore">
             <image class="icon" src="{{icons.score.icon}}"></image>
@@ -56,66 +56,73 @@
             </view>
             <view class="gpa">
               <text class="title">GPA</text>
-              <text class="content">{{score.gpa}}</text>
-            </view>
-          </view>
-        </view>
-        <view class="score-list" wx:if="{{!score.isDetail}}">
-          <view
-            class="score-item"
-            wx:for="{{sort ? score.sortedList : score.list}}"
-            wx:key="course_id"
-            wx:for-index="course_id"
-          >
-            <text class="name">{{item['名称']}}</text>
-            <text class="score">{{hideScore ? '**' : item['成绩']}}</text>
-          </view>
-        </view>
-        <view class="score-list" wx:elif="{{score.isDetail}}">
-          <view
-            class="score-item detail{{item.open ? ' open' : ''}}"
-            wx:for="{{score.list}}"
-            wx:key="course_id"
-            wx:for-index="course_id"
-          >
-            <view
-              class="head"
-              bindtap="toggleShowScoreDetail"
-              data-index="{{course_id}}"
-            >
-              <view class="main-info">
-                <text class="name">{{item['名称']}}</text>
-                <text class="subtitle">{{item['成绩分项']}}</text>
-              </view>
-              <text class="sub-info">{{item['成绩'] || '暂无成绩'}}</text>
-              <image
-                class="arrow"
-                src="/images/common/arrow-down-gray.png"
-              ></image>
-            </view>
-            <view class="detail-info">
-              <view
-                class="detail-item"
-                wx:for="{{item}}"
-                wx:key="course_id"
-                wx:for-index="item_name"
-                wx:if="{{item_name !== 'open'}}"
+              <text class="content"
+                >{{score.list.length > 0 ? score.gpa : "暂无成绩"}}</text
               >
-                <text class="label">{{item_name}}</text>
-                <text class="content">{{item}}</text>
-              </view>
             </view>
           </view>
         </view>
-      </view>
-
-      <view class="m-remind-box" wx:else>
-        <image
-          class="remind-img"
-          mode="aspectFit"
-          src="/images/common/nothing.png"
-        ></image>
-        <text class="remind-text">暂无本学期成绩信息</text>
+        <view class="score-list">
+          <block wx:if="{{score.list.length > 0}}">
+            <block wx:if="{{!score.isDetail}}">
+              <view
+                class="score-item"
+                wx:for="{{sort ? score.sortedList : score.list}}"
+                wx:key="course_id"
+                wx:for-index="course_id"
+              >
+                <text class="name">{{item['名称']}}</text>
+                <text class="score">{{hideScore ? '**' : item['成绩']}}</text>
+              </view>
+            </block>
+            <block wx:if="{{score.isDetail}}">
+              <view
+                class="score-item detail{{item.open ? ' open' : ''}}"
+                wx:for="{{score.list}}"
+                wx:key="course_id"
+                wx:for-index="course_id"
+              >
+                <view
+                  class="head"
+                  bindtap="toggleShowScoreDetail"
+                  data-index="{{course_id}}"
+                >
+                  <view class="main-info">
+                    <text class="name">{{item['名称']}}</text>
+                    <text class="subtitle">{{item['成绩分项']}}</text>
+                  </view>
+                  <text class="sub-info">{{item['成绩'] || '暂无成绩'}}</text>
+                  <image
+                    class="arrow"
+                    src="/images/common/arrow-down-gray.png"
+                  ></image>
+                </view>
+                <view class="detail-info">
+                  <view
+                    class="detail-item"
+                    wx:for="{{item}}"
+                    wx:key="course_id"
+                    wx:for-index="item_name"
+                    wx:if="{{item_name !== 'open'}}"
+                  >
+                    <text class="label">{{item_name}}</text>
+                    <text class="content">{{item}}</text>
+                  </view>
+                </view>
+              </view>
+            </block>
+          </block>
+          <block wx:else>
+            <view class="m-remind-box">
+              <image
+                class="remind-img"
+                mode="aspectFit"
+                src="/images/common/nothing.png"
+              ></image>
+              <text class="remind-text">暂无本学期成绩信息</text>
+            </view>
+          </block>
+        </view>
       </view>
     </block>
     <view class="m-remind-box" wx:else>
