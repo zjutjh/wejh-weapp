@@ -54,7 +54,7 @@
                 >大{{score.grade_name}}{{score.semester}}学期</text
               >
             </view>
-            <view class="gpa">
+            <view class="gpa" wx:if="{{!score.isDetail}}">
               <text class="title">GPA</text>
               <text class="content"
                 >{{score.list.length > 0 ? score.gpa : "暂无成绩"}}</text
@@ -72,7 +72,9 @@
                 wx:for-index="course_id"
               >
                 <text class="name">{{item['名称']}}</text>
-                <text class="score">{{hideScore ? '**' : item['成绩']}}</text>
+                <text class="score"
+                  >{{hideScore ? '**' : (item['成绩'] || '暂无成绩')}}</text
+                >
               </view>
             </block>
             <block wx:if="{{score.isDetail}}">
@@ -106,7 +108,7 @@
                     wx:if="{{item_name !== 'open'}}"
                   >
                     <text class="label">{{item_name}}</text>
-                    <text class="content">{{item}}</text>
+                    <text class="content">{{item || '未知'}}</text>
                   </view>
                 </view>
               </view>
