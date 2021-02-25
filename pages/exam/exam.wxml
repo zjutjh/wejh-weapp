@@ -101,21 +101,15 @@
   <view class="m-footer-bar green">
     <view class="content">
       <view class="middle horizontal">
-        <view class="switch-btn" data-direction="left" bindtap="switchTerm">
-          <image
-            src="/images/common/arrow-left.png"
-            class="icon icon-arrow-left"
-            mode="aspectFit"
-          ></image>
-        </view>
-        <text class="title">{{currentTerm}}</text>
-        <view class="switch-btn" data-direction="right" bindtap="switchTerm">
-          <image
-            src="/images/common/arrow-right.png"
-            class="icon icon-arrow-right"
-            mode="aspectFit"
-          ></image>
-        </view>
+        <term-picker
+          id="termPicker"
+          range="{{termPickerData.range}}"
+          value="{{termPickerData.value}}"
+          isThree="false"
+          currentTerm="{{currentTerm}}"
+          bindtermChange="termChange"
+        >
+        </term-picker>
       </view>
     </view>
   </view>
