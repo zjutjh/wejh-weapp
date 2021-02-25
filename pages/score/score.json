@@ -1,5 +1,8 @@
 {
   "enablePullDownRefresh": false,
   "navigationBarBackgroundColor": "#e78ab0",
-  "navigationBarTitleText": "我的成绩"
+  "navigationBarTitleText": "我的成绩",
+  "usingComponents": {
+    "term-picker": "/components/term-picker/term-picker"
+  }
 }
