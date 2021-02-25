@@ -1,4 +1,5 @@
 .term-btn {
+  font-size: 28rpx;
   padding: 6rpx 10rpx;
   border-radius: 10rpx;
   min-height: 48rpx;

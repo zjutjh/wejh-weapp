@@ -1,5 +1,4 @@
 import termUtil from "../../utils/termPicker";
-import formatter from "../../utils/formatter";
 
 const app = getApp();
 
@@ -7,7 +6,7 @@ Page({
   data: {
     hideInfo: false,
 
-    lastUpdated: "考试安排",
+    // lastUpdated: "考试安排",
 
     termPickerCurrentData: null,
 
@@ -27,13 +26,13 @@ Page({
         return;
       }
       // 请求返回后, 更新学期选择器的选中状态和上次更新时间
-      const { lastUpdated, term, isDetail } = newValue.exam;
+      const { lastUpdated, term } = newValue.exam;
       const termInfo = termUtil.getInfoFromTerm(term);
       this.setPageState({
         termPickerCurrentData: {
           termInfo,
         },
-        lastUpdated: formatter.formatLastUpdate(lastUpdated),
+        lastUpdated,
       });
     });
 

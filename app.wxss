@@ -1388,12 +1388,6 @@ text {
   height: 30rpx;
 }
 
-.m-footer-bar .cache-tip {
-  font-size: 20rpx !important;
-  line-height: 100%;
-  margin-top: 10rpx;
-}
-
 .m-footer-bar .choose-view {
   position: relative;
   display: flex;

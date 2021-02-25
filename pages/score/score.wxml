@@ -159,7 +159,7 @@
           bindtermChange="termChange"
         >
         </term-picker>
-        <text class="cache-tip">{{lastUpdated}}</text>
+        <cache-tip timestamp="{{lastUpdated}}" title="成绩"></cache-tip>
       </view>
       <view class="right">
         <view

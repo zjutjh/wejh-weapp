@@ -94,7 +94,7 @@
         mode="aspectFit"
         src="/images/common/nothing.png"
       ></image>
-      <text class="remind-text">暂无排考信息</text>
+      <text class="remind-text">暂无本学期排考信息</text>
     </view>
   </view>
 
@@ -120,7 +120,7 @@
           bindtermChange="termChange"
         >
         </term-picker>
-        <text class="cache-tip">{{lastUpdated}}</text>
+        <cache-tip timestamp="{{lastUpdated}}" title="考试安排"></cache-tip>
       </view>
     </view>
   </view>

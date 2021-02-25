@@ -3,6 +3,7 @@
   "navigationBarBackgroundColor": "#e78ab0",
   "navigationBarTitleText": "我的成绩",
   "usingComponents": {
-    "term-picker": "/components/term-picker/term-picker"
+    "term-picker": "/components/term-picker/term-picker",
+    "cache-tip": "/components/cache-tip/cache-tip"
   }
 }

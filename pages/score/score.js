@@ -1,5 +1,4 @@
 import termUtil from "../../utils/termPicker";
-import formatter from "../../utils/formatter";
 
 const app = getApp();
 
@@ -8,8 +7,6 @@ Page({
     sort: false,
     hideScore: false,
     hideInfo: false,
-
-    lastUpdated: "暂无成绩",
 
     termPickerCurrentData: null,
 
@@ -37,7 +34,7 @@ Page({
           termInfo,
           extraValues: isDetail ? [1] : [0],
         },
-        lastUpdated: formatter.formatLastUpdate(lastUpdated),
+        lastUpdated,
       });
     });
 
