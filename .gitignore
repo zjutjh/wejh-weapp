@@ -3,3 +3,5 @@ node_modules/
 
 *.map
 env.js
+
+**/*.log
