@@ -11,6 +11,8 @@ Page({
 
     lastUpdated: "暂无成绩",
 
+    termPickerCurrentData: null,
+
     termPickerPlaceHolder: {
       range: [["选择学年"], ["选择学期"], ["类别"]],
       value: [0, 0, 0],
@@ -23,7 +25,7 @@ Page({
     this.observe("session", "userInfo");
     this.observe("session", "isLoggedIn");
     this.observe("session", "time");
-    this.observe("session", "score", "score", (newValue) => {
+    this.observe("session", "score", null, (newValue) => {
       if (!(newValue && newValue.score)) {
         return;
       }
@@ -53,7 +55,7 @@ Page({
       });
     }
 
-    //获得学期数据
+    // 获得学期数据
     const termInfo = termUtil.getInfoFromTerm(this.data.time.term);
     const grade = parseInt(this.data.userInfo.uno.substring(0, 4));
 
@@ -64,11 +66,30 @@ Page({
         grade,
         extraRanges: [["总评", "分项"]],
       },
-      termPickerCurrentData: {
-        termInfo,
-        extraValues: [0],
-      },
     });
+
+    // 若上次选择的学期不存在，进行生成
+    if (!this.data.termPickerCurrentData) {
+      let targetTermInfo = termInfo;
+      // 对于成绩查询场景，当前周在 14 周及以前时，选中上一学期
+      if (this.data.time.week <= 14) {
+        if (targetTermInfo.week === 1) {
+          // 对于大一新生, 默认选中的学期不往前调整
+          if (grade && targetTermInfo.year - 1 >= grade) {
+            targetTermInfo.year -= 1;
+            targetTermInfo.semester = 2;
+          }
+        } else {
+          targetTermInfo.semester = 1;
+        }
+      }
+      this.setPageState({
+        termPickerCurrentData: {
+          termInfo: targetTermInfo,
+          extraValues: [0],
+        },
+      });
+    }
 
     // 判断是否有数据
     if (!this.data.score) {
