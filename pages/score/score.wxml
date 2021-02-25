@@ -151,7 +151,7 @@
       <view class="middle vertical">
         <term-picker
           placeHolder="{{termPickerPlaceHolder}}"
-          allowsShortTerm="true"
+          allowsShortTerm="{{true}}"
           pickerInfo="{{termPickerInfo}}"
           currentData="{{termPickerCurrentData}}"
           bindtermChange="termChange"

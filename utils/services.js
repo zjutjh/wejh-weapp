@@ -233,7 +233,7 @@ export default function ({ store, fetch }) {
       });
     },
     getScoreDetail(termInfo, callback = function () {}, options) {
-      // cache_key: cache_scoreDetail_termYear_semester (score_2020_1)
+      // cache_key: cache_scoreDetail_termYear_semester (scoreDetail_2020_1)
       fetch({
         url: API("scoreDetail"),
         showError: true,
@@ -259,7 +259,7 @@ export default function ({ store, fetch }) {
           const termInfo = termUtil.getInfoFromTerm(scoreDetail.term);
           if (termInfo.year && termInfo.semester) {
             const cacheKey = `cache_scoreDetail_${termInfo.year}_${termInfo.semester}`;
-            logger.info("service", "写入 cache 'score', key: ", cacheKey);
+            logger.info("service", "写入 cache 'scoreDetail', key: ", cacheKey);
             store.setState("common", {
               [cacheKey]: scoreDetail,
             });
@@ -270,7 +270,7 @@ export default function ({ store, fetch }) {
           // 请求失败时返回 cache
           if (termInfo.year && termInfo.semester) {
             const cacheKey = `cache_scoreDetail_${termInfo.year}_${termInfo.semester}`;
-            logger.info("service", "读出 cache 'score', key: ", cacheKey);
+            logger.info("service", "读出 cache 'scoreDetail', key: ", cacheKey);
 
             let cachedScoreDetail = store.getState("common", cacheKey);
             if (cachedScoreDetail) {
@@ -288,16 +288,51 @@ export default function ({ store, fetch }) {
         },
       });
     },
-    getExam(callback = function () {}, options) {
+    getExam(termInfo, callback = function () {}, options) {
+      // cache_key: cache_exam_termYear_semester (exam_2020_1)
       fetch({
         url: API("exam"),
         showError: true,
+        data: {
+          term_year: termInfo.year || "",
+          term_semester: termInfo.semester || "",
+        },
         ...options,
         success(res) {
-          const data = res.data.data;
+          let exam = res.data.data;
+          exam = {
+            ...util.fixExam(exam),
+            lastUpdated: dayjs().unix(),
+          };
+
           store.setState("session", {
-            exam: util.fixExam(data),
+            exam,
           });
+
+          // 写 cache
+          const termInfo = termUtil.getInfoFromTerm(exam.term);
+          if (termInfo.year && termInfo.semester) {
+            const cacheKey = `cache_exam_${termInfo.year}_${termInfo.semester}`;
+            logger.info("service", "写入 cache 'exam', key: ", cacheKey);
+            store.setState("common", {
+              [cacheKey]: exam,
+            });
+          }
+          callback && callback(res);
+        },
+        fail(res) {
+          // 请求失败时返回 cache
+          if (termInfo.year && termInfo.semester) {
+            const cacheKey = `cache_exam_${termInfo.year}_${termInfo.semester}`;
+            logger.info("service", "读出 cache 'exam', key: ", cacheKey);
+
+            let cachedExam = store.getState("common", cacheKey);
+            if (cachedExam) {
+              store.setState("session", {
+                exam: cachedExam,
+              });
+            }
+          }
           callback && callback(res);
         },
       });
