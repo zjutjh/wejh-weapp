@@ -282,7 +282,7 @@ Page({
     });
     credit = this.data.score1.list.reduce((a, b) => a + b["学分"] * 1, 0);
     this.setData({
-      value: e.detail.value,
+      //   value: e.detail.value, //此处会报错，原因暂未知
       credit: credit,
     });
     this.getGpa();
