@@ -39,51 +39,48 @@ Page({
       gpa: 3.46,
       list: [
         {
-          名称: "高数",
+          名称: "高等数学",
+          考试性质: "正常考试",
           学分: "5",
-          成绩: "80",
+          成绩: "81",
+          课程性质名称: "必修课",
+          课程归属名称: "",
           ischeck: true,
         },
         {
           名称: "大学英语",
+          考试性质: "正常考试",
           学分: "4",
           成绩: "80",
+          课程性质名称: "必修课",
+          课程归属名称: "",
           ischeck: true,
         },
         {
           名称: "体育",
+          考试性质: "正常考试",
           学分: "1",
           成绩: "85",
+          课程性质名称: "体育课",
+          课程归属名称: "",
           ischeck: true,
         },
         {
-          名称: "CPP面向对象编程",
-          学分: "4",
-          成绩: "90",
+          名称: "工程创新实践与伦理",
+          考试性质: "正常考试",
+          学分: "2.0",
+          成绩: "优秀",
+          课程性质名称: "任选课",
+          课程归属名称: "创新创业",
           ischeck: true,
         },
         {
-          名称: "线性代数",
-          学分: "4",
-          成绩: "90",
-          ischeck: true,
-        },
-        {
-          名称: "近代史",
-          学分: "2",
-          成绩: "90",
-          ischeck: true,
-        },
-        {
-          名称: "思修",
-          学分: "4",
-          成绩: "90",
-          ischeck: true,
-        },
-        {
-          名称: "强化英语",
-          学分: "4",
-          成绩: "90",
+          名称: "心理健康与自我成长",
+          考试性质: "正常考试",
+          学分: "2.0",
+          成绩: "80",
+          课程性质名称: "选修课",
+          课程归属名称: "社会责任",
           ischeck: true,
         },
       ],
@@ -247,7 +244,7 @@ Page({
     this.setData({
       credit: credit,
     });
-    // this.getGpa();
+    this.getGpa();
   },
 
   toggleChangeCredit(e) {
@@ -269,7 +266,7 @@ Page({
     this.setPageState({
       score1: score1,
     });
-    // this.getGpa();
+    this.getGpa();
   },
 
   onCreditPickerChange(e) {
@@ -288,7 +285,7 @@ Page({
       value: e.detail.value,
       credit: credit,
     });
-    // this.getGpa();
+    this.getGpa();
   },
 
   onScorePickerChange(e) {
@@ -300,7 +297,7 @@ Page({
     this.setPageState({
       score1: score1,
     });
-    // this.getGpa();
+    this.getGpa();
   },
   onScoreColumnChange(e) {
     // console.log(e.detail);
@@ -334,8 +331,11 @@ Page({
     var score1 = this.data.score1;
     score1.list[score1.list.length] = {
       名称: "自定义",
+      考试性质: "正常考试",
       学分: 2,
       成绩: 60,
+      课程性质名称: "必修课",
+      课程归属名称: "",
       ischeck: true,
     };
     this.setPageState({
@@ -345,7 +345,7 @@ Page({
     this.setData({
       credit: credit,
     });
-    // this.getGpa();
+    this.getGpa();
   },
 
   // onScorePickerChange:function(e){
@@ -394,11 +394,12 @@ Page({
         _this.hideLoading();
       });
     }
-    // this.getGpa();
+    this.getGpa();
   },
 
   getGpa() {
     const score = this.data.score;
+    const score1 = this.data.score1;
     if (score.list.length == 0) {
       return 0;
     }
@@ -433,8 +434,12 @@ Page({
     //   }
     //   return array;
     // }
-    score.list.forEach((element) => {
+    score1.list.forEach((element) => {
+      //此处改变gpa
       console.log(element["名称"]);
+      if (element.ischeck == false) {
+        return;
+      }
       if (
         !isset(element["考试性质"]) ||
         element["考试性质"] == "公选课" ||
@@ -520,11 +525,12 @@ Page({
       zcj += b * element["学分"];
       zxf += 1 * element["学分"];
     });
+
     if (zxf == 0) {
       gpa = 0;
     } else {
       gpa = (zcj / zxf).toFixed(3);
-      this.setData({ gpa });
     }
+    this.setData({ gpa });
   },
 });

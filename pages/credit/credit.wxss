@@ -37,6 +37,7 @@ page {
 .gpa{
   text-align: center;
 }
-.bottom-text{
-  width: 60rpx;
+.buttom{
+  width: 40rpx;
+  height: 40rpx;
 }

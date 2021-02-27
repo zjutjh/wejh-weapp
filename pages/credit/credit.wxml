@@ -1,14 +1,6 @@
 <!-- <view class="m-loading-box" wx:if="{{showLoading}}">
   <image class="icon-loading" src="/images/common/loading.gif"></image>
 </view> -->
-<view class="m-cache-tip-new red"
-  >{{lastUpdated}}
-  <!-- <image
-    class="icon"
-    src="/images/common/refresh.png"
-    bindtap="toggleRefresh"
-  ></image> -->
-</view>
 <!-- 学期填入 -->
 <view class="container f-bg-gray">
   <view class="m-score">
@@ -61,11 +53,7 @@
                 data-item="{{item}}"
                 data-index="{{course_id}}"
               >
-                <image
-                  wx:if="{{item.ischeck}}"
-                  class="checked"
-                  src="/images/common/check.png"
-                />
+                <image class="checked" src="/images/common/delete.png" />
               </view>
             </view>
 
@@ -96,7 +84,7 @@
 
           <view class="score-item">
             <view bindtap="addscore">
-              <image class="img" src="/images/common/check.png" />
+              <image class="img" src="/images/common/add.png" />
               <text class="title">添加考试</text>
             </view>
           </view>
@@ -132,9 +120,7 @@
           hover-stay-time="500"
           bindtap="toggleDelete"
         >
-          <!-- <image class="icon" src="/images/common/refresh.png"></image> -->
-          <view class="bottom-text" wx:if="{{!isdelete}}">删除成绩</view>
-          <view class="bottom-text" wx:else>完成删除</view>
+          <image class="buttom" src="/images/common/delete-button.png" />
         </view>
       </view>
       <view class="middle">
@@ -148,25 +134,6 @@
         >
           <text class="title">{{currentTerm || '选择学期'}}</text>
         </picker>
-      </view>
-      <view class="right">
-        <view
-          class="toolbar-icon"
-          hover-class="active"
-          hover-stay-time="500"
-          bindtap="toggleSort"
-          wx:if="{{score && !score.isDetail}}"
-        >
-          <image class="icon" src="/images/common/sort-white.png"></image>
-        </view>
-        <!-- <view
-          class="toolbar-icon"
-          hover-class="active"
-          hover-stay-time="500"
-          bindtap="toggleDetail"
-        >
-          <image class="icon" src="/images/common/detail-white.png"></image>
-        </view> -->
       </view>
     </view>
   </view>
