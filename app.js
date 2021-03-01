@@ -13,7 +13,7 @@ dayjs.extend(dayjs_customParseFormat);
 
 const env = (key) => envConfig[key];
 
-const version = "1.0.23";
+const version = "1.0.24";
 
 let versionType = "release";
 let versionTypeName = "Release";
