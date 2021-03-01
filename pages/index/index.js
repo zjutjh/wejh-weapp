@@ -157,6 +157,7 @@ Page({
       this.tooltip.show("应用列表信息获取失败，请重启微信再试");
       return;
     }
+
     const appItem = this.data.apps[index];
 
     if (!appItem) {
@@ -171,6 +172,11 @@ Page({
       this.tooltip.show("服务暂不可用");
       return;
     }
+
+    if (appItem.badge && appItem.badge.clearPath) {
+      app.badgeManager.clearBadge(appItem.badge.clearPath);
+    }
+
     if (appItem.url) {
       appItem.url = appItem.url.replace(
         encodeURIComponent("{uno}"),
@@ -197,11 +203,6 @@ Page({
         appId: appItem.appId,
         path: appItem.path,
         extraData: appItem.extraData,
-        success() {
-          if (appItem.badge && appItem.badge.clearPath) {
-            app.badgeManager.clearBadge(appItem.badge.clearPath);
-          }
-        },
         fail(err) {
           logger.warn(
             "index",
