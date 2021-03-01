@@ -1,6 +1,7 @@
 {
-  "disableScroll": true,
   "enablePullDownRefresh": false,
   "navigationBarBackgroundColor": "#73b4ef",
+  "backgroundColorTop": "#ffffff",
+  "backgroundColorBottom": "#ffffff",
   "navigationBarTitleText": "课程表"
 }
