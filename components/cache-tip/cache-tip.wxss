@@ -1,0 +1,6 @@
+.cache-tip {
+  color: white;
+  font-size: 20rpx !important;
+  line-height: 100%;
+  margin-top: 10rpx;
+}

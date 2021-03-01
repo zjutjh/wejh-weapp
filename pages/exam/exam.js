@@ -1,20 +1,40 @@
-import logger from "../../utils/logger";
-import toast from "../../utils/toast";
+import termUtil from "../../utils/termPicker";
 
 const app = getApp();
 
 Page({
   data: {
     hideInfo: false,
-    showLoading: true,
-    currentTerm: "",
+
+    // lastUpdated: "考试安排",
+
+    termPickerCurrentData: null,
+
+    termPickerPlaceHolder: {
+      range: [["选择学年"], ["选择学期"]],
+      value: [0, 0],
+    },
   },
   onLoad() {
     app.$store.connect(this, "exam");
     this.observe("session", "icons");
-    this.observe("session", "exam");
     this.observe("session", "userInfo");
     this.observe("session", "isLoggedIn");
+    this.observe("session", "time");
+    this.observe("session", "exam", null, (newValue) => {
+      if (!(newValue && newValue.exam)) {
+        return;
+      }
+      // 请求返回后, 更新学期选择器的选中状态和上次更新时间
+      const { lastUpdated, term } = newValue.exam;
+      const termInfo = termUtil.getInfoFromTerm(term);
+      this.setPageState({
+        termPickerCurrentData: {
+          termInfo,
+        },
+        lastUpdated,
+      });
+    });
 
     // 判断是否登录
     if (!this.data.isLoggedIn) {
@@ -23,21 +43,74 @@ Page({
       });
     }
 
+    // 判断是否绑定正方
     if (!this.data.userInfo.ext.passwords_bind.zf_password) {
       return wx.redirectTo({
         url: "/pages/bind/zf",
       });
     }
 
+    // 获得学期数据
+    const termInfo = termUtil.getInfoFromTerm(this.data.time.term);
+    const grade = parseInt(this.data.userInfo.uno.substring(0, 4));
+
+    // 填充学期选择器数据
+    this.setPageState({
+      termPickerInfo: {
+        termInfo,
+        grade,
+      },
+    });
+
+    // 若上次选择的学期不存在，进行生成
+    if (!this.data.termPickerCurrentData) {
+      this.setPageState({
+        termPickerCurrentData: {
+          termInfo: termInfo,
+        },
+      });
+    }
+
     // 判断是否有数据
     if (!this.data.exam) {
-      this.getExam(this.afterGetExam);
-    } else {
-      this.afterGetExam();
+      wx.showLoading({
+        title: "获取考试安排中",
+        mask: true,
+      });
+
+      const _this = this;
+      app.services.getExam(
+        termInfo,
+        () => {
+          _this.hideLoading();
+        },
+        {
+          showError: true,
+        }
+      );
     }
   },
   onUnload() {
     this.disconnect();
+  },
+  hideLoading() {
+    // wx.hideLoading 会把错误 toast 一并关掉，导致错误提示消失太快看不到，因此暂时在这里需要加一个延迟
+    // 后续会对此处进行优化，loading 状态和错误提示都不使用 toast，避免 block 住用户的行为
+    setTimeout(() => {
+      wx.hideLoading();
+    }, 500);
+  },
+  toggleRefresh() {
+    const _this = this;
+
+    const { termInfo } = this.data.termPickerCurrentData;
+    wx.showLoading({
+      title: "获取考试安排中",
+      mask: true,
+    });
+    app.services.getExam(termInfo, () => {
+      _this.hideLoading();
+    });
   },
   toggleHideInfo() {
     this.setPageState({
@@ -47,63 +120,22 @@ Page({
   toggleShowExam(e) {
     const index = e.currentTarget.dataset.index;
     const exam = this.data.exam;
-    exam.list[index].open = !exam.list[index].open;
-    app.$store.setState("session", {
-      exam: exam,
-    });
-  },
-  getExam() {
-    app.services.getExam(this.afterGetExam, {
-      showError: true,
-    });
-  },
-  afterGetExam() {
-    this.setPageState({
-      showLoading: false,
-    });
-    try {
-      const examData = this.data.exam;
-      const term = examData.term;
+    if (exam) {
+      exam.list[index].open = !exam.list[index].open;
       this.setPageState({
-        currentTerm: term,
-      });
-    } catch (err) {
-      logger.error("exam", err);
-      toast({
-        icon: "error",
-        title: err.message,
+        exam,
       });
     }
   },
-  switchTerm(e) {
-    const _this = this;
-    const dataset = e.currentTarget.dataset;
-    const term = this.data.currentTerm;
-    const termArr = term.match(/(\d+)\/(\d+)\((\d)\)/);
-    let targetTerm;
-    if (dataset.direction === "left") {
-      if (+termArr[3] === 1) {
-        targetTerm =
-          parseInt(termArr[1]) - 1 + "/" + (parseInt(termArr[2]) - 1) + "(2)";
-      } else {
-        targetTerm = parseInt(termArr[1]) + "/" + parseInt(termArr[2]) + "(1)";
-      }
-    } else if (dataset.direction === "right") {
-      if (+termArr[3] === 1) {
-        targetTerm = parseInt(termArr[1]) + "/" + parseInt(termArr[2]) + "(2)";
-      } else {
-        targetTerm =
-          parseInt(termArr[1]) + 1 + "/" + (parseInt(termArr[2]) + 1) + "(1)";
-      }
-    }
+  termChange: function (e) {
+    const { termInfo } = e.detail;
     wx.showLoading({
-      title: "切换学期中",
+      title: "获取考试安排中",
+      mask: true,
     });
-    app.services.changeExamTerm(targetTerm, () => {
-      app.services.getExam(() => {
-        wx.hideLoading();
-        _this.afterGetExam();
-      });
+    const _this = this;
+    app.services.getExam(termInfo, () => {
+      _this.hideLoading();
     });
   },
 });

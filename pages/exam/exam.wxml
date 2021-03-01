@@ -1,7 +1,7 @@
-<view class="m-loading-box" wx:if="{{showLoading}}">
+<!-- <view class="m-loading-box" wx:if="{{showLoading}}">
   <image class="icon-loading" src="/images/common/loading.gif"></image>
-</view>
-<view class="container f-bg-gray" wx:else>
+</view> -->
+<view class="container f-bg-gray">
   <view class="m-exam">
     <view class="exam-header">
       <view class="info">
@@ -17,7 +17,8 @@
           >学号：{{hideInfo ? '************' : userInfo.uno}}</text
         >
         <text class="info-item"
-          >姓名：{{hideInfo ? '**' : userInfo.ext.school_info.name}}</text
+          >姓名：{{hideInfo ? '**' : (userInfo.ext.school_info.name ||
+          '暂无姓名')}}</text
         >
       </view>
       <view class="logo">
@@ -93,29 +94,33 @@
         mode="aspectFit"
         src="/images/common/nothing.png"
       ></image>
-      <text class="remind-text">暂无排考信息</text>
+      <text class="remind-text">暂无本学期排考信息</text>
     </view>
   </view>
 
   <!-- 底部 -->
   <view class="m-footer-bar green">
     <view class="content">
-      <view class="middle horizontal">
-        <view class="switch-btn" data-direction="left" bindtap="switchTerm">
-          <image
-            src="/images/common/arrow-left.png"
-            class="icon icon-arrow-left"
-            mode="aspectFit"
-          ></image>
+      <view class="left">
+        <view
+          class="toolbar-icon"
+          hover-class="active"
+          hover-stay-time="500"
+          bindtap="toggleRefresh"
+        >
+          <image class="icon" src="/images/common/refresh.png"></image>
         </view>
-        <text class="title">{{currentTerm}}</text>
-        <view class="switch-btn" data-direction="right" bindtap="switchTerm">
-          <image
-            src="/images/common/arrow-right.png"
-            class="icon icon-arrow-right"
-            mode="aspectFit"
-          ></image>
-        </view>
+      </view>
+      <view class="middle vertical">
+        <term-picker
+          placeHolder="{{termPickerPlaceHolder}}"
+          allowsShortTerm="{{false}}"
+          pickerInfo="{{termPickerInfo}}"
+          currentData="{{termPickerCurrentData}}"
+          bindtermChange="termChange"
+        >
+        </term-picker>
+        <cache-tip timestamp="{{lastUpdated}}" title="考试安排"></cache-tip>
       </view>
     </view>
   </view>
