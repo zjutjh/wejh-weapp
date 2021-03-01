@@ -4,6 +4,7 @@ import BadgeManager from "./utils/badgeManager";
 import toast from "./utils/toast";
 import Services from "./utils/services";
 import logger from "./utils/logger";
+import autoUpdate from "./utils/autoUpdate";
 import envConfig from "./env";
 import dayjs from "./libs/dayjs/dayjs.min.js";
 import dayjs_customParseFormat from "./libs/dayjs/plugin/customParseFormat.js";
@@ -77,6 +78,7 @@ App({
   version,
   versionType: versionTypeName,
   onLaunch: function () {
+    autoUpdate();
     this.wxLogin(this.getOpenId, () => {
       logger.info("app", "自动登录成功");
     });
