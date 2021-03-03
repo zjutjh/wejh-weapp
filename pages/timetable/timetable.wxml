@@ -59,9 +59,6 @@
               wx:for-item="lessonBlock"
             >
               <view
-                class="{{ (viewStatus === '*' && conflictLessons[day_id][lesson_id][0] || viewStatus !== '*' && conflictLessons[day_id][lesson_id][currentWeek]) ? ' conflict' : '' }}"
-              ></view>
-              <view
                 class="card {{ item['颜色'] || 'red' }}"
                 wx:for="{{lessonBlock}}"
                 wx:key="card_id"
@@ -84,6 +81,11 @@
                   >{{item['课程名称']}}</text
                 >
               </view>
+              <image
+                wx:if="{{ (viewStatus === '*' && conflictLessons[day_id][lesson_id][0] || viewStatus !== '*' && conflictLessons[day_id][lesson_id][currentWeek]) }}"
+                class="conflict"
+                src="/images/timetable/asterisk.png"
+              ></image>
             </view>
           </view>
         </view>
