@@ -165,7 +165,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
 
             .card {
               position: absolute;
-              z-index: 99;
+              z-index: 98;
               left: 50%;
               top: 5rpx;
               transform: translateX(-50%);
@@ -179,19 +179,16 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
               overflow: hidden;
 
               .place {
-                height: 2.2em;
                 color: $white;
                 font-size: 28rpx;
-                line-height: 38rpx;
+                line-height: 1em;
               }
 
               .name {
-                flex: 1;
-                display: flex;
-                align-items: center;
-                justify-content: center;
                 color: $white;
                 font-size: 28rpx;
+                text-align: center;
+                margin: auto 0;
                 overflow: hidden;
               }
 
@@ -392,7 +389,6 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
         height: 400rpx;
 
         .card {
-          position: relative;
           width: 600rpx !important;
           height: 320rpx !important;
           margin: 0 36rpx + 40rpx;
