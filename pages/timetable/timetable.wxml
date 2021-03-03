@@ -143,9 +143,22 @@
           </block>
         </view>
         <view class="right">
-          <view class="choose-view" bindtap="switchView">
-            <text class="active">{{viewStatus == '*'?'期':'周'}}</text>
-            <text>{{viewStatus == '*'?'周':'期'}}</text>
+          <view
+            class="toolbar-icon"
+            hover-class="active"
+            hover-stay-time="500"
+            bindtap="switchView"
+          >
+            <image
+              wx:if="{{viewStatus == '*'}}"
+              class="icon"
+              src="/images/timetable/mode-term.png"
+            ></image>
+            <image
+              wx:else
+              class="icon"
+              src="/images/timetable/mode-week.png"
+            ></image>
           </view>
         </view>
       </view>
