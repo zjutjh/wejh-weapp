@@ -159,7 +159,7 @@
       wx:if="{{targetLessons.length > 0}}"
       catchtouchmove
     >
-      <view class="detail-content">
+      <!-- <view class="detail-content">
         <view
           class="card {{ item['颜色'] }}{{ targetIndex === cid ? ' active' : '' }}"
           style="height: {{ item['节数'] * 100 - 10 }}rpx;"
@@ -179,7 +179,7 @@
             >{{item['课程名称']}}</text
           >
         </view>
-      </view>
+      </view> -->
     </view>
 
     <!-- 底部详细介绍 -->
