@@ -174,8 +174,14 @@ function fixTimetable(classResult) {
       const nameArr = item["课程名称"].match(/[0-9a-zA-Z:]/g) || [];
       lesson["课程名称长度"] = item["课程名称"].length - nameArr.length / 1.2;
       lesson["节数"] = info["结束节"] - info["开始节"] + 1;
-      lesson["起止周"] = info["开始周"] + "-" + info["结束周"];
-      lesson["起止节"] = info["开始节"] + "-" + info["结束节"];
+      lesson["起止周"] =
+        info["开始周"] !== info["结束周"]
+          ? `${info["开始周"]}-${info["结束周"]}周`
+          : `第${info["开始周"]}周`;
+      lesson["起止节"] =
+        info["开始节"] !== info["结束节"]
+          ? `${info["开始节"]}-${info["结束节"]}节`
+          : `第${info["开始节"]}节`;
 
       const type = info["周类型"] || "default";
 

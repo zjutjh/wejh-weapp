@@ -1,9 +1,8 @@
-<view class="m-loading-box" wx:if="{{showLoading}}">
+<!-- <view class="m-loading-box" wx:if="{{showLoading}}">
   <image class="icon-loading" src="/images/common/loading.gif"></image>
-</view>
+</view> -->
 <view
   class="container"
-  wx:else
   style="padding-bottom: {{ targetLessons.length > 0 ? ' 400rpx;' : '0;' }}"
 >
   <view class="m-timetable-box">
@@ -246,30 +245,32 @@
             class="card"
           >
             <text class="name">{{item['名称']}}</text>
-            <text class="type">{{item['课程类型']}}</text>
             <view class="content">
-              <view class="info-item">
-                <text class="item-content">{{item['老师']}}</text>
-                <text class="item-label"> (任课教师)</text>
-                <image
-                  src="/images/common/teacher-contact.png"
-                  class="teacher-contact"
-                  mode="aspectFit"
-                  data-cid="{{cid}}"
-                  bindtap="contactTeacher"
-                ></image>
-              </view>
-              <view class="info-item">
-                <text class="item-content">{{item['地点']}}</text>
-                <text class="item-label"> (上课地点)</text>
-              </view>
-              <view class="info-item">
-                <text class="item-content">{{item['起止周']}}周</text>
-                <text class="item-label"> (课程周数)</text>
-              </view>
-              <view class="info-item">
-                <text class="item-content">{{item['节数']}}</text>
-                <text class="item-label"> (节数)</text>
+              <text class="type">{{item['课程类型']}}</text>
+              <view class="info">
+                <view class="info-item">
+                  <text class="item-content">{{item['老师']}}</text>
+                  <!-- <text class="item-label"> (任课教师)</text> -->
+                  <image
+                    src="/images/timetable/teacher-contact.png"
+                    class="teacher-contact"
+                    mode="heightFix"
+                    data-cid="{{cid}}"
+                    bindtap="contactTeacher"
+                  ></image>
+                </view>
+                <view class="info-item">
+                  <text class="item-label">上课地点：</text>
+                  <text class="item-content">{{item['地点']}}</text>
+                </view>
+                <view class="info-item">
+                  <text class="item-label">课程周数：</text>
+                  <text class="item-content">{{item['起止周']}}</text>
+                </view>
+                <view class="info-item">
+                  <text class="item-label">课程节数：</text>
+                  <text class="item-content">{{item['节数']}}节</text>
+                </view>
               </view>
             </view>
           </swiper-item>

@@ -67,8 +67,8 @@
           <view class="main-info">
             <text class="name">{{lesson['课程名称']}}</text>
             <text class="info"
-              >{{lesson['起止周'] ? lesson['起止周'] + '周 ' :
-              ''}}{{lesson['起止节'] ? lesson['起止节'] + '节 ' : ''}}</text
+              >{{lesson['起止周'] ? lesson['起止周'] : ''}}{{lesson['起止节'] ?
+              lesson['起止节'] : ''}}</text
             >
           </view>
           <view class="place">{{lesson['地点']}}</view>
