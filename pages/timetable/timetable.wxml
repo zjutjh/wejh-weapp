@@ -9,9 +9,18 @@
   <view class="m-timetable-box">
     <!-- <view class="m-cache-tip" wx:if="{{cacheStatus.timetable}}">离线模式</view> -->
     <!-- 左侧栏 -->
-    <view class="lesson-number">
-      <view class="date">月</view>
-      <view class="number" wx:for="{{12}}" wx:key="index"> {{index + 1}} </view>
+    <view class="left-bar">
+      <view class="lesson-number">
+        <view class="date">周</view>
+        <view class="number" wx:for="{{12}}" wx:key="index">
+          {{index + 1}}
+        </view>
+      </view>
+      <view
+        wx:if="{{originWeek === currentWeek}}"
+        class="timeline-arrow"
+        style="top: {{ timelineTop }}rpx"
+      ></view>
     </view>
 
     <!-- 滑动区域 -->
@@ -31,7 +40,6 @@
             class="timeline"
             style="left: {{ timelineLeft }}rpx; top: {{ timelineTop }}rpx"
           ></view>
-          <view class="timeline-arrow" style="top: {{ timelineTop }}rpx"></view>
         </block>
         <view class="card-content">
           <!-- 每天的课程 -->

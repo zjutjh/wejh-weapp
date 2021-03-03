@@ -1,6 +1,5 @@
 $left-bar-width: 36rpx;
 $left-lesson-height: 100rpx;
-$left-date-height: 60rpx;
 $timetable-item-width: 130rpx;
 $timetable-item-height: $left-lesson-height;
 $timetable-header-height: 60rpx;
@@ -11,63 +10,76 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
   display: flex;
   flex-direction: column;
   background: $white;
-  height: $left-lesson-height * 12 + $left-date-height + $tabbar-bottom;
+  height: $left-lesson-height * 12 + $timetable-header-height + $tabbar-bottom;
 
-  .lesson-number {
+  .left-bar {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 100;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    flex-shrink: 0;
-    padding-top: $left-date-height;
-    width: $left-bar-width;
-    border-right: 1rpx solid $gray-200;
-    padding-bottom: $tabbar-bottom;
     background: $white;
 
-    .date {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: $left-bar-width;
-      height: $left-date-height;
-      font-size: 24rpx;
+    width: $left-bar-width;
+    padding-bottom: $tabbar-bottom;
+    border-right: 1rpx solid $gray-200;
+    border-bottom: 1rpx solid $gray-200;
+
+    .lesson-number {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      flex-shrink: 0;
+
       color: $gray-600;
-      text-align: center;
-      line-height: $left-date-height;
-      vertical-align: middle;
-      border-bottom: 1rpx solid $gray-200;
-      border-right: 1rpx solid $gray-200;
+      font-size: 24rpx;
+
+      .date {
+        width: $left-bar-width;
+        height: $timetable-header-height;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        border-top: 1rpx solid $gray-200;
+        border-bottom: 1rpx solid $gray-200;
+      }
+
+      .number {
+        height: $left-lesson-height;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
     }
 
-    .number {
-      height: $left-lesson-height;
-      font-size: 24rpx;
-      color: $gray-600;
-      text-align: center;
-      line-height: $left-lesson-height;
-      vertical-align: middle;
+    .timeline-arrow {
+      position: absolute;
+      margin-top: $timetable-header-height;
+      left: 0;
+      width: 0;
+      height: 0;
+      line-height: 0;
+      border: 10rpx solid transparent;
+      border-left-color: #0069d9;
+      transform: translateY(-50%);
+      opacity: 0.6;
     }
   }
 
   .timetable-box {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    height: $left-lesson-height * 12 + $left-date-height + $tabbar-bottom;
+    height: $left-lesson-height * 12 + $timetable-header-height + $tabbar-bottom;
 
     .timetable-header {
-      z-index: 999;
       display: flex;
       flex-direction: row;
       width: $timetable-header-width;
       height: $timetable-header-height;
       padding-left: $left-bar-width;
       overflow: hidden;
-      background: $white;
       border-top: 1rpx solid $gray-200;
       border-bottom: 1rpx solid $gray-200;
       background-color: #fff;
@@ -78,6 +90,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
         align-items: center;
         justify-content: center;
         width: 130rpx;
+        height: $timetable-header-height;
         font-size: 24rpx;
         color: $gray-600;
       }
@@ -89,11 +102,12 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
       display: flex;
       flex-direction: row;
       width: $timetable-item-width * 7 + $left-bar-width;
-      height: $left-lesson-height * 12 + $left-date-height + $tabbar-bottom;
+      height: $left-lesson-height * 12 + $timetable-header-height +
+        $tabbar-bottom;
 
       .timeline {
         position: absolute;
-        z-index: 100;
+        z-index: 99;
         left: $left-bar-width;
         right: 0;
         top: 50%;
@@ -101,19 +115,6 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
         width: $timetable-item-width;
         height: 5rpx;
         background: #0069d9;
-        opacity: 0.6;
-      }
-
-      .timeline-arrow {
-        position: absolute;
-        z-index: 100;
-        left: 0;
-        width: 0;
-        height: 0;
-        line-height: 0;
-        border: 10rpx solid transparent;
-        border-left-color: #0069d9;
-        transform: translateY(-50%);
         opacity: 0.6;
       }
 
