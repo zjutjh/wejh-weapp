@@ -67,12 +67,12 @@
               >
                 <text
                   class="place"
-                  style="font-size: {{ item['地点长度'] > 15 ? 24 : 50 - item['地点长度'] * 2 }}rpx;"
+                  style="font-size: {{ item['节数'] < 2 ? 22 : item['地点长度'] > 15 ? 24 : 50 - item['地点长度'] * 2 }}rpx;"
                   >{{item['地点']}}</text
                 >
                 <text
                   class="name"
-                  style="font-size: {{ item['课程名称长度'] < 10 && item['节数'] < 2 ? 12 : item['课程名称长度'] > (32 - 14) ? 14 : (32 - item['课程名称长度']) }}rpx;"
+                  style="font-size: {{ item['节数'] < 2 ? 18 : item['课程名称长度'] > (32 - 14) ? 14 : (32 - item['课程名称长度']) }}rpx;"
                   >{{item['课程名称']}}</text
                 >
               </view>
