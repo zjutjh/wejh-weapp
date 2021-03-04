@@ -1,5 +1,8 @@
 {
   "enablePullDownRefresh": false,
   "navigationBarBackgroundColor": "#9f8bea",
-  "navigationBarTitleText": "教师查询"
+  "navigationBarTitleText": "教师查询",
+  "usingComponents": {
+    "tip-banner": "/components/tip-banner/tip-banner"
+  }
 }

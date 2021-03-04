@@ -1,0 +1,23 @@
+.m-cache-tip {
+  padding: 12rpx;
+  font-size: 24rpx;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.m-cache-tip text {
+  display: block;
+  color: #fff;
+  text-align: justify;
+}
+
+.m-cache-tip.float {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.m-cache-tip.block {
+  display: block;
+}

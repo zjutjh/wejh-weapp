@@ -7,7 +7,7 @@
   style="padding-bottom: {{ targetLessons.length > 0 ? ' 400rpx;' : '0;' }}"
 >
   <view class="m-timetable-box">
-    <view class="m-cache-tip" wx:if="{{cacheStatus.timetable}}">离线模式</view>
+    <!-- <view class="m-cache-tip" wx:if="{{cacheStatus.timetable}}">离线模式</view> -->
     <!-- 左侧栏 -->
     <view class="lesson-number">
       <view class="date">月</view>

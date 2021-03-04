@@ -1,4 +1,7 @@
 <view class="container f-bg-gray">
+  <tip-banner mode="block"
+    >教师信息查询功能升级改造中，在此期间您可能会查询到陈旧或不准确的信息，请注意核实甄别。\n为避免对老师造成不必要的打扰，请尽可能通过电子邮件或短信而不是电话联系老师。</tip-banner
+  >
   <view class="m-teacher{{ wd ? '' : ' home' }}">
     <view class="header">
       <view class="logo">
