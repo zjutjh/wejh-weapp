@@ -1,5 +1,5 @@
 import toast from "../../utils/toast";
-import { getCurrentPeriod } from "../../utils/schedule";
+import { getCurrentPeriod, schedule } from "../../utils/schedule";
 
 import dayjs from "../../libs/dayjs/dayjs.min.js";
 import dayjs_customParseFormat from "../../libs/dayjs/plugin/customParseFormat.js";
@@ -75,7 +75,7 @@ Page({
     targetLessons: [], // 悬浮的课程
     targetLessonInfo: {},
     targetIndex: 0,
-    detailIndex: 0,
+    targetWeekday: 0,
 
     timetable: null,
   },
@@ -163,26 +163,37 @@ Page({
       _this.startTimelineMoving();
     }, 60 * 1000);
   },
+  getLessonInfo(lesson) {
+    if (!lesson) {
+      return {};
+    }
+    const scheduleKeyStart = `c${lesson["开始节"]}`;
+    const scheduleKeyEnd = `c${lesson["结束节"]}`;
+    return {
+      weekday: `星期${this.data.weekday[this.data.targetWeekday + 1]}`,
+      lessonTime: `${lesson["起止节"]}（${schedule[scheduleKeyStart].begin}-${schedule[scheduleKeyEnd].end}）`,
+    };
+  },
   showLessonDetail(e) {
-    const dataset = e.currentTarget.dataset || {};
-    const day = dataset.day;
-    const lesson = dataset.lesson;
-    const targetLessons = this.data.timetable[day][lesson].filter((item) => {
-      return item["周"][this.data.currentWeek] || this.data.viewStatus === "*";
-    });
+    const { day, lesson } = e.currentTarget.dataset;
+    const targetLessons = this.data.timetable[day][lesson]
+      .filter((item) => {
+        return (
+          item["周"][this.data.currentWeek] || this.data.viewStatus === "*"
+        );
+      })
+      .reverse();
 
     this.setPageState({
+      targetIndex: 0,
       targetLessons,
-      targetLessonInfo: {
-        weekday: `星期${this.data.weekday[day + 1]}`,
-        lessonTime: `${lesson + 1}-${targetLessons[0]["节数"] + lesson}节`,
-      },
+      targetWeekday: day,
+      targetLessonInfo: this.getLessonInfo(targetLessons[0]),
     });
   },
   hideDetail(e) {
     if (e.target.dataset.type === "mask") {
       this.setPageState({
-        targetIndex: 0,
         targetLessons: [],
         targetLessonInfo: {},
       });
@@ -222,6 +233,7 @@ Page({
     const index = e.detail.current;
     this.setPageState({
       targetIndex: index,
+      targetLessonInfo: this.getLessonInfo(this.data.targetLessons[index]),
     });
   },
   afterGetTimetable() {

@@ -183,13 +183,12 @@
 
     <!-- 遮罩层 -->
     <view
-      bindtap="hideDetail"
+      catchtap="hideDetail"
       data-type="mask"
       class="lesson-detail"
-      wx:if="{{targetLessons.length > 0}}"
-      catchtouchmove
+      wx:if="{{targetLessons.length > 1}}"
     >
-      <!-- <view class="detail-content">
+      <view class="detail-content">
         <view
           class="card {{ item['颜色'] }}{{ targetIndex === cid ? ' active' : '' }}"
           style="height: {{ item['节数'] * 100 - 10 }}rpx;"
@@ -200,16 +199,16 @@
         >
           <text
             class="place"
-            style="font-size: {{ 50 - item['地点长度'] * 2 }}rpx;"
+            style="font-size: {{ item['节数'] < 2 ? 22 : item['地点长度'] > 15 ? 24 : 50 - item['地点长度'] * 2 }}rpx;"
             >{{item['地点']}}</text
           >
           <text
             class="name"
-            style="font-size: {{ item['课程名称长度'] < 10 && item['节数'] < 2 ? 12 : item['课程名称长度'] > (32 - 14) ? 14 : (32 - item['课程名称长度']) }}rpx;"
+            style="font-size: {{ item['节数'] < 2 ? 18 : item['课程名称长度'] > (32 - 14) ? 14 : (32 - item['课程名称长度']) }}rpx;"
             >{{item['课程名称']}}</text
           >
         </view>
-      </view> -->
+      </view>
     </view>
 
     <!-- 底部详细介绍 -->

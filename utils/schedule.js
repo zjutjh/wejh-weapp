@@ -63,4 +63,5 @@ const getPeriodFromDate = (date) => {
 module.exports = {
   getCurrentPeriod,
   getPeriodFromDate,
+  schedule,
 };

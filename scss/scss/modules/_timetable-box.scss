@@ -5,6 +5,52 @@ $timetable-item-height: $left-lesson-height;
 $timetable-header-height: 60rpx;
 $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
 
+@mixin class-card {
+  z-index: 98;
+  width: $timetable-item-width - 15rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10rpx 10rpx 0;
+  text-align: center;
+  border-radius: 5rpx;
+  overflow: hidden;
+
+  .place {
+    color: $white;
+    font-size: 28rpx;
+    line-height: 1em;
+  }
+
+  .name {
+    color: $white;
+    font-size: 28rpx;
+    text-align: center;
+    margin: auto 0;
+    overflow: hidden;
+  }
+
+  &.green {
+    background-color: $theme-green;
+  }
+
+  &.red {
+    background-color: $theme-pink;
+  }
+
+  &.blue {
+    background-color: $theme-blue;
+  }
+
+  &.purple {
+    background-color: $theme-purple;
+  }
+
+  &.yellow {
+    background-color: $theme-yellow;
+  }
+}
+
 .m-timetable-box {
   flex: 1;
   display: flex;
@@ -162,52 +208,11 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
 
             .card {
               position: absolute;
-              z-index: 98;
               left: 50%;
               top: 5rpx;
               transform: translateX(-50%);
-              width: $timetable-item-width - 15rpx;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              padding: 10rpx 10rpx 0;
-              text-align: center;
-              border-radius: 5rpx;
-              overflow: hidden;
 
-              .place {
-                color: $white;
-                font-size: 28rpx;
-                line-height: 1em;
-              }
-
-              .name {
-                color: $white;
-                font-size: 28rpx;
-                text-align: center;
-                margin: auto 0;
-                overflow: hidden;
-              }
-
-              &.green {
-                background-color: $theme-green;
-              }
-
-              &.red {
-                background-color: $theme-pink;
-              }
-
-              &.blue {
-                background-color: $theme-blue;
-              }
-
-              &.purple {
-                background-color: $theme-purple;
-              }
-
-              &.yellow {
-                background-color: $theme-yellow;
-              }
+              @include class-card;
             }
           }
         }
@@ -234,17 +239,11 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
       flex-direction: row;
 
       .card {
-        z-index: 99;
-        width: $timetable-item-width - 15rpx;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 10rpx 10rpx 0;
-        margin-left: 100rpx;
-        text-align: center;
-        border-radius: 5rpx;
-        overflow: hidden;
+        margin-left: 64rpx;
+
         transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+
+        @include class-card;
 
         &:first-child {
           margin-left: 0;
@@ -252,43 +251,6 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
 
         &.active {
           transform: scale(1.2);
-        }
-
-        .place {
-          height: 2.2em;
-          color: $white;
-          font-size: 28rpx;
-          line-height: 120%;
-        }
-
-        .name {
-          flex: 1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: $white;
-          font-size: 28rpx;
-          overflow: hidden;
-        }
-
-        &.green {
-          background-color: $theme-green;
-        }
-
-        &.red {
-          background-color: $theme-pink;
-        }
-
-        &.blue {
-          background-color: $theme-blue;
-        }
-
-        &.purple {
-          background-color: $theme-purple;
-        }
-
-        &.yellow {
-          background-color: $theme-yellow;
         }
       }
     }
