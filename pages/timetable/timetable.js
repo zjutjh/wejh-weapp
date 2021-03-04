@@ -8,37 +8,37 @@ dayjs.extend(dayjs_customParseFormat);
 
 const app = getApp();
 
+const timeline = {
+  //课程时间与指针位置的映射，{begin:课程开始,end:结束时间,top:指针距开始top格数}
+  c0: { beginTop: -4, endTop: -4 }, //休息
+  c1: { beginTop: 0, endTop: 100 },
+  c1p: { beginTop: 100, endTop: 100 }, //下课
+  c2: { beginTop: 100, endTop: 200 },
+  c2p: { beginTop: 200, endTop: 200 }, //下课
+  c3: { beginTop: 200, endTop: 300 },
+  c3p: { beginTop: 300, endTop: 300 }, //下课
+  c4: { beginTop: 300, endTop: 400 },
+  c4p: { beginTop: 400, endTop: 400 }, //下课
+  c5: { beginTop: 400, endTop: 500 },
+  c5p: { beginTop: 500, endTop: 500 }, //休息，午饭
+  c6: { beginTop: 500, endTop: 600 },
+  c6p: { beginTop: 600, endTop: 600 }, //下课
+  c7: { beginTop: 600, endTop: 700 },
+  c7p: { beginTop: 700, endTop: 700 }, //下课
+  c8: { beginTop: 700, endTop: 800 },
+  c8p: { beginTop: 800, endTop: 800 }, //下课
+  c9: { beginTop: 800, endTop: 900 },
+  c9p: { beginTop: 900, endTop: 900 }, //休息，晚饭
+  c10: { beginTop: 900, endTop: 1000 },
+  c10p: { beginTop: 1000, endTop: 1000 }, //下课
+  c11: { beginTop: 1000, endTop: 1100 },
+  c11p: { beginTop: 1100, endTop: 1100 }, //下课
+  c12: { beginTop: 1100, endTop: 1200 },
+  c12p: { beginTop: 1200, endTop: 1200 }, //休息
+};
+
 Page({
   data: {
-    timeline: {
-      //课程时间与指针位置的映射，{begin:课程开始,end:结束时间,top:指针距开始top格数}
-      c0: { beginTop: -4, endTop: -4 }, //休息
-      c1: { beginTop: 0, endTop: 100 },
-      c1p: { beginTop: 100, endTop: 100 }, //下课
-      c2: { beginTop: 100, endTop: 200 },
-      c2p: { beginTop: 200, endTop: 200 }, //下课
-      c3: { beginTop: 200, endTop: 300 },
-      c3p: { beginTop: 300, endTop: 300 }, //下课
-      c4: { beginTop: 300, endTop: 400 },
-      c4p: { beginTop: 400, endTop: 400 }, //下课
-      c5: { beginTop: 400, endTop: 500 },
-      c5p: { beginTop: 500, endTop: 500 }, //休息，午饭
-      c6: { beginTop: 500, endTop: 600 },
-      c6p: { beginTop: 600, endTop: 600 }, //下课
-      c7: { beginTop: 600, endTop: 700 },
-      c7p: { beginTop: 700, endTop: 700 }, //下课
-      c8: { beginTop: 700, endTop: 800 },
-      c8p: { beginTop: 800, endTop: 800 }, //下课
-      c9: { beginTop: 800, endTop: 900 },
-      c9p: { beginTop: 900, endTop: 900 }, //休息，晚饭
-      c10: { beginTop: 900, endTop: 1000 },
-      c10p: { beginTop: 1000, endTop: 1000 }, //下课
-      c11: { beginTop: 1000, endTop: 1100 },
-      c11p: { beginTop: 1100, endTop: 1100 }, //下课
-      c12: { beginTop: 1100, endTop: 1200 },
-      c12p: { beginTop: 1200, endTop: 1300 }, //休息
-    },
-    showLoading: true,
     weekday: ["日", "一", "二", "三", "四", "五", "六", "日"],
     _weeks: [
       "未开学",
@@ -63,10 +63,7 @@ Page({
       "十九周",
       "二十周",
     ],
-    scroll: {
-      top: 0,
-      left: 0,
-    },
+
     viewStatus: 0,
     originWeek: 0,
     currentWeek: 1,
@@ -74,10 +71,12 @@ Page({
     timelineTop: 0,
     timelineLeft: 36,
     conflictLessons: [],
+
     targetLessons: [], // 悬浮的课程
     targetLessonInfo: {},
     targetIndex: 0,
     detailIndex: 0,
+
     timetable: null,
   },
   onLoad: function () {
@@ -147,7 +146,7 @@ Page({
   startTimelineMoving() {
     const _this = this;
     const currentPeriod = getCurrentPeriod();
-    const periodTimeline = this.data.timeline[currentPeriod.key];
+    const periodTimeline = timeline[currentPeriod.key];
 
     const timelineTop = Math.round(
       periodTimeline.beginTop +
@@ -226,9 +225,9 @@ Page({
     });
   },
   afterGetTimetable() {
-    this.setPageState({
-      showLoading: false,
-    });
+    // this.setPageState({
+    // showLoading: false,
+    // });
     try {
       const originalTimetableData = this.data.originalTimetableData;
       const term = originalTimetableData.term;
@@ -329,17 +328,8 @@ Page({
     });
   },
   switchView() {
-    toast({
-      title: "试图切换中",
-      icon: "loading",
-      duration: 500,
-    });
     this.setPageState({
       viewStatus: this.data.viewStatus === "*" ? this.data.currentWeek : "*",
     });
-  },
-  formatNumber(n) {
-    n = n.toString();
-    return n[1] ? n : "0" + n;
   },
 });
