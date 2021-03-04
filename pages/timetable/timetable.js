@@ -340,8 +340,10 @@ Page({
     });
   },
   switchView() {
+    const todayWeek = this.data.time.week;
     this.setPageState({
-      viewStatus: this.data.viewStatus === "*" ? this.data.currentWeek : "*",
+      viewStatus: this.data.viewStatus === "*" ? todayWeek : "*",
+      currentWeek: todayWeek,
     });
   },
 });
