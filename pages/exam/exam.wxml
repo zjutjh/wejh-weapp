@@ -111,16 +111,20 @@
           <image class="icon" src="/images/common/refresh.png"></image>
         </view>
       </view>
-      <view class="middle vertical">
-        <term-picker
-          placeHolder="{{termPickerPlaceHolder}}"
-          allowsShortTerm="{{false}}"
-          pickerInfo="{{termPickerInfo}}"
-          currentData="{{termPickerCurrentData}}"
-          bindtermChange="termChange"
-        >
-        </term-picker>
-        <cache-tip timestamp="{{lastUpdated}}" title="考试安排"></cache-tip>
+      <view class="middle">
+        <view class="vertical">
+          <term-picker
+            allowsShortTerm="{{false}}"
+            pickerInfo="{{termPickerInfo}}"
+            currentData="{{termPickerCurrentData}}"
+            bindtermChange="termChange"
+          >
+          </term-picker>
+          <cache-tip
+            timestamp="{{exam.lastUpdated}}"
+            title="考试安排"
+          ></cache-tip>
+        </view>
       </view>
     </view>
   </view>

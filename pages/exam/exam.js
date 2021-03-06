@@ -6,14 +6,7 @@ Page({
   data: {
     hideInfo: false,
 
-    // lastUpdated: "考试安排",
-
     termPickerCurrentData: null,
-
-    termPickerPlaceHolder: {
-      range: [["选择学年"], ["选择学期"]],
-      value: [0, 0],
-    },
   },
   onLoad() {
     app.$store.connect(this, "exam");
@@ -25,14 +18,13 @@ Page({
       if (!(newValue && newValue.exam)) {
         return;
       }
-      // 请求返回后, 更新学期选择器的选中状态和上次更新时间
-      const { lastUpdated, term } = newValue.exam;
+      // 请求返回后, 更新学期选择器的选中状态
+      const { term } = newValue.exam;
       const termInfo = termUtil.getInfoFromTerm(term);
       this.setPageState({
         termPickerCurrentData: {
           termInfo,
         },
-        lastUpdated,
       });
     });
 

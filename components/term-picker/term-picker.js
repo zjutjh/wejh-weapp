@@ -1,16 +1,8 @@
 import dayjs from "../../libs/dayjs/dayjs.min.js";
-
-const semesters = ["上", "下", "短"];
+import { getTermStrForDisplay, semesters } from "../../utils/termPicker";
 
 Component({
   properties: {
-    placeHolder: {
-      type: Object,
-      value: {
-        range: [["选择学年"], ["选择学期"]],
-        value: [0, 0],
-      },
-    },
     allowsShortTerm: {
       type: Boolean,
       value: false,
@@ -37,14 +29,12 @@ Component({
       },
     },
   },
-  data: { range: [], value: [], currentTermStr: "" },
-  lifetimes: {
-    attached() {
-      this.setData({
-        ...this.data.placeHolder,
-      });
-    },
+  data: {
+    range: [["选择学年"], ["选择学期"]],
+    value: [[0, 0]],
+    currentTermStr: "",
   },
+  lifetimes: {},
   methods: {
     // 为学期选择器生成 range 数据
     _refreshPickerRange() {
@@ -101,7 +91,7 @@ Component({
       const { termInfo, extraValues } = this.data.currentData;
 
       this.setData({
-        currentTermStr: this._getPrettyTermStr(termInfo),
+        currentTermStr: getTermStrForDisplay(termInfo),
       });
 
       if (this.data.range.length >= 2) {
@@ -133,13 +123,6 @@ Component({
           value: [0, 0],
         });
       }
-    },
-    _getPrettyTermStr(termInfo) {
-      termInfo = termInfo || {};
-      let parsedYear = parseInt(termInfo.year, 10);
-      parsedYear = parsedYear ? `${parsedYear}/${parsedYear + 1}` : "未知学年";
-      const parsedSemester = semesters[termInfo.semester - 1] || "未知学期";
-      return `${parsedYear}(${parsedSemester})`;
     },
     // 学期改变，e 为从 picker 传入的数据
     onPickerChange(e) {

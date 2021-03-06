@@ -69,22 +69,27 @@ $footer-font-size: 28rpx;
     transform: translate(-50%, -50%);
     height: 100%;
 
-    &.horizontal {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    text {
+      font-size: $footer-font-size;
+      color: $white;
     }
 
-    &.vertical {
+    .cache-tip {
+      font-size: 20rpx !important;
+      line-height: 100%;
+      margin-top: 10rpx;
+      white-space: nowrap;
+    }
+
+    .vertical {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-    }
-
-    & > text {
-      font-size: $footer-font-size;
-      color: $white;
     }
   }
 

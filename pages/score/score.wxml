@@ -150,16 +150,17 @@
           <image class="icon" src="/images/common/refresh.png"></image>
         </view>
       </view>
-      <view class="middle vertical">
-        <term-picker
-          placeHolder="{{termPickerPlaceHolder}}"
-          allowsShortTerm="{{true}}"
-          pickerInfo="{{termPickerInfo}}"
-          currentData="{{termPickerCurrentData}}"
-          bindtermChange="termChange"
-        >
-        </term-picker>
-        <cache-tip timestamp="{{lastUpdated}}" title="成绩"></cache-tip>
+      <view class="middle">
+        <view class="vertical">
+          <term-picker
+            allowsShortTerm="{{true}}"
+            pickerInfo="{{termPickerInfo}}"
+            currentData="{{termPickerCurrentData}}"
+            bindtermChange="termChange"
+          >
+          </term-picker>
+          <cache-tip timestamp="{{score.lastUpdated}}" title="成绩"></cache-tip>
+        </view>
       </view>
       <view class="right">
         <view
