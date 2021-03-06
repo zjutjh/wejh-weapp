@@ -44,7 +44,7 @@
           <!-- 每天的课程 -->
           <view
             class="day-lessons"
-            wx:for="{{timetable}}"
+            wx:for="{{timetable.classes}}"
             wx:key="day_id"
             wx:for-index="day_id"
             wx:for-item="dayLessons"
@@ -115,8 +115,9 @@
             <image class="icon" src="/images/common/refresh.png"></image>
           </view>
         </view>
-        <view class="middle horizontal">
+        <view class="middle">
           <block wx:if="{{viewStatus !== '*'}}">
+            <!-- 周切换 -->
             <view class="switch-btn" data-direction="left" bindtap="switchWeek">
               <image
                 src="/images/common/arrow-left.png"
@@ -124,7 +125,13 @@
                 mode="aspectFit"
               ></image>
             </view>
-            <text class="title">{{_weeks[currentWeek]}}</text>
+            <view class="vertical">
+              <text class="title">{{_weeks[currentWeek]}}</text>
+              <cache-tip
+                timestamp="{{timetable.lastUpdated}}"
+                title="课表"
+              ></cache-tip>
+            </view>
             <view
               class="switch-btn"
               data-direction="right"
@@ -138,7 +145,21 @@
             </view>
           </block>
           <block wx:else>
-            <view class="switch-btn" data-direction="left" bindtap="switchTerm">
+            <!-- 学期切换 -->
+            <view class="vertical">
+              <term-picker
+                allowsShortTerm="{{false}}"
+                pickerInfo="{{termPickerInfo}}"
+                currentData="{{termPickerCurrentData}}"
+                bindtermChange="termChange"
+              >
+              </term-picker>
+              <cache-tip
+                timestamp="{{timetable.lastUpdated}}"
+                title="课表"
+              ></cache-tip>
+            </view>
+            <!-- <view class="switch-btn" data-direction="left" bindtap="switchTerm">
               <image
                 src="/images/common/arrow-left.png"
                 class="icon icon-arrow-left"
@@ -156,7 +177,7 @@
                 class="icon icon-arrow-right"
                 mode="aspectFit"
               ></image>
-            </view>
+            </view> -->
           </block>
         </view>
         <view class="right">
@@ -186,9 +207,10 @@
       catchtap="hideDetail"
       data-type="mask"
       class="lesson-detail"
-      wx:if="{{targetLessons.length > 1}}"
+      catchtouchmove="onMackMove"
+      wx:if="{{targetLessons.length > 0}}"
     >
-      <view class="detail-content">
+      <view class="detail-content" wx:if="{{targetLessons.length > 1}}">
         <view
           class="card {{ item['颜色'] }}{{ targetIndex === cid ? ' active' : '' }}"
           style="height: {{ item['节数'] * 100 - 10 }}rpx;"

@@ -1,5 +1,5 @@
+import { getInfoFromTerm } from "../../utils/termPicker";
 import logger from "../../utils/logger";
-import toast from "../../utils/toast";
 import dayjs from "../../libs/dayjs/dayjs.min.js";
 
 const initAppList = [];
@@ -59,9 +59,11 @@ Page({
 
     this.observe("session", "time");
 
-    this.observe("session", "cacheStatus");
-
-    this.observe("session", "timetableFixed", null, () => {
+    this.observe("session", "timetable", null, (newValues) => {
+      const { timetable } = newValues;
+      if (!timetable) {
+        return;
+      }
       this.updateTodayTimetable();
     });
 
@@ -88,14 +90,14 @@ Page({
     });
   },
   updateTodayTimetable() {
-    const { timetableFixed, time } = this.data;
-    if (!timetableFixed || !time) {
+    const { timetable, time } = this.data;
+    if (!timetable || !time) {
       return;
     }
 
-    const weekday = this.data.time.day;
-    const week = this.data.time.week;
-    const todayTimetable = timetableFixed[weekday - 1];
+    const { day: weekday, week } = this.data.time;
+
+    const todayTimetable = timetable["classes"][weekday - 1];
     const timetableToday = [];
     todayTimetable.forEach((lessons) => {
       lessons.forEach((lesson) => {
@@ -114,7 +116,10 @@ Page({
     app.services.getBootstrapInfo(null, { showError: false });
   },
   fetchHomeCards() {
-    app.services.getTimetable(null, {
+    if (!(this.data.time && this.data.time.term)) {
+      return;
+    }
+    app.services.getTimetable(getInfoFromTerm(this.data.time.term), null, {
       showError: false,
     });
     app.services.getCard(null, {
@@ -134,21 +139,21 @@ Page({
       wx.stopPullDownRefresh();
     }, 1000);
   },
-  clipboard() {
-    if (this.data.announcement && this.data.announcement.clipboard) {
-      const text = this.data.announcement.clipboard;
-      const tip = this.data.announcement.clipboardTip;
-      wx.setClipboardData({
-        data: text,
-        success() {
-          toast({
-            icon: "success",
-            title: tip || "复制成功",
-          });
-        },
-      });
-    }
-  },
+  // clipboard() {
+  //   if (this.data.announcement && this.data.announcement.clipboard) {
+  //     const text = this.data.announcement.clipboard;
+  //     const tip = this.data.announcement.clipboardTip;
+  //     wx.setClipboardData({
+  //       data: text,
+  //       success() {
+  //         toast({
+  //           icon: "success",
+  //           title: tip || "复制成功",
+  //         });
+  //       },
+  //     });
+  //   }
+  // },
   onClickApp(e) {
     const target = e.currentTarget;
     const index = target.dataset.index;

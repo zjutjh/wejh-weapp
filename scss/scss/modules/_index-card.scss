@@ -38,9 +38,11 @@
     }
 
     .title {
-      flex: 1;
       font-size: 24rpx;
       color: #888;
+      .cache-tip {
+        color: #888;
+      }
     }
   }
 

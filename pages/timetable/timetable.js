@@ -1,3 +1,4 @@
+import termUtil from "../../utils/termPicker";
 import toast from "../../utils/toast";
 import { getCurrentPeriod, schedule } from "../../utils/schedule";
 
@@ -67,9 +68,11 @@ Page({
     viewStatus: 0,
     originWeek: 0,
     currentWeek: 1,
-    currentTerm: "",
+    // currentTerm: "",
     timelineTop: 0,
     timelineLeft: 36,
+
+    timetable: null,
     conflictLessons: [],
 
     targetLessons: [], // 悬浮的课程
@@ -77,31 +80,65 @@ Page({
     targetIndex: 0,
     targetWeekday: 0,
 
-    timetable: null,
+    termPickerCurrentData: null,
   },
-  onLoad: function () {
+  onLoad() {
     app.$store.connect(this, "timetable");
-    this.observe("session", "timetable", "originalTimetableData");
-    this.observe("session", "timetableFixed", "timetable");
     this.observe("session", "userInfo");
-    this.observe("session", "time");
-    this.observe("session", "cacheStatus");
     this.observe("session", "isLoggedIn");
-
-    this.startTimelineMoving();
-
-    // 判断是否登录
-    if (!this.data.isLoggedIn) {
-      return wx.redirectTo({
-        url: "/pages/login/login",
+    this.observe("session", "time", null, (newValue) => {
+      if (!(newValue && newValue.time)) {
+        return;
+      }
+      const time = newValue.time;
+      this.setPageState({
+        viewStatus: time.week || "*",
+        originWeek: time.week || 1,
+        currentWeek: time.week || 1,
       });
-    }
+    });
+    this.observe("session", "timetable", null, (newValue) => {
+      if (!(newValue && newValue.timetable)) {
+        return;
+      }
 
-    const time = this.data.time || {};
-    this.setPageState({
-      viewStatus: time.week,
-      originWeek: time.week || 1,
-      currentWeek: time.week || 1,
+      const { classes, term } = newValue.timetable;
+
+      try {
+        this.getConflictLessons(classes);
+      } catch (e) {
+        wx.reportMonitor("1", 1);
+        console.error(e);
+        toast({
+          icon: "error",
+          title: "课表解析异常",
+        });
+        return;
+      }
+
+      // 请求返回后, 更新学期选择器的选中状态
+      const termInfo = termUtil.getInfoFromTerm(term);
+      wx.setNavigationBarTitle({
+        title: termUtil.getTermStrForDisplay(termInfo) + " 课程表",
+      });
+      this.setPageState({
+        termPickerCurrentData: {
+          termInfo,
+        },
+      });
+    });
+    this.observe("session", "timetableRequest", null, (newValue) => {
+      if (!(newValue && newValue.timetableRequest)) {
+        return;
+      }
+      if (newValue.timetableRequest.started) {
+        wx.showLoading({
+          title: "获取课表中",
+          mask: true,
+        });
+      } else {
+        this.hideLoading();
+      }
     });
 
     // 判断是否登录
@@ -118,30 +155,67 @@ Page({
       });
     }
 
-    // 判断是否有课表数据
-    if (!this.data.timetable) {
-      app.services.getTimetable(
-        () => {
-          this.afterGetTimetable();
+    // 获得学期数据
+    const termInfo = termUtil.getInfoFromTerm(this.data.time.term);
+    const grade = parseInt(this.data.userInfo.uno.substring(0, 4));
+
+    // 填充学期选择器数据
+    this.setPageState({
+      termPickerInfo: {
+        termInfo,
+        grade,
+      },
+    });
+
+    this.startTimelineMoving();
+
+    // 若上次选择的学期不存在，进行生成
+    if (!this.data.termPickerCurrentData) {
+      this.setPageState({
+        termPickerCurrentData: {
+          termInfo: termInfo,
         },
-        {
-          showError: true,
-          fail: () => {
-            this.afterGetTimetable();
+      });
+    }
+
+    // 判断是否有数据
+    if (!this.data.timetable) {
+      let shouldFetchTimetable = true;
+      if (this.data.timetableRequest && this.data.timetableRequest.started) {
+        shouldFetchTimetable = false;
+      }
+      if (shouldFetchTimetable) {
+        // const _this = this;
+        app.services.getTimetable(
+          termInfo,
+          () => {
+            // _this.hideLoading();
           },
-        }
-      );
-    } else {
-      this.afterGetTimetable();
+          {
+            showError: true,
+          }
+        );
+      }
     }
   },
   onUnload() {
     this.disconnect();
   },
-  setTitleTerm(term) {
-    wx.setNavigationBarTitle({
-      title: term + " 课程表",
+  hideLoading() {
+    // wx.hideLoading 会把错误 toast 一并关掉，导致错误提示消失太快看不到，因此暂时在这里需要加一个延迟
+    // 后续会对此处进行优化，loading 状态和错误提示都不使用 toast，避免 block 住用户的行为
+    setTimeout(() => {
+      wx.hideLoading();
+    }, 500);
+  },
+  toggleRefresh() {
+    // const _this = this;
+    const { termInfo } = this.data.termPickerCurrentData;
+    wx.showLoading({
+      title: "获取课表中",
+      mask: true,
     });
+    app.services.getTimetable(termInfo, () => {});
   },
   startTimelineMoving() {
     const _this = this;
@@ -176,7 +250,7 @@ Page({
   },
   showLessonDetail(e) {
     const { day, lesson } = e.currentTarget.dataset;
-    const targetLessons = this.data.timetable[day][lesson]
+    const targetLessons = this.data.timetable.classes[day][lesson]
       .filter((item) => {
         return (
           item["周"][this.data.currentWeek] || this.data.viewStatus === "*"
@@ -209,7 +283,7 @@ Page({
     if (!teacherName) {
       toast({
         icon: "error",
-        title: "发生了一点错误，请反馈给管理员",
+        title: "无教师信息",
       });
     } else {
       const teachers = teacherName.split(",");
@@ -236,28 +310,7 @@ Page({
       targetLessonInfo: this.getLessonInfo(this.data.targetLessons[index]),
     });
   },
-  afterGetTimetable() {
-    // this.setPageState({
-    // showLoading: false,
-    // });
-    try {
-      const originalTimetableData = this.data.originalTimetableData;
-      const term = originalTimetableData.term;
-      this.getConflictLessons();
-      this.setPageState({
-        currentTerm: term,
-      });
-      this.setTitleTerm(term);
-    } catch (e) {
-      console.error(e);
-      toast({
-        icon: "error",
-        title: e.message,
-      });
-    }
-  },
-  getConflictLessons() {
-    const timetable = this.data.timetable;
+  getConflictLessons(timetable) {
     const isConflictMap = [];
     const conflictLessons = [];
     // 开始循环周, i: 星期
@@ -305,45 +358,59 @@ Page({
       currentWeek: this.data.currentWeek + dValue,
     });
   },
-  switchTerm(e) {
-    const _this = this;
-    const dataset = e.currentTarget.dataset;
-    const term = this.data.currentTerm;
-    const termArr = term.match(/(\d+)\/(\d+)\((\d)\)/);
-
-    let targetTerm;
-    if (dataset.direction === "left") {
-      if (+termArr[3] === 1) {
-        targetTerm =
-          parseInt(termArr[1]) - 1 + "/" + (parseInt(termArr[2]) - 1) + "(2)";
-      } else {
-        targetTerm = parseInt(termArr[1]) + "/" + parseInt(termArr[2]) + "(1)";
-      }
-    } else if (dataset.direction === "right") {
-      if (+termArr[3] === 1) {
-        targetTerm = parseInt(termArr[1]) + "/" + parseInt(termArr[2]) + "(2)";
-      } else {
-        targetTerm =
-          parseInt(termArr[1]) + 1 + "/" + (parseInt(termArr[2]) + 1) + "(1)";
-      }
-    }
-    wx.showLoading({
-      title: "切换学期中",
-    });
-    app.services.changeTimetableTerm(targetTerm, (res) => {
-      const data = res.data.data;
-      const classTerm = data["class_term"];
-      app.services.getTimetable(() => {
-        wx.hideLoading();
-        _this.afterGetTimetable();
-      });
-    });
-  },
+  // switchTerm(e) {
+  //   const _this = this;
+  //   const dataset = e.currentTarget.dataset;
+  //   const term = this.data.currentTerm;
+  //   const termArr = term.match(/(\d+)\/(\d+)\((\d)\)/);
+  //
+  //   let targetTerm;
+  //   if (dataset.direction === "left") {
+  //     if (+termArr[3] === 1) {
+  //       targetTerm =
+  //         parseInt(termArr[1]) - 1 + "/" + (parseInt(termArr[2]) - 1) + "(2)";
+  //     } else {
+  //       targetTerm = parseInt(termArr[1]) + "/" + parseInt(termArr[2]) + "(1)";
+  //     }
+  //   } else if (dataset.direction === "right") {
+  //     if (+termArr[3] === 1) {
+  //       targetTerm = parseInt(termArr[1]) + "/" + parseInt(termArr[2]) + "(2)";
+  //     } else {
+  //       targetTerm =
+  //         parseInt(termArr[1]) + 1 + "/" + (parseInt(termArr[2]) + 1) + "(1)";
+  //     }
+  //   }
+  //   wx.showLoading({
+  //     title: "切换学期中",
+  //   });
+  //   app.services.changeTimetableTerm(targetTerm, (res) => {
+  //     const data = res.data.data;
+  //     const classTerm = data["class_term"];
+  //     app.services.getTimetable(() => {
+  //       wx.hideLoading();
+  //       _this.afterGetTimetable();
+  //     });
+  //   });
+  // },
   switchView() {
     const todayWeek = this.data.time.week;
     this.setPageState({
       viewStatus: this.data.viewStatus === "*" ? todayWeek : "*",
       currentWeek: todayWeek,
     });
+  },
+  termChange: function (e) {
+    const { termInfo } = e.detail;
+    wx.showLoading({
+      title: "获取课表中",
+      mask: true,
+    });
+    // const _this = this;
+    app.services.getTimetable(termInfo, () => {
+      // _this.hideLoading();
+    });
+  },
+  onMackMove() {
+    // 用于阻止蒙层的滚动事件被穿透
   },
 });

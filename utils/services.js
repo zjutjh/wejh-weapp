@@ -116,50 +116,72 @@ export default function ({ store, fetch }) {
         },
       });
     },
-    getTimetable(callback = function () {}, options) {
-      fetch({
+    getTimetable(termInfo, callback = function () {}, options) {
+      if (!termInfo) {
+        return;
+      }
+
+      // cache_key: cache_timetable_termYear_semester (timetable_2020_1)
+      const task = fetch({
         url: API("timetable"),
         showError: true,
+        data: {
+          term_year: termInfo.year || "",
+          term_semester: termInfo.semester || "",
+        },
         ...options,
         success(res) {
-          const cacheStatus = store.getState("session", "cacheStatus") || {};
-          cacheStatus.timetable = false;
-
-          let data = res.data.data;
-          const fixData = util.fixTimetable(data);
-          const cache = {
-            cacheStatus,
-            timetable: data,
-            timetableFixed: fixData,
+          let timetable = res.data.data;
+          timetable = {
+            classes: util.fixTimetable(timetable),
+            term: timetable.term,
+            lastUpdated: dayjs().unix(),
           };
+
           store.setState("session", {
-            ...cache,
+            timetable,
           });
-          store.setState("common", {
-            cache,
-          });
+
+          // 写 cache
+          const termInfo = termUtil.getInfoFromTerm(timetable.term);
+          if (termInfo.year && termInfo.semester) {
+            const cacheKey = `cache_timetable_${termInfo.year}_${termInfo.semester}`;
+            logger.info("service", "写入 cache 'timetable', key: ", cacheKey);
+            store.setState("common", {
+              [cacheKey]: timetable,
+            });
+          }
           callback && callback(res);
         },
         fail(res) {
-          // 使用离线课表
-          const cacheStatus = store.getState("session", "cacheStatus") || {};
-          const cache = store.getState("common", "cache") || {};
-          const cacheState = {};
-          if (cache.timetable) {
-            cacheState.timetable = cache.timetable;
-            if (cache.timetableFixed) {
-              cacheState.timetableFixed = cache.timetableFixed;
-              // cacheState.timetableToday = util.fixTimetableToday(
-              //   cache.timetableFixed
-              // );
+          // 请求失败时返回 cache
+          if (termInfo.year && termInfo.semester) {
+            const cacheKey = `cache_timetable_${termInfo.year}_${termInfo.semester}`;
+            logger.info("service", "读出 cache 'timetable', key: ", cacheKey);
+
+            let cachedTimetable = store.getState("common", cacheKey);
+            if (cachedTimetable) {
+              store.setState("session", {
+                timetable: cachedTimetable,
+              });
             }
-            cacheStatus.timetable = true;
-            store.setState("session", {
-              cacheStatus,
-              ...cacheState,
-            });
-            callback && callback(res);
           }
+          callback && callback(res);
+        },
+        complete(res) {
+          store.setState("session", {
+            timetableRequest: {
+              started: false,
+              requestTask: null,
+            },
+          });
+        },
+      });
+
+      store.setState("session", {
+        timetableRequest: {
+          started: true,
+          requestTask: task,
         },
       });
     },

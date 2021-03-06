@@ -31,8 +31,7 @@
     >
   </view>
 
-  <navigator
-    url="/pages/timetable/timetable"
+  <view
     wx:if="{{timetableToday}}"
     class="m-index-card f-mt-20"
     style="background-image: url({{icons.timetable.card}});"
@@ -50,8 +49,17 @@
           mode="aspectFit"
         ></image>
       </view>
-      <text class="title"
-        >今日课表{{cacheStatus.timetable ? ' (离线模式)' : ''}}</text
+      <!-- <text class="title"
+        >{{cacheStatus.timetable ? ' (离线模式)' : ''}}</text
+      > -->
+      <view class="title"
+        >今日课表（<cache-tip
+          id="cache-tip"
+          class="title"
+          timestamp="{{timetable.lastUpdated}}"
+          title="课表"
+        ></cache-tip
+        >）</view
       >
     </view>
     <view class="content">
@@ -67,8 +75,8 @@
           <view class="main-info">
             <text class="name">{{lesson['课程名称']}}</text>
             <text class="info"
-              >{{lesson['起止周'] ? lesson['起止周'] : ''}}{{lesson['起止节'] ?
-              lesson['起止节'] : ''}}</text
+              >{{lesson['起止节'] ? lesson['起止节'] : ''}}{{lesson['起止周'] ?
+              '（' + lesson['起止周'] + '）' : ''}}</text
             >
           </view>
           <view class="place">{{lesson['地点']}}</view>
@@ -78,8 +86,10 @@
         </view>
       </view>
     </view>
-    <view class="bottom">查看全部课表</view>
-  </navigator>
+    <navigator class="bottom" url="/pages/timetable/timetable"
+      >查看全部课表</navigator
+    >
+  </view>
 
   <navigator
     url="/pages/card/card"
