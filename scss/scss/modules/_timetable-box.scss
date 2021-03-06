@@ -361,10 +361,9 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
           .name {
             display: block;
             max-height: 88rpx;
-            width: 580rpx;
             font-size: 44rpx;
             color: $white;
-            margin: 20rpx 0 0 20rpx;
+            padding: 20rpx 20rpx 12rpx;
             line-height: 1em;
             overflow: hidden;
           }
