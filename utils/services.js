@@ -132,14 +132,14 @@ export default function ({ store, fetch }) {
         ...options,
         success(res) {
           let timetable = res.data.data;
-          timetable = {
-            classes: util.fixTimetable(timetable),
-            term: timetable.term,
-            lastUpdated: dayjs().unix(),
-          };
+          const lastUpdated = dayjs().unix();
 
           store.setState("session", {
-            timetable,
+            timetable: {
+              classes: util.fixTimetable(timetable),
+              term: timetable.term,
+              lastUpdated: dayjs().unix(),
+            },
           });
 
           // 写 cache
@@ -148,7 +148,10 @@ export default function ({ store, fetch }) {
             const cacheKey = `cache_timetable_${termInfo.year}_${termInfo.semester}`;
             logger.info("service", "写入 cache 'timetable', key: ", cacheKey);
             store.setState("common", {
-              [cacheKey]: timetable,
+              [cacheKey]: {
+                originalTimetableData: timetable,
+                lastUpdated,
+              },
             });
           }
           callback && callback(res);
@@ -159,10 +162,16 @@ export default function ({ store, fetch }) {
             const cacheKey = `cache_timetable_${termInfo.year}_${termInfo.semester}`;
             logger.info("service", "读出 cache 'timetable', key: ", cacheKey);
 
-            let cachedTimetable = store.getState("common", cacheKey);
-            if (cachedTimetable) {
+            const cachedTimetable = store.getState("common", cacheKey);
+            if (cachedTimetable && cachedTimetable.originalTimetableData) {
               store.setState("session", {
-                timetable: cachedTimetable,
+                timetable: {
+                  classes: util.fixTimetable(
+                    cachedTimetable.originalTimetableData
+                  ),
+                  term: cachedTimetable.originalTimetableData.term,
+                  lastUpdated: cachedTimetable.lastUpdated,
+                },
               });
             }
           }
