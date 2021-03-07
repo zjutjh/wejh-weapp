@@ -81,6 +81,8 @@ Page({
     targetWeekday: 0,
 
     termPickerCurrentData: null,
+
+    _timelineIntervalId: null,
   },
   onLoad() {
     app.$store.connect(this, "timetable");
@@ -167,8 +169,6 @@ Page({
       },
     });
 
-    this.startTimelineMoving();
-
     // 若上次选择的学期不存在，进行生成
     if (!this.data.termPickerCurrentData) {
       this.setPageState({
@@ -199,7 +199,17 @@ Page({
     }
   },
   onUnload() {
+    clearInterval(this.data._timelineIntervalId);
     this.disconnect();
+  },
+  onShow() {
+    clearInterval(this.data._timelineIntervalId);
+    this.data._timelineIntervalId = setInterval(() => {
+      this.refreshTimeline();
+    }, 60 * 1000);
+  },
+  onHide() {
+    clearInterval(this.data._timelineIntervalId);
   },
   hideLoading() {
     // wx.hideLoading 会把错误 toast 一并关掉，导致错误提示消失太快看不到，因此暂时在这里需要加一个延迟
@@ -217,8 +227,7 @@ Page({
     });
     app.services.getTimetable(termInfo, () => {});
   },
-  startTimelineMoving() {
-    const _this = this;
+  refreshTimeline() {
     const currentPeriod = getCurrentPeriod();
     const periodTimeline = timeline[currentPeriod.key];
 
@@ -228,14 +237,11 @@ Page({
           dayjs().diff(dayjs(currentPeriod.begin, "H:mm"), "minute")) /
           100
     );
-    _this.setPageState({
-      timelineTop,
-      timelineLeft: 36 + (_this.data.time.day - 1) * 130,
-    });
 
-    setTimeout(() => {
-      _this.startTimelineMoving();
-    }, 60 * 1000);
+    this.setPageState({
+      timelineTop,
+      timelineLeft: 36 + (this.data.time.day - 1) * 130,
+    });
   },
   getLessonInfo(lesson) {
     if (!lesson) {
