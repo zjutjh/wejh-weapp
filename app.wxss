@@ -1,3 +1,39 @@
+@font-face {
+  font-family: "iconfont";
+  src: url("iconfont.eot?t=1615105647822");
+  /* IE9 */
+  src: url("iconfont.eot?t=1615105647822#iefix") format("embedded-opentype"), url("data:application/x-font-woff2;charset=utf-8;base64,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") format("woff2"), url("iconfont.woff?t=1615105647822") format("woff"), url("iconfont.ttf?t=1615105647822") format("truetype"), url("iconfont.svg?t=1615105647822#iconfont") format("svg");
+  /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon_book:before {
+  content: "\ea43";
+}
+
+.icon_sport:before {
+  content: "\e602";
+}
+
+.icon_rush:before {
+  content: "\e643";
+}
+
+.icon_clock:before {
+  content: "\e63c";
+}
+
+.icon_lab:before {
+  content: "\e629";
+}
+
 .f-bd-rise {
   animation: bd-rise 2s cubic-bezier(0.23, 1, 0.32, 1) 0.75s forwards;
   opacity: 0;
@@ -844,62 +880,70 @@ text {
   height: 1360rpx;
 }
 
-.m-timetable-box .lesson-number {
+.m-timetable-box .left-bar {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 100;
+  background: #fff;
+  width: 36rpx;
+  padding-bottom: 100rpx;
+  border-right: 1rpx solid #e9ecef;
+  border-bottom: 1rpx solid #e9ecef;
+}
+
+.m-timetable-box .left-bar .lesson-number {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   flex-shrink: 0;
-  padding-top: 60rpx;
-  width: 36rpx;
-  border-right: 1rpx solid #e9ecef;
-  padding-bottom: 100rpx;
-  background: #fff;
+  color: #868e96;
+  font-size: 24rpx;
 }
 
-.m-timetable-box .lesson-number .date {
-  position: absolute;
-  top: 0;
-  left: 0;
+.m-timetable-box .left-bar .lesson-number .date {
   width: 36rpx;
   height: 60rpx;
-  font-size: 24rpx;
-  color: #868e96;
-  text-align: center;
-  line-height: 60rpx;
-  vertical-align: middle;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-top: 1rpx solid #e9ecef;
   border-bottom: 1rpx solid #e9ecef;
-  border-right: 1rpx solid #e9ecef;
 }
 
-.m-timetable-box .lesson-number .number {
+.m-timetable-box .left-bar .lesson-number .number {
   height: 100rpx;
-  font-size: 24rpx;
-  color: #868e96;
-  text-align: center;
-  line-height: 100rpx;
-  vertical-align: middle;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.m-timetable-box .left-bar .timeline-arrow {
+  position: absolute;
+  margin-top: 60rpx;
+  left: 0;
+  width: 0;
+  height: 0;
+  line-height: 0;
+  border: 10rpx solid transparent;
+  border-left-color: #0069d9;
+  transform: translateY(-50%);
+  opacity: 0.6;
 }
 
 .m-timetable-box .timetable-box {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   height: 1360rpx;
 }
 
 .m-timetable-box .timetable-box .timetable-header {
-  z-index: 999;
   display: flex;
   flex-direction: row;
   width: 946rpx;
   height: 60rpx;
   padding-left: 36rpx;
   overflow: hidden;
-  background: #fff;
   border-top: 1rpx solid #e9ecef;
   border-bottom: 1rpx solid #e9ecef;
   background-color: #fff;
@@ -911,6 +955,7 @@ text {
   align-items: center;
   justify-content: center;
   width: 130rpx;
+  height: 60rpx;
   font-size: 24rpx;
   color: #868e96;
 }
@@ -926,7 +971,7 @@ text {
 
 .m-timetable-box .timetable-box .timetable-content .timeline {
   position: absolute;
-  z-index: 100;
+  z-index: 99;
   left: 36rpx;
   right: 0;
   top: 50%;
@@ -934,19 +979,6 @@ text {
   width: 130rpx;
   height: 5rpx;
   background: #0069d9;
-  opacity: 0.6;
-}
-
-.m-timetable-box .timetable-box .timetable-content .timeline-arrow {
-  position: absolute;
-  z-index: 100;
-  left: 0;
-  width: 0;
-  height: 0;
-  line-height: 0;
-  border: 10rpx solid transparent;
-  border-left-color: #0069d9;
-  transform: translateY(-50%);
   opacity: 0.6;
 }
 
@@ -980,23 +1012,20 @@ text {
 }
 
 .m-timetable-box .timetable-box .timetable-content .card-content .day-lessons .lesson .conflict {
-  position: absolute !important;
-  z-index: 999;
+  position: absolute;
+  z-index: 98;
   top: 8rpx;
   right: 12rpx;
-  display: inline-block;
-  width: 12rpx;
-  height: 6rpx;
-  border-radius: 2rpx;
-  background: #fff;
+  width: 16rpx;
+  height: 16rpx;
 }
 
 .m-timetable-box .timetable-box .timetable-content .card-content .day-lessons .lesson .card {
   position: absolute;
-  z-index: 99;
   left: 50%;
   top: 5rpx;
   transform: translateX(-50%);
+  z-index: 98;
   width: 115rpx;
   display: flex;
   flex-direction: column;
@@ -1008,19 +1037,16 @@ text {
 }
 
 .m-timetable-box .timetable-box .timetable-content .card-content .day-lessons .lesson .card .place {
-  height: 2.2em;
   color: #fff;
   font-size: 28rpx;
-  line-height: 38rpx;
+  line-height: 1em;
 }
 
 .m-timetable-box .timetable-box .timetable-content .card-content .day-lessons .lesson .card .name {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: #fff;
   font-size: 28rpx;
+  text-align: center;
+  margin: auto 0;
   overflow: hidden;
 }
 
@@ -1065,41 +1091,30 @@ text {
 }
 
 .m-timetable-box .lesson-detail .detail-content .card {
-  z-index: 99;
+  margin-left: 64rpx;
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 98;
   width: 115rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 10rpx 10rpx 0;
-  margin-left: 100rpx;
   text-align: center;
   border-radius: 5rpx;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-.m-timetable-box .lesson-detail .detail-content .card:first-child {
-  margin-left: 0;
-}
-
-.m-timetable-box .lesson-detail .detail-content .card.active {
-  transform: scale(1.2);
 }
 
 .m-timetable-box .lesson-detail .detail-content .card .place {
-  height: 2.2em;
   color: #fff;
   font-size: 28rpx;
-  line-height: 120%;
+  line-height: 1em;
 }
 
 .m-timetable-box .lesson-detail .detail-content .card .name {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: #fff;
   font-size: 28rpx;
+  text-align: center;
+  margin: auto 0;
   overflow: hidden;
 }
 
@@ -1121,6 +1136,14 @@ text {
 
 .m-timetable-box .lesson-detail .detail-content .card.yellow {
   background-color: #ffcb63;
+}
+
+.m-timetable-box .lesson-detail .detail-content .card:first-child {
+  margin-left: 0;
+}
+
+.m-timetable-box .lesson-detail .detail-content .card.active {
+  transform: scale(1.2);
 }
 
 .m-timetable-box .footer-card-tabs {
@@ -1220,34 +1243,39 @@ text {
 }
 
 .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card {
-  position: relative;
   width: 600rpx !important;
   height: 320rpx !important;
   margin: 0 76rpx;
   padding-top: 20rpx;
   border-radius: 20rpx;
   box-shadow: -10rpx 20rpx 40rpx -10rpx rgba(100, 100, 100, 0.5);
+  display: flex;
+  flex-direction: column;
 }
 
 .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .name {
-  display: flex;
-  align-items: center;
-  height: 100rpx;
-  width: 580rpx;
+  display: block;
+  max-height: 88rpx;
   font-size: 44rpx;
   color: #fff;
-  padding: 0 0 20rpx 20rpx;
+  padding: 20rpx 20rpx 12rpx;
+  line-height: 1em;
+  overflow: hidden;
 }
 
-.m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .type {
-  position: absolute;
-  top: 50%;
-  left: 40rpx;
+.m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content {
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  margin: auto 0;
+}
+
+.m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content .type {
   width: 40rpx;
   padding: 10rpx 0;
+  margin: 0 32rpx;
   font-size: 26rpx;
   color: #fff;
-  margin: 6rpx 0;
   border-radius: 8rpx;
   background-color: #e78ab0;
   line-height: 32rpx;
@@ -1255,17 +1283,24 @@ text {
   word-wrap: break-word;
 }
 
-.m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content {
-  margin: 10rpx 0 0 100rpx;
+.m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content .info {
+  flex: 1;
+  overflow: hidden;
+  margin-right: 16rpx;
 }
 
 .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content .info-item {
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content .info-item .item-content {
   font-size: 32rpx;
   color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content .info-item .item-label {
@@ -1274,9 +1309,8 @@ text {
 }
 
 .m-timetable-box .footer-card-tabs .card-tabs .card-swiper .card .content .info-item .teacher-contact {
-  position: absolute;
-  width: 60rpx;
-  height: 60rpx;
+  width: 36rpx;
+  margin-left: 12rpx;
 }
 
 .m-footer-bar {
@@ -1346,24 +1380,28 @@ text {
   top: 50%;
   transform: translate(-50%, -50%);
   height: 100%;
-}
-
-.m-footer-bar .middle.horizontal {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.m-footer-bar .middle.vertical {
+.m-footer-bar .middle text {
+  font-size: 28rpx;
+  color: #fff;
+}
+
+.m-footer-bar .middle .cache-tip {
+  font-size: 20rpx !important;
+  line-height: 100%;
+  margin-top: 10rpx;
+  white-space: nowrap;
+}
+
+.m-footer-bar .middle .vertical {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.m-footer-bar .middle > text {
-  font-size: 28rpx;
-  color: #fff;
 }
 
 .m-footer-bar .right {
@@ -1386,43 +1424,6 @@ text {
 .m-footer-bar .switch-btn > .icon {
   width: 30rpx;
   height: 30rpx;
-}
-
-.m-footer-bar .choose-view {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
-  width: 42rpx;
-  height: 42rpx;
-}
-
-.m-footer-bar .choose-view > text {
-  position: absolute;
-  z-index: 1;
-  bottom: 0;
-  right: 0;
-  width: 32rpx;
-  height: 32rpx;
-  line-height: 32rpx;
-  text-align: center;
-  vertical-align: middle;
-  border: 1rpx solid #fff;
-  border-radius: 5rpx;
-  background: #73b4ef;
-  font-size: 24rpx;
-  color: #fff;
-}
-
-.m-footer-bar .choose-view .active {
-  z-index: 2;
-  top: 0;
-  left: 0;
-  bottom: auto;
-  right: auto;
-  color: #73b4ef;
-  background: #fff;
 }
 
 .m-remind-box {
@@ -2673,8 +2674,11 @@ text {
 }
 
 .m-index-card > .header .title {
-  flex: 1;
   font-size: 24rpx;
+  color: #888;
+}
+
+.m-index-card > .header .title .cache-tip {
   color: #888;
 }
 
@@ -2713,30 +2717,68 @@ text {
 }
 
 .m-index-card .timetable-card .timetable-item .main-info {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  max-width: 70%;
+  justify-content: stretch;
+  flex: 2;
+  margin-right: 12rpx;
+  overflow: hidden;
 }
 
 .m-index-card .timetable-card .timetable-item .main-info .name {
-  line-height: 200%;
   font-size: 32rpx;
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .m-index-card .timetable-card .timetable-item .main-info .info {
-  font-size: 24rpx;
-  line-height: 125%;
   color: #666;
 }
 
-.m-index-card .timetable-card .timetable-item .place {
-  font-size: 38rpx;
-  letter-spacing: 1px;
+.m-index-card .timetable-card .timetable-item .main-info .info.red {
+  color: #e78ab0;
+}
+
+.m-index-card .timetable-card .timetable-item .main-info .info.blue {
+  color: #73b4ef;
+}
+
+.m-index-card .timetable-card .timetable-item .main-info .info text {
+  color: unset;
+  font-size: 24rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.m-index-card .timetable-card .timetable-item .main-info .info text.iconfont {
+  margin-right: 8rpx;
+}
+
+.m-index-card .timetable-card .timetable-item .sub-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  min-width: 232rpx;
+  max-width: 70%;
+  overflow: hidden;
+  text-align: right;
+}
+
+.m-index-card .timetable-card .timetable-item .sub-info .place {
+  font-size: 32rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.m-index-card .timetable-card .timetable-item .sub-info .info {
+  font-size: 24rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: #666;
 }
 
 .m-index-card .timetable-card .timetable-nothing {
@@ -2941,18 +2983,6 @@ text {
   background-color: #45494d;
 }
 
-.m-cache-tip {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 9999;
-  font-size: 30rpx;
-  text-align: center;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
 .m-main-webview {
   flex: 1;
   background-color: #fff;
@@ -3014,6 +3044,10 @@ text {
 
 .m-feedback .feedback-list-item-icon-blue {
   background-color: #73b4ef;
+}
+
+.m-feedback .feedback-list-item-icon-purple {
+  background-color: #9f8bea;
 }
 
 .m-feedback .feedback-list-item-icon-content {
