@@ -1,3 +1,5 @@
+import { schedule } from "./schedule";
+
 // // 判断是否为纯粹对象
 // function isPlainObject(obj) {
 //   if (
@@ -182,6 +184,9 @@ function fixTimetable(classResult) {
         info["开始节"] !== info["结束节"]
           ? `${info["开始节"]}-${info["结束节"]}节`
           : `第${info["开始节"]}节`;
+
+      lesson["开始时间"] = schedule[`c${info["开始节"]}`].begin;
+      lesson["结束时间"] = schedule[`c${info["结束节"]}`].end;
 
       const type = info["周类型"] || "default";
 

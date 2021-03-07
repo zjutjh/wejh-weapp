@@ -1,6 +1,6 @@
 import termUtil from "../../utils/termPicker";
 import toast from "../../utils/toast";
-import { getCurrentPeriod, schedule } from "../../utils/schedule";
+import { getCurrentPeriod } from "../../utils/schedule";
 
 import dayjs from "../../libs/dayjs/dayjs.min.js";
 import dayjs_customParseFormat from "../../libs/dayjs/plugin/customParseFormat.js";
@@ -241,11 +241,9 @@ Page({
     if (!lesson) {
       return {};
     }
-    const scheduleKeyStart = `c${lesson["开始节"]}`;
-    const scheduleKeyEnd = `c${lesson["结束节"]}`;
     return {
       weekday: `星期${this.data.weekday[this.data.targetWeekday + 1]}`,
-      lessonTime: `${lesson["起止节"]}（${schedule[scheduleKeyStart].begin}-${schedule[scheduleKeyEnd].end}）`,
+      lessonTime: `${lesson["起止节"]}（${lesson["开始时间"]}-${lesson["结束时间"]}）`,
     };
   },
   showLessonDetail(e) {
