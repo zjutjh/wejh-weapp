@@ -275,7 +275,7 @@
                   <image
                     src="/images/timetable/teacher-contact.png"
                     class="teacher-contact"
-                    mode="heightFix"
+                    mode="widthFix"
                     data-cid="{{cid}}"
                     bindtap="contactTeacher"
                   ></image>

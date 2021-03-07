@@ -388,6 +388,8 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
 
             .info {
               flex: 1;
+              overflow: hidden;
+              margin-right: 16rpx;
               &-item {
                 display: flex;
                 align-items: center;
@@ -396,6 +398,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
                 .item-content {
                   font-size: 32rpx;
                   color: $white;
+                  @include text-ellipsis;
                 }
 
                 .item-label {
@@ -404,7 +407,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
                 }
 
                 .teacher-contact {
-                  height: 30rpx;
+                  width: 36rpx;
                   margin-left: 12rpx;
                 }
               }

@@ -110,7 +110,7 @@ Page({
         this.getConflictLessons(classes);
       } catch (e) {
         wx.reportMonitor("1", 1);
-        console.error(e);
+        // console.error(e);
         toast({
           icon: "error",
           title: "课表解析异常",
@@ -204,6 +204,7 @@ Page({
   },
   onShow() {
     clearInterval(this.data._timelineIntervalId);
+    this.refreshTimeline();
     this.data._timelineIntervalId = setInterval(() => {
       this.refreshTimeline();
     }, 60 * 1000);
