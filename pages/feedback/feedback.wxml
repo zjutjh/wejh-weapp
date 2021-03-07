@@ -41,6 +41,23 @@
       <view class="feedback-list-separator"></view>
 
       <view class="feedback-list-item">
+        <view class="feedback-list-item-icon feedback-list-item-icon-purple">
+          <image
+            class="feedback-list-item-icon-content"
+            mode="aspectFit"
+            src="../../images/feedback/icon-assistant.png"
+          >
+          </image>
+        </view>
+        <view class="feedback-list-item-content">寻求帮助</view>
+        <view class="feedback-list-item-action">
+          <button open-type="contact">联系客服</button>
+        </view>
+      </view>
+
+      <view class="feedback-list-separator"></view>
+
+      <view class="feedback-list-item">
         <view class="feedback-list-item-icon feedback-list-item-icon-blue">
           <image
             class="feedback-list-item-icon-content"
