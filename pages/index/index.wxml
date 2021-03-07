@@ -74,12 +74,24 @@
         >
           <view class="main-info">
             <text class="name">{{lesson['课程名称']}}</text>
+            <view
+              wx:if="{{lesson['课程提示']}}"
+              class="info {{lesson['课程提示'].color}}"
+            >
+              <text
+                wx:if="{{lesson['课程提示'].icon}}"
+                class="iconfont icon_{{lesson['课程提示'].icon}}"
+              ></text
+              ><text>{{lesson['课程提示'].content}}</text>
+            </view>
+          </view>
+          <view class="sub-info">
+            <text class="place">{{lesson['地点']}}</text>
             <text class="info"
-              >{{lesson['起止节'] ? lesson['起止节'] : ''}}{{lesson['起止周'] ?
-              '（' + lesson['起止周'] + '）' : ''}}</text
+              >{{lesson['起止节'] ? lesson['起止节'] + ' ' :
+              ''}}({{lesson['开始时间']}}-{{lesson['结束时间']}})</text
             >
           </view>
-          <view class="place">{{lesson['地点']}}</view>
         </view>
         <view class="timetable-nothing" wx:if="{{timetableToday.length === 0}}">
           <text>今天居然没有课~😆</text>

@@ -188,6 +188,16 @@ function fixTimetable(classResult) {
       lesson["开始时间"] = schedule[`c${info["开始节"]}`].begin;
       lesson["结束时间"] = schedule[`c${info["结束节"]}`].end;
 
+      lesson["课程图标"] = "book";
+      if (
+        item["课程名称"].includes("体育") ||
+        item["课程名称"].includes("体质健康")
+      ) {
+        lesson["课程图标"] = "sport";
+      } else if (item["课程名称"].includes("实验")) {
+        lesson["课程图标"] = "lab";
+      }
+
       const type = info["周类型"] || "default";
 
       for (let i = 1; i <= 18; i++) {

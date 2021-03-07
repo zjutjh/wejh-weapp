@@ -76,28 +76,60 @@
         border-bottom: none;
       }
       .main-info {
-        flex: 1;
+        // flex: 1;
+        // max-width: 70%;
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
-        max-width: 70%;
+        justify-content: stretch;
+        flex: 2;
+        margin-right: 12rpx;
+        overflow: hidden;
+
         .name {
-          line-height: 200%;
           font-size: 32rpx;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+          @include text-ellipsis;
         }
         .info {
-          font-size: 24rpx;
-          line-height: 125%;
           color: #666;
+
+          &.red {
+            color: $theme-pink;
+          }
+
+          &.blue {
+            color: $theme-blue;
+          }
+
+          text {
+            &.iconfont {
+              margin-right: 8rpx;
+            }
+            color: unset;
+            font-size: 24rpx;
+            @include text-ellipsis;
+          }
         }
       }
 
-      .place {
-        font-size: 38rpx;
-        letter-spacing: 1px;
+      .sub-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        min-width: 232rpx;
+        max-width: 70%;
+        overflow: hidden;
+
+        text-align: right;
+
+        .place {
+          font-size: 32rpx;
+          @include text-ellipsis;
+        }
+        .info {
+          font-size: 24rpx;
+          @include text-ellipsis;
+          color: #666;
+        }
       }
     }
 

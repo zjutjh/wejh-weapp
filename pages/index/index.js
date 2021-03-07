@@ -1,6 +1,15 @@
-import { getInfoFromTerm } from "../../utils/termPicker";
-import logger from "../../utils/logger";
 import dayjs from "../../libs/dayjs/dayjs.min.js";
+import logger from "../../utils/logger";
+import { schedule } from "../../utils/schedule";
+import { getInfoFromTerm } from "../../utils/termPicker";
+
+import dayjs_customParseFormat from "../../libs/dayjs/plugin/customParseFormat.js";
+import dayjs_isBetween from "../../libs/dayjs/plugin/isBetween.js";
+import dayjs_duration from "../../libs/dayjs/plugin/duration.js";
+
+dayjs.extend(dayjs_customParseFormat);
+dayjs.extend(dayjs_isBetween);
+dayjs.extend(dayjs_duration);
 
 const initAppList = [];
 const initApp = {
@@ -23,6 +32,7 @@ Page({
     apps: initAppList,
     // private
     timetableToday: null,
+    _todayTimetableIntervalId: null,
   },
   onLoad() {
     app.$store.connect(this, "index");
@@ -80,14 +90,19 @@ Page({
   },
   onShow() {
     app.badgeManager.updateBadgeForTabBar();
+
+    clearInterval(this.data._todayTimetableIntervalId);
+    this.updateHintForTodayTimetable();
+    this.data._todayTimetableIntervalId = setInterval(() => {
+      this.updateHintForTodayTimetable();
+    }, 60 * 1000);
   },
   onUnload() {
+    clearInterval(this.data._todayTimetableIntervalId);
     this.disconnect();
   },
-  hideHelp() {
-    this.setPageState({
-      helpStatus: false,
-    });
+  onHide() {
+    clearInterval(this.data._todayTimetableIntervalId);
   },
   updateTodayTimetable() {
     const { timetable, time } = this.data;
@@ -99,6 +114,7 @@ Page({
 
     const todayTimetable = timetable["classes"][weekday - 1];
     const timetableToday = [];
+
     todayTimetable.forEach((lessons) => {
       lessons.forEach((lesson) => {
         const isAvailable = lesson["周"][week];
@@ -111,6 +127,78 @@ Page({
     this.setPageState({
       timetableToday,
     });
+
+    this.updateHintForTodayTimetable();
+  },
+  updateHintForTodayTimetable() {
+    try {
+      logger.info("index", "刷新今日课表状态");
+
+      if (!this.data.timetableToday) {
+        return;
+      }
+
+      let shouldHintNextLesson = true;
+      let hasInLessonHint = false;
+
+      const timetableToday = this.data.timetableToday.map((lesson) => {
+        const startTime = dayjs(schedule[`c${lesson["开始节"]}`].begin, "H:mm");
+        const endTime = dayjs(schedule[`c${lesson["结束节"]}`].end, "H:mm");
+
+        const isInLesson = dayjs().isBetween(
+          startTime,
+          endTime,
+          "minute",
+          "[]"
+        );
+
+        if (isInLesson) {
+          // 正在上课
+          hasInLessonHint = true;
+
+          const duration = dayjs.duration(endTime.diff(dayjs(), true));
+
+          const formattedHint =
+            duration.asMinutes() < 60
+              ? `${Math.ceil(duration.asMinutes())}分钟`
+              : `${duration.format("H小时mm分")}`;
+
+          lesson["课程提示"] = {
+            icon: lesson["课程图标"],
+            content: `还有${formattedHint}下课`,
+            color: "blue",
+          };
+        } else if (shouldHintNextLesson) {
+          const isBefore = dayjs().isBefore(startTime, "minute");
+
+          if (isBefore > 0) {
+            // 还没上课
+            shouldHintNextLesson = false;
+
+            const duration = dayjs.duration(startTime.diff(dayjs(), true));
+            const isInOneHour = duration.asMinutes() < 60;
+
+            lesson["课程提示"] = {
+              icon: isInOneHour ? "rush" : "clock",
+              content: `还有${
+                isInOneHour
+                  ? `${Math.ceil(duration.asMinutes())}分钟`
+                  : `${duration.format("H小时mm分")}`
+              }上课`,
+              color: hasInLessonHint ? "" : isInOneHour ? "red" : "blue",
+            };
+          }
+        }
+        return lesson;
+      });
+
+      this.setPageState({
+        timetableToday,
+      });
+    } catch (e) {
+      wx.reportMonitor("2", 1);
+      // console.error(e);
+    }
   },
   bootstrap() {
     app.services.getBootstrapInfo(null, { showError: false });
