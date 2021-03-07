@@ -1,7 +1,7 @@
-import formatter from "../../utils/formatter";
-
 import dayjs from "../../libs/dayjs/dayjs.min.js";
 import dayjs_duration from "../../libs/dayjs/plugin/duration.js";
+import formatter from "../../utils/formatter";
+import logger from "../../utils/logger";
 
 dayjs.extend(dayjs_duration);
 
@@ -24,9 +24,22 @@ Component({
   },
   data: {
     text: "",
+    _intervalId: null,
+  },
+  lifetimes: {
+    attached() {
+      clearInterval(this.data._intervalId);
+      this.data._intervalId = setInterval(() => {
+        this.refresh();
+      }, 60 * 1000);
+    },
+    detached() {
+      clearInterval(this.data._intervalId);
+    },
   },
   methods: {
     refresh() {
+      logger.info("cache-tip", "cache-tip refresh");
       const { timestamp } = this.data;
       if (timestamp) {
         this.setData({
