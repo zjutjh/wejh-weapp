@@ -84,6 +84,7 @@ export default function ({ $store, isDev }) {
           });
         }, 2000);
       }
+      return fail(err);
     };
 
     object.complete = (res) => {
