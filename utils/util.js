@@ -129,18 +129,11 @@ function colorLessons(lessons) {
   return lessons;
 }
 
-// exports
-
 // function deepClone(obj) {
 //   if (!isPlainObject(obj)) {
 //     return false;
 //   }
 //   return JSON.parse(JSON.stringify(obj));
-// }
-
-// function formatNumber(n) {
-//   n = n.toString();
-//   return n[1] ? n : "0" + n;
 // }
 
 /**
@@ -194,7 +187,10 @@ function fixTimetable(classResult) {
         item["课程名称"].includes("体质健康")
       ) {
         lesson["课程图标"] = "sport";
-      } else if (item["课程名称"].includes("实验")) {
+      } else if (
+        item["课程名称"].includes("实验") ||
+        item["课程名称"].includes("实训")
+      ) {
         lesson["课程图标"] = "lab";
       }
 
@@ -223,19 +219,6 @@ function fixTimetable(classResult) {
 
   return colorLessons(lessons);
 }
-// /**
-//  * 计算今日课表
-//  * @param {Array} data
-//  * @returns {Array}
-//  */
-// function fixTimetableToday(data) {
-//   if (!data || Array.isArray(data)) {
-//     return [];
-//   }
-//   const weekday = new Date().getDay();
-//   const todayData = data[weekday];
-//   return data;
-// }
 function fixAppList(list) {
   return list.map((item) => {
     item.bg = "../../images/app-list/" + item.bg + ".png";
@@ -391,9 +374,7 @@ function getTrueScore(scoreString) {
 }
 
 module.exports = {
-  // formatNumber,
   fixTimetable,
-  // fixTimetableToday,
   fixAppList,
   fixIcons,
   fixScore,

@@ -1,7 +1,9 @@
 import dayjs from "../../libs/dayjs/dayjs.min.js";
 import dayjs_duration from "../../libs/dayjs/plugin/duration.js";
 import formatter from "../../utils/formatter";
+
 import logger from "../../utils/logger";
+import Timer from "../../utils/timer";
 
 dayjs.extend(dayjs_duration);
 
@@ -24,17 +26,23 @@ Component({
   },
   data: {
     text: "",
-    _intervalId: null,
+    _timer: null,
   },
   lifetimes: {
+    created() {
+      this.data._timer = new Timer({
+        interval: 60 * 1000,
+        firesAtExactMinutes: true,
+        callback: () => {
+          this.refresh();
+        },
+      });
+    },
     attached() {
-      clearInterval(this.data._intervalId);
-      this.data._intervalId = setInterval(() => {
-        this.refresh();
-      }, 60 * 1000);
+      this.data._timer.start();
     },
     detached() {
-      clearInterval(this.data._intervalId);
+      this.data._timer.stop();
     },
   },
   methods: {

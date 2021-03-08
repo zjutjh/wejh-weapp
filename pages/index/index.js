@@ -1,5 +1,7 @@
 import dayjs from "../../libs/dayjs/dayjs.min.js";
 import logger from "../../utils/logger";
+import Timer from "../../utils/timer";
+
 import { schedule } from "../../utils/schedule";
 import { getInfoFromTerm } from "../../utils/termPicker";
 
@@ -83,6 +85,14 @@ Page({
 
     this.bootstrap();
 
+    this.timetableTimer = new Timer({
+      interval: 60 * 1000,
+      firesAtExactMinutes: true,
+      callback: () => {
+        this.updateHintForTodayTimetable();
+      },
+    });
+
     // 后续移除该属性
     this.setPageState({
       todayTime: dayjs().format("YYYY-MM-DD"),
@@ -90,19 +100,14 @@ Page({
   },
   onShow() {
     app.badgeManager.updateBadgeForTabBar();
-
-    clearInterval(this.data._todayTimetableIntervalId);
-    this.updateHintForTodayTimetable();
-    this.data._todayTimetableIntervalId = setInterval(() => {
-      this.updateHintForTodayTimetable();
-    }, 60 * 1000);
-  },
-  onUnload() {
-    clearInterval(this.data._todayTimetableIntervalId);
-    this.disconnect();
+    this.timetableTimer.start();
   },
   onHide() {
-    clearInterval(this.data._todayTimetableIntervalId);
+    this.timetableTimer.stop();
+  },
+  onUnload() {
+    this.timetableTimer.stop();
+    this.disconnect();
   },
   updateTodayTimetable() {
     const { timetable, time } = this.data;
@@ -144,8 +149,9 @@ Page({
       const timetableToday = this.data.timetableToday.map((lesson) => {
         const startTime = dayjs(schedule[`c${lesson["开始节"]}`].begin, "H:mm");
         const endTime = dayjs(schedule[`c${lesson["结束节"]}`].end, "H:mm");
+        const currentTime = dayjs();
 
-        const isInLesson = dayjs().isBetween(
+        const isInLesson = currentTime.isBetween(
           startTime,
           endTime,
           "minute",
@@ -156,12 +162,12 @@ Page({
           // 正在上课
           hasInLessonHint = true;
 
-          const duration = dayjs.duration(endTime.diff(dayjs(), true));
+          const duration = dayjs.duration(endTime.diff(currentTime));
 
           const formattedHint =
             duration.asMinutes() < 60
               ? `${Math.ceil(duration.asMinutes())}分钟`
-              : `${duration.format("H小时mm分")}`;
+              : `${duration.add({ seconds: 59 }).format("H小时mm分")}`; // 解决 rounding 问题
 
           lesson["课程提示"] = {
             icon: lesson["课程图标"],
@@ -169,13 +175,13 @@ Page({
             color: "blue",
           };
         } else if (shouldHintNextLesson) {
-          const isBefore = dayjs().isBefore(startTime, "minute");
+          const isBefore = currentTime.isBefore(startTime, "minute");
 
           if (isBefore > 0) {
             // 还没上课
             shouldHintNextLesson = false;
 
-            const duration = dayjs.duration(startTime.diff(dayjs(), true));
+            const duration = dayjs.duration(startTime.diff(currentTime));
             const isInOneHour = duration.asMinutes() < 60;
 
             lesson["课程提示"] = {
@@ -183,7 +189,7 @@ Page({
               content: `还有${
                 isInOneHour
                   ? `${Math.ceil(duration.asMinutes())}分钟`
-                  : `${duration.format("H小时mm分")}`
+                  : `${duration.add({ seconds: 59 }).format("H小时mm分")}` // 解决 rounding 问题
               }上课`,
               color: hasInLessonHint ? "" : isInOneHour ? "red" : "blue",
             };
