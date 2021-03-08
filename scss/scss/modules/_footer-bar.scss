@@ -69,22 +69,27 @@ $footer-font-size: 28rpx;
     transform: translate(-50%, -50%);
     height: 100%;
 
-    &.horizontal {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    text {
+      font-size: $footer-font-size;
+      color: $white;
     }
 
-    &.vertical {
+    .cache-tip {
+      font-size: 20rpx !important;
+      line-height: 100%;
+      margin-top: 10rpx;
+      white-space: nowrap;
+    }
+
+    .vertical {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-    }
-
-    & > text {
-      font-size: $footer-font-size;
-      color: $white;
     }
   }
 
@@ -108,41 +113,40 @@ $footer-font-size: 28rpx;
       height: 30rpx;
     }
   }
-
-  .choose-view {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-    width: 42rpx;
-    height: 42rpx;
-
-    & > text {
-      position: absolute;
-      z-index: 1;
-      bottom: 0;
-      right: 0;
-      width: 32rpx;
-      height: 32rpx;
-      line-height: 32rpx;
-      text-align: center;
-      vertical-align: middle;
-      border: 1rpx solid #fff;
-      border-radius: 5rpx;
-      background: #73b4ef;
-      font-size: 24rpx;
-      color: $white;
-    }
-
-    .active {
-      z-index: 2;
-      top: 0;
-      left: 0;
-      bottom: auto;
-      right: auto;
-      color: $theme-blue;
-      background: #fff;
-    }
-  }
+  // .choose-view {
+  //   position: relative;
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-content: center;
+  //   justify-content: center;
+  //   width: 42rpx;
+  //   height: 42rpx;
+  //
+  //   & > text {
+  //     position: absolute;
+  //     z-index: 1;
+  //     bottom: 0;
+  //     right: 0;
+  //     width: 32rpx;
+  //     height: 32rpx;
+  //     line-height: 32rpx;
+  //     text-align: center;
+  //     vertical-align: middle;
+  //     border: 1rpx solid #fff;
+  //     border-radius: 5rpx;
+  //     background: #73b4ef;
+  //     font-size: 24rpx;
+  //     color: $white;
+  //   }
+  //
+  //   .active {
+  //     z-index: 2;
+  //     top: 0;
+  //     left: 0;
+  //     bottom: auto;
+  //     right: auto;
+  //     color: $theme-blue;
+  //     background: #fff;
+  //   }
+  // }
 }

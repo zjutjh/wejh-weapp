@@ -1,3 +1,4 @@
+import termUtil from "../../utils/termPicker";
 import toast from "../../utils/toast";
 import { getCurrentPeriod } from "../../utils/schedule";
 
@@ -8,37 +9,37 @@ dayjs.extend(dayjs_customParseFormat);
 
 const app = getApp();
 
+const timeline = {
+  //课程时间与指针位置的映射，{begin:课程开始,end:结束时间,top:指针距开始top格数}
+  c0: { beginTop: -4, endTop: -4 }, //休息
+  c1: { beginTop: 0, endTop: 100 },
+  c1p: { beginTop: 100, endTop: 100 }, //下课
+  c2: { beginTop: 100, endTop: 200 },
+  c2p: { beginTop: 200, endTop: 200 }, //下课
+  c3: { beginTop: 200, endTop: 300 },
+  c3p: { beginTop: 300, endTop: 300 }, //下课
+  c4: { beginTop: 300, endTop: 400 },
+  c4p: { beginTop: 400, endTop: 400 }, //下课
+  c5: { beginTop: 400, endTop: 500 },
+  c5p: { beginTop: 500, endTop: 500 }, //休息，午饭
+  c6: { beginTop: 500, endTop: 600 },
+  c6p: { beginTop: 600, endTop: 600 }, //下课
+  c7: { beginTop: 600, endTop: 700 },
+  c7p: { beginTop: 700, endTop: 700 }, //下课
+  c8: { beginTop: 700, endTop: 800 },
+  c8p: { beginTop: 800, endTop: 800 }, //下课
+  c9: { beginTop: 800, endTop: 900 },
+  c9p: { beginTop: 900, endTop: 900 }, //休息，晚饭
+  c10: { beginTop: 900, endTop: 1000 },
+  c10p: { beginTop: 1000, endTop: 1000 }, //下课
+  c11: { beginTop: 1000, endTop: 1100 },
+  c11p: { beginTop: 1100, endTop: 1100 }, //下课
+  c12: { beginTop: 1100, endTop: 1200 },
+  c12p: { beginTop: 1200, endTop: 1200 }, //休息
+};
+
 Page({
   data: {
-    timeline: {
-      //课程时间与指针位置的映射，{begin:课程开始,end:结束时间,top:指针距开始top格数}
-      c0: { beginTop: -4, endTop: -4 }, //休息
-      c1: { beginTop: 0, endTop: 100 },
-      c1p: { beginTop: 100, endTop: 100 }, //下课
-      c2: { beginTop: 100, endTop: 200 },
-      c2p: { beginTop: 200, endTop: 200 }, //下课
-      c3: { beginTop: 200, endTop: 300 },
-      c3p: { beginTop: 300, endTop: 300 }, //下课
-      c4: { beginTop: 300, endTop: 400 },
-      c4p: { beginTop: 400, endTop: 400 }, //下课
-      c5: { beginTop: 400, endTop: 500 },
-      c5p: { beginTop: 500, endTop: 500 }, //休息，午饭
-      c6: { beginTop: 500, endTop: 600 },
-      c6p: { beginTop: 600, endTop: 600 }, //下课
-      c7: { beginTop: 600, endTop: 700 },
-      c7p: { beginTop: 700, endTop: 700 }, //下课
-      c8: { beginTop: 700, endTop: 800 },
-      c8p: { beginTop: 800, endTop: 800 }, //下课
-      c9: { beginTop: 800, endTop: 900 },
-      c9p: { beginTop: 900, endTop: 900 }, //休息，晚饭
-      c10: { beginTop: 900, endTop: 1000 },
-      c10p: { beginTop: 1000, endTop: 1000 }, //下课
-      c11: { beginTop: 1000, endTop: 1100 },
-      c11p: { beginTop: 1100, endTop: 1100 }, //下课
-      c12: { beginTop: 1100, endTop: 1200 },
-      c12p: { beginTop: 1200, endTop: 1300 }, //休息
-    },
-    showLoading: true,
     weekday: ["日", "一", "二", "三", "四", "五", "六", "日"],
     _weeks: [
       "未开学",
@@ -63,46 +64,83 @@ Page({
       "十九周",
       "二十周",
     ],
-    scroll: {
-      top: 0,
-      left: 0,
-    },
+
     viewStatus: 0,
     originWeek: 0,
     currentWeek: 1,
-    currentTerm: "",
+    // currentTerm: "",
     timelineTop: 0,
     timelineLeft: 36,
+
+    timetable: null,
     conflictLessons: [],
+
     targetLessons: [], // 悬浮的课程
     targetLessonInfo: {},
     targetIndex: 0,
-    detailIndex: 0,
-    timetable: null,
+    targetWeekday: 0,
+
+    termPickerCurrentData: null,
+
+    _timelineIntervalId: null,
   },
-  onLoad: function () {
+  onLoad() {
     app.$store.connect(this, "timetable");
-    this.observe("session", "timetable", "originalTimetableData");
-    this.observe("session", "timetableFixed", "timetable");
     this.observe("session", "userInfo");
-    this.observe("session", "time");
-    this.observe("session", "cacheStatus");
     this.observe("session", "isLoggedIn");
-
-    this.startTimelineMoving();
-
-    // 判断是否登录
-    if (!this.data.isLoggedIn) {
-      return wx.redirectTo({
-        url: "/pages/login/login",
+    this.observe("session", "time", null, (newValue) => {
+      if (!(newValue && newValue.time)) {
+        return;
+      }
+      const time = newValue.time;
+      this.setPageState({
+        viewStatus: time.week || "*",
+        originWeek: time.week || 1,
+        currentWeek: time.week || 1,
       });
-    }
+    });
+    this.observe("session", "timetable", null, (newValue) => {
+      if (!(newValue && newValue.timetable)) {
+        return;
+      }
 
-    const time = this.data.time || {};
-    this.setPageState({
-      viewStatus: time.week,
-      originWeek: time.week || 1,
-      currentWeek: time.week || 1,
+      const { classes, term } = newValue.timetable;
+
+      try {
+        this.getConflictLessons(classes);
+      } catch (e) {
+        wx.reportMonitor("1", 1);
+        // console.error(e);
+        toast({
+          icon: "error",
+          title: "课表解析异常",
+        });
+        return;
+      }
+
+      // 请求返回后, 更新学期选择器的选中状态
+      const termInfo = termUtil.getInfoFromTerm(term);
+      wx.setNavigationBarTitle({
+        title: termUtil.getTermStrForDisplay(termInfo) + " 课程表",
+      });
+      this.setPageState({
+        termPickerCurrentData: {
+          termInfo,
+        },
+      });
+    });
+    this.observe("session", "timetableRequest", null, (newValue) => {
+      if (!(newValue && newValue.timetableRequest)) {
+        return;
+      }
+      if (newValue.timetableRequest.started) {
+        wx.showLoading({
+          title: "获取课表中",
+          mask: true,
+        });
+      } else {
+        this.hideLoading();
+      }
     });
 
     // 判断是否登录
@@ -119,35 +157,80 @@ Page({
       });
     }
 
-    // 判断是否有课表数据
-    if (!this.data.timetable) {
-      app.services.getTimetable(
-        () => {
-          this.afterGetTimetable();
+    // 获得学期数据
+    const termInfo = termUtil.getInfoFromTerm(this.data.time.term);
+    const grade = parseInt(this.data.userInfo.uno.substring(0, 4));
+
+    // 填充学期选择器数据
+    this.setPageState({
+      termPickerInfo: {
+        termInfo,
+        grade,
+      },
+    });
+
+    // 若上次选择的学期不存在，进行生成
+    if (!this.data.termPickerCurrentData) {
+      this.setPageState({
+        termPickerCurrentData: {
+          termInfo: termInfo,
         },
-        {
-          showError: true,
-          fail: () => {
-            this.afterGetTimetable();
+      });
+    }
+
+    // 判断是否有数据
+    if (!this.data.timetable) {
+      let shouldFetchTimetable = true;
+      if (this.data.timetableRequest && this.data.timetableRequest.started) {
+        shouldFetchTimetable = false;
+      }
+      if (shouldFetchTimetable) {
+        // const _this = this;
+        app.services.getTimetable(
+          termInfo,
+          () => {
+            // _this.hideLoading();
           },
-        }
-      );
-    } else {
-      this.afterGetTimetable();
+          {
+            showError: true,
+          }
+        );
+      }
     }
   },
   onUnload() {
+    clearInterval(this.data._timelineIntervalId);
     this.disconnect();
   },
-  setTitleTerm(term) {
-    wx.setNavigationBarTitle({
-      title: term + " 课程表",
-    });
+  onShow() {
+    clearInterval(this.data._timelineIntervalId);
+    this.refreshTimeline();
+    this.data._timelineIntervalId = setInterval(() => {
+      this.refreshTimeline();
+    }, 60 * 1000);
   },
-  startTimelineMoving() {
-    const _this = this;
+  onHide() {
+    clearInterval(this.data._timelineIntervalId);
+  },
+  hideLoading() {
+    // wx.hideLoading 会把错误 toast 一并关掉，导致错误提示消失太快看不到，因此暂时在这里需要加一个延迟
+    // 后续会对此处进行优化，loading 状态和错误提示都不使用 toast，避免 block 住用户的行为
+    setTimeout(() => {
+      wx.hideLoading();
+    }, 500);
+  },
+  toggleRefresh() {
+    // const _this = this;
+    const { termInfo } = this.data.termPickerCurrentData;
+    wx.showLoading({
+      title: "获取课表中",
+      mask: true,
+    });
+    app.services.getTimetable(termInfo, () => {});
+  },
+  refreshTimeline() {
     const currentPeriod = getCurrentPeriod();
-    const periodTimeline = this.data.timeline[currentPeriod.key];
+    const periodTimeline = timeline[currentPeriod.key];
 
     const timelineTop = Math.round(
       periodTimeline.beginTop +
@@ -155,35 +238,41 @@ Page({
           dayjs().diff(dayjs(currentPeriod.begin, "H:mm"), "minute")) /
           100
     );
-    _this.setPageState({
-      timelineTop,
-      timelineLeft: 36 + (_this.data.time.day - 1) * 130,
-    });
-
-    setTimeout(() => {
-      _this.startTimelineMoving();
-    }, 60 * 1000);
-  },
-  showLessonDetail(e) {
-    const dataset = e.currentTarget.dataset || {};
-    const day = dataset.day;
-    const lesson = dataset.lesson;
-    const targetLessons = this.data.timetable[day][lesson].filter((item) => {
-      return item["周"][this.data.currentWeek] || this.data.viewStatus === "*";
-    });
 
     this.setPageState({
+      timelineTop,
+      timelineLeft: 36 + (this.data.time.day - 1) * 130,
+    });
+  },
+  getLessonInfo(lesson) {
+    if (!lesson) {
+      return {};
+    }
+    return {
+      weekday: `星期${this.data.weekday[this.data.targetWeekday + 1]}`,
+      lessonTime: `${lesson["起止节"]}（${lesson["开始时间"]}-${lesson["结束时间"]}）`,
+    };
+  },
+  showLessonDetail(e) {
+    const { day, lesson } = e.currentTarget.dataset;
+    const targetLessons = this.data.timetable.classes[day][lesson]
+      .filter((item) => {
+        return (
+          item["周"][this.data.currentWeek] || this.data.viewStatus === "*"
+        );
+      })
+      .reverse();
+
+    this.setPageState({
+      targetIndex: 0,
       targetLessons,
-      targetLessonInfo: {
-        weekday: `星期${this.data.weekday[day + 1]}`,
-        lessonTime: `${lesson + 1}-${targetLessons[0]["节数"] + lesson}节`,
-      },
+      targetWeekday: day,
+      targetLessonInfo: this.getLessonInfo(targetLessons[0]),
     });
   },
   hideDetail(e) {
     if (e.target.dataset.type === "mask") {
       this.setPageState({
-        targetIndex: 0,
         targetLessons: [],
         targetLessonInfo: {},
       });
@@ -199,7 +288,7 @@ Page({
     if (!teacherName) {
       toast({
         icon: "error",
-        title: "发生了一点错误，请反馈给管理员",
+        title: "无教师信息",
       });
     } else {
       const teachers = teacherName.split(",");
@@ -223,30 +312,10 @@ Page({
     const index = e.detail.current;
     this.setPageState({
       targetIndex: index,
+      targetLessonInfo: this.getLessonInfo(this.data.targetLessons[index]),
     });
   },
-  afterGetTimetable() {
-    this.setPageState({
-      showLoading: false,
-    });
-    try {
-      const originalTimetableData = this.data.originalTimetableData;
-      const term = originalTimetableData.term;
-      this.getConflictLessons();
-      this.setPageState({
-        currentTerm: term,
-      });
-      this.setTitleTerm(term);
-    } catch (e) {
-      console.error(e);
-      toast({
-        icon: "error",
-        title: e.message,
-      });
-    }
-  },
-  getConflictLessons() {
-    const timetable = this.data.timetable;
+  getConflictLessons(timetable) {
     const isConflictMap = [];
     const conflictLessons = [];
     // 开始循环周, i: 星期
@@ -294,52 +363,59 @@ Page({
       currentWeek: this.data.currentWeek + dValue,
     });
   },
-  switchTerm(e) {
-    const _this = this;
-    const dataset = e.currentTarget.dataset;
-    const term = this.data.currentTerm;
-    const termArr = term.match(/(\d+)\/(\d+)\((\d)\)/);
-
-    let targetTerm;
-    if (dataset.direction === "left") {
-      if (+termArr[3] === 1) {
-        targetTerm =
-          parseInt(termArr[1]) - 1 + "/" + (parseInt(termArr[2]) - 1) + "(2)";
-      } else {
-        targetTerm = parseInt(termArr[1]) + "/" + parseInt(termArr[2]) + "(1)";
-      }
-    } else if (dataset.direction === "right") {
-      if (+termArr[3] === 1) {
-        targetTerm = parseInt(termArr[1]) + "/" + parseInt(termArr[2]) + "(2)";
-      } else {
-        targetTerm =
-          parseInt(termArr[1]) + 1 + "/" + (parseInt(termArr[2]) + 1) + "(1)";
-      }
-    }
-    wx.showLoading({
-      title: "切换学期中",
-    });
-    app.services.changeTimetableTerm(targetTerm, (res) => {
-      const data = res.data.data;
-      const classTerm = data["class_term"];
-      app.services.getTimetable(() => {
-        wx.hideLoading();
-        _this.afterGetTimetable();
-      });
-    });
-  },
+  // switchTerm(e) {
+  //   const _this = this;
+  //   const dataset = e.currentTarget.dataset;
+  //   const term = this.data.currentTerm;
+  //   const termArr = term.match(/(\d+)\/(\d+)\((\d)\)/);
+  //
+  //   let targetTerm;
+  //   if (dataset.direction === "left") {
+  //     if (+termArr[3] === 1) {
+  //       targetTerm =
+  //         parseInt(termArr[1]) - 1 + "/" + (parseInt(termArr[2]) - 1) + "(2)";
+  //     } else {
+  //       targetTerm = parseInt(termArr[1]) + "/" + parseInt(termArr[2]) + "(1)";
+  //     }
+  //   } else if (dataset.direction === "right") {
+  //     if (+termArr[3] === 1) {
+  //       targetTerm = parseInt(termArr[1]) + "/" + parseInt(termArr[2]) + "(2)";
+  //     } else {
+  //       targetTerm =
+  //         parseInt(termArr[1]) + 1 + "/" + (parseInt(termArr[2]) + 1) + "(1)";
+  //     }
+  //   }
+  //   wx.showLoading({
+  //     title: "切换学期中",
+  //   });
+  //   app.services.changeTimetableTerm(targetTerm, (res) => {
+  //     const data = res.data.data;
+  //     const classTerm = data["class_term"];
+  //     app.services.getTimetable(() => {
+  //       wx.hideLoading();
+  //       _this.afterGetTimetable();
+  //     });
+  //   });
+  // },
   switchView() {
-    toast({
-      title: "试图切换中",
-      icon: "loading",
-      duration: 500,
-    });
+    const todayWeek = this.data.time.week;
     this.setPageState({
-      viewStatus: this.data.viewStatus === "*" ? this.data.currentWeek : "*",
+      viewStatus: this.data.viewStatus === "*" ? todayWeek : "*",
+      currentWeek: todayWeek,
     });
   },
-  formatNumber(n) {
-    n = n.toString();
-    return n[1] ? n : "0" + n;
+  termChange: function (e) {
+    const { termInfo } = e.detail;
+    wx.showLoading({
+      title: "获取课表中",
+      mask: true,
+    });
+    // const _this = this;
+    app.services.getTimetable(termInfo, () => {
+      // _this.hideLoading();
+    });
+  },
+  onMackMove() {
+    // 用于阻止蒙层的滚动事件被穿透
   },
 });

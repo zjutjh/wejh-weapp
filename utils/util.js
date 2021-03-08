@@ -1,3 +1,5 @@
+import { schedule } from "./schedule";
+
 // // 判断是否为纯粹对象
 // function isPlainObject(obj) {
 //   if (
@@ -174,8 +176,27 @@ function fixTimetable(classResult) {
       const nameArr = item["课程名称"].match(/[0-9a-zA-Z:]/g) || [];
       lesson["课程名称长度"] = item["课程名称"].length - nameArr.length / 1.2;
       lesson["节数"] = info["结束节"] - info["开始节"] + 1;
-      lesson["起止周"] = info["开始周"] + "-" + info["结束周"];
-      lesson["起止节"] = info["开始节"] + "-" + info["结束节"];
+      lesson["起止周"] =
+        info["开始周"] !== info["结束周"]
+          ? `${info["开始周"]}-${info["结束周"]}周`
+          : `第${info["开始周"]}周`;
+      lesson["起止节"] =
+        info["开始节"] !== info["结束节"]
+          ? `${info["开始节"]}-${info["结束节"]}节`
+          : `第${info["开始节"]}节`;
+
+      lesson["开始时间"] = schedule[`c${info["开始节"]}`].begin;
+      lesson["结束时间"] = schedule[`c${info["结束节"]}`].end;
+
+      lesson["课程图标"] = "book";
+      if (
+        item["课程名称"].includes("体育") ||
+        item["课程名称"].includes("体质健康")
+      ) {
+        lesson["课程图标"] = "sport";
+      } else if (item["课程名称"].includes("实验")) {
+        lesson["课程图标"] = "lab";
+      }
 
       const type = info["周类型"] || "default";
 

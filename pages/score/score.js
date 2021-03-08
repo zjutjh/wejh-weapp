@@ -9,11 +9,6 @@ Page({
     hideInfo: false,
 
     termPickerCurrentData: null,
-
-    termPickerPlaceHolder: {
-      range: [["选择学年"], ["选择学期"], ["类别"]],
-      value: [0, 0, 0],
-    },
   },
   onLoad() {
     app.$store.connect(this, "score");
@@ -26,15 +21,14 @@ Page({
       if (!(newValue && newValue.score)) {
         return;
       }
-      // 请求返回后, 更新学期选择器的选中状态和上次更新时间
-      const { lastUpdated, term, isDetail } = newValue.score;
+      // 请求返回后, 更新学期选择器的选中状态
+      const { term, isDetail } = newValue.score;
       const termInfo = termUtil.getInfoFromTerm(term);
       this.setPageState({
         termPickerCurrentData: {
           termInfo,
           extraValues: isDetail ? [1] : [0],
         },
-        lastUpdated,
       });
     });
 

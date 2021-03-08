@@ -19,6 +19,7 @@ export default function ({ $store, isDev }) {
 
     const success = object.success || function () {};
     const fail = object.fail || function () {};
+    const complete = object.complete || function () {};
 
     object.success = (res) => {
       logger.info("fetch", object);
@@ -83,8 +84,13 @@ export default function ({ $store, isDev }) {
           });
         }, 2000);
       }
+      return fail(err);
     };
 
-    wx.request(object);
+    object.complete = (res) => {
+      complete(res);
+    };
+
+    return wx.request(object);
   };
 }

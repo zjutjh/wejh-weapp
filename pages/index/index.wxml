@@ -31,8 +31,7 @@
     >
   </view>
 
-  <navigator
-    url="/pages/timetable/timetable"
+  <view
     wx:if="{{timetableToday}}"
     class="m-index-card f-mt-20"
     style="background-image: url({{icons.timetable.card}});"
@@ -50,8 +49,17 @@
           mode="aspectFit"
         ></image>
       </view>
-      <text class="title"
-        >今日课表{{cacheStatus.timetable ? ' (离线模式)' : ''}}</text
+      <!-- <text class="title"
+        >{{cacheStatus.timetable ? ' (离线模式)' : ''}}</text
+      > -->
+      <view class="title"
+        >今日课表（<cache-tip
+          id="cache-tip"
+          class="title"
+          timestamp="{{timetable.lastUpdated}}"
+          title="课表"
+        ></cache-tip
+        >）</view
       >
     </view>
     <view class="content">
@@ -66,20 +74,34 @@
         >
           <view class="main-info">
             <text class="name">{{lesson['课程名称']}}</text>
+            <view
+              wx:if="{{lesson['课程提示']}}"
+              class="info {{lesson['课程提示'].color}}"
+            >
+              <text
+                wx:if="{{lesson['课程提示'].icon}}"
+                class="iconfont icon_{{lesson['课程提示'].icon}}"
+              ></text
+              ><text>{{lesson['课程提示'].content}}</text>
+            </view>
+          </view>
+          <view class="sub-info">
+            <text class="place">{{lesson['地点']}}</text>
             <text class="info"
-              >{{lesson['起止周'] ? lesson['起止周'] + '周 ' :
-              ''}}{{lesson['起止节'] ? lesson['起止节'] + '节 ' : ''}}</text
+              >{{lesson['起止节'] ? lesson['起止节'] + ' ' :
+              ''}}({{lesson['开始时间']}}-{{lesson['结束时间']}})</text
             >
           </view>
-          <view class="place">{{lesson['地点']}}</view>
         </view>
         <view class="timetable-nothing" wx:if="{{timetableToday.length === 0}}">
           <text>今天居然没有课~😆</text>
         </view>
       </view>
     </view>
-    <view class="bottom">查看全部课表</view>
-  </navigator>
+    <navigator class="bottom" url="/pages/timetable/timetable"
+      >查看全部课表</navigator
+    >
+  </view>
 
   <navigator
     url="/pages/card/card"

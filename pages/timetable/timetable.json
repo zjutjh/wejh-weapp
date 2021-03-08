@@ -3,5 +3,9 @@
   "navigationBarBackgroundColor": "#73b4ef",
   "backgroundColorTop": "#ffffff",
   "backgroundColorBottom": "#ffffff",
-  "navigationBarTitleText": "课程表"
+  "navigationBarTitleText": "课程表",
+  "usingComponents": {
+    "term-picker": "/components/term-picker/term-picker",
+    "cache-tip": "/components/cache-tip/cache-tip"
+  }
 }
