@@ -6,7 +6,7 @@ Page({
     sortAnimation: false,
     hideScore: false,
     hideInfo: false,
-    showLoading: true,
+    // showLoading: true,
     currentTerm: "",
   },
   onLoad() {
@@ -25,9 +25,7 @@ Page({
 
     // 判断是否有数据
     if (!this.data.borrow) {
-      this.getBorrow(this.afterGetBorrow, {
-        back: true,
-      });
+      this.getBorrow(this.afterGetBorrow, {});
     } else {
       this.afterGetBorrow();
     }
@@ -35,16 +33,26 @@ Page({
   onUnload() {
     this.disconnect();
   },
+  onPullDownRefresh() {
+    this.getBorrow();
+    setTimeout(() => {
+      wx.stopPullDownRefresh();
+    }, 1000);
+  },
   getBorrow(callback = this.afterGetBorrow, option = {}) {
+    wx.showLoading({
+      title: "获取借阅信息中",
+    });
     app.services.getBorrow(callback, {
       showError: true,
       ...option,
     });
   },
   afterGetBorrow() {
-    this.setPageState({
-      showLoading: false,
-    });
+    wx.hideLoading();
+    // this.setPageState({
+    //   showLoading: false,
+    // });
     // try {
     // } catch (e) {
     //   console.error(e);

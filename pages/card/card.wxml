@@ -1,7 +1,7 @@
-<view class="m-loading-box" wx:if="{{showLoading}}">
+<!-- <view class="m-loading-box" wx:if="{{showLoading}}">
   <image class="icon-loading" src="/images/common/loading.gif"></image>
-</view>
-<view class="container f-bg-gray" wx:else>
+</view> -->
+<view class="container f-bg-gray">
   <view class="m-card">
     <view class="card">
       <view class="black-line"></view>
@@ -9,7 +9,7 @@
       <view class="content">
         <view class="label">余额</view>
         <view class="balance">
-          <text class="value">{{card['卡余额']}}</text>
+          <text class="value">{{card['卡余额'] || '--'}}</text>
           <text class="unit">元</text>
         </view>
       </view>
@@ -17,7 +17,16 @@
       <view class="uno">学号: {{userInfo.uno}}</view>
     </view>
 
-    <view class="m-remind-box" wx:if="{{card['今日账单'].length === 0}}">
+    <view class="m-remind-box" wx:if="{{!card}}">
+      <image
+        class="remind-img"
+        mode="aspectFit"
+        src="/images/common/nothing.png"
+      ></image>
+      <text class="remind-text">暂无数据</text>
+    </view>
+
+    <view class="m-remind-box" wx:elif="{{card['今日账单'].length === 0}}">
       <image
         class="remind-img"
         mode="aspectFit"
