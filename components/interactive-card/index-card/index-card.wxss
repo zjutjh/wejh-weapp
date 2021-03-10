@@ -1,0 +1,47 @@
+.card-card .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16rpx 0;
+}
+
+.card-card .header .label {
+  font-size: 26rpx;
+}
+
+.card-card .header .date {
+  font-size: 26rpx;
+}
+
+.card-card .balance {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-weight: bold;
+  padding: 25rpx 0 30rpx;
+}
+
+.card-card .balance .value {
+  font-size: 96rpx;
+  line-height: 1;
+  padding: 0 20rpx;
+  color: #ffbf92;
+}
+
+.card-card .balance .unit {
+  font-size: 46rpx;
+  color: #999;
+}
+
+.card-card .today .label {
+  font-size: 26rpx;
+}
+
+.card-card .today .cost {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 20rpx 0 30rpx;
+  font-weight: bold;
+  line-height: 200%;
+}

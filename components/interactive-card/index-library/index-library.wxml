@@ -1,0 +1,42 @@
+<navigator
+  url="/pages/borrow/borrow"
+  wx:if="{{borrow && borrow.borrow_list.length > 0}}"
+>
+  <interactive-card images="{{images}}">
+    <view slot="title"><text>借阅信息</text></view>
+    <view slot="content">
+      <view class="borrow-card">
+        <view class="header">
+          <text class="label">当前借阅: {{borrow.borrow_num}}</text>
+          <text class="date">欠费金额: {{borrow.debt}}元</text>
+        </view>
+        <view class="borrow-list">
+          <view
+            class="borrow-item"
+            wx:for="{{borrow.borrow_list}}"
+            wx:for-item="book"
+            wx:for-index="index"
+            wx:key="index"
+          >
+            <view class="book">
+              <image
+                class="icon-book"
+                src="/images/index/borrow-book.png"
+                mode="aspectFit"
+              ></image>
+              <text class="title">{{book['书名']}}</text>
+            </view>
+            <view class="borrow">
+              <text class="date">{{book['借书日期']}}</text>
+              <text class="unit">借</text>
+            </view>
+            <view class="return{{book['超期天数'] > 0 ? ' red' : ''}}">
+              <text class="date">{{book['应还日期']}}</text>
+              <text class="unit">还</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </interactive-card>
+</navigator>

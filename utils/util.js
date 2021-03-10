@@ -221,13 +221,13 @@ function fixTimetable(classResult) {
 }
 function fixAppList(list) {
   return list.map((item) => {
-    item.bg = "../../images/app-list/" + item.bg + ".png";
+    item.bg = "/images/app-list/" + item.bg + ".png";
     return item;
   });
 }
 function fixIcons(icons) {
   for (let key in icons) {
-    icons[key].bg = "../../images/app-list/" + icons[key].bg + ".png";
+    icons[key].bg = "/images/app-list/" + icons[key].bg + ".png";
   }
   return icons;
 }
@@ -282,6 +282,7 @@ function fixCardCost(cardData) {
   const iStyle = `font-style: normal;font-size: 26rpx;color: #777;font-weight: normal;`;
   const totalStyle = `color: #ffbf92;font-weight: bold;`;
   return {
+    balance: cardData["卡余额"],
     total: total,
     cost: records,
     text:

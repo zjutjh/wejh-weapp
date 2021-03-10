@@ -1,0 +1,98 @@
+@import "../../../scss/scss/_variables";
+
+@mixin text-ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.timetable-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+  .timetable-item {
+    display: flex;
+    flex-direction: row;
+    height: 120rpx;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px dotted #e5e5e5;
+    &:last-child {
+      border-bottom: none;
+    }
+    .main-info {
+      // flex: 1;
+      // max-width: 70%;
+      display: flex;
+      flex-direction: column;
+      justify-content: stretch;
+      flex: 2;
+      margin-right: 12rpx;
+      overflow: hidden;
+
+      .name {
+        font-size: 32rpx;
+        @include text-ellipsis;
+      }
+      .info {
+        color: #666;
+
+        &.red {
+          color: $theme-pink;
+        }
+
+        &.blue {
+          color: $theme-blue;
+        }
+
+        text {
+          &.iconfont {
+            margin-right: 8rpx;
+          }
+          color: unset;
+          font-size: 24rpx;
+          @include text-ellipsis;
+        }
+      }
+    }
+
+    .sub-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      min-width: 232rpx;
+      max-width: 70%;
+      overflow: hidden;
+
+      text-align: right;
+
+      .place {
+        font-size: 32rpx;
+        @include text-ellipsis;
+      }
+      .info {
+        font-size: 24rpx;
+        @include text-ellipsis;
+        color: #666;
+      }
+    }
+  }
+
+  .timetable-nothing {
+    padding: 30rpx 0;
+    font-size: 32rpx;
+    text-align: center;
+  }
+}
+
+.timetable-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text {
+    font-size: 24rpx;
+    color: #7f848a;
+  }
+  height: 72rpx;
+}

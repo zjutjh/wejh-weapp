@@ -1,0 +1,59 @@
+.m-index-card {
+  position: relative;
+  margin-top: 20rpx;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: bottom center;
+}
+
+.m-index-card .header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 30rpx;
+  height: 70rpx;
+  border-bottom: 1rpx solid #e9ecef;
+}
+
+.m-index-card .header .image {
+  position: relative;
+  display: block;
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+
+.m-index-card .header .image .icon {
+  z-index: 9;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.m-index-card .header .image .icon-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.m-index-card .header .title text {
+  font-size: 24rpx;
+  color: #888;
+}
+
+.m-index-card .header .title text .cache-tip {
+  color: #888;
+}
+
+.m-index-card .content {
+  padding: 0 30rpx;
+}
+
+.m-index-card .bottom {
+  border-top: 1rpx solid #e9ecef;
+}

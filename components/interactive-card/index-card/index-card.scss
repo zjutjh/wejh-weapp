@@ -1,0 +1,51 @@
+@import "../../../scss/scss/_variables";
+
+.card-card {
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 16rpx 0;
+    .label {
+      font-size: 26rpx;
+    }
+
+    .date {
+      font-size: 26rpx;
+    }
+  }
+
+  .balance {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-weight: bold;
+    padding: 25rpx 0 30rpx;
+    .value {
+      font-size: 96rpx;
+      line-height: 1;
+      padding: 0 20rpx;
+      color: #ffbf92;
+    }
+
+    .unit {
+      font-size: 46rpx;
+      color: #999;
+    }
+  }
+
+  .today {
+    .label {
+      font-size: 26rpx;
+    }
+
+    .cost {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 20rpx 0 30rpx;
+      font-weight: bold;
+      line-height: 200%;
+    }
+  }
+}

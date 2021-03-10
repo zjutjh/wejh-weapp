@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "interactive-card": "../interactive-card/interactive-card"
+  }
+}

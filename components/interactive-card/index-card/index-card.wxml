@@ -1,0 +1,23 @@
+<navigator url="/pages/card/card" wx:if="{{card}}">
+  <interactive-card images="{{images}}">
+    <view slot="title"><text>一卡通</text></view>
+    <view slot="content">
+      <view class="card-card">
+        <view class="header">
+          <text class="label">余额</text>
+          <!-- <text class="date">截止时间: 123123</text> -->
+        </view>
+        <view class="balance">
+          <text class="value">{{card.balance}}</text>
+          <text class="unit">元</text>
+        </view>
+        <view class="today" wx:if="{{card.cost.length > 0}}">
+          <view class="label">今日消费: </view>
+          <view class="cost">
+            <rich-text type="text" nodes="{{card.text}}"></rich-text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </interactive-card>
+</navigator>

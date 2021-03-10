@@ -1,17 +1,6 @@
-import dayjs from "../../libs/dayjs/dayjs.min.js";
 import logger from "../../utils/logger";
-import Timer from "../../utils/timer";
 
-import { schedule } from "../../utils/schedule";
 import { getInfoFromTerm } from "../../utils/termPicker";
-
-import dayjs_customParseFormat from "../../libs/dayjs/plugin/customParseFormat.js";
-import dayjs_isBetween from "../../libs/dayjs/plugin/isBetween.js";
-import dayjs_duration from "../../libs/dayjs/plugin/duration.js";
-
-dayjs.extend(dayjs_customParseFormat);
-dayjs.extend(dayjs_isBetween);
-dayjs.extend(dayjs_duration);
 
 const initAppList = [];
 const initApp = {
@@ -71,140 +60,19 @@ Page({
 
     this.observe("session", "time");
 
-    this.observe("session", "timetable", null, (newValues) => {
-      const { timetable } = newValues;
-      if (!timetable) {
-        return;
-      }
-      this.updateTodayTimetable();
-    });
+    this.observe("session", "timetable");
 
-    this.observe("session", "card");
     this.observe("session", "cardCost");
     this.observe("session", "borrow");
 
     this.bootstrap();
-
-    this.timetableTimer = new Timer({
-      interval: 60 * 1000,
-      firesAtExactMinutes: true,
-      callback: () => {
-        this.updateHintForTodayTimetable();
-      },
-    });
-
-    // 后续移除该属性
-    this.setPageState({
-      todayTime: dayjs().format("YYYY-MM-DD"),
-    });
   },
   onShow() {
     app.badgeManager.updateBadgeForTabBar();
-    this.timetableTimer.start();
   },
-  onHide() {
-    this.timetableTimer.stop();
-  },
+  onHide() {},
   onUnload() {
-    this.timetableTimer.stop();
     this.disconnect();
-  },
-  updateTodayTimetable() {
-    const { timetable, time } = this.data;
-    if (!timetable || !time) {
-      return;
-    }
-
-    const { day: weekday, week } = this.data.time;
-
-    const todayTimetable = timetable["classes"][weekday - 1];
-    const timetableToday = [];
-
-    todayTimetable.forEach((lessons) => {
-      lessons.forEach((lesson) => {
-        const isAvailable = lesson["周"][week];
-        if (isAvailable) {
-          timetableToday.push(lesson);
-        }
-      });
-    });
-
-    this.setPageState({
-      timetableToday,
-    });
-
-    this.updateHintForTodayTimetable();
-  },
-  updateHintForTodayTimetable() {
-    try {
-      logger.info("index", "刷新今日课表状态");
-
-      if (!this.data.timetableToday) {
-        return;
-      }
-
-      let shouldHintNextLesson = true;
-      let hasInLessonHint = false;
-
-      const timetableToday = this.data.timetableToday.map((lesson) => {
-        const startTime = dayjs(schedule[`c${lesson["开始节"]}`].begin, "H:mm");
-        const endTime = dayjs(schedule[`c${lesson["结束节"]}`].end, "H:mm");
-        const currentTime = dayjs();
-
-        const isInLesson = currentTime.isBetween(
-          startTime,
-          endTime,
-          "minute",
-          "[]"
-        );
-
-        if (isInLesson) {
-          // 正在上课
-          hasInLessonHint = true;
-
-          const duration = dayjs.duration(endTime.diff(currentTime));
-
-          const formattedHint =
-            duration.asMinutes() < 60
-              ? `${Math.ceil(duration.asMinutes())}分钟`
-              : `${duration.add({ seconds: 59 }).format("H小时mm分")}`; // 解决 rounding 问题
-
-          lesson["课程提示"] = {
-            icon: lesson["课程图标"],
-            content: `还有${formattedHint}下课`,
-            color: "blue",
-          };
-        } else if (shouldHintNextLesson) {
-          const isBefore = currentTime.isBefore(startTime, "minute");
-
-          if (isBefore > 0) {
-            // 还没上课
-            shouldHintNextLesson = false;
-
-            const duration = dayjs.duration(startTime.diff(currentTime));
-            const isInOneHour = duration.asMinutes() < 60;
-
-            lesson["课程提示"] = {
-              icon: isInOneHour ? "rush" : "clock",
-              content: `还有${
-                isInOneHour
-                  ? `${Math.ceil(duration.asMinutes())}分钟`
-                  : `${duration.add({ seconds: 59 }).format("H小时mm分")}` // 解决 rounding 问题
-              }上课`,
-              color: hasInLessonHint ? "" : isInOneHour ? "red" : "blue",
-            };
-          }
-        }
-        return lesson;
-      });
-
-      this.setPageState({
-        timetableToday,
-      });
-    } catch (e) {
-      wx.reportMonitor("2", 1);
-      // console.error(e);
-    }
   },
   bootstrap() {
     app.services.getBootstrapInfo(null, { showError: false });

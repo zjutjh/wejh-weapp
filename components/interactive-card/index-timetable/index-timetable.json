@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "interactive-card": "../interactive-card/interactive-card",
+    "cache-tip": "../../cache-tip/cache-tip",
+    "iconfont": "../../iconfont/iconfont"
+  }
+}

@@ -1,0 +1,18 @@
+<view
+  class="m-index-card"
+  style="{{images.bg && 'background-image: url('+ images.card + ');'}}"
+>
+  <view class="header">
+    <view class="image" wx:if="{{images}}">
+      <image class="icon" src="{{images.icon}}" mode="aspectFit"></image>
+      <image class="icon-bg" src="{{images.bg}}" mode="aspectFit"></image>
+    </view>
+    <view class="title">
+      <slot name="title"></slot>
+    </view>
+  </view>
+  <view class="content">
+    <slot name="content"></slot>
+  </view>
+  <view class="bottom"><slot name="bottom"></slot></view>
+</view>

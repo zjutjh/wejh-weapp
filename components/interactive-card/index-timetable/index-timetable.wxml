@@ -1,0 +1,52 @@
+<interactive-card images="{{images}}" wx:if="{{timetable}}">
+  <view slot="title"
+    ><text>今日课表（</text
+    ><cache-tip
+      id="cache-tip"
+      timestamp="{{timetable.lastUpdated}}"
+      title="课表"
+    ></cache-tip
+    ><text>）</text></view
+  >
+  <view slot="content">
+    <view class="timetable-card">
+      <view
+        class="timetable-item"
+        wx:if="{{timetableToday.length}}"
+        wx:for="{{timetableToday}}"
+        wx:for-item="lesson"
+        wx:for-index="index"
+        wx:key="index"
+      >
+        <view class="main-info">
+          <text class="name">{{lesson['课程名称']}}</text>
+          <view
+            wx:if="{{lesson['课程提示']}}"
+            class="info {{lesson['课程提示'].color}}"
+          >
+            <iconfont
+              wx:if="{{lesson['课程提示'].icon}}"
+              name="{{lesson['课程提示'].icon}}"
+            ></iconfont
+            ><text>{{lesson['课程提示'].content}}</text>
+          </view>
+        </view>
+        <view class="sub-info">
+          <text class="place">{{lesson['地点']}}</text>
+          <text class="info"
+            >{{lesson['起止节'] ? lesson['起止节'] + ' ' :
+            ''}}({{lesson['开始时间']}}-{{lesson['结束时间']}})</text
+          >
+        </view>
+      </view>
+      <view class="timetable-nothing" wx:if="{{timetableToday.length === 0}}">
+        <text>今天居然没有课~😆</text>
+      </view>
+    </view>
+  </view>
+  <view slot="bottom">
+    <navigator class="timetable-bottom" url="/pages/timetable/timetable">
+      <text>查看全部课表</text>
+    </navigator>
+  </view>
+</interactive-card>
