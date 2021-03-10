@@ -16,16 +16,20 @@
 
 .borrow-card .borrow-list {
   display: flex;
-  margin: 0 32rpx 44rpx;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-start;
   flex-wrap: wrap;
+  margin: 0 0 42rpx;
 }
 
 .borrow-card .borrow-list .borrow-item {
   display: flex;
   flex-direction: column;
-  margin-bottom: 42rpx;
+  padding-bottom: 50rpx;
+}
+
+.borrow-card .borrow-list .borrow-item:not(:nth-child(3n)) {
+  padding-right: 80rpx;
 }
 
 .borrow-card .borrow-list .borrow-item .book {
