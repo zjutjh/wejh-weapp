@@ -6,6 +6,7 @@ export default function ({ store }) {
   const badgeManager = {
     data: {},
     clearBadge(path) {
+      wx.reportAnalytics("badge_clear", { path });
       const badgeClearStatus = this.data.badgeClearStatus || {};
       store.setState("static", {
         badgeClearStatus: {
