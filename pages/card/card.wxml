@@ -73,30 +73,34 @@
         <view class="detail-list">
           <view class="detail-item">
             <text class="detail-item-label">交易时间</text>
-            <text class="detail-item-value">{{tapDetail['到账时间']}}</text>
+            <text class="detail-item-value"
+              >{{tapDetail['到账时间'] || ''}}</text
+            >
           </view>
           <view class="detail-item">
             <text class="detail-item-label">交易类型</text>
-            <text class="detail-item-value">{{tapDetail['交易类型']}}</text>
+            <text class="detail-item-value"
+              >{{tapDetail['交易类型'] || ''}}</text
+            >
           </view>
           <view class="detail-item">
             <text class="detail-item-label">交易金额</text>
             <text class="detail-item-value"
-              >{{((tapDetail['交易额']) > 0 ? '+' : '') +
+              >{{tapDetail['交易额'] && ((tapDetail['交易额']) > 0 ? '+' : '') +
               tapDetail['交易额']}}</text
             >
           </view>
           <view class="detail-item">
             <text class="detail-item-label">交易商户</text>
-            <text class="detail-item-value">{{tapDetail['商户']}}</text>
+            <text class="detail-item-value">{{tapDetail['商户'] || ''}}</text>
           </view>
           <view class="detail-item">
             <text class="detail-item-label">交易站点</text>
-            <text class="detail-item-value">{{tapDetail['站点']}}</text>
+            <text class="detail-item-value">{{tapDetail['站点'] || ''}}</text>
           </view>
           <view class="detail-item">
             <text class="detail-item-label">交易余额</text>
-            <text class="detail-item-value">{{tapDetail['卡余额']}}</text>
+            <text class="detail-item-value">{{tapDetail['卡余额'] || ''}}</text>
           </view>
         </view>
       </view>

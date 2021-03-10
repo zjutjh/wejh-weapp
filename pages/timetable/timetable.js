@@ -229,6 +229,10 @@ Page({
     app.services.getTimetable(termInfo, () => {});
   },
   refreshTimeline() {
+    if (!this.data.time) {
+      return;
+    }
+
     const currentPeriod = getCurrentPeriod();
     const periodTimeline = timeline[currentPeriod.key];
 
