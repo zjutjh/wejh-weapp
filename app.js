@@ -13,7 +13,7 @@ dayjs.extend(dayjs_customParseFormat);
 
 const env = (key) => envConfig[key];
 
-const version = "1.1.0";
+const version = "1.1.1";
 
 let versionType = "release";
 let versionTypeName = "Release";
@@ -167,6 +167,17 @@ App({
           },
         }
       );
+  },
+  onPageNotFound() {
+    wx.switchTab({
+      url: "pages/index/index",
+    });
+    wx.showModal({
+      title: `提示`,
+      content: `页面未找到，已为您跳转到主页，若问题持续存在，请删除小程序并重新搜索打开。`,
+      showCancel: false,
+      confirmText: "我知道了",
+    });
   },
   // goFeedback: () => {
   //   const userInfo = store.getState("session", "userInfo");
