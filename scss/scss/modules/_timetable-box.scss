@@ -68,7 +68,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
     width: $left-bar-width;
     padding-bottom: $tabbar-bottom;
     border-right: 1rpx solid $gray-200;
-    border-bottom: 1rpx solid $gray-200;
+    // border-bottom: 1rpx solid $gray-200;
 
     .lesson-number {
       display: flex;
@@ -118,6 +118,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
 
   .timetable-box {
     height: $left-lesson-height * 12 + $timetable-header-height + $tabbar-bottom;
+    min-height: 100vh;
 
     .timetable-header {
       display: flex;
@@ -150,6 +151,7 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
       width: $timetable-item-width * 7 + $left-bar-width;
       height: $left-lesson-height * 12 + $timetable-header-height +
         $tabbar-bottom;
+      min-height: calc(100vh - #{$timetable-header-height});
 
       .timeline {
         position: absolute;
