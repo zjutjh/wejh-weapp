@@ -53,25 +53,27 @@ Page({
       });
     }
 
-    app.fetch({
-      url: API("register"),
-      data: {
-        username,
-        password,
-        iid,
-        email,
-      },
-      showError: true,
-      method: "POST",
-      success: (res) => {
+    app.services.activate(
+      () => {
         wx.showToast({
           duration: 2000,
           title: "激活成功",
+        });
+        app.services.getUserInfo(null, {
+          showError: true,
         });
         setTimeout(() => {
           wx.navigateBack();
         }, 2000);
       },
-    });
+      {
+        data: {
+          username,
+          password,
+          iid,
+          email,
+        },
+      }
+    );
   },
 });

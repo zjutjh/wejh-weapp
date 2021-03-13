@@ -1,5 +1,3 @@
-import { API } from "../../utils/api";
-
 const app = getApp();
 
 const form = {
@@ -29,14 +27,8 @@ Page({
       });
     }
 
-    app.fetch({
-      url: API("card/bind"),
-      data: {
-        password,
-      },
-      showError: true,
-      method: "POST",
-      success: (res) => {
+    app.services.bindCard(
+      () => {
         wx.showToast({
           duration: 2000,
           title: "绑定成功",
@@ -48,6 +40,11 @@ Page({
           wx.navigateBack();
         }, 2000);
       },
-    });
+      {
+        data: {
+          password,
+        },
+      }
+    );
   },
 });

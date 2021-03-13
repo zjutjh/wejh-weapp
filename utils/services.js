@@ -72,35 +72,35 @@ export default function ({ store, fetch }) {
         },
       });
     },
-    getAppList(callback = function () {}, options) {
-      fetch({
-        url: API("app-list"),
-        showError: true,
-        ...options,
-        success(res) {
-          let data = res.data.data;
-          store.setState("session", {
-            apps: util.fixAppList(data["app-list"]),
-            icons: util.fixIcons(data["icons"]),
-          });
-          callback && callback(res);
-        },
-      });
-    },
-    getTermTime: (callback = function () {}, options) => {
-      fetch({
-        url: API("time"),
-        showError: true,
-        ...options,
-        success: (res) => {
-          const result = res.data;
-          store.setState("session", {
-            time: result.data,
-          });
-          callback && callback(res);
-        },
-      });
-    },
+    // getAppList(callback = function () {}, options) {
+    //   fetch({
+    //     url: API("app-list"),
+    //     showError: true,
+    //     ...options,
+    //     success(res) {
+    //       let data = res.data.data;
+    //       store.setState("session", {
+    //         apps: util.fixAppList(data["app-list"]),
+    //         icons: util.fixIcons(data["icons"]),
+    //       });
+    //       callback && callback(res);
+    //     },
+    //   });
+    // },
+    // getTermTime: (callback = function () {}, options) => {
+    //   fetch({
+    //     url: API("time"),
+    //     showError: true,
+    //     ...options,
+    //     success: (res) => {
+    //       const result = res.data;
+    //       store.setState("session", {
+    //         time: result.data,
+    //       });
+    //       callback && callback(res);
+    //     },
+    //   });
+    // },
     getUserInfo: (callback = function () {}, options) => {
       fetch({
         url: API("user"),
@@ -427,48 +427,125 @@ export default function ({ store, fetch }) {
         },
       });
     },
-    changeTimetableTerm(targetTerm, callback = function () {}, options) {
+    bindCard(callback = function () {}, options) {
       fetch({
-        url: API("timetable"),
-        method: "PUT",
+        url: API("card/bind"),
+        method: "POST",
         showError: true,
         ...options,
-        data: {
-          term: targetTerm,
-        },
-        success(res) {
+        success: (res) => {
           callback && callback(res);
         },
       });
     },
-    changeScoreTerm(targetTerm, callback = function () {}, options) {
+    bindLibrary(callback = function () {}, options) {
       fetch({
-        url: API("score"),
-        method: "PUT",
+        url: API("library/bind"),
+        method: "POST",
         showError: true,
         ...options,
-        data: {
-          term: targetTerm,
-        },
-        success(res) {
+        success: (res) => {
           callback && callback(res);
         },
       });
     },
-    changeExamTerm(targetTerm, callback = function () {}, options) {
+    bindZf(callback = function () {}, options) {
       fetch({
-        url: API("exam"),
-        method: "PUT",
+        url: API("zf/bind"),
+        method: "POST",
         showError: true,
         ...options,
-        data: {
-          term: targetTerm,
-        },
-        success(res) {
+        success: (res) => {
           callback && callback(res);
         },
       });
     },
+    bindYc(callback = function () {}, options) {
+      fetch({
+        url: API("ycjw/bind"),
+        method: "POST",
+        showError: true,
+        ...options,
+        success: (res) => {
+          callback && callback(res);
+        },
+      });
+    },
+    forgot(callback = function () {}, options) {
+      fetch({
+        url: API("forgot"),
+        method: "POST",
+        showError: true,
+        ...options,
+        success: (res) => {
+          callback && callback(res);
+        },
+      });
+    },
+    activate(callback = function () {}, options) {
+      fetch({
+        url: API("activate"),
+        method: "POST",
+        showError: true,
+        ...options,
+        success: (res) => {
+          callback && callback(res);
+        },
+      });
+    },
+    bindJh(callback = function () {}, options) {
+      fetch({
+        url: API("login"),
+        method: "POST",
+        showError: true,
+        ...options,
+        success: (res) => {
+          callback && callback(res);
+        },
+      });
+    },
+    // changeTimetableTerm(targetTerm, callback = function () {}, options) {
+    //   fetch({
+    //     url: API("timetable"),
+    //     method: "PUT",
+    //     showError: true,
+    //     ...options,
+    //     data: {
+    //       term: targetTerm,
+    //     },
+    //     success(res) {
+    //       callback && callback(res);
+    //     },
+    //   });
+    // },
+    // changeScoreTerm(targetTerm, callback = function () {}, options) {
+    //   fetch({
+    //     url: API("score"),
+    //     method: "PUT",
+    //     showError: true,
+    //     ...options,
+    //     data: {
+    //       term: targetTerm,
+    //     },
+    //     success(res) {
+    //       callback && callback(res);
+    //     },
+    //   });
+    // },
+    // changeExamTerm(targetTerm, callback = function () {}, options) {
+    //   fetch({
+    //     url: API("exam"),
+    //     method: "PUT",
+    //     showError: true,
+    //     ...options,
+    //     data: {
+    //       term: targetTerm,
+    //     },
+    //     success(res) {
+    //       callback && callback(res);
+    //     },
+    //   });
+    // },
     getAnnouncement(callback = function () {}, options) {
       fetch({
         url: API("announcement"),

@@ -59,13 +59,11 @@ const store = new WejhStore({
   },
 });
 
-const fetch = Fetch({
-  $store: store,
-  isDev,
-});
-
 const services = Services({
-  fetch,
+  fetch: Fetch({
+    $store: store,
+    isDev,
+  }),
   store,
 });
 
@@ -212,7 +210,6 @@ App({
   isDev: isDev,
   env,
   services,
-  fetch,
   $store: store,
   badgeManager,
 });
