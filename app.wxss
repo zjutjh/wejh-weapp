@@ -853,7 +853,6 @@ text {
   width: 36rpx;
   padding-bottom: 100rpx;
   border-right: 1rpx solid #e9ecef;
-  border-bottom: 1rpx solid #e9ecef;
 }
 
 .m-timetable-box .left-bar .lesson-number {
@@ -899,6 +898,7 @@ text {
 
 .m-timetable-box .timetable-box {
   height: 1360rpx;
+  min-height: 100vh;
 }
 
 .m-timetable-box .timetable-box .timetable-header {
@@ -931,6 +931,7 @@ text {
   flex-direction: row;
   width: 946rpx;
   height: 1360rpx;
+  min-height: calc(100vh - 60rpx);
 }
 
 .m-timetable-box .timetable-box .timetable-content .timeline {
@@ -1169,33 +1170,6 @@ text {
   flex: 1;
   position: relative;
   margin-bottom: 30rpx;
-}
-
-.m-timetable-box .footer-card-tabs .card-tabs .switch-left,
-.m-timetable-box .footer-card-tabs .card-tabs .switch-right {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 99999;
-  top: 0;
-  bottom: 0;
-  padding: 0 10rpx;
-  opacity: 0.4;
-}
-
-.m-timetable-box .footer-card-tabs .card-tabs .switch-left > image,
-.m-timetable-box .footer-card-tabs .card-tabs .switch-right > image {
-  width: 30rpx;
-  height: 30rpx;
-}
-
-.m-timetable-box .footer-card-tabs .card-tabs .switch-left {
-  left: 0;
-}
-
-.m-timetable-box .footer-card-tabs .card-tabs .switch-right {
-  right: 0;
 }
 
 .m-timetable-box .footer-card-tabs .card-tabs .card-swiper {
@@ -1587,42 +1561,25 @@ text {
   flex-flow: column nowrap;
   align-items: stretch;
   padding: 5rpx 30rpx 15rpx;
+  font-size: 30rpx;
 }
 
 .m-score .score-content .score-list .score-item {
-  background: #fff;
-  font-size: 30rpx;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid #eee;
-  padding: 25rpx 10rpx 20rpx 5rpx;
-}
-
-.m-score .score-content .score-list .score-item.detail {
   display: flex;
   flex-direction: column;
   justify-content: inherit;
   align-items: inherit;
-  font-size: 30rpx;
-  padding: 0 40rpx;
-  background-color: #fff;
-  border-radius: 3px;
-}
-
-.m-score .score-content .score-list .score-item .score {
-  text-align: right;
-  width: 100rpx;
+  padding: 0 8rpx;
 }
 
 .m-score .score-content .score-list .score-item .head {
-  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 145rpx;
+  height: 80rpx;
+  box-sizing: content-box;
+  border-top: 1px solid #eee;
 }
 
 .m-score .score-content .score-list .score-item .head .arrow {
@@ -1634,34 +1591,18 @@ text {
 }
 
 .m-score .score-content .score-list .score-item .head .sub-info {
-  font-size: 32rpx;
   margin: 0 12rpx 0 auto;
-  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .m-score .score-content .score-list .score-item .head .main-info {
   max-width: 80%;
   padding-right: 32rpx;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.m-score .score-content .score-list .score-item .head .main-info .name {
-  margin-bottom: 10rpx;
-  font-size: 32rpx;
-  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.m-score .score-content .score-list .score-item .head .main-info .subtitle {
-  font-size: 26rpx;
-  line-height: 100%;
-  color: #aaa;
+  overflow: hidden;
 }
 
 .m-score .score-content .score-list .score-item .detail-info {
@@ -1672,22 +1613,42 @@ text {
 }
 
 .m-score .score-content .score-list .score-item .detail-info .detail-item {
+  height: 80rpx;
   display: flex;
   align-items: center;
-  padding: 25rpx 5rpx 20rpx;
+  margin-right: 38rpx;
+}
+
+.m-score .score-content .score-list .score-item .detail-info .detail-item:not(:nth-child(1)) {
   border-top: 1px solid #eee;
 }
 
 .m-score .score-content .score-list .score-item .detail-info .detail-item .label {
   color: #888;
-  width: 150rpx;
+  margin-right: 12rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .m-score .score-content .score-list .score-item .detail-info .detail-item .content {
+  color: #888;
   flex: 1;
+  text-align: right;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
-.m-score .score-content .score-list .score-item.open .head .name {
+.m-score .score-content .score-list .score-item.open .head {
+  border-bottom: 1px solid #eee;
+}
+
+.m-score .score-content .score-list .score-item.open .head .main-info {
+  color: #e78ab0;
+}
+
+.m-score .score-content .score-list .score-item.open .head .sub-info {
   color: #e78ab0;
 }
 
@@ -1697,7 +1658,6 @@ text {
 
 .m-score .score-content .score-list .score-item.open .detail-info {
   display: flex;
-  padding: 5rpx 0 15rpx;
 }
 
 .m-exam {

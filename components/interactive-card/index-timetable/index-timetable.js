@@ -80,7 +80,7 @@ Component({
         });
       });
 
-      console.log(timetableToday);
+      // console.log(timetableToday);
 
       this.setData({
         timetableToday,
