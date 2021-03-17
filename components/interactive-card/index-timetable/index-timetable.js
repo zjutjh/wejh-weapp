@@ -118,16 +118,16 @@ Component({
             // 正在上课
             hasInLessonHint = true;
 
-            const duration = dayjs.duration(endTime.diff(currentTime));
+            // const duration = dayjs.duration(endTime.diff(currentTime));
 
-            const formattedHint =
-              duration.asMinutes() < 60
-                ? `${Math.ceil(duration.asMinutes())}分钟`
-                : `${duration.add({ seconds: 59 }).format("H小时mm分")}`; // 解决 rounding 问题
+            // const formattedHint =
+            //   duration.asMinutes() < 60
+            //     ? `${Math.ceil(duration.asMinutes())}分钟`
+            //     : `${duration.add({ seconds: 59 }).format("H小时mm分")}`; // 解决 rounding 问题
 
             lesson["课程提示"] = {
               icon: lesson["课程图标"],
-              content: `还有${formattedHint}下课`,
+              content: "正在上课",
               color: "blue",
             };
           } else if (shouldHintNextLesson) {
