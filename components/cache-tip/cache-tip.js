@@ -45,6 +45,14 @@ Component({
       this.data._timer.stop();
     },
   },
+  pageLifetimes: {
+    show() {
+      this.data._timer.start();
+    },
+    hide() {
+      this.data._timer.stop();
+    },
+  },
   methods: {
     refresh() {
       logger.info("cache-tip", "cache-tip refresh");

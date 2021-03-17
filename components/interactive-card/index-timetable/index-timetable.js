@@ -51,6 +51,14 @@ Component({
       this.disconnect();
     },
   },
+  pageLifetimes: {
+    show() {
+      this.data._timer.start();
+    },
+    hide() {
+      this.data._timer.stop();
+    },
+  },
   methods: {
     updateTodayTimetable() {
       const { timetable, time } = this.data;
