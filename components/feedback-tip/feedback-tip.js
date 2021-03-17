@@ -53,7 +53,8 @@ Component({
         const pages = getCurrentPages();
         const currentUrl = pages[pages.length - 1]["__route__"];
         wx.reportAnalytics("screenshot_feedback", {
-          src_page: `${event}: ${currentUrl}`,
+          src_page: currentUrl,
+          event_name: event,
         });
       } catch (err) {
         logger.error("feedback", "截图反馈点击埋点上报异常", err);
