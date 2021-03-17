@@ -1,4 +1,7 @@
 {
   "enablePullDownRefresh": false,
-  "navigationBarTitleText": "重置精弘通行证密码"
+  "navigationBarTitleText": "重置精弘通行证密码",
+  "usingComponents": {
+    "feedback-tip": "/components/feedback-tip/feedback-tip"
+  }
 }

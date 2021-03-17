@@ -4,6 +4,7 @@
   "navigationBarTitleText": "考试安排",
   "usingComponents": {
     "term-picker": "/components/term-picker/term-picker",
-    "cache-tip": "/components/cache-tip/cache-tip"
+    "cache-tip": "/components/cache-tip/cache-tip",
+    "feedback-tip": "/components/feedback-tip/feedback-tip"
   }
 }

@@ -1,0 +1,26 @@
+.m-feedback-tip {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  padding: 12rpx;
+  border-radius: 12rpx 0 0 12rpx;
+}
+
+.m-feedback-tip .icon {
+  padding-right: 12rpx;
+}
+
+.m-feedback-tip .icon .iconfont {
+  color: white;
+  font-size: 48rpx;
+}
+
+.m-feedback-tip .text {
+  color: white;
+  font-size: 24rpx;
+}

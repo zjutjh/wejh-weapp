@@ -1,4 +1,5 @@
 <view class="container f-bg-gray">
+  <feedback-tip></feedback-tip>
   <view class="m-freeroom" enable-back-to-top="true">
     <!--空教室的信息-->
     <scroll-view class="room-display" scroll-y="true">

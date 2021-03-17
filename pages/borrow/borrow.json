@@ -1,5 +1,8 @@
 {
   "enablePullDownRefresh": true,
   "navigationBarBackgroundColor": "#73b4ef",
-  "navigationBarTitleText": "借阅信息"
+  "navigationBarTitleText": "借阅信息",
+  "usingComponents": {
+    "feedback-tip": "/components/feedback-tip/feedback-tip"
+  }
 }

@@ -5,6 +5,7 @@
   class="container"
   style="padding-bottom: {{ targetLessons.length > 0 ? ' 400rpx;' : '0;' }}"
 >
+  <feedback-tip></feedback-tip>
   <view class="m-timetable-box">
     <!-- <view class="m-cache-tip" wx:if="{{cacheStatus.timetable}}">离线模式</view> -->
     <!-- 左侧栏 -->

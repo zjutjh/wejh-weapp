@@ -1,5 +1,3 @@
-import { API } from "../../utils/api";
-
 const app = getApp();
 
 const form = {

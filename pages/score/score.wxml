@@ -3,6 +3,7 @@
 </view> -->
 <!-- 学期填入 -->
 <view class="container f-bg-gray">
+  <feedback-tip></feedback-tip>
   <view class="m-score">
     <view class="score-header">
       <view class="info">

@@ -4,6 +4,8 @@
   <image class="icon-loading" src="/images/common/loading.gif"></image>
 </view> -->
 <view class="container f-bg-gray-form-gradient">
+  <feedback-tip></feedback-tip>
+
   <template is="wave-logo"></template>
 
   <form class="f-bg-gray-form-gradient m-wave-form">

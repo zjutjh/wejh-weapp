@@ -2,6 +2,7 @@
   <image class="icon-loading" src="/images/common/loading.gif"></image>
 </view> -->
 <view class="container f-bg-gray">
+  <feedback-tip></feedback-tip>
   <view class="m-borrow">
     <view class="main-info">
       <view class="info-item">

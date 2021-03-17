@@ -317,29 +317,29 @@ $timetable-header-width: $timetable-item-width * 7 + $left-bar-width;
       position: relative;
       margin-bottom: 30rpx;
 
-      .switch-left,
-      .switch-right {
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 99999;
-        top: 0;
-        bottom: 0;
-        padding: 0 10rpx;
-        opacity: 0.4;
-        & > image {
-          width: 30rpx;
-          height: 30rpx;
-        }
-      }
-
-      .switch-left {
-        left: 0;
-      }
-      .switch-right {
-        right: 0;
-      }
+      // .switch-left,
+      // .switch-right {
+      //   position: absolute;
+      //   display: flex;
+      //   align-items: center;
+      //   justify-content: center;
+      //   z-index: 99999;
+      //   top: 0;
+      //   bottom: 0;
+      //   padding: 0 10rpx;
+      //   opacity: 0.4;
+      //   & > image {
+      //     width: 30rpx;
+      //     height: 30rpx;
+      //   }
+      // }
+      //
+      // .switch-left {
+      //   left: 0;
+      // }
+      // .switch-right {
+      //   right: 0;
+      // }
 
       .card-swiper {
         display: flex;

@@ -4,6 +4,7 @@
   class="container f-bg-gray f-pb-300 f-tri"
   style="background-image: url({{icons.tri.card}});"
 >
+  <feedback-tip></feedback-tip>
   <tooltip id="tooltip"></tooltip>
 
   <template is="app-list" data="{{ apps, userInfo, unclearedBadges }}" />

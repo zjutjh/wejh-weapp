@@ -1,5 +1,8 @@
 {
   "disableScroll": true,
   "enablePullDownRefresh": false,
-  "navigationBarTitleText": "绑定图书馆账号"
+  "navigationBarTitleText": "绑定图书馆账号",
+  "usingComponents": {
+    "feedback-tip": "/components/feedback-tip/feedback-tip"
+  }
 }
