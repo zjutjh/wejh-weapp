@@ -1,4 +1,7 @@
 {
   "enablePullDownRefresh": false,
-  "navigationBarTitleText": "设置"
+  "navigationBarTitleText": "设置",
+  "usingComponents": {
+    "iconfont": "/components/iconfont/iconfont"
+  }
 }

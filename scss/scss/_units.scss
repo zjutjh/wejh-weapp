@@ -66,8 +66,10 @@
 
   .icon-next {
     margin-left: 12rpx;
-    width: 30rpx;
-    height: 30rpx;
+    & .iconfont {
+      font-size: 32rpx;
+      color: $gray-600;
+    }
   }
 }
 

@@ -9,11 +9,7 @@
       <image src="/images/setting/binding.png" mode="aspectFit"></image>
       <text>已绑定</text>
     </view>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
+    <iconfont name="next" class="icon-next"></iconfont>
   </navigator>
 
   <navigator class="u-setting-navigator f-mt-20" url="/pages/bind/zf">
@@ -28,11 +24,7 @@
     <view class="description" wx:else>
       <text>未绑定</text>
     </view>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
+    <iconfont name="next" class="icon-next"></iconfont>
   </navigator>
 
   <navigator class="u-setting-navigator f-mt-20" url="/pages/bind/card">
@@ -47,11 +39,7 @@
     <view class="description" wx:else>
       <text>未绑定</text>
     </view>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
+    <iconfont name="next" class="icon-next"></iconfont>
   </navigator>
 
   <navigator class="u-setting-navigator f-mt-20" url="/pages/bind/library">
@@ -66,10 +54,6 @@
     <view class="description" wx:else>
       <text>未绑定</text>
     </view>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
+    <iconfont name="next" class="icon-next"></iconfont>
   </navigator>
 </view>

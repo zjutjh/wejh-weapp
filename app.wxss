@@ -311,8 +311,11 @@ text {
 
 .u-setting-navigator .icon-next {
   margin-left: 12rpx;
-  width: 30rpx;
-  height: 30rpx;
+}
+
+.u-setting-navigator .icon-next .iconfont {
+  font-size: 32rpx;
+  color: #868e96;
 }
 
 .u-btn-binding {
@@ -500,15 +503,15 @@ text {
 }
 
 .m-user-info .right .time-info .week {
-  margin-top: 24rpx;
+  margin-top: 12rpx;
   color: #fff;
   font-size: 28rpx;
   opacity: 0.8;
 }
 
-.m-user-info .right .icon-next {
-  width: 32rpx;
-  height: 32rpx;
+.m-user-info .right .icon-next .iconfont {
+  font-size: 32rpx;
+  color: #fff;
 }
 
 .m-about {
