@@ -13,8 +13,8 @@
       <view class="time-info">
         <text class="term">{{time.term}}</text>
         <text class="week" wx:if="{{ time !== undefined }}"
-          >{{time.is_begin ? '第' + time.week + '周' : '放假中'}} -
-          星期{{weekday[time.day]}}</text
+          >{{(time.is_begin ? '第' + time.week + '周' : '放假中') + ' - ' +
+          (weekday[time.day] && '星期' + weekday[time.day])}}</text
         >
       </view>
       <iconfont name="next" class="icon-next"></iconfont>

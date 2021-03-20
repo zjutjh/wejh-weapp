@@ -1,11 +1,11 @@
 <view class="container f-bg-gray">
-  <ad
+  <!-- <ad
     unit-id="adunit-149ba125a0678117"
     ad-type="grid"
     grid-opacity="0.8"
     grid-count="5"
     ad-theme="white"
-  ></ad>
+  ></ad> -->
   <view class="m-news">
     <!--新闻分类-->
     <scroll-view class="news-type-list" scroll-x="true">

@@ -546,20 +546,20 @@ export default function ({ store, fetch }) {
     //     },
     //   });
     // },
-    getAnnouncement(callback = function () {}, options) {
-      fetch({
-        url: API("announcement"),
-        method: "GET",
-        showError: true,
-        ...options,
-        success(res) {
-          const data = res.data.data;
-          store.setState("session", {
-            announcement: data,
-          });
-          callback && callback(res);
-        },
-      });
-    },
+    // getAnnouncement(callback = function () {}, options) {
+    //   fetch({
+    //     url: API("announcement"),
+    //     method: "GET",
+    //     showError: true,
+    //     ...options,
+    //     success(res) {
+    //       const data = res.data.data;
+    //       store.setState("session", {
+    //         announcement: data,
+    //       });
+    //       callback && callback(res);
+    //     },
+    //   });
+    // },
   };
 }
