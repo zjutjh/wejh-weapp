@@ -137,8 +137,7 @@
 }
 
 .f-bottom-btn {
-  position: absolute;
-  bottom: 10rpx;
+  margin-top: auto;
   padding: 20rpx;
   width: 100%;
 }
@@ -292,19 +291,25 @@ text {
   display: flex;
   flex-direction: row;
   align-items: center;
-  position: absolute;
-  top: 50%;
-  right: 72rpx;
-  transform: translateY(-50%);
+  flex: 1;
+  justify-content: flex-end;
+  margin-left: 24rpx;
 }
 
-.u-setting-navigator .description > image {
+.u-setting-navigator .description image {
   margin-right: 6rpx;
   width: 42rpx;
   height: 42rpx;
 }
 
-.u-setting-navigator .description > text {
+.u-setting-navigator .description input {
+  color: #868e96;
+  font-size: 28rpx;
+  width: 100%;
+  text-align: right;
+}
+
+.u-setting-navigator .description text {
   color: #868e96;
   font-size: 28rpx;
 }
@@ -853,7 +858,6 @@ text {
   width: 36rpx;
   padding-bottom: 100rpx;
   border-right: 1rpx solid #e9ecef;
-  border-bottom: 1rpx solid #e9ecef;
 }
 
 .m-timetable-box .left-bar .lesson-number {
@@ -899,6 +903,7 @@ text {
 
 .m-timetable-box .timetable-box {
   height: 1360rpx;
+  min-height: 100vh;
 }
 
 .m-timetable-box .timetable-box .timetable-header {
@@ -931,6 +936,7 @@ text {
   flex-direction: row;
   width: 946rpx;
   height: 1360rpx;
+  min-height: calc(100vh - 60rpx);
 }
 
 .m-timetable-box .timetable-box .timetable-content .timeline {

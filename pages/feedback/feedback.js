@@ -13,9 +13,17 @@ const groupInfo = [
 
 Page({
   data: {},
-  onLoad() {},
+  onLoad: function (options) {
+    //navigator传值
+    this.setData({
+      isExisting: options.isExisting,
+    });
+  },
   onShow() {
-    app.badgeManager.clearBadge("/home/feedback");
+    isExisting = this.data.isExisting;
+    if (!isExisting) {
+      app.badgeManager.clearBadge("/home/feedback");
+    }
   },
   copyGroupId() {
     wx.showActionSheet({

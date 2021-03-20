@@ -17,6 +17,11 @@ Component({
         this.refresh();
       },
     },
+    isExisting: {
+      //新增属性：使小红点不消失
+      type: Boolean,
+      value: false,
+    },
     enabled: {
       type: Boolean,
       value: true,
@@ -50,7 +55,7 @@ Component({
   },
   methods: {
     refresh: function () {
-      const { displayMode, unclearedBadges, path } = this.data;
+      const { isExisting, displayMode, unclearedBadges, path } = this.data;
 
       if (!(displayMode && displayMode.type)) {
         return;
@@ -59,8 +64,12 @@ Component({
       const cnt = unclearedBadges.reduce((total, currentVal) => {
         return total + (currentVal.startsWith(path) ? 1 : 0);
       }, 0);
-
-      if (cnt > 0) {
+      if (isExisting == true) {
+        this.setData({
+          isVisible: true,
+          content: displayMode.content || "",
+        });
+      } else if (cnt > 0) {
         if (displayMode.type == "static") {
           this.setData({
             isVisible: true,

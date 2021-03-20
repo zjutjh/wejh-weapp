@@ -8,68 +8,65 @@
     <view class="description">
       <image src="/images/setting/binding.png" mode="aspectFit"></image>
       <text>已绑定</text>
+      <image
+        class="icon-next"
+        src="/images/common/next-gray.png"
+        mode="aspectFit"
+      ></image>
     </view>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
   </navigator>
 
   <navigator class="u-setting-navigator f-mt-20" url="/pages/bind/zf">
     <text class="text">正方账号</text>
-    <view
-      class="description"
-      wx:if="{{userInfo.ext.passwords_bind.zf_password}}"
-    >
-      <image src="/images/setting/binding.png" mode="aspectFit"></image>
-      <text>已绑定</text>
+    <view class="description">
+      <block wx:if="{{userInfo.ext.passwords_bind.zf_password}}">
+        <image src="/images/setting/binding.png" mode="aspectFit"></image>
+        <text>已绑定</text>
+      </block>
+      <block class="description" wx:else>
+        <text>未绑定</text>
+      </block>
+      <image
+        class="icon-next"
+        src="/images/common/next-gray.png"
+        mode="aspectFit"
+      ></image>
     </view>
-    <view class="description" wx:else>
-      <text>未绑定</text>
-    </view>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
   </navigator>
 
   <navigator class="u-setting-navigator f-mt-20" url="/pages/bind/card">
     <text class="text">一卡通账号</text>
-    <view
-      class="description"
-      wx:if="{{userInfo.ext.passwords_bind.card_password}}"
-    >
-      <image src="/images/setting/binding.png" mode="aspectFit"></image>
-      <text>已绑定</text>
+    <view class="description">
+      <block wx:if="{{userInfo.ext.passwords_bind.card_password}}">
+        <image src="/images/setting/binding.png" mode="aspectFit"></image>
+        <text>已绑定</text>
+      </block>
+      <block class="description" wx:else>
+        <text>未绑定</text>
+      </block>
+      <image
+        class="icon-next"
+        src="/images/common/next-gray.png"
+        mode="aspectFit"
+      ></image>
     </view>
-    <view class="description" wx:else>
-      <text>未绑定</text>
-    </view>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
   </navigator>
 
   <navigator class="u-setting-navigator f-mt-20" url="/pages/bind/library">
     <text class="text">图书馆账号</text>
-    <view
-      class="description"
-      wx:if="{{userInfo.ext.passwords_bind.lib_password}}"
-    >
-      <image src="/images/setting/binding.png" mode="aspectFit"></image>
-      <text>已绑定</text>
+    <view class="description">
+      <block wx:if="{{userInfo.ext.passwords_bind.lib_password}}">
+        <image src="/images/setting/binding.png" mode="aspectFit"></image>
+        <text>已绑定</text>
+      </block>
+      <block class="description" wx:else>
+        <text>未绑定</text>
+      </block>
+      <image
+        class="icon-next"
+        src="/images/common/next-gray.png"
+        mode="aspectFit"
+      ></image>
     </view>
-    <view class="description" wx:else>
-      <text>未绑定</text>
-    </view>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
   </navigator>
 </view>
