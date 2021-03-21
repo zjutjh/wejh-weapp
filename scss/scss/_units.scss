@@ -53,19 +53,20 @@
 
     margin-left: 24rpx;
 
-    image {
+    & > image {
       margin-right: 6rpx;
       width: 42rpx;
       height: 42rpx;
     }
 
-    input {
+    & > input {
       color: $gray-600;
       font-size: 28rpx;
       width: 100%;
       text-align: right;
     }
-    text {
+
+    & > text {
       color: $gray-600;
       font-size: 28rpx;
     }

@@ -1,7 +1,4 @@
 {
-  "useExtendedLib": {
-    "weui": true
-  },
   "pages": [
     "pages/index/index",
     "pages/news/index",

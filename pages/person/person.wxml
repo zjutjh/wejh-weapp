@@ -1,101 +1,20 @@
-<!-- <view class="container f-bg-gray">
-  <navigator
-    class="u-setting-navigator f-mt-20"
-    url="/pages/bind/ycjw"
-    wx:if="{{userInfo.ext.passwords_bind.yc_password}}"
-  >
-    <text class="text">原创账号</text>
-    <view class="description">
-      <image src="/images/setting/binding.png" mode="aspectFit"></image>
-      <text>已绑定</text>
-    </view>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
-  </navigator>
-
-  <navigator class="u-setting-navigator f-mt-20" url="/pages/bind/zf">
-    <text class="text">正方账号</text>
-    <view
-      class="description"
-      wx:if="{{userInfo.ext.passwords_bind.zf_password}}"
-    >
-      <image src="/images/setting/binding.png" mode="aspectFit"></image>
-      <text>已绑定</text>
-    </view>
-    <view class="description" wx:else>
-      <text>未绑定</text>
-    </view>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
-  </navigator>
-
-  <navigator class="u-setting-navigator f-mt-20" url="/pages/bind/card">
-    <text class="text">一卡通账号</text>
-    <view
-      class="description"
-      wx:if="{{userInfo.ext.passwords_bind.card_password}}"
-    >
-      <image src="/images/setting/binding.png" mode="aspectFit"></image>
-      <text>已绑定</text>
-    </view>
-    <view class="description" wx:else>
-      <text>未绑定</text>
-    </view>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
-  </navigator>
-
-  <navigator class="u-setting-navigator f-mt-20" url="/pages/bind/library">
-    <text class="text">图书馆账号</text>
-    <view
-      class="description"
-      wx:if="{{userInfo.ext.passwords_bind.lib_password}}"
-    >
-      <image src="/images/setting/binding.png" mode="aspectFit"></image>
-      <text>已绑定</text>
-    </view>
-    <view class="description" wx:else>
-      <text>未绑定</text>
-    </view>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
-  </navigator>
-</view> -->
-
 <view class="container f-bg-gray">
-  <view class="u-setting-navigator f-mt-20" bindtap="openConfirm">
-    <!-- <view class="picker" </view> -->
+  <view class="u-setting-navigator f-mt-20">
+    <text class="text">学号</text>
+    <view class="description">
+      <text>{{userInfo['uno'] || '暂无学号'}}</text>
+    </view>
+  </view>
+
+  <view class="u-setting-navigator">
     <text class="text">姓名</text>
     <view class="description">
-      <!-- <image src="/images/setting/binding.png" mode="aspectFit"></image> -->
-      <!-- <text>{{personInfo['姓名'] || '未设置'}}</text> -->
       <input
         type="text"
         cursor-spacing="30"
         placeholder="请输入"
-        bindconfirm="setOpenId"
+        value="{{userInfo['ext']['school_info']['name'] || '未设置'}}"
       />
-    </view>
-  </view>
-
-  <view class="u-setting-navigator f-mt-20">
-    <!-- <view class="picker" </view> -->
-    <text class="text">学号</text>
-    <view class="description">
-      <!-- <image src="/images/setting/binding.png" mode="aspectFit"></image> -->
-      <text>{{personInfo['学号'] || '未设置'}}</text>
     </view>
   </view>
 
@@ -107,8 +26,10 @@
     <view class="u-setting-navigator f-mt-20">
       <text class="text">校区</text>
       <view class="description">
-        <!-- <image src="/images/setting/binding.png" mode="aspectFit"></image> -->
-        <text>{{campusList.range[campusList.value]}}</text>
+        <text
+          >{{formValues['school_info.area'] ||
+          userInfo['ext']['school_info']['area'] || '未设置'}}</text
+        >
       </view>
     </view>
   </picker>
@@ -118,12 +39,13 @@
     value="{{enterYear.value}}"
     range="{{enterYear.range}}"
   >
-    <view class="u-setting-navigator f-mt-20">
+    <view class="u-setting-navigator">
       <text class="text">入学年份</text>
       <view class="description">
-        <!-- <image src="/images/setting/binding.png" mode="aspectFit"></image> -->
-
-        <text>{{enterYear.range[enterYear.value]}}</text>
+        <text
+          >{{formValues['school_info.grade'] ||
+          userInfo['ext']['school_info']['grade'] || '未设置'}}</text
+        >
       </view>
     </view>
   </picker>
@@ -133,71 +55,20 @@
     value="{{endYear.value}}"
     range="{{endYear.range}}"
   >
-    <view class="u-setting-navigator f-mt-20">
+    <view class="u-setting-navigator">
       <text class="text">毕业年份</text>
       <view class="description">
-        <!-- <image src="/images/setting/binding.png" mode="aspectFit"></image> -->
-
-        <text>{{endYear.range[endYear.value]}}</text>
+        <text
+          >{{formValues['school_info.graduate_grade'] ||
+          userInfo['ext']['school_info']['graduate_grade'] || '未设置'}}</text
+        >
       </view>
-      <!-- <image
-        class="icon-next"
-        src="/images/common/next-gray.png"
-        mode="aspectFit"
-      ></image> -->
     </view>
   </picker>
-
-  <!-- <view class="form">
-    
-    <view class="picker">学号：{{personInfo['学号']}}</view>
-
-    <picker
-      class="picker"
-      hover-class="active"
-      bindchange="onCampusPickerChange"
-      value="{{campusList.value}}"
-      range="{{campusList.range}}"
-    >
-      <view class="picker">校区：{{campusList.range[campusList.value]}} </view>
-    </picker>
-
-    <picker
-      class="picker"
-      hover-class="active"
-      bindchange="onEnterYearPickerChange"
-      value="{{enterYear.value}}"
-      range="{{enterYear.range}}"
-    >
-      <view class="picker"
-        >入学年份：{{enterYear.range[enterYear.value]}}
-      </view>
-    </picker>
-
-    <picker
-      class="picker"
-      hover-class="active"
-      bindchange="onEndYearPickerChange"
-      value="{{endYear.value}}"
-      range="{{endYear.range}}"
-    >
-      <view class="picker">毕业年份：{{endYear.range[endYear.value]}} </view>
-    </picker>
-  </view> -->
-
-  <!-- <button bindtap="submit">提交</button> -->
 
   <view class="f-bottom-btn">
     <view class="u-confirm-btn">
       <text class="text">保存信息</text>
     </view>
   </view>
-
-  <!-- <input-dialog
-    id="inputModal"
-    title="{{inputModal.title}}"
-    inputtips="{{inputModal.inputtips}}"
-    bind:events="bindbuttonConfirm"
-  >
-  </input-dialog> -->
 </view>
