@@ -40,7 +40,10 @@
     <text class="text">关注我们<text class="tip">zjutjh</text></text>
     <iconfont name="next" class="icon-next"></iconfont>
   </view>
-  <navigator class="u-setting-navigator f-mb-20" url="/pages/feedback/feedback">
+  <navigator
+    class="u-setting-navigator f-mb-20"
+    url="/pages/feedback/feedback?isExisting={{true}}"
+  >
     <image
       class="icon"
       mode="aspectFit"
@@ -51,6 +54,7 @@
       path="/home/feedback"
       displayMode="{{ {type: 'simple'} }}"
       unclearedBadges="{{unclearedBadges}}"
+      isExisting="{{true}}"
     ></red-dot>
     <iconfont name="next" class="icon-next"></iconfont>
   </navigator>
@@ -70,6 +74,26 @@
     <text class="text">关于</text>
     <iconfont name="next" class="icon-next"></iconfont>
   </navigator>
+
+  <navigator class="u-setting-navigator" url="/pages/person/person">
+    <image
+      class="icon"
+      mode="aspectFit"
+      src="../../images/home/about.png"
+    ></image>
+    <text class="text">个人信息</text>
+    <red-dot
+      path="/home/feedback"
+      displayMode="{{ {type: 'simple'} }}"
+      unclearedBadges="{{unclearedBadges}}"
+    ></red-dot>
+    <image
+      class="icon-next"
+      src="/images/common/next-gray.png"
+      mode="aspectFit"
+    ></image>
+  </navigator>
+
   <navigator
     class="u-setting-navigator f-mt-20"
     url="/pages/debug/index"
