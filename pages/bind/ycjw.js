@@ -53,7 +53,12 @@ Page({
           showError: true,
         });
         setTimeout(() => {
-          wx.navigateBack();
+          wx.navigateBack({
+            delta: 5,
+          });
+          wx.navigateTo({
+            url: "/pages/setting/setting",
+          });
         }, 2000);
       },
       {
