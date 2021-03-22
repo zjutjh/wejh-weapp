@@ -13,8 +13,8 @@
       <view class="time-info">
         <text class="term">{{time.term}}</text>
         <text class="week" wx:if="{{ time !== undefined }}"
-          >{{(time.is_begin ? '第' + time.week + '周' : '放假中') + ' - ' +
-          (weekday[time.day] && '星期' + weekday[time.day])}}</text
+          >{{(time.is_begin ? '第' + time.week + '周' : '放假中') +
+          (weekday[time.day] ? (' - 星期' + weekday[time.day]) : '')}}</text
         >
       </view>
       <iconfont name="next" class="icon-next"></iconfont>
@@ -40,10 +40,7 @@
     <text class="text">关注我们<text class="tip">zjutjh</text></text>
     <iconfont name="next" class="icon-next"></iconfont>
   </view>
-  <navigator
-    class="u-setting-navigator f-mb-20"
-    url="/pages/feedback/feedback?isExisting={{true}}"
-  >
+  <navigator class="u-setting-navigator f-mb-20" url="/pages/feedback/feedback">
     <image
       class="icon"
       mode="aspectFit"
@@ -54,7 +51,6 @@
       path="/home/feedback"
       displayMode="{{ {type: 'simple'} }}"
       unclearedBadges="{{unclearedBadges}}"
-      isExisting="{{true}}"
     ></red-dot>
     <iconfont name="next" class="icon-next"></iconfont>
   </navigator>

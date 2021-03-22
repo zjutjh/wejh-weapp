@@ -24,7 +24,8 @@
     "pages/debug/index",
     "pages/labs/labs",
     "pages/feedback/feedback",
-    "pages/qna/qna"
+    "pages/qna/qna",
+    "pages/person/person"
   ],
   "window": {
     "backgroundTextStyle": "light",

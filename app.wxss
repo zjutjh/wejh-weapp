@@ -137,7 +137,8 @@
 }
 
 .f-bottom-btn {
-  margin-top: auto;
+  position: absolute;
+  bottom: 10rpx;
   padding: 20rpx;
   width: 100%;
 }
@@ -237,8 +238,8 @@ text {
   flex-direction: column;
   flex: 1;
   overflow: hidden;
-  padding-bottom: constant(safe-area-inset-bottom);
-  padding-bottom: env(safe-area-inset-bottom);
+  margin-bottom: constant(safe-area-inset-bottom);
+  margin-bottom: env(safe-area-inset-bottom);
 }
 
 .u-setting-navigator {
@@ -296,20 +297,20 @@ text {
   margin-left: 24rpx;
 }
 
-.u-setting-navigator .description image {
+.u-setting-navigator .description > image {
   margin-right: 6rpx;
   width: 42rpx;
   height: 42rpx;
 }
 
-.u-setting-navigator .description input {
+.u-setting-navigator .description > input {
   color: #868e96;
   font-size: 28rpx;
   width: 100%;
   text-align: right;
 }
 
-.u-setting-navigator .description text {
+.u-setting-navigator .description > text {
   color: #868e96;
   font-size: 28rpx;
 }

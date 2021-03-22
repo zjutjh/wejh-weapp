@@ -1,4 +1,11 @@
+import toast from "../../utils/toast";
+
 const app = getApp();
+
+/**
+ * 用户个人信息编辑页,
+ * 第一个版本代码不太优雅, 后续慢慢重构吧
+ */
 
 Page({
   data: {
@@ -8,45 +15,197 @@ Page({
     },
     formValues: {},
     enterYear: {
-      range: ["2015", "2016", "2017", "2018", "2019", "2020"],
+      range: [],
       value: 0,
     },
     endYear: {
-      range: ["2021", "2022", "2023", "2024", "2025"],
+      range: [],
       value: 0,
     },
   },
   onLoad() {
     app.$store.connect(this, "profile");
-    this.observe("session", "isLoggedIn");
     this.observe("session", "userInfo");
+
+    const years = [...Array(99)].map((_, i) => {
+      return i < 10 ? `200${i}` : `20${i}`;
+    });
+
+    const currentYear = new Date().getFullYear();
+    const yearSelectedIndex = currentYear >= 2000 ? currentYear - 2000 : 0;
+    this.setPageState({
+      enterYear: {
+        range: years,
+        value: yearSelectedIndex,
+      },
+      endYear: {
+        range: years,
+        value: yearSelectedIndex,
+      },
+    });
   },
   onUnload() {
     this.disconnect();
+  },
+  enableUnloadAlert() {
+    wx.enableAlertBeforeUnload({
+      message: "您编辑的信息尚未保存，是否确认返回",
+      fail: () => {},
+    });
+  },
+  onNameInputChange(event) {
+    const value = event.detail.value;
+    this.setPageState({
+      formValues: {
+        "school_info.name": value,
+      },
+    });
   },
   onCampusPickerChange(e) {
     this.setPageState({
       formValues: {
         ...this.data.formValues,
-        ["school_info.area"]: this.data.campusList.range[e.detail.value],
+        "school_info.area": String(e.detail.value),
       },
     });
+    this.enableUnloadAlert();
+    console.log(
+      this.data.formValues["school_info.area"],
+      !this.data.formValues["school_info.area"]
+    );
   },
   onEnterYearPickerChange(e) {
     this.setPageState({
       formValues: {
         ...this.data.formValues,
-        ["school_info.grade"]: this.data.enterYear.range[e.detail.value],
+        "school_info.grade": this.data.enterYear.range[e.detail.value],
       },
     });
+    this.enableUnloadAlert();
   },
   onEndYearPickerChange(e) {
     this.setPageState({
       formValues: {
         ...this.data.formValues,
-        ["school_info.graduate_grade"]: this.data.endYear.range[e.detail.value],
+        "school_info.graduate_grade": this.data.endYear.range[e.detail.value],
       },
     });
+    this.enableUnloadAlert();
   },
-  onProfileSubmit() {},
+  onProfileSubmit() {
+    const userInfo = this.data.userInfo;
+    const formValues = this.data.formValues;
+
+    if (!userInfo) {
+      toast({
+        icon: "error",
+        title: "请先登录",
+      });
+    }
+
+    const whitelist = {
+      "school_info.name": {
+        regex: /^.{1,10}$/,
+        title: "姓名",
+        isRequired: true,
+        exists: () => {
+          return userInfo.ext.school_info.name;
+        },
+      },
+      "school_info.area": {
+        regex: /^\d$/,
+        title: "校区",
+        isRequired: true,
+        exists: () => {
+          return userInfo.ext.school_info.area;
+        },
+      },
+      "school_info.grade": {
+        regex: /^\d{4}$/,
+        title: "入学年份",
+        isRequired: true,
+        exists: () => {
+          return userInfo.ext.school_info.grade;
+        },
+      },
+      "school_info.graduate_grade": {
+        regex: /^\d{4}$/,
+        title: "毕业年份",
+        isRequired: true,
+        exists: () => {
+          return userInfo.ext.school_info.graduate_grade;
+        },
+      },
+    };
+    // 验证是否填写
+    for (const key in whitelist) {
+      if (whitelist[key].isRequired) {
+        if (!formValues[key] && !whitelist[key].exists()) {
+          wx.showModal({
+            title: `提示`,
+            content: `请输入${whitelist[key]["title"]}`,
+            showCancel: false,
+            confirmText: "我知道了",
+          });
+          return;
+        }
+      }
+    }
+    // 验证有效性
+    for (const key in formValues) {
+      if (whitelist[key] && whitelist[key].regex) {
+        if (
+          formValues[key] &&
+          !String(formValues[key]).match(whitelist[key].regex)
+        ) {
+          wx.showModal({
+            title: `提示`,
+            content: `${whitelist[key]["title"]}不合法，请重新输入`,
+            showCancel: false,
+            confirmText: "我知道了",
+          });
+          return;
+        }
+      }
+    }
+    // 提交
+    app.services.updateUserInfo(
+      () => {
+        toast({
+          title: "保存成功",
+        });
+        wx.disableAlertBeforeUnload({ fail: () => {} });
+        this.setPageState({ formValues: {} });
+      },
+      {
+        ...formValues,
+        ext_version: 1,
+      }
+    );
+  },
+  showNotEditableHint(event) {
+    if (!this.data.userInfo) {
+      return;
+    }
+
+    const { key } = event.currentTarget.dataset;
+
+    let title = null;
+    if (key === "uno") {
+      title = "学号";
+    } else if (key === "name") {
+      title = "姓名";
+      if (!this.data.userInfo.ext.school_info.name) {
+        return;
+      }
+    } else {
+      title = "该信息";
+    }
+    wx.showModal({
+      title: `提示`,
+      content: `${title}不可修改，若有误，请联系管理员`,
+      showCancel: false,
+      confirmText: "我知道了",
+    });
+  },
 });

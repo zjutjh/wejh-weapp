@@ -1,21 +1,37 @@
 <view class="container f-bg-gray">
-  <view class="u-setting-navigator f-mt-20">
+  <feedback-tip></feedback-tip>
+
+  <view
+    class="u-setting-navigator f-mt-20"
+    data-key="uno"
+    bindtap="showNotEditableHint"
+  >
     <text class="text">学号</text>
     <view class="description">
       <text>{{userInfo['uno'] || '暂无学号'}}</text>
     </view>
   </view>
 
-  <view class="u-setting-navigator">
+  <view
+    class="u-setting-navigator"
+    data-key="name"
+    bindtap="showNotEditableHint"
+  >
     <text class="text">姓名</text>
     <view class="description">
       <input
         type="text"
         cursor-spacing="30"
         placeholder="请输入"
-        value="{{userInfo['ext']['school_info']['name'] || '未设置'}}"
+        bindinput="onNameInputChange"
+        wx:if="{{!userInfo['ext']['school_info']['name']}}"
       />
+      <text wx:else>{{userInfo['ext']['school_info']['name']}} </text>
     </view>
+    <red-dot
+      wx:if="{{!formValues['school_info.name'] && !userInfo['ext']['school_info']['name']}}"
+      class="icon-next"
+    ></red-dot>
   </view>
 
   <picker
@@ -27,10 +43,14 @@
       <text class="text">校区</text>
       <view class="description">
         <text
-          >{{formValues['school_info.area'] ||
+          >{{campusList.range[formValues['school_info.area']] ||
           userInfo['ext']['school_info']['area'] || '未设置'}}</text
         >
       </view>
+      <red-dot
+        wx:if="{{!formValues['school_info.area'] && !userInfo['ext']['school_info']['area']}}"
+        class="icon-next"
+      ></red-dot>
     </view>
   </picker>
 
@@ -47,6 +67,10 @@
           userInfo['ext']['school_info']['grade'] || '未设置'}}</text
         >
       </view>
+      <red-dot
+        wx:if="{{!formValues['school_info.grade'] && !userInfo['ext']['school_info']['grade']}}"
+        class="icon-next"
+      ></red-dot>
     </view>
   </picker>
 
@@ -63,11 +87,15 @@
           userInfo['ext']['school_info']['graduate_grade'] || '未设置'}}</text
         >
       </view>
+      <red-dot
+        wx:if="{{!formValues['school_info.graduate_grade'] && !userInfo['ext']['school_info']['graduate_grade']}}"
+        class="icon-next"
+      ></red-dot>
     </view>
   </picker>
 
   <view class="f-bottom-btn">
-    <view class="u-confirm-btn">
+    <view class="u-confirm-btn" bindtap="onProfileSubmit">
       <text class="text">保存信息</text>
     </view>
   </view>

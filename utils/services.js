@@ -116,6 +116,22 @@ export default function ({ store, fetch }) {
         },
       });
     },
+    updateUserInfo: (callback = function () {}, options) => {
+      fetch({
+        url: API("user"),
+        method: "PUT",
+        showError: true,
+        ...options,
+        success: (res) => {
+          const result = res.data;
+          const userInfo = result.data;
+          store.setState("session", {
+            userInfo,
+          });
+          callback && callback(res);
+        },
+      });
+    },
     getTimetable(termInfo, callback = function () {}, options) {
       if (!termInfo) {
         return;
