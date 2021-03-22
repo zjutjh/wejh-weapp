@@ -4,7 +4,7 @@ const app = getApp();
 
 /**
  * 用户个人信息编辑页,
- * 第一个版本代码不太优雅, 后续慢慢重构吧
+ * 第一版本代码有点乱, 后续慢慢调整吧
  */
 
 Page({
@@ -26,6 +26,8 @@ Page({
   onLoad() {
     app.$store.connect(this, "profile");
     this.observe("session", "userInfo");
+
+    app.badgeManager.clearBadge("/home/profile_v1");
 
     const years = [...Array(99)].map((_, i) => {
       return i < 10 ? `200${i}` : `20${i}`;
@@ -65,14 +67,10 @@ Page({
     this.setPageState({
       formValues: {
         ...this.data.formValues,
-        "school_info.area": String(e.detail.value),
+        "school_info.area": this.data.campusList.range[e.detail.value],
       },
     });
     this.enableUnloadAlert();
-    console.log(
-      this.data.formValues["school_info.area"],
-      !this.data.formValues["school_info.area"]
-    );
   },
   onEnterYearPickerChange(e) {
     this.setPageState({
@@ -113,7 +111,7 @@ Page({
         },
       },
       "school_info.area": {
-        regex: /^\d$/,
+        regex: /^朝晖|屏峰|莫干山$/,
         title: "校区",
         isRequired: true,
         exists: () => {
@@ -168,20 +166,38 @@ Page({
         }
       }
     }
-    // 提交
-    app.services.updateUserInfo(
-      () => {
-        toast({
-          title: "保存成功",
-        });
-        wx.disableAlertBeforeUnload({ fail: () => {} });
-        this.setPageState({ formValues: {} });
-      },
-      {
-        ...formValues,
-        ext_version: 1,
-      }
-    );
+    const doSubmit = () => {
+      // 提交
+      app.services.updateUserInfo(
+        () => {
+          toast({
+            title: "保存成功",
+          });
+          wx.disableAlertBeforeUnload({ fail: () => {} });
+          this.setPageState({ formValues: {} });
+        },
+        {
+          data: {
+            ...formValues,
+            ext_version: 1,
+          },
+        }
+      );
+    };
+    // 提示姓名不能修改
+    if (formValues["school_info.name"]) {
+      wx.showModal({
+        title: "提示",
+        content: "姓名设置后不可修改，确认要提交吗？",
+        success(res) {
+          if (res.confirm) {
+            doSubmit();
+          }
+        },
+      });
+    } else {
+      doSubmit();
+    }
   },
   showNotEditableHint(event) {
     if (!this.data.userInfo) {
@@ -203,7 +219,7 @@ Page({
     }
     wx.showModal({
       title: `提示`,
-      content: `${title}不可修改，若有误，请联系管理员`,
+      content: `${title}不可修改，若有误，请联系客服`,
       showCancel: false,
       confirmText: "我知道了",
     });

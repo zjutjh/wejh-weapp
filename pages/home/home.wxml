@@ -17,6 +17,11 @@
           (weekday[time.day] ? (' - 星期' + weekday[time.day]) : '')}}</text
         >
       </view>
+      <red-dot
+        path="/home/profile_v1"
+        displayMode="{{ {type: 'static', content: 'NEW'} }}"
+        unclearedBadges="{{unclearedBadges}}"
+      ></red-dot>
       <iconfont name="next" class="icon-next"></iconfont>
     </view>
   </view>
@@ -69,25 +74,6 @@
     ></image>
     <text class="text">关于</text>
     <iconfont name="next" class="icon-next"></iconfont>
-  </navigator>
-
-  <navigator class="u-setting-navigator" url="/pages/person/person">
-    <image
-      class="icon"
-      mode="aspectFit"
-      src="../../images/home/about.png"
-    ></image>
-    <text class="text">个人信息</text>
-    <red-dot
-      path="/home/feedback"
-      displayMode="{{ {type: 'simple'} }}"
-      unclearedBadges="{{unclearedBadges}}"
-    ></red-dot>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
   </navigator>
 
   <navigator

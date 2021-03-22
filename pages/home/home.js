@@ -39,8 +39,12 @@ Page({
   // },
   userBlockClick() {
     if (!this.data.userInfo) {
-      return wx.navigateTo({
+      wx.navigateTo({
         url: "/pages/login/login",
+      });
+    } else {
+      wx.navigateTo({
+        url: "/pages/person/person",
       });
     }
   },

@@ -43,7 +43,7 @@
       <text class="text">校区</text>
       <view class="description">
         <text
-          >{{campusList.range[formValues['school_info.area']] ||
+          >{{formValues['school_info.area'] ||
           userInfo['ext']['school_info']['area'] || '未设置'}}</text
         >
       </view>
