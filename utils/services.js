@@ -3,6 +3,8 @@ import { API } from "./api";
 import util from "./util";
 import termUtil from "./termPicker";
 
+import staticData from "../static";
+
 import logger from "./logger";
 
 import dayjs from "../libs/dayjs/dayjs.min.js";
@@ -64,7 +66,12 @@ export default function ({ store, fetch }) {
             apps: util.fixAppList(data.appList["app-list"]),
             icons: util.fixIcons(data.appList.icons),
             announcement: data.announcement,
-            badges: data.badges,
+            badges: {
+              allBadges: [
+                ...staticData.badges.allBadges,
+                ...data.badges.allBadges,
+              ],
+            },
             time: data.termTime,
           });
           updateLoggedInState();

@@ -6,6 +6,7 @@ import Services from "./utils/services";
 import logger from "./utils/logger";
 import autoUpdate from "./utils/autoUpdate";
 import envConfig from "./env";
+import staticData from "./static";
 import dayjs from "./libs/dayjs/dayjs.min.js";
 import dayjs_customParseFormat from "./libs/dayjs/plugin/customParseFormat.js";
 
@@ -57,6 +58,10 @@ const store = new WejhStore({
       isPersistent: true,
     },
   },
+});
+
+store.setState("session", {
+  ...staticData,
 });
 
 const services = Services({
