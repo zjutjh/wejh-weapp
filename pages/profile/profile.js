@@ -166,6 +166,35 @@ Page({
         }
       }
     }
+    const validateGrade = () => {
+      // 验证年份
+      const grade = parseInt(
+        formValues["school_info.grade"] || userInfo.ext.school_info.grade,
+        10
+      );
+      const graduateGrade = parseInt(
+        formValues["school_info.graduate_grade"] ||
+          userInfo.ext.school_info.graduate_grade,
+        10
+      );
+
+      if (grade && graduateGrade) {
+        return graduateGrade >= grade;
+      } else {
+        return true;
+      }
+    };
+
+    if (!validateGrade()) {
+      wx.showModal({
+        title: "提示",
+        content: "毕业年份不能早于入学年份",
+        showCancel: false,
+        confirmText: "我知道了",
+      });
+      return;
+    }
+
     const doSubmit = () => {
       // 提交
       app.services.updateUserInfo(
@@ -195,6 +224,7 @@ Page({
           }
         },
       });
+      return;
     } else {
       doSubmit();
     }

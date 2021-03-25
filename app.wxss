@@ -149,6 +149,11 @@
   background-position: bottom center;
 }
 
+.f-text-link {
+  color: #73b4ef !important;
+  text-decoration: underline;
+}
+
 page,
 view,
 image,

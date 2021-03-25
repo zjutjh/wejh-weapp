@@ -44,7 +44,7 @@ Page({
       });
     } else {
       wx.navigateTo({
-        url: "/pages/person/person",
+        url: "/pages/profile/profile",
       });
     }
   },

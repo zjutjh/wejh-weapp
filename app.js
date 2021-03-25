@@ -14,7 +14,7 @@ dayjs.extend(dayjs_customParseFormat);
 
 const env = (key) => envConfig[key];
 
-const version = "1.1.2";
+const version = "1.1.3";
 
 let versionType = "release";
 let versionTypeName = "Release";
@@ -112,7 +112,7 @@ App({
       if (!lastUpdate.isValid()) {
         throw "`update_at` is invalid";
       }
-      const daysDiff = dayjs().diff(lastUpdate, "day");
+      // const daysDiff = dayjs().diff(lastUpdate, "day");
 
       const grade = userInfo.uno.substring(0, 4);
 
@@ -122,15 +122,15 @@ App({
       wx.reportAnalytics("user_login", {
         uno: userInfo.uno,
         grade: grade,
-        timetable_term: userInfo.ext.terms.class_term,
-        exam_term: userInfo.ext.terms.exam_term,
-        score_term: userInfo.ext.terms.score_term,
+        // timetable_term: userInfo.ext.terms.class_term,
+        // exam_term: userInfo.ext.terms.exam_term,
+        // score_term: userInfo.ext.terms.score_term,
         card_bind: userInfo.ext.passwords_bind.card_password,
         lib_bind: userInfo.ext.passwords_bind.lib_password,
         yc_bind: userInfo.ext.passwords_bind.yc_password,
         zf_bind: userInfo.ext.passwords_bind.zf_password,
         jh_bind: userInfo.ext.passwords_bind.jh_password,
-        last_update: Math.floor(daysDiff),
+        // last_update: Math.floor(daysDiff),
         storage_free: limitSize - currentSize,
         version: version,
       });

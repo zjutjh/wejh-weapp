@@ -18,10 +18,12 @@
         <text class="info-item"
           >学号：{{hideInfo ? '************' : userInfo.uno}}</text
         >
-        <text class="info-item"
-          >姓名：{{hideInfo ? '**' : (userInfo.ext.school_info.name ||
-          '暂无姓名')}}</text
+        <text class="info-item" wx:if="{{userInfo.ext.school_info.name}}"
+          >姓名：{{hideInfo ? '**' : (userInfo.ext.school_info.name)}}</text
         >
+        <navigator url="/pages/profile/profile" wx:else>
+          <text class="info-item f-text-link">姓名：点击设置</text>
+        </navigator>
       </view>
       <view class="logo">
         <image class="icon" src="{{icons.score.icon}}"></image>
