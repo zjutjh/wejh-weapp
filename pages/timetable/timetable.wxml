@@ -240,7 +240,7 @@
       catchtouchmove
     >
       <view class="header">
-        <view class="week">{{targetLessonInfo.weekday}}</view>
+        <view class="week">{{'星期' + weekday[targetWeekday + 1]}}</view>
         <view class="lesson-time">{{targetLessonInfo.lessonTime}}</view>
         <image
           data-type="mask"

@@ -253,7 +253,6 @@ Page({
       return {};
     }
     return {
-      weekday: `星期${this.data.weekday[this.data.targetWeekday + 1]}`,
       lessonTime: `${lesson["起止节"]}（${lesson["开始时间"]}-${lesson["结束时间"]}）`,
     };
   },
