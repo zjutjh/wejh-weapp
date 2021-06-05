@@ -28,7 +28,7 @@
     <text class="remind-text">请登录</text>
     <!-- <view class="remind-btn" bindtap="retryLogin">微信登录</view> -->
     <navigator url="/pages/login/login" class="remind-btn"
-      >绑定精弘通行证</navigator
+      >精弘通行证登录</navigator
     >
   </view>
 
