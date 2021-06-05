@@ -244,8 +244,6 @@ text {
   flex-direction: column;
   flex: 1;
   overflow: hidden;
-  margin-bottom: constant(safe-area-inset-bottom);
-  margin-bottom: env(safe-area-inset-bottom);
 }
 
 .u-setting-navigator {
@@ -1795,12 +1793,15 @@ text {
   font-size: 26rpx;
   line-height: 100%;
   color: #aaa;
+  display: flex;
+  flex-direction: column;
 }
 
 .m-exam .exam-content .exam-list .exam-item .head .subtitle .countdown {
   font-size: 26rpx;
   line-height: 100%;
   color: #aaa;
+  margin-bottom: 8rpx;
 }
 
 .m-exam .exam-content .exam-list .exam-item .head .subtitle .countdown.red {
