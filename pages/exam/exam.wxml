@@ -44,13 +44,13 @@
             data-index="{{course_id}}"
           >
             <view class="main-info">
-              <text class="name">{{item['课程']}}</text>
-              <text class="subtitle"
+              <text class="name">{{item['课程名称'] || item['课程']}}</text>
+              <view class="subtitle"
                 ><text
                   class="countdown{{item['倒计时'] <= 3 && item['倒计时'] >= 0 ? ' red' : ''}}"
                   >{{item['倒计时名']}}</text
                 >
-                {{item['教室']}}</text
+                {{item['教室']}}</view
               >
             </view>
             <image
@@ -79,7 +79,7 @@
               <text class="content">{{item['教师']}}</text>
             </view>
             <view class="detail-item" wx:if="{{item['课程名称']}}">
-              <text class="label">课程名称</text>
+              <text class="label">考试名称</text>
               <text class="content">{{item['课程名称']}}</text>
             </view>
             <view class="detail-item" wx:if="{{item['考试方式']}}">

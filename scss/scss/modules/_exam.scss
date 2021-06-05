@@ -114,10 +114,15 @@
             line-height: 100%;
             color: #aaa;
 
+            display: flex;
+            flex-direction: column;
+
             .countdown {
               font-size: 26rpx;
               line-height: 100%;
               color: #aaa;
+
+              margin-bottom: 8rpx;
 
               &.red {
                 color: #ff7b7d;
