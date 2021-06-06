@@ -37,7 +37,7 @@
     </view>
     <view class="confirm-btn" bindtap="login">
       <view class="u-confirm-btn">
-        <text>登录并绑定微信</text>
+        <text>绑定并登录</text>
       </view>
     </view>
     <view class="account-help">
