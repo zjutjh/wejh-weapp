@@ -55,19 +55,20 @@ Page({
           duration: 2000,
           title: "重置成功",
         });
-        app.$store.clear("session");
-        app.$store.clear("common");
-        app.$store.clear("static");
-        wx.clearStorage();
-        wx.reLaunch({
-          url: "/pages/index/index",
-        });
         // app.services.getUserInfo(null, {
         //   showError: true,
         // });
-        // setTimeout(() => {
-        //   wx.navigateBack();
-        // }, 2000);
+        setTimeout(() => {
+          app.$store.clear("session");
+          app.$store.clear("common");
+          app.$store.clear("static");
+          wx.clearStorage();
+          wx.reLaunch({
+            url: "/pages/index/index",
+          });
+
+          // wx.navigateBack();
+        }, 2000);
       },
       {
         data: {
