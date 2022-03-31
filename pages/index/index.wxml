@@ -81,7 +81,7 @@
     <view class="bottom">查看全部课表</view>
   </navigator>
 
-  <navigator
+  <!-- <navigator
     url="/pages/card/card"
     wx:if="{{card}}"
     class="m-index-card f-mt-20"
@@ -112,7 +112,7 @@
         </view>
       </view>
     </view>
-  </navigator>
+  </navigator> -->
 
   <navigator
     url="/pages/borrow/borrow"
