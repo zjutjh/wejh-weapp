@@ -1,5 +1,8 @@
 {
-  "enablePullDownRefresh": false,
+  "enablePullDownRefresh": true,
   "navigationBarBackgroundColor": "#ffcb63",
-  "navigationBarTitleText": "一卡通"
+  "navigationBarTitleText": "一卡通",
+  "usingComponents": {
+    "feedback-tip": "/components/feedback-tip/feedback-tip"
+  }
 }

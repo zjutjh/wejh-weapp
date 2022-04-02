@@ -1,4 +1,8 @@
 {
   "enablePullDownRefresh": false,
-  "navigationBarTitleText": "账号关联"
+  "navigationBarTitleText": "账号关联",
+  "usingComponents": {
+    "red-dot": "/components/red-dot/red-dot",
+    "iconfont": "/components/iconfont/iconfont"
+  }
 }

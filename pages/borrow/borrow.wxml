@@ -1,33 +1,50 @@
-<view class="m-loading-box" wx:if="{{showLoading}}">
+<!-- <view class="m-loading-box" wx:if="{{showLoading}}">
   <image class="icon-loading" src="/images/common/loading.gif"></image>
-</view>
-<view class="container f-bg-gray" wx:else>
+</view> -->
+<view class="container f-bg-gray">
+  <feedback-tip></feedback-tip>
   <view class="m-borrow">
     <view class="main-info">
       <view class="info-item">
         <view class="label">当前借阅</view>
         <view class="content">
-          <text class="value">{{borrow['borrow_num']}}</text>
+          <text class="value">{{borrow['borrow_num'] || '--'}}</text>
           <text class="unit">本</text>
         </view>
       </view>
       <view class="info-item">
         <view class="label">超期</view>
         <view class="content">
-          <text class="value">{{borrow['overdue']}}</text>
+          <text class="value">{{borrow['overdue'] || '--'}}</text>
           <text class="unit">本</text>
         </view>
       </view>
       <view class="info-item">
         <view class="label">欠费</view>
         <view class="content">
-          <text class="value">{{borrow['debt']}}</text>
+          <text class="value">{{borrow['debt'] || '--'}}</text>
           <text class="unit">元</text>
         </view>
       </view>
     </view>
 
-    <view class="book-list" wx:if="{{borrow.borrow_list.length > 0}}">
+    <view class="m-remind-box" wx:if="{{!(borrow && borrow.borrow_list)}}">
+      <image
+        class="remind-img"
+        mode="aspectFit"
+        src="/images/common/nothing.png"
+      ></image>
+      <text class="remind-text">暂无借阅数据，请刷新</text>
+    </view>
+    <view class="m-remind-box" wx:if="{{borrow.borrow_list.length === 0}}">
+      <image
+        class="remind-img"
+        mode="aspectFit"
+        src="/images/common/nothing.png"
+      ></image>
+      <text class="remind-text">你没有借书哦</text>
+    </view>
+    <view class="book-list" wx:else>
       <view
         class="book-item"
         wx:for="{{borrow.borrow_list}}"
@@ -47,15 +64,6 @@
           </view>
         </view>
       </view>
-    </view>
-
-    <view class="m-remind-box" wx:else>
-      <image
-        class="remind-img"
-        mode="aspectFit"
-        src="/images/common/nothing.png"
-      ></image>
-      <text class="remind-text">暂无借阅信息</text>
     </view>
   </view>
 </view>

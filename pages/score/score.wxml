@@ -3,13 +3,12 @@
 </view> -->
 <!-- 学期填入 -->
 <view class="container f-bg-gray">
+  <feedback-tip></feedback-tip>
   <view class="m-score">
     <view class="score-header">
       <view class="info">
         <view class="title">
-          <text class="content"
-            >我的成绩{{score && score.isDetail ? '明细' : ''}}</text
-          >
+          <text class="content">我的成绩</text>
           <image
             class="eye"
             src="/images/common/eye-{{hideInfo ? 'close-' : ''}}gray.png"
@@ -19,10 +18,12 @@
         <text class="info-item"
           >学号：{{hideInfo ? '************' : userInfo.uno}}</text
         >
-        <text class="info-item"
-          >姓名：{{hideInfo ? '**' : (userInfo.ext.school_info.name ||
-          '暂无姓名')}}</text
+        <text class="info-item" wx:if="{{userInfo.ext.school_info.name}}"
+          >姓名：{{hideInfo ? '**' : (userInfo.ext.school_info.name)}}</text
         >
+        <navigator url="/pages/profile/profile" wx:else>
+          <text class="info-item f-text-link">姓名：点击设置</text>
+        </navigator>
       </view>
       <view class="logo">
         <image class="icon" src="{{icons.score.icon}}"></image>
@@ -64,7 +65,7 @@
         </view>
         <view class="score-list">
           <block wx:if="{{score.list.length > 0}}">
-            <block wx:if="{{!score.isDetail}}">
+            <!-- <block wx:if="{{!score.isDetail}}">
               <view
                 class="score-item"
                 wx:for="{{sort ? score.sortedList : score.list}}"
@@ -76,40 +77,48 @@
                   >{{hideScore ? '**' : (item['成绩'] || '暂无成绩')}}</text
                 >
               </view>
-            </block>
-            <block wx:if="{{score.isDetail}}">
+            </block> -->
+            <block wx:if="{{score}}">
               <view
-                class="score-item detail{{item.open ? ' open' : ''}}"
-                wx:for="{{score.list}}"
+                class="score-item {{openedIndices[index] ? 'open' : ''}}"
+                wx:for="{{sort ? score.sortedList : score.list}}"
                 wx:key="course_id"
-                wx:for-index="course_id"
+                wx:for-index="index"
               >
                 <view
                   class="head"
                   bindtap="toggleShowScoreDetail"
-                  data-index="{{course_id}}"
+                  data-index="{{index}}"
                 >
-                  <view class="main-info">
-                    <text class="name">{{item['名称']}}</text>
-                    <text class="subtitle">{{item['成绩分项']}}</text>
-                  </view>
-                  <text class="sub-info">{{item['成绩'] || '暂无成绩'}}</text>
+                  <text class="main-info">{{item['名称']}}</text>
+                  <!-- <text class="subtitle">{{item['成绩分项']}}</text> -->
+                  <text class="sub-info"
+                    >{{hideScore ? '**' : (item['成绩'] || '暂无成绩')}}</text
+                  >
                   <image
                     class="arrow"
                     src="/images/common/arrow-down-gray.png"
                   ></image>
                 </view>
                 <view class="detail-info">
-                  <view
-                    class="detail-item"
-                    wx:for="{{item}}"
-                    wx:key="course_id"
-                    wx:for-index="item_name"
-                    wx:if="{{item_name !== 'open'}}"
+                  <block
+                    wx:for="{{detailMap}}"
+                    wx:key="match"
+                    wx:for-item="mapKey"
                   >
-                    <text class="label">{{item_name}}</text>
-                    <text class="content">{{item || '未知'}}</text>
-                  </view>
+                    <view
+                      class="detail-item"
+                      wx:if="{{item[mapKey.match] !== undefined && (mapKey.match !== '课程归属名称' || item['课程性质名称'] === '任选课')}}"
+                    >
+                      <text class="label"
+                        >{{mapKey.display || mapKey.match}}</text
+                      >
+                      <text class="content"
+                        >{{item[mapKey.match] || ('无' + (mapKey.display ||
+                        mapKey.match))}}</text
+                      >
+                    </view>
+                  </block>
                 </view>
               </view>
             </block>
@@ -150,16 +159,17 @@
           <image class="icon" src="/images/common/refresh.png"></image>
         </view>
       </view>
-      <view class="middle vertical">
-        <term-picker
-          placeHolder="{{termPickerPlaceHolder}}"
-          allowsShortTerm="{{true}}"
-          pickerInfo="{{termPickerInfo}}"
-          currentData="{{termPickerCurrentData}}"
-          bindtermChange="termChange"
-        >
-        </term-picker>
-        <cache-tip timestamp="{{lastUpdated}}" title="成绩"></cache-tip>
+      <view class="middle">
+        <view class="vertical">
+          <term-picker
+            allowsShortTerm="{{true}}"
+            pickerInfo="{{termPickerInfo}}"
+            currentData="{{termPickerCurrentData}}"
+            bindtermChange="termChange"
+          >
+          </term-picker>
+          <cache-tip timestamp="{{score.lastUpdated}}" title="成绩"></cache-tip>
+        </view>
       </view>
       <view class="right">
         <view
@@ -167,7 +177,7 @@
           hover-class="active"
           hover-stay-time="500"
           bindtap="toggleSort"
-          wx:if="{{score && !score.isDetail}}"
+          wx:if="{{score}}"
         >
           <image class="icon" src="/images/common/sort-white.png"></image>
         </view>

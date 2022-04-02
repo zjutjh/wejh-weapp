@@ -3,6 +3,8 @@ import { API } from "./api";
 import util from "./util";
 import termUtil from "./termPicker";
 
+import staticData from "../static";
+
 import logger from "./logger";
 
 import dayjs from "../libs/dayjs/dayjs.min.js";
@@ -64,7 +66,12 @@ export default function ({ store, fetch }) {
             apps: util.fixAppList(data.appList["app-list"]),
             icons: util.fixIcons(data.appList.icons),
             announcement: data.announcement,
-            badges: data.badges,
+            badges: {
+              allBadges: [
+                ...staticData.badges.allBadges,
+                ...data.badges.allBadges,
+              ],
+            },
             time: data.termTime,
           });
           updateLoggedInState();
@@ -72,35 +79,35 @@ export default function ({ store, fetch }) {
         },
       });
     },
-    getAppList(callback = function () {}, options) {
-      fetch({
-        url: API("app-list"),
-        showError: true,
-        ...options,
-        success(res) {
-          let data = res.data.data;
-          store.setState("session", {
-            apps: util.fixAppList(data["app-list"]),
-            icons: util.fixIcons(data["icons"]),
-          });
-          callback && callback(res);
-        },
-      });
-    },
-    getTermTime: (callback = function () {}, options) => {
-      fetch({
-        url: API("time"),
-        showError: true,
-        ...options,
-        success: (res) => {
-          const result = res.data;
-          store.setState("session", {
-            time: result.data,
-          });
-          callback && callback(res);
-        },
-      });
-    },
+    // getAppList(callback = function () {}, options) {
+    //   fetch({
+    //     url: API("app-list"),
+    //     showError: true,
+    //     ...options,
+    //     success(res) {
+    //       let data = res.data.data;
+    //       store.setState("session", {
+    //         apps: util.fixAppList(data["app-list"]),
+    //         icons: util.fixIcons(data["icons"]),
+    //       });
+    //       callback && callback(res);
+    //     },
+    //   });
+    // },
+    // getTermTime: (callback = function () {}, options) => {
+    //   fetch({
+    //     url: API("time"),
+    //     showError: true,
+    //     ...options,
+    //     success: (res) => {
+    //       const result = res.data;
+    //       store.setState("session", {
+    //         time: result.data,
+    //       });
+    //       callback && callback(res);
+    //     },
+    //   });
+    // },
     getUserInfo: (callback = function () {}, options) => {
       fetch({
         url: API("user"),
@@ -116,50 +123,97 @@ export default function ({ store, fetch }) {
         },
       });
     },
-    getTimetable(callback = function () {}, options) {
+    updateUserInfo: (callback = function () {}, options) => {
       fetch({
-        url: API("timetable"),
+        url: API("user"),
+        method: "PUT",
         showError: true,
         ...options,
-        success(res) {
-          const cacheStatus = store.getState("session", "cacheStatus") || {};
-          cacheStatus.timetable = false;
-
-          let data = res.data.data;
-          const fixData = util.fixTimetable(data);
-          const cache = {
-            cacheStatus,
-            timetable: data,
-            timetableFixed: fixData,
-          };
+        success: (res) => {
+          const result = res.data;
+          const userInfo = result.data;
           store.setState("session", {
-            ...cache,
-          });
-          store.setState("common", {
-            cache,
+            userInfo,
           });
           callback && callback(res);
         },
-        fail(res) {
-          // 使用离线课表
-          const cacheStatus = store.getState("session", "cacheStatus") || {};
-          const cache = store.getState("common", "cache") || {};
-          const cacheState = {};
-          if (cache.timetable) {
-            cacheState.timetable = cache.timetable;
-            if (cache.timetableFixed) {
-              cacheState.timetableFixed = cache.timetableFixed;
-              // cacheState.timetableToday = util.fixTimetableToday(
-              //   cache.timetableFixed
-              // );
-            }
-            cacheStatus.timetable = true;
-            store.setState("session", {
-              cacheStatus,
-              ...cacheState,
+      });
+    },
+    getTimetable(termInfo, callback = function () {}, options) {
+      if (!termInfo) {
+        return;
+      }
+
+      // cache_key: cache_timetable_termYear_semester (timetable_2020_1)
+      const task = fetch({
+        url: API("timetable"),
+        showError: true,
+        data: {
+          term_year: termInfo.year || "",
+          term_semester: termInfo.semester || "",
+        },
+        ...options,
+        success(res) {
+          let timetable = res.data.data;
+          const lastUpdated = dayjs().unix();
+
+          store.setState("session", {
+            timetable: {
+              classes: util.fixTimetable(timetable),
+              term: timetable.term,
+              lastUpdated: dayjs().unix(),
+            },
+          });
+
+          // 写 cache
+          const termInfo = termUtil.getInfoFromTerm(timetable.term);
+          if (termInfo.year && termInfo.semester) {
+            const cacheKey = `cache_timetable_${termInfo.year}_${termInfo.semester}`;
+            logger.info("service", "写入 cache 'timetable', key: ", cacheKey);
+            store.setState("common", {
+              [cacheKey]: {
+                originalTimetableData: timetable,
+                lastUpdated,
+              },
             });
-            callback && callback(res);
           }
+          callback && callback(res);
+        },
+        fail(res) {
+          // 请求失败时返回 cache
+          if (termInfo.year && termInfo.semester) {
+            const cacheKey = `cache_timetable_${termInfo.year}_${termInfo.semester}`;
+            logger.info("service", "读出 cache 'timetable', key: ", cacheKey);
+
+            const cachedTimetable = store.getState("common", cacheKey);
+            if (cachedTimetable && cachedTimetable.originalTimetableData) {
+              store.setState("session", {
+                timetable: {
+                  classes: util.fixTimetable(
+                    cachedTimetable.originalTimetableData
+                  ),
+                  term: cachedTimetable.originalTimetableData.term,
+                  lastUpdated: cachedTimetable.lastUpdated,
+                },
+              });
+            }
+          }
+          callback && callback(res);
+        },
+        complete(res) {
+          store.setState("session", {
+            timetableRequest: {
+              started: false,
+              requestTask: null,
+            },
+          });
+        },
+      });
+
+      store.setState("session", {
+        timetableRequest: {
+          started: true,
+          requestTask: task,
         },
       });
     },
@@ -396,62 +450,139 @@ export default function ({ store, fetch }) {
         },
       });
     },
-    changeTimetableTerm(targetTerm, callback = function () {}, options) {
+    bindCard(callback = function () {}, options) {
       fetch({
-        url: API("timetable"),
-        method: "PUT",
+        url: API("card/bind"),
+        method: "POST",
         showError: true,
         ...options,
-        data: {
-          term: targetTerm,
-        },
-        success(res) {
+        success: (res) => {
           callback && callback(res);
         },
       });
     },
-    changeScoreTerm(targetTerm, callback = function () {}, options) {
+    bindLibrary(callback = function () {}, options) {
       fetch({
-        url: API("score"),
-        method: "PUT",
+        url: API("library/bind"),
+        method: "POST",
         showError: true,
         ...options,
-        data: {
-          term: targetTerm,
-        },
-        success(res) {
+        success: (res) => {
           callback && callback(res);
         },
       });
     },
-    changeExamTerm(targetTerm, callback = function () {}, options) {
+    bindZf(callback = function () {}, options) {
       fetch({
-        url: API("exam"),
-        method: "PUT",
+        url: API("zf/bind"),
+        method: "POST",
         showError: true,
         ...options,
-        data: {
-          term: targetTerm,
-        },
-        success(res) {
+        success: (res) => {
           callback && callback(res);
         },
       });
     },
-    getAnnouncement(callback = function () {}, options) {
+    bindYc(callback = function () {}, options) {
       fetch({
-        url: API("announcement"),
-        method: "GET",
+        url: API("ycjw/bind"),
+        method: "POST",
         showError: true,
         ...options,
-        success(res) {
-          const data = res.data.data;
-          store.setState("session", {
-            announcement: data,
-          });
+        success: (res) => {
           callback && callback(res);
         },
       });
     },
+    forgot(callback = function () {}, options) {
+      fetch({
+        url: API("forgot"),
+        method: "POST",
+        showError: true,
+        ...options,
+        success: (res) => {
+          callback && callback(res);
+        },
+      });
+    },
+    activate(callback = function () {}, options) {
+      fetch({
+        url: API("activate"),
+        method: "POST",
+        showError: true,
+        ...options,
+        success: (res) => {
+          callback && callback(res);
+        },
+      });
+    },
+    bindJh(callback = function () {}, options) {
+      fetch({
+        url: API("login"),
+        method: "POST",
+        showError: true,
+        ...options,
+        success: (res) => {
+          callback && callback(res);
+        },
+      });
+    },
+    // changeTimetableTerm(targetTerm, callback = function () {}, options) {
+    //   fetch({
+    //     url: API("timetable"),
+    //     method: "PUT",
+    //     showError: true,
+    //     ...options,
+    //     data: {
+    //       term: targetTerm,
+    //     },
+    //     success(res) {
+    //       callback && callback(res);
+    //     },
+    //   });
+    // },
+    // changeScoreTerm(targetTerm, callback = function () {}, options) {
+    //   fetch({
+    //     url: API("score"),
+    //     method: "PUT",
+    //     showError: true,
+    //     ...options,
+    //     data: {
+    //       term: targetTerm,
+    //     },
+    //     success(res) {
+    //       callback && callback(res);
+    //     },
+    //   });
+    // },
+    // changeExamTerm(targetTerm, callback = function () {}, options) {
+    //   fetch({
+    //     url: API("exam"),
+    //     method: "PUT",
+    //     showError: true,
+    //     ...options,
+    //     data: {
+    //       term: targetTerm,
+    //     },
+    //     success(res) {
+    //       callback && callback(res);
+    //     },
+    //   });
+    // },
+    // getAnnouncement(callback = function () {}, options) {
+    //   fetch({
+    //     url: API("announcement"),
+    //     method: "GET",
+    //     showError: true,
+    //     ...options,
+    //     success(res) {
+    //       const data = res.data.data;
+    //       store.setState("session", {
+    //         announcement: data,
+    //       });
+    //       callback && callback(res);
+    //     },
+    //   });
+    // },
   };
 }

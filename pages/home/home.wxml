@@ -13,16 +13,16 @@
       <view class="time-info">
         <text class="term">{{time.term}}</text>
         <text class="week" wx:if="{{ time !== undefined }}"
-          >{{time.is_begin ? '第' + time.week + '周' : '放假中'}} -
-          星期{{weekday[time.day]}}</text
+          >{{(time.is_begin ? '第' + time.week + '周' : '放假中') +
+          (weekday[time.day] ? (' - 星期' + weekday[time.day]) : '')}}</text
         >
       </view>
-      <image
-        class="icon-next"
-        src="/images/common/next.png"
-        mode="aspectFit"
-        wx:if="{{!userInfo}}"
-      ></image>
+      <red-dot
+        path="/home/profile_v1"
+        displayMode="{{ {type: 'static', content: 'NEW'} }}"
+        unclearedBadges="{{unclearedBadges}}"
+      ></red-dot>
+      <iconfont name="next" class="icon-next"></iconfont>
     </view>
   </view>
   <block wx:if="{{userInfo}}">
@@ -33,11 +33,7 @@
         src="../../images/home/setting.png"
       ></image>
       <text class="text">设置</text>
-      <image
-        class="icon-next"
-        src="/images/common/next-gray.png"
-        mode="aspectFit"
-      ></image>
+      <iconfont name="next" class="icon-next"></iconfont>
     </navigator>
   </block>
   <view class="u-setting-navigator" bindtap="followUs">
@@ -47,11 +43,7 @@
       src="../../images/home/follow-us.png"
     ></image>
     <text class="text">关注我们<text class="tip">zjutjh</text></text>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
+    <iconfont name="next" class="icon-next"></iconfont>
   </view>
   <navigator class="u-setting-navigator f-mb-20" url="/pages/feedback/feedback">
     <image
@@ -65,11 +57,7 @@
       displayMode="{{ {type: 'simple'} }}"
       unclearedBadges="{{unclearedBadges}}"
     ></red-dot>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
+    <iconfont name="next" class="icon-next"></iconfont>
   </navigator>
   <!--
   <view class="u-setting-navigator f-mb-20" bindtap="donate">
@@ -85,12 +73,9 @@
       src="../../images/home/about.png"
     ></image>
     <text class="text">关于</text>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
+    <iconfont name="next" class="icon-next"></iconfont>
   </navigator>
+
   <navigator
     class="u-setting-navigator f-mt-20"
     url="/pages/debug/index"
@@ -102,11 +87,7 @@
       src="../../images/home/debug.png"
     ></image>
     <text class="text">调试彩蛋</text>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
+    <iconfont name="next" class="icon-next"></iconfont>
   </navigator>
   <view class="f-bottom-btn">
     <navigator class="u-btn-binding" url="/pages/login/login">

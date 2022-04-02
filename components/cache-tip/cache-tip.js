@@ -1,9 +1,9 @@
+import dayjs from "../../libs/dayjs/dayjs.min.js";
+import dayjs_duration from "../../libs/dayjs/plugin/duration.js";
 import formatter from "../../utils/formatter";
 
 import logger from "../../utils/logger";
-
-import dayjs from "../../libs/dayjs/dayjs.min.js";
-import dayjs_duration from "../../libs/dayjs/plugin/duration.js";
+import Timer from "../../utils/timer";
 
 dayjs.extend(dayjs_duration);
 
@@ -26,9 +26,36 @@ Component({
   },
   data: {
     text: "",
+    _timer: null,
+  },
+  lifetimes: {
+    created() {
+      this.data._timer = new Timer({
+        interval: 60 * 1000,
+        firesAtExactMinutes: true,
+        callback: () => {
+          this.refresh();
+        },
+      });
+    },
+    attached() {
+      this.data._timer.start();
+    },
+    detached() {
+      this.data._timer.stop();
+    },
+  },
+  pageLifetimes: {
+    show() {
+      this.data._timer.start();
+    },
+    hide() {
+      this.data._timer.stop();
+    },
   },
   methods: {
     refresh() {
+      logger.info("cache-tip", "cache-tip refresh");
       const { timestamp } = this.data;
       if (timestamp) {
         this.setData({
@@ -41,8 +68,10 @@ Component({
       }
     },
     showHint() {
-      try {
-        const duration = dayjs
+      let duration = 0;
+
+      if (this.data.timestamp) {
+        duration = dayjs
           .duration(dayjs().diff(dayjs.unix(this.data.timestamp)))
           .asSeconds();
 
@@ -51,16 +80,29 @@ Component({
           duration: duration,
           title: this.data.title,
         });
-      } catch (err) {
-        logger.error("cache-tip", "cache-tip埋点上报异常", err);
-      }
 
-      wx.showModal({
-        title: `为什么我的${this.data.title}可能有延迟`,
-        content: `微精弘会展示出最近一次获得的${this.data.title}。当由于教务系统不稳定等原因无法获取最新的${this.data.title}时，请通过教务系统查询。`,
-        showCancel: false,
-        confirmText: "我知道了",
-      });
+        // 数据更新时间距今大于一分钟显示红点
+        if (duration > 60) {
+          wx.showModal({
+            title: `为什么我的${this.data.title}可能有延迟`,
+            content: `微精弘会展示出最近一次获得的${this.data.title}。当由于系统不稳定等原因无法获取最新的${this.data.title}时，请通过教务系统查询。`,
+            showCancel: false,
+            confirmText: "我知道了",
+          });
+        }
+      } else {
+        wx.reportAnalytics("cache_tip_click", {
+          content: this.data.text,
+          duration: -1,
+          title: this.data.title,
+        });
+        wx.showModal({
+          title: `为什么我看不到我的${this.data.title}`,
+          content: `由于系统不稳定等原因，我们暂时无法获取到${this.data.title}信息，您可以尝试刷新，或登录教务系统进行查询。`,
+          showCancel: false,
+          confirmText: "我知道了",
+        });
+      }
     },
   },
 });

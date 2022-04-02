@@ -6,6 +6,8 @@
 <view class="container f-bg-gray-form-gradient">
   <template is="wave-logo"></template>
 
+  <feedback-tip></feedback-tip>
+
   <form class="f-bg-gray-form-gradient m-wave-form closely">
     <view class="input-group {{passwd_focus ? 'active' : ''}}">
       <text class="input-label">一卡通密码</text>

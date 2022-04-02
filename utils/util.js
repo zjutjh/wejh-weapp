@@ -1,3 +1,5 @@
+import { schedule } from "./schedule";
+
 // // 判断是否为纯粹对象
 // function isPlainObject(obj) {
 //   if (
@@ -127,18 +129,11 @@ function colorLessons(lessons) {
   return lessons;
 }
 
-// exports
-
 // function deepClone(obj) {
 //   if (!isPlainObject(obj)) {
 //     return false;
 //   }
 //   return JSON.parse(JSON.stringify(obj));
-// }
-
-// function formatNumber(n) {
-//   n = n.toString();
-//   return n[1] ? n : "0" + n;
 // }
 
 /**
@@ -174,8 +169,30 @@ function fixTimetable(classResult) {
       const nameArr = item["课程名称"].match(/[0-9a-zA-Z:]/g) || [];
       lesson["课程名称长度"] = item["课程名称"].length - nameArr.length / 1.2;
       lesson["节数"] = info["结束节"] - info["开始节"] + 1;
-      lesson["起止周"] = info["开始周"] + "-" + info["结束周"];
-      lesson["起止节"] = info["开始节"] + "-" + info["结束节"];
+      lesson["起止周"] =
+        info["开始周"] !== info["结束周"]
+          ? `${info["开始周"]}-${info["结束周"]}周`
+          : `第${info["开始周"]}周`;
+      lesson["起止节"] =
+        info["开始节"] !== info["结束节"]
+          ? `${info["开始节"]}-${info["结束节"]}节`
+          : `第${info["开始节"]}节`;
+
+      lesson["开始时间"] = schedule[`c${info["开始节"]}`].begin;
+      lesson["结束时间"] = schedule[`c${info["结束节"]}`].end;
+
+      lesson["课程图标"] = "book";
+      if (
+        item["课程名称"].includes("体育") ||
+        item["课程名称"].includes("体质健康")
+      ) {
+        lesson["课程图标"] = "sport";
+      } else if (
+        item["课程名称"].includes("实验") ||
+        item["课程名称"].includes("实训")
+      ) {
+        lesson["课程图标"] = "lab";
+      }
 
       const type = info["周类型"] || "default";
 
@@ -202,28 +219,15 @@ function fixTimetable(classResult) {
 
   return colorLessons(lessons);
 }
-// /**
-//  * 计算今日课表
-//  * @param {Array} data
-//  * @returns {Array}
-//  */
-// function fixTimetableToday(data) {
-//   if (!data || Array.isArray(data)) {
-//     return [];
-//   }
-//   const weekday = new Date().getDay();
-//   const todayData = data[weekday];
-//   return data;
-// }
 function fixAppList(list) {
   return list.map((item) => {
-    item.bg = "../../images/app-list/" + item.bg + ".png";
+    item.bg = "/images/app-list/" + item.bg + ".png";
     return item;
   });
 }
 function fixIcons(icons) {
   for (let key in icons) {
-    icons[key].bg = "../../images/app-list/" + icons[key].bg + ".png";
+    icons[key].bg = "/images/app-list/" + icons[key].bg + ".png";
   }
   return icons;
 }
@@ -278,6 +282,7 @@ function fixCardCost(cardData) {
   const iStyle = `font-style: normal;font-size: 26rpx;color: #777;font-weight: normal;`;
   const totalStyle = `color: #ffbf92;font-weight: bold;`;
   return {
+    balance: cardData["卡余额"],
     total: total,
     cost: records,
     text:
@@ -370,9 +375,7 @@ function getTrueScore(scoreString) {
 }
 
 module.exports = {
-  // formatNumber,
   fixTimetable,
-  // fixTimetableToday,
   fixAppList,
   fixIcons,
   fixScore,

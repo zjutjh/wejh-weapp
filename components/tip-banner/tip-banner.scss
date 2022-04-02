@@ -1,0 +1,26 @@
+@import "../../scss/scss/_variables";
+
+.m-cache-tip {
+  // height: 20rpx;
+  padding: 12rpx;
+  font-size: 24rpx;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  text {
+    display: block;
+    color: $white;
+    text-align: justify;
+  }
+
+  &.float {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+  }
+
+  &.block {
+    display: block;
+  }
+}

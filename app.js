@@ -4,7 +4,9 @@ import BadgeManager from "./utils/badgeManager";
 import toast from "./utils/toast";
 import Services from "./utils/services";
 import logger from "./utils/logger";
+import autoUpdate from "./utils/autoUpdate";
 import envConfig from "./env";
+import staticData from "./static";
 import dayjs from "./libs/dayjs/dayjs.min.js";
 import dayjs_customParseFormat from "./libs/dayjs/plugin/customParseFormat.js";
 
@@ -12,7 +14,7 @@ dayjs.extend(dayjs_customParseFormat);
 
 const env = (key) => envConfig[key];
 
-const version = "1.0.23";
+const version = "1.1.4";
 
 let versionType = "release";
 let versionTypeName = "Release";
@@ -58,13 +60,15 @@ const store = new WejhStore({
   },
 });
 
-const fetch = Fetch({
-  $store: store,
-  isDev,
+store.setState("session", {
+  ...staticData,
 });
 
 const services = Services({
-  fetch,
+  fetch: Fetch({
+    $store: store,
+    isDev,
+  }),
   store,
 });
 
@@ -77,6 +81,7 @@ App({
   version,
   versionType: versionTypeName,
   onLaunch: function () {
+    autoUpdate();
     this.wxLogin(this.getOpenId, () => {
       logger.info("app", "自动登录成功");
     });
@@ -107,7 +112,7 @@ App({
       if (!lastUpdate.isValid()) {
         throw "`update_at` is invalid";
       }
-      const daysDiff = dayjs().diff(lastUpdate, "day");
+      // const daysDiff = dayjs().diff(lastUpdate, "day");
 
       const grade = userInfo.uno.substring(0, 4);
 
@@ -117,15 +122,15 @@ App({
       wx.reportAnalytics("user_login", {
         uno: userInfo.uno,
         grade: grade,
-        timetable_term: userInfo.ext.terms.class_term,
-        exam_term: userInfo.ext.terms.exam_term,
-        score_term: userInfo.ext.terms.score_term,
+        // timetable_term: userInfo.ext.terms.class_term,
+        // exam_term: userInfo.ext.terms.exam_term,
+        // score_term: userInfo.ext.terms.score_term,
         card_bind: userInfo.ext.passwords_bind.card_password,
         lib_bind: userInfo.ext.passwords_bind.lib_password,
         yc_bind: userInfo.ext.passwords_bind.yc_password,
         zf_bind: userInfo.ext.passwords_bind.zf_password,
         jh_bind: userInfo.ext.passwords_bind.jh_password,
-        last_update: Math.floor(daysDiff),
+        // last_update: Math.floor(daysDiff),
         storage_free: limitSize - currentSize,
         version: version,
       });
@@ -166,6 +171,17 @@ App({
         }
       );
   },
+  onPageNotFound() {
+    wx.switchTab({
+      url: "pages/index/index",
+    });
+    wx.showModal({
+      title: `提示`,
+      content: `页面未找到，已为您跳转到主页，若问题持续存在，请删除小程序并重新搜索打开。`,
+      showCancel: false,
+      confirmText: "我知道了",
+    });
+  },
   // goFeedback: () => {
   //   const userInfo = store.getState("session", "userInfo");
   //   wx.getNetworkType({
@@ -199,7 +215,6 @@ App({
   isDev: isDev,
   env,
   services,
-  fetch,
   $store: store,
   badgeManager,
 });

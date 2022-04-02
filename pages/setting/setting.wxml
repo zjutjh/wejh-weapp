@@ -9,11 +9,7 @@
       src="../../images/home/binding.png"
     ></image>
     <text class="text">账号关联</text>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
+    <iconfont name="next" class="icon-next"></iconfont>
   </navigator>
   <navigator class="u-setting-navigator f-mb-20" url="/pages/labs/labs">
     <image
@@ -22,10 +18,6 @@
       src="../../images/home/labs.png"
     ></image>
     <text class="text">实验室</text>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
+    <iconfont name="next" class="icon-next"></iconfont>
   </navigator>
 </view>

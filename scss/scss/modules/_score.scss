@@ -153,38 +153,26 @@
       flex-flow: column nowrap;
       align-items: stretch;
       padding: 5rpx 30rpx 15rpx;
-      .score-item {
-        background: #fff;
-        font-size: 30rpx;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: space-between;
-        align-items: center;
-        border-top: 1px solid #eee;
-        padding: 25rpx 10rpx 20rpx 5rpx;
-        &.detail {
-          display: flex;
-          flex-direction: column;
-          justify-content: inherit;
-          align-items: inherit;
-          font-size: 30rpx;
-          padding: 0 40rpx;
-          background-color: $white;
-          border-radius: 3px;
-        }
 
-        .score {
-          text-align: right;
-          width: 100rpx;
-        }
+      font-size: 30rpx;
+
+      .score-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: inherit;
+        align-items: inherit;
+        padding: 0 8rpx;
 
         .head {
-          position: relative;
           display: flex;
           flex-direction: row;
           align-items: center;
           justify-content: space-between;
-          height: 145rpx;
+
+          height: 80rpx;
+
+          box-sizing: content-box;
+          border-top: 1px solid #eee;
 
           .arrow {
             flex-shrink: 0;
@@ -195,33 +183,14 @@
           }
 
           .sub-info {
-            font-size: 32rpx;
             margin: 0 12rpx 0 auto;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
+            @include text-ellipsis;
           }
 
           .main-info {
             max-width: 80%;
             padding-right: 32rpx;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            .name {
-              margin-bottom: 10rpx;
-              font-size: 32rpx;
-              overflow: hidden;
-              white-space: nowrap;
-              text-overflow: ellipsis;
-            }
-
-            .subtitle {
-              font-size: 26rpx;
-              line-height: 100%;
-              color: #aaa;
-            }
+            @include text-ellipsis;
           }
         }
 
@@ -231,24 +200,35 @@
           overflow: hidden;
           padding: 0;
           .detail-item {
+            height: 80rpx;
             display: flex;
             align-items: center;
-            padding: 25rpx 5rpx 20rpx;
-            border-top: 1px solid #eee;
+
+            margin-right: 38rpx;
+            &:not(:nth-child(1)) {
+              border-top: 1px solid #eee;
+            }
             .label {
               color: #888;
-              width: 150rpx;
+              margin-right: 12rpx;
+              @include text-ellipsis;
             }
-
             .content {
+              color: #888;
               flex: 1;
+              text-align: right;
+              @include text-ellipsis;
             }
           }
         }
 
         &.open {
           .head {
-            .name {
+            border-bottom: 1px solid #eee;
+            .main-info {
+              color: $theme-pink;
+            }
+            .sub-info {
               color: $theme-pink;
             }
             .arrow {
@@ -258,7 +238,6 @@
 
           .detail-info {
             display: flex;
-            padding: 5rpx 0 15rpx;
           }
         }
       }

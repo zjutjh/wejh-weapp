@@ -2,6 +2,7 @@
   <image class="icon-loading" src="/images/common/loading.gif"></image>
 </view> -->
 <view class="container f-bg-gray">
+  <feedback-tip></feedback-tip>
   <view class="m-exam">
     <view class="exam-header">
       <view class="info">
@@ -16,10 +17,12 @@
         <text class="info-item"
           >学号：{{hideInfo ? '************' : userInfo.uno}}</text
         >
-        <text class="info-item"
-          >姓名：{{hideInfo ? '**' : (userInfo.ext.school_info.name ||
-          '暂无姓名')}}</text
+        <text class="info-item" wx:if="{{userInfo.ext.school_info.name}}"
+          >姓名：{{hideInfo ? '**' : (userInfo.ext.school_info.name)}}</text
         >
+        <navigator url="/pages/profile/profile" wx:else>
+          <text class="info-item f-text-link">姓名：点击设置</text>
+        </navigator>
       </view>
       <view class="logo">
         <image class="icon" src="{{icons.exam.icon}}"></image>
@@ -41,13 +44,13 @@
             data-index="{{course_id}}"
           >
             <view class="main-info">
-              <text class="name">{{item['课程']}}</text>
-              <text class="subtitle"
+              <text class="name">{{item['课程名称'] || item['课程']}}</text>
+              <view class="subtitle"
                 ><text
                   class="countdown{{item['倒计时'] <= 3 && item['倒计时'] >= 0 ? ' red' : ''}}"
                   >{{item['倒计时名']}}</text
                 >
-                {{item['教室']}}</text
+                {{item['教室']}}</view
               >
             </view>
             <image
@@ -75,9 +78,9 @@
               <text class="label">任课教师</text>
               <text class="content">{{item['教师']}}</text>
             </view>
-            <view class="detail-item" wx:if="{{item['课程名称']}}">
-              <text class="label">课程名称</text>
-              <text class="content">{{item['课程名称']}}</text>
+            <view class="detail-item" wx:if="{{item['课程']}}">
+              <text class="label">考试名称</text>
+              <text class="content">{{item['课程']}}</text>
             </view>
             <view class="detail-item" wx:if="{{item['考试方式']}}">
               <text class="label">考试方式</text>
@@ -109,6 +112,21 @@
           bindtap="toggleRefresh"
         >
           <image class="icon" src="/images/common/refresh.png"></image>
+        </view>
+      </view>
+      <view class="middle">
+        <view class="vertical">
+          <term-picker
+            allowsShortTerm="{{false}}"
+            pickerInfo="{{termPickerInfo}}"
+            currentData="{{termPickerCurrentData}}"
+            bindtermChange="termChange"
+          >
+          </term-picker>
+          <cache-tip
+            timestamp="{{exam.lastUpdated}}"
+            title="考试安排"
+          ></cache-tip>
         </view>
       </view>
       <view class="middle vertical">

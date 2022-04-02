@@ -1,0 +1,90 @@
+@import "../../../scss/scss/_variables";
+
+.borrow-card {
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20rpx 0 20rpx;
+    color: $gray-600;
+    .label {
+      font-size: 26rpx;
+    }
+
+    .date {
+      font-size: 26rpx;
+    }
+  }
+
+  .borrow-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    margin: 0 0 42rpx;
+
+    .borrow-item {
+      display: flex;
+      flex-direction: column;
+
+      padding-bottom: 50rpx;
+
+      &:not(:nth-child(3n)) {
+        padding-right: 80rpx;
+      }
+
+      .book {
+        position: relative;
+        width: 176rpx;
+        height: 231rpx;
+        overflow: hidden;
+        .icon-book {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+        }
+
+        .title {
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+          position: absolute;
+          top: 5rpx;
+          left: 30rpx;
+          font-weight: bold;
+          line-height: 150%;
+          color: $white;
+          font-size: 28rpx;
+          word-wrap: break-word;
+          word-break: break-all;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+
+      .return,
+      .borrow {
+        font-size: 26rpx;
+
+        .date {
+          font-size: 26rpx;
+          font-weight: bold;
+          color: #729fc3;
+          padding: 0 8rpx;
+        }
+        .unit {
+          font-size: 24rpx;
+          color: #acacac;
+        }
+        &.red {
+          .date {
+            color: #ff7b7d;
+          }
+        }
+      }
+    }
+  }
+}

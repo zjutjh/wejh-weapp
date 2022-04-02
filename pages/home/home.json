@@ -3,6 +3,7 @@
   "enablePullDownRefresh": false,
   "navigationBarTitleText": "个人中心",
   "usingComponents": {
-    "red-dot": "/components/red-dot/red-dot"
+    "red-dot": "/components/red-dot/red-dot",
+    "iconfont": "/components/iconfont/iconfont"
   }
 }

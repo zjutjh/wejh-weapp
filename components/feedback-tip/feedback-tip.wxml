@@ -1,0 +1,4 @@
+<view class="m-feedback-tip" bindtap="onFeedback" wx:if="{{isShown}}">
+  <iconfont name="feedback" class="icon"></iconfont>
+  <text class="text">求助\n反馈</text>
+</view>

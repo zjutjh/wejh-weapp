@@ -1,0 +1,3 @@
+<view class="m-cache-tip {{mode || 'block'}}">
+  <text><slot></slot></text>
+</view>

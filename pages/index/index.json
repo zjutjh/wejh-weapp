@@ -7,6 +7,11 @@
   "usingComponents": {
     "tooltip": "/components/tooltip/tooltip",
     "modal-dialog": "/components/modal-dialog/modal-dialog",
-    "red-dot": "/components/red-dot/red-dot"
+    "red-dot": "/components/red-dot/red-dot",
+    "cache-tip": "/components/cache-tip/cache-tip",
+    "feedback-tip": "/components/feedback-tip/feedback-tip",
+    "index-timetable": "/components/interactive-card/index-timetable/index-timetable",
+    "index-card": "/components/interactive-card/index-card/index-card",
+    "index-library": "/components/interactive-card/index-library/index-library"
   }
 }

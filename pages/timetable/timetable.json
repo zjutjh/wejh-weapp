@@ -1,6 +1,12 @@
 {
-  "disableScroll": true,
   "enablePullDownRefresh": false,
   "navigationBarBackgroundColor": "#73b4ef",
-  "navigationBarTitleText": "课程表"
+  "backgroundColorTop": "#ffffff",
+  "backgroundColorBottom": "#ffffff",
+  "navigationBarTitleText": "课程表",
+  "usingComponents": {
+    "term-picker": "/components/term-picker/term-picker",
+    "cache-tip": "/components/cache-tip/cache-tip",
+    "feedback-tip": "/components/feedback-tip/feedback-tip"
+  }
 }

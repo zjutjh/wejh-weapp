@@ -49,39 +49,34 @@ Component({
     },
   },
   methods: {
-    refresh: function () {
-      const { displayMode, unclearedBadges, path } = this.data;
+    refresh() {
+      const { alwaysVisible, displayMode, unclearedBadges, path } = this.data;
 
       if (!(displayMode && displayMode.type)) {
         return;
       }
 
-      const cnt = unclearedBadges.reduce((total, currentVal) => {
-        return total + (currentVal.startsWith(path) ? 1 : 0);
-      }, 0);
+      const cnt =
+        path !== ""
+          ? unclearedBadges.reduce((total, currentVal) => {
+              return total + (currentVal.startsWith(path) ? 1 : 0);
+            }, 0)
+          : 1;
+
+      let content = "";
 
       if (cnt > 0) {
         if (displayMode.type == "static") {
-          this.setData({
-            isVisible: true,
-            content: displayMode.content || "",
-          });
+          content = displayMode.content || "";
         } else if (displayMode.type == "count") {
-          this.setData({
-            isVisible: true,
-            content: cnt,
-          });
-        } else {
-          this.setData({
-            isVisible: true,
-            content: "",
-          });
+          content = cnt;
         }
-      } else {
-        this.setData({
-          isVisible: false,
-        });
       }
+
+      this.setData({
+        isVisible: cnt > 0,
+        content: content,
+      });
     },
   },
 });

@@ -19,6 +19,7 @@ export default function ({ $store, isDev }) {
 
     const success = object.success || function () {};
     const fail = object.fail || function () {};
+    const complete = object.complete || function () {};
 
     object.success = (res) => {
       logger.info("fetch", object);
@@ -43,13 +44,13 @@ export default function ({ $store, isDev }) {
             duration: 2000,
             title: data.errmsg || "请求错误",
           });
-        if (object.back) {
-          setTimeout(() => {
-            wx.navigateBack({
-              delta: 1,
-            });
-          }, 2000);
-        }
+        // if (object.back) {
+        //   setTimeout(() => {
+        //     wx.navigateBack({
+        //       delta: 1,
+        //     });
+        //   }, 2000);
+        // }
         if (object.showError && data.redirect) {
           return wx.navigateTo({
             url: data.redirect,
@@ -76,15 +77,20 @@ export default function ({ $store, isDev }) {
           duration: 2000,
           title: "请求错误",
         });
-      if (object.back) {
-        setTimeout(() => {
-          wx.navigateBack({
-            delta: 1,
-          });
-        }, 2000);
-      }
+      // if (object.back) {
+      //   setTimeout(() => {
+      //     wx.navigateBack({
+      //       delta: 1,
+      //     });
+      //   }, 2000);
+      // }
+      return fail(err);
     };
 
-    wx.request(object);
+    object.complete = (res) => {
+      complete(res);
+    };
+
+    return wx.request(object);
   };
 }

@@ -3,6 +3,7 @@
   "enablePullDownRefresh": false,
   "navigationBarTitleText": "绑定原创教务账号",
   "usingComponents": {
-    "modal-dialog": "/components/modal-dialog/modal-dialog"
+    "modal-dialog": "/components/modal-dialog/modal-dialog",
+    "feedback-tip": "/components/feedback-tip/feedback-tip"
   }
 }

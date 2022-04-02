@@ -1,4 +1,7 @@
 {
   "enablePullDownRefresh": false,
-  "navigationBarTitleText": "激活精弘通行证"
+  "navigationBarTitleText": "激活精弘通行证",
+  "usingComponents": {
+    "feedback-tip": "/components/feedback-tip/feedback-tip"
+  }
 }

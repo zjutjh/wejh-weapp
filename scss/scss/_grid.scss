@@ -6,5 +6,5 @@
   flex: 1;
   overflow: hidden;
 
-  @include safe-area-inset-bottom(padding-bottom);
+  // @include safe-area-inset-bottom(margin-bottom);
 }

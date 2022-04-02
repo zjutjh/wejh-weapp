@@ -47,15 +47,23 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    position: absolute;
-    top: 50%;
-    right: 32rpx + 30rpx + 10rpx;
-    transform: translateY(-50%);
+
+    flex: 1;
+    justify-content: flex-end;
+
+    margin-left: 24rpx;
 
     & > image {
       margin-right: 6rpx;
       width: 42rpx;
       height: 42rpx;
+    }
+
+    & > input {
+      color: $gray-600;
+      font-size: 28rpx;
+      width: 100%;
+      text-align: right;
     }
 
     & > text {
@@ -66,8 +74,10 @@
 
   .icon-next {
     margin-left: 12rpx;
-    width: 30rpx;
-    height: 30rpx;
+    & .iconfont {
+      font-size: 32rpx;
+      color: $gray-600;
+    }
   }
 }
 

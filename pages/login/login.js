@@ -50,20 +50,9 @@ Page({
       });
     }
 
-    app.fetch({
-      url: API("login"),
-      data: {
-        username,
-        password,
-        type,
-        openid: openId,
-      },
-      showError: true,
-      method: "POST",
-      success: (res) => {
-        const data = res.data.data;
-        const token = data.token;
-        const userInfo = data.user;
+    app.services.bindJh(
+      (res) => {
+        const { token, userInfo } = res.data.data;
         app.$store.setState("session", {
           token,
           userInfo,
@@ -78,7 +67,15 @@ Page({
           });
         }, 2000);
       },
-    });
+      {
+        data: {
+          username,
+          password,
+          type,
+          openid: openId,
+        },
+      }
+    );
   },
   showHelp() {
     this.helpModal.show();

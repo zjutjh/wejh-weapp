@@ -24,7 +24,8 @@
     "pages/debug/index",
     "pages/labs/labs",
     "pages/feedback/feedback",
-    "pages/qna/qna"
+    "pages/qna/qna",
+    "pages/profile/profile"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -37,6 +38,7 @@
   },
   "tabBar": {
     "color": "#7f848a",
+    "borderStyle": "white",
     "selectedColor": "#7acfa6",
     "backgroundColor": "#f7f6fb",
     "list": [

@@ -1,0 +1,9 @@
+{
+  "disableScroll": true,
+  "enablePullDownRefresh": false,
+  "navigationBarTitleText": "个人信息",
+  "usingComponents": {
+    "feedback-tip": "/components/feedback-tip/feedback-tip",
+    "red-dot": "/components/red-dot/red-dot"
+  }
+}

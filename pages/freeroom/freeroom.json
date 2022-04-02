@@ -3,6 +3,7 @@
   "navigationBarBackgroundColor": "#e78ab0",
   "enablePullDownRefresh": false,
   "usingComponents": {
-    "red-dot": "/components/red-dot/red-dot"
+    "red-dot": "/components/red-dot/red-dot",
+    "feedback-tip": "/components/feedback-tip/feedback-tip"
   }
 }

@@ -43,14 +43,8 @@ Page({
       });
     }
 
-    app.fetch({
-      url: API("zf/bind"),
-      data: {
-        password,
-      },
-      showError: true,
-      method: "POST",
-      success: (res) => {
+    app.services.bindZf(
+      () => {
         wx.showToast({
           duration: 2000,
           title: "绑定成功",
@@ -67,6 +61,11 @@ Page({
           });
         }, 2000);
       },
-    });
+      {
+        data: {
+          password,
+        },
+      }
+    );
   },
 });

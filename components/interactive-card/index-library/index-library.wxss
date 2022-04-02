@@ -1,0 +1,89 @@
+.borrow-card .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20rpx 0 20rpx;
+  color: #868e96;
+}
+
+.borrow-card .header .label {
+  font-size: 26rpx;
+}
+
+.borrow-card .header .date {
+  font-size: 26rpx;
+}
+
+.borrow-card .borrow-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: 0 0 42rpx;
+}
+
+.borrow-card .borrow-list .borrow-item {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 50rpx;
+}
+
+.borrow-card .borrow-list .borrow-item:not(:nth-child(3n)) {
+  padding-right: 80rpx;
+}
+
+.borrow-card .borrow-list .borrow-item .book {
+  position: relative;
+  width: 176rpx;
+  height: 231rpx;
+  overflow: hidden;
+}
+
+.borrow-card .borrow-list .borrow-item .book .icon-book {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.borrow-card .borrow-list .borrow-item .book .title {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  position: absolute;
+  top: 5rpx;
+  left: 30rpx;
+  font-weight: bold;
+  line-height: 150%;
+  color: #fff;
+  font-size: 28rpx;
+  word-wrap: break-word;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.borrow-card .borrow-list .borrow-item .return,
+.borrow-card .borrow-list .borrow-item .borrow {
+  font-size: 26rpx;
+}
+
+.borrow-card .borrow-list .borrow-item .return .date,
+.borrow-card .borrow-list .borrow-item .borrow .date {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #729fc3;
+  padding: 0 8rpx;
+}
+
+.borrow-card .borrow-list .borrow-item .return .unit,
+.borrow-card .borrow-list .borrow-item .borrow .unit {
+  font-size: 24rpx;
+  color: #acacac;
+}
+
+.borrow-card .borrow-list .borrow-item .return.red .date,
+.borrow-card .borrow-list .borrow-item .borrow.red .date {
+  color: #ff7b7d;
+}

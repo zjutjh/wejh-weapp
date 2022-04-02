@@ -1,4 +1,5 @@
 import { getCurrentPeriod } from "../../utils/schedule";
+import logger from "../../utils/logger";
 
 const app = getApp();
 

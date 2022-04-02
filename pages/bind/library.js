@@ -29,14 +29,8 @@ Page({
       });
     }
 
-    app.fetch({
-      url: API("library/bind"),
-      data: {
-        password,
-      },
-      showError: true,
-      method: "POST",
-      success: (res) => {
+    app.services.bindLibrary(
+      () => {
         wx.showToast({
           duration: 2000,
           title: "绑定成功",
@@ -48,6 +42,11 @@ Page({
           wx.navigateBack();
         }, 2000);
       },
-    });
+      {
+        data: {
+          password,
+        },
+      }
+    );
   },
 });

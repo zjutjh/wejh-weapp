@@ -1,11 +1,6 @@
 <view class="container f-bg-gray">
   <view class="u-setting-navigator f-mt-20 f-mb-20" bindtap="switchAPIEndpoint">
     <text class="text">切换环境</text>
-    <image
-      class="icon-next"
-      src="/images/common/next-gray.png"
-      mode="aspectFit"
-    ></image>
   </view>
   <view class="u-setting-navigator">
     <text class="text">修改 openId</text>

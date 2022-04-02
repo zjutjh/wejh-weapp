@@ -1,0 +1,63 @@
+@import "../../../scss/scss/_variables";
+
+.m-index-card {
+  position: relative;
+
+  margin-top: 20rpx;
+
+  background-color: $white;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: bottom center;
+
+  & .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 30rpx;
+    height: 70rpx;
+    border-bottom: 1rpx solid $gray-200;
+    .image {
+      position: relative;
+      display: block;
+      width: 40rpx;
+      height: 40rpx;
+      margin-right: 10rpx;
+
+      .icon {
+        z-index: 9;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
+
+      .icon-bg {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
+    }
+
+    .title {
+      text {
+        font-size: 24rpx;
+        color: #888;
+        .cache-tip {
+          color: #888;
+        }
+      }
+    }
+  }
+
+  & .content {
+    padding: 0 30rpx;
+  }
+
+  & .bottom {
+    border-top: 1rpx solid $gray-200;
+  }
+}

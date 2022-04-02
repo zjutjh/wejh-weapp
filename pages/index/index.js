@@ -1,6 +1,6 @@
 import logger from "../../utils/logger";
-import toast from "../../utils/toast";
-import dayjs from "../../libs/dayjs/dayjs.min.js";
+
+import { getInfoFromTerm } from "../../utils/termPicker";
 
 const initAppList = [];
 const initApp = {
@@ -23,6 +23,7 @@ Page({
     apps: initAppList,
     // private
     timetableToday: null,
+    _todayTimetableIntervalId: null,
   },
   onLoad() {
     app.$store.connect(this, "index");
@@ -59,62 +60,28 @@ Page({
 
     this.observe("session", "time");
 
-    this.observe("session", "cacheStatus");
+    this.observe("session", "timetable");
 
-    this.observe("session", "timetableFixed", null, () => {
-      this.updateTodayTimetable();
-    });
-
-    this.observe("session", "card");
     this.observe("session", "cardCost");
     this.observe("session", "borrow");
 
     this.bootstrap();
-
-    // 后续移除该属性
-    this.setPageState({
-      todayTime: dayjs().format("YYYY-MM-DD"),
-    });
   },
   onShow() {
     app.badgeManager.updateBadgeForTabBar();
   },
+  onHide() {},
   onUnload() {
     this.disconnect();
-  },
-  hideHelp() {
-    this.setPageState({
-      helpStatus: false,
-    });
-  },
-  updateTodayTimetable() {
-    const { timetableFixed, time } = this.data;
-    if (!timetableFixed || !time) {
-      return;
-    }
-
-    const weekday = this.data.time.day;
-    const week = this.data.time.week;
-    const todayTimetable = timetableFixed[weekday - 1];
-    const timetableToday = [];
-    todayTimetable.forEach((lessons) => {
-      lessons.forEach((lesson) => {
-        const isAvailable = lesson["周"][week];
-        if (isAvailable) {
-          timetableToday.push(lesson);
-        }
-      });
-    });
-
-    this.setPageState({
-      timetableToday,
-    });
   },
   bootstrap() {
     app.services.getBootstrapInfo(null, { showError: false });
   },
   fetchHomeCards() {
-    app.services.getTimetable(null, {
+    if (!(this.data.time && this.data.time.term)) {
+      return;
+    }
+    app.services.getTimetable(getInfoFromTerm(this.data.time.term), null, {
       showError: false,
     });
     app.services.getCard(null, {
@@ -134,21 +101,21 @@ Page({
       wx.stopPullDownRefresh();
     }, 1000);
   },
-  clipboard() {
-    if (this.data.announcement && this.data.announcement.clipboard) {
-      const text = this.data.announcement.clipboard;
-      const tip = this.data.announcement.clipboardTip;
-      wx.setClipboardData({
-        data: text,
-        success() {
-          toast({
-            icon: "success",
-            title: tip || "复制成功",
-          });
-        },
-      });
-    }
-  },
+  // clipboard() {
+  //   if (this.data.announcement && this.data.announcement.clipboard) {
+  //     const text = this.data.announcement.clipboard;
+  //     const tip = this.data.announcement.clipboardTip;
+  //     wx.setClipboardData({
+  //       data: text,
+  //       success() {
+  //         toast({
+  //           icon: "success",
+  //           title: tip || "复制成功",
+  //         });
+  //       },
+  //     });
+  //   }
+  // },
   onClickApp(e) {
     const target = e.currentTarget;
     const index = target.dataset.index;
@@ -157,6 +124,7 @@ Page({
       this.tooltip.show("应用列表信息获取失败，请重启微信再试");
       return;
     }
+
     const appItem = this.data.apps[index];
 
     if (!appItem) {
@@ -171,6 +139,11 @@ Page({
       this.tooltip.show("服务暂不可用");
       return;
     }
+
+    if (appItem.badge && appItem.badge.clearPath) {
+      app.badgeManager.clearBadge(appItem.badge.clearPath);
+    }
+
     if (appItem.url) {
       appItem.url = appItem.url.replace(
         encodeURIComponent("{uno}"),
@@ -197,11 +170,6 @@ Page({
         appId: appItem.appId,
         path: appItem.path,
         extraData: appItem.extraData,
-        success() {
-          if (appItem.badge && appItem.badge.clearPath) {
-            app.badgeManager.clearBadge(appItem.badge.clearPath);
-          }
-        },
         fail(err) {
           logger.warn(
             "index",

@@ -4,7 +4,7 @@ const app = getApp();
 
 Page({
   data: {
-    showLoading: true,
+    // showLoading: true,
     tabs: ["余额", "交易额"],
     gridNum: 6,
     lineLeft: 35 - 1,
@@ -43,6 +43,12 @@ Page({
   },
   onUnload() {
     this.disconnect();
+  },
+  onPullDownRefresh() {
+    this.getCard();
+    setTimeout(() => {
+      wx.stopPullDownRefresh();
+    }, 1000);
   },
   switchTab(e) {
     this.setPageState(
@@ -246,7 +252,6 @@ Page({
     });
     app.services.getCard(callback, {
       showError: true,
-      back: true,
     });
   },
   drawCanvas() {
@@ -276,7 +281,7 @@ Page({
         tapDetail: card["今日账单"][0] || {},
         spaceX,
         xArr,
-        showLoading: false,
+        // showLoading: false,
         context,
       },
       this.drawCanvas

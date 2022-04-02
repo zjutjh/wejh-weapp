@@ -10,10 +10,22 @@ Page({
 
     termPickerCurrentData: null,
 
-    termPickerPlaceHolder: {
-      range: [["选择学年"], ["选择学期"], ["类别"]],
-      value: [0, 0, 0],
-    },
+    detailMap: [
+      {
+        match: "课程性质名称",
+        display: "课程性质",
+      },
+      {
+        match: "课程归属名称",
+        display: "课程归属",
+      },
+      {
+        match: "学分",
+        display: "课程学分",
+      },
+    ],
+
+    openedIndices: {},
   },
   onLoad() {
     app.$store.connect(this, "score");
@@ -26,15 +38,14 @@ Page({
       if (!(newValue && newValue.score)) {
         return;
       }
-      // 请求返回后, 更新学期选择器的选中状态和上次更新时间
-      const { lastUpdated, term, isDetail } = newValue.score;
+      // 请求返回后, 更新学期选择器的选中状态
+      const { term } = newValue.score;
       const termInfo = termUtil.getInfoFromTerm(term);
       this.setPageState({
         termPickerCurrentData: {
           termInfo,
-          extraValues: isDetail ? [1] : [0],
         },
-        lastUpdated,
+        openedIndices: {},
       });
     });
 
@@ -61,7 +72,6 @@ Page({
       termPickerInfo: {
         termInfo,
         grade,
-        extraRanges: [["总评", "分项"]],
       },
     });
 
@@ -83,7 +93,6 @@ Page({
       this.setPageState({
         termPickerCurrentData: {
           termInfo: targetTermInfo,
-          extraValues: [0],
         },
       });
     }
@@ -120,26 +129,15 @@ Page({
   toggleRefresh() {
     const _this = this;
 
-    const { termInfo, extraValues } = this.data.termPickerCurrentData;
-    const isDetail = extraValues[0] === 1;
+    const { termInfo } = this.data.termPickerCurrentData;
 
-    if (isDetail) {
-      wx.showLoading({
-        title: "获取成绩中",
-        mask: true,
-      });
-      app.services.getScoreDetail(termInfo, () => {
-        _this.hideLoading();
-      });
-    } else {
-      wx.showLoading({
-        title: "获取成绩中",
-        mask: true,
-      });
-      app.services.getScore(termInfo, () => {
-        _this.hideLoading();
-      });
-    }
+    wx.showLoading({
+      title: "获取成绩中",
+      mask: true,
+    });
+    app.services.getScore(termInfo, () => {
+      _this.hideLoading();
+    });
   },
   toggleHideScore() {
     this.setPageState({
@@ -153,38 +151,29 @@ Page({
   },
   toggleShowScoreDetail(e) {
     const index = e.currentTarget.dataset.index;
-    const scoreDetail = this.data.score;
-    if (scoreDetail && scoreDetail.isDetail) {
-      scoreDetail.list[index].open = !scoreDetail.list[index].open;
-      this.setPageState({
-        score: scoreDetail,
-      });
-    }
+    this.setPageState({
+      openedIndices: {
+        ...this.data.openedIndices,
+        [index]: !this.data.openedIndices[index],
+      },
+    });
   },
   toggleSort() {
+    // 切换排序模式前，清除所有的打开状态
     this.setPageState({
       sort: !this.data.sort,
+      openedIndices: {},
     });
   },
   termChange: function (e) {
-    const { termInfo, extraValues } = e.detail;
-    let isDetail = false;
-    if (extraValues && extraValues[0]) {
-      isDetail = true;
-    }
+    const { termInfo } = e.detail;
     wx.showLoading({
       title: "获取成绩中",
       mask: true,
     });
     const _this = this;
-    if (isDetail) {
-      app.services.getScoreDetail(termInfo, () => {
-        _this.hideLoading();
-      });
-    } else {
-      app.services.getScore(termInfo, () => {
-        _this.hideLoading();
-      });
-    }
+    app.services.getScore(termInfo, () => {
+      _this.hideLoading();
+    });
   },
 });

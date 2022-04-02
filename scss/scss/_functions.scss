@@ -1,3 +1,5 @@
+@import "./variables";
+
 @mixin clearfix() {
   &:before,
   &:after {
@@ -169,4 +171,9 @@
   background-repeat: no-repeat;
   background-size: 100% auto;
   background-position: bottom center;
+}
+
+.f-text-link {
+  color: $theme-blue !important;
+  text-decoration: underline;
 }

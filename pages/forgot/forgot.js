@@ -1,5 +1,3 @@
-import { API } from "../../utils/api";
-
 const app = getApp();
 
 const form = {
@@ -51,24 +49,26 @@ Page({
       });
     }
 
-    app.fetch({
-      url: API("forgot"),
-      data: {
-        username,
-        password,
-        iid,
-      },
-      showError: true,
-      method: "POST",
-      success: (res) => {
+    app.services.forgot(
+      () => {
         wx.showToast({
           duration: 2000,
           title: "重置成功",
+        });
+        app.services.getUserInfo(null, {
+          showError: true,
         });
         setTimeout(() => {
           wx.navigateBack();
         }, 2000);
       },
-    });
+      {
+        data: {
+          username,
+          password,
+          iid,
+        },
+      }
+    );
   },
 });

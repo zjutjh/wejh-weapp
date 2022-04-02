@@ -66,7 +66,7 @@
       }
 
       .week {
-        margin-top: 24rpx;
+        margin-top: 12rpx;
         color: $white;
         font-size: 28rpx;
         opacity: 0.8;
@@ -74,8 +74,10 @@
     }
 
     .icon-next {
-      width: 32rpx;
-      height: 32rpx;
+      & .iconfont {
+        font-size: 32rpx;
+        color: $white;
+      }
     }
   }
 }

@@ -21,10 +21,10 @@ Page({
     this.observe("session", "announcement");
   },
   onShow() {
-    // Fetch for announcement if not exists
-    if (!this.data.announcement) {
-      app.services.getAnnouncement();
-    }
+    // // Fetch for announcement if not exists
+    // if (!this.data.announcement) {
+    //   app.services.getAnnouncement();
+    // }
   },
   onUnload() {
     this.disconnect();

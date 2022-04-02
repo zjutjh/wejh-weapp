@@ -1,0 +1,1 @@
+<text class="^iconfont iconfont {{name && 'icon_' + name}}"></text>
