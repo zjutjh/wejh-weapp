@@ -406,22 +406,22 @@ export default function ({ store, fetch }) {
         },
       });
     },
-    getCard(callback = function () {}, options) {
-      fetch({
-        url: API("card"),
-        showError: true,
-        ...options,
-        success(res) {
-          const data = res.data.data;
-          const fixedData = util.fixCard(data);
-          store.setState("session", {
-            card: fixedData,
-            cardCost: util.fixCardCost(fixedData),
-          });
-          callback && callback(res);
-        },
-      });
-    },
+    // getCard(callback = function () {}, options) {
+    //   fetch({
+    //     url: API("card"),
+    //     showError: true,
+    //     ...options,
+    //     success(res) {
+    //       const data = res.data.data;
+    //       const fixedData = util.fixCard(data);
+    //       store.setState("session", {
+    //         card: fixedData,
+    //         cardCost: util.fixCardCost(fixedData),
+    //       });
+    //       callback && callback(res);
+    //     },
+    //   });
+    // },
     getBorrow(callback = function () {}, options) {
       fetch({
         url: API("borrow"),
@@ -450,17 +450,17 @@ export default function ({ store, fetch }) {
         },
       });
     },
-    bindCard(callback = function () {}, options) {
-      fetch({
-        url: API("card/bind"),
-        method: "POST",
-        showError: true,
-        ...options,
-        success: (res) => {
-          callback && callback(res);
-        },
-      });
-    },
+    // bindCard(callback = function () {}, options) {
+    //   fetch({
+    //     url: API("card/bind"),
+    //     method: "POST",
+    //     showError: true,
+    //     ...options,
+    //     success: (res) => {
+    //       callback && callback(res);
+    //     },
+    //   });
+    // },
     bindLibrary(callback = function () {}, options) {
       fetch({
         url: API("library/bind"),

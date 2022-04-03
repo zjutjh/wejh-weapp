@@ -27,7 +27,7 @@
     <iconfont name="next" class="icon-next"></iconfont>
   </navigator>
 
-  <navigator class="u-setting-navigator f-mt-20" url="/pages/bind/card">
+  <!-- <navigator class="u-setting-navigator f-mt-20" url="/pages/bind/card">
     <text class="text">一卡通账号</text>
     <view
       class="description"
@@ -40,7 +40,7 @@
       <text>未绑定</text>
     </view>
     <iconfont name="next" class="icon-next"></iconfont>
-  </navigator>
+  </navigator> -->
 
   <navigator class="u-setting-navigator f-mt-20" url="/pages/bind/library">
     <text class="text">图书馆账号</text>

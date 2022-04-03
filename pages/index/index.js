@@ -62,7 +62,7 @@ Page({
 
     this.observe("session", "timetable");
 
-    this.observe("session", "cardCost");
+    // this.observe("session", "cardCost");
     this.observe("session", "borrow");
 
     this.bootstrap();
@@ -84,9 +84,9 @@ Page({
     app.services.getTimetable(getInfoFromTerm(this.data.time.term), null, {
       showError: false,
     });
-    app.services.getCard(null, {
-      showError: false,
-    });
+    // app.services.getCard(null, {
+    //   showError: false,
+    // });
     app.services.getBorrow(null, {
       showError: false,
     });
