@@ -55,7 +55,7 @@
                 >大{{score.grade_name}}{{score.semester}}学期</text
               >
             </view>
-            <view class="gpa" wx:if="{{!score.isDetail}}">
+            <view class="gpa">
               <text class="title">GPA</text>
               <text class="content"
                 >{{score.list.length > 0 ? score.gpa : "暂无成绩"}}</text

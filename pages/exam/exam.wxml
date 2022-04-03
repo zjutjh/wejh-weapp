@@ -129,17 +129,6 @@
           ></cache-tip>
         </view>
       </view>
-      <view class="middle vertical">
-        <term-picker
-          placeHolder="{{termPickerPlaceHolder}}"
-          allowsShortTerm="{{false}}"
-          pickerInfo="{{termPickerInfo}}"
-          currentData="{{termPickerCurrentData}}"
-          bindtermChange="termChange"
-        >
-        </term-picker>
-        <cache-tip timestamp="{{lastUpdated}}" title="考试安排"></cache-tip>
-      </view>
     </view>
   </view>
 </view>
