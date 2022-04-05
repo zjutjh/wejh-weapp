@@ -59,9 +59,6 @@ Page({
           duration: 2000,
           title: "激活成功",
         });
-        app.services.getUserInfo(null, {
-          showError: true,
-        });
         setTimeout(() => {
           wx.navigateBack();
         }, 2000);

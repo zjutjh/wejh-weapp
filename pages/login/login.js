@@ -61,6 +61,9 @@ Page({
           duration: 2000,
           title: "登录成功",
         });
+        app.services.getUserInfo(null, {
+          showError: true,
+        });
         setTimeout(() => {
           wx.navigateBack({
             delta: 1,

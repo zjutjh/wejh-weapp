@@ -55,11 +55,19 @@ Page({
           duration: 2000,
           title: "重置成功",
         });
-        app.services.getUserInfo(null, {
-          showError: true,
-        });
+        // app.services.getUserInfo(null, {
+        //   showError: true,
+        // });
         setTimeout(() => {
-          wx.navigateBack();
+          app.$store.clear("session");
+          app.$store.clear("common");
+          app.$store.clear("static");
+          wx.clearStorage();
+          wx.reLaunch({
+            url: "/pages/index/index",
+          });
+
+          // wx.navigateBack();
         }, 2000);
       },
       {
